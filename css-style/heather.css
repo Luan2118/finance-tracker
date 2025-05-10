@@ -1,0 +1,13 @@
+.heather {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  margin: 0;
+  padding: 20px;
+}
+
+.title {
+  font-weight: 600;
+}
