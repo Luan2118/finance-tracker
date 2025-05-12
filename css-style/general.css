@@ -4,6 +4,7 @@ body {
   font-family: Arial;
   padding-left: 240px;
   padding-top: 80px;
+  padding-bottom: 20px;
 }
 
 .main-grid {
@@ -11,3 +12,9 @@ body {
   grid-template-columns:  1fr 1fr;
   column-gap: 20px;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;    
+}
+
