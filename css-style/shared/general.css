@@ -2,9 +2,11 @@ body {
   background-color: rgb(250, 250, 250);
   margin: 0;
   font-family: Arial;
+  font-size: 18px;
   padding-left: 240px;
   padding-top: 80px;
   padding-bottom: 20px;
+  padding-right: 20px;
 }
 
 .main-grid {
