@@ -54,9 +54,46 @@
         <div class="income-overview-grid">
           <div class="income-overview-text">Income Overview</div>
           <div>
-            <button class="add-income-button">&#43; Add Income</button>
+            <button onclick=showPopUpDialog(true)  class="add-income-button ">&#43; Add Income</button>
           </div>
         </div>
+
+        <dialog id="add-income-dialog" >
+            <form class="add-income-form">
+            <div class="add-income-heather">
+              <div class="add-income-heather-title">Add Income</div>
+              <button onclick=showPopUpDialog(false)  class="add-income-popup-close-button" type="button">&times;</button>
+              
+            </div>
+            <hr>
+            
+            <div class="input-grid">
+
+            
+            <div class="add-income-inputs">
+              <div>Income Source</div>
+              <input class="add-income-input-element" type="text">
+            </div>
+
+            <div class="add-income-inputs">
+              <div>Amount</div>
+              <input class="add-income-input-element" type="number">
+            </div>
+
+            <div class="add-income-inputs">
+              <div>Date</div>
+              <input class="add-income-input-element" type="date">
+            </div>
+
+            <div class="right-align">
+              <button class="add-income-button-submit">Add Income</button>
+            </div>
+
+            </div>
+
+            </form>
+        </dialog>
+
 
         <div>
           <img class="income-bar-chart-img" src="icons/income-bar-chart.png">
@@ -139,5 +176,7 @@
       </div>
 
     </div>
+
+    <script src="script/income.js"></script>
   </body>
 </html>
