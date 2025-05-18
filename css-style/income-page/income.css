@@ -1,4 +1,4 @@
-.horní-část {
+.top-part {
   background-color: white;
   border-radius: 15px;
   padding: 20px;
@@ -85,6 +85,24 @@
   margin-left: 10px;
 }
 
+.income-right-side {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.income-delete-button-grid {
+  margin-right: 5px;
+
+}
+
+.income-delete-button {
+  border: none;
+  background-color: white;
+  color: red;
+  cursor: pointer;
+  font-size: 13px;
+}
 .income-date {
   color: grey;
   font-size: 12px;
