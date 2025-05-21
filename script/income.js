@@ -13,14 +13,19 @@ document.querySelector('.js-add-income-popup-close')
     dialog.close();
   })
 
+
+
 let data =  JSON.parse(localStorage.getItem('data')) || [
   {
     incomeSourceValue: 'Example',
     amountValue: 10000,
     dateValue: '2025-05-17',
-    id: 1
+    id: crypto.randomUUID()
   }
 ]
+
+
+
 
 generateHTML();
 
@@ -41,7 +46,7 @@ function generateHTML() {
           <div class="income-date">>${dateValue}</div>
         </div>
         <div class="income-right-side">
-          <div class="income-delete-button-grid"><button  id="delete" class="income-delete-button js-income-delete-button" data-id="${id}">X</button></div>
+          <div class="income-delete-button-grid"><button class="income-delete-button js-income-delete-button" data-id="${id}">X</button></div>
           <div class="income-amount-plus">+${amountValue}Kč</div>
         </div>
       </div>
@@ -49,29 +54,26 @@ function generateHTML() {
     </div>
   `
   dataHTML += html;
+  });
 
   document.querySelector('.js-each-income-grid').innerHTML = dataHTML;
-
-})
-
+  deleteButton();
 }
-
-
 
 
 
 submitIncome();
 
 function submitIncome() {
-  let id = 1;
+  
   document.querySelectorAll('.js-add-income-button-submit')
     .forEach((click) => {
       click.addEventListener('click', () => {
+      let id = crypto.randomUUID()
       const incomeSourceValue = document.querySelector('.js-income-value').value;
       const amountValue = document.querySelector('.js-amount-value').value;
       const dateValue = document.querySelector('.js-date-value').value;
-      
-      id += 1
+
 
       data.push({
         incomeSourceValue: incomeSourceValue,
@@ -82,13 +84,15 @@ function submitIncome() {
       
       localStorage.setItem('data', JSON.stringify(data));
 
-      generateHTML();
+      
       
       dialog.close();
+      generateHTML();
+      console.log(id)
 
     });
   });
-  
+
 }
 
 deleteButton();
@@ -109,11 +113,11 @@ document.querySelectorAll('.js-income-delete-button')
 }
 
 function deleteIncome (deleteButtonId) {
-   console.log("Before deletion:", data);
+
   const newData = [];
 
   data.forEach((dataObject) => {
-    if (dataObject.id !== Number(deleteButtonId)) {
+    if (dataObject.id !== deleteButtonId) {
       newData.push(dataObject)
     } 
 
