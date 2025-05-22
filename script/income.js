@@ -15,7 +15,7 @@ document.querySelector('.js-add-income-popup-close')
 
 
 
-let data =  JSON.parse(localStorage.getItem('data')) || [
+let incomeData =  JSON.parse(localStorage.getItem('incomeData')) || [
   {
     incomeSourceValue: 'Example',
     amountValue: 10000,
@@ -32,7 +32,7 @@ generateHTML();
 
 function generateHTML() {
   let dataHTML = '';
-  data.forEach((dataObject) => {
+  incomeData.forEach((dataObject) => {
 
   const {incomeSourceValue, amountValue, dateValue, id } = dataObject;
   
@@ -76,14 +76,14 @@ function submitIncome() {
       const dateValue = document.querySelector('.js-date-value').value;
 
 
-      data.push({
+      incomeData.push({
         incomeSourceValue: incomeSourceValue,
         amountValue: amountValue,
         dateValue: dateValue,
         id: id
       })
       
-      localStorage.setItem('data', JSON.stringify(data));
+      localStorage.setItem('incomeData', JSON.stringify(incomeData));
 
       
       
@@ -117,15 +117,15 @@ function deleteIncome (deleteButtonId) {
 
   const newData = [];
 
-  data.forEach((dataObject) => {
+  incomeData.forEach((dataObject) => {
     if (dataObject.id !== deleteButtonId) {
       newData.push(dataObject)
     } 
 
   })
 
-  data = newData;
+  incomeData = newData;
   
-  localStorage.setItem('data', JSON.stringify(data));
+  localStorage.setItem('incomeData', JSON.stringify(incomeData));
 }
 
