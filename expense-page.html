@@ -54,9 +54,45 @@
         <div class="expense-overview-grid">
           <div class="expense-overview-text">Expense Overview</div>
           <div>
-            <button class="add-expense-button">&#43; Add Expense</button>
+            <button class="add-expense-button js-add-expense-button">&#43; Add Expense</button>
           </div>
         </div>
+
+        <dialog id="add-expense-dialog" >
+            <form class="add-expense-form">
+            <div class="add-expense-heather">
+              <div class="add-expense-heather-title">Add Expense</div>
+              <button   class="add-expense-popup-close-button js-add-expense-popup-close" type="button">&times;</button>
+              
+            </div>
+            <hr>
+            
+            <div class="input-grid">
+
+            
+            <div class="add-expense-inputs">
+              <div>Expense Source</div>
+              <input class="add-expense-input-element js-expense-value" type="text" name="incomeValue">
+            </div>
+
+            <div class="add-expense-inputs">
+              <div>Amount</div>
+              <input class="add-expense-input-element js-amount-value " type="number" min="0" step="1"  oninput="this.value = this.value.replace(/[^0-9]/g,'')">
+            </div>
+
+            <div class="add-expense-inputs">
+              <div>Date</div>
+              <input class="add-expense-input-element js-date-value" type="date">
+            </div>
+
+            <div class="right-align">
+              <button class="add-expense-button-submit js-add-expense-button-submit" type="button">Add Expense</button>
+            </div>
+
+            </div>
+
+            </form>
+        </dialog>
 
         <div>
           <img class="expense-bar-chart-img" src="icons/expense-line-chart.png">
@@ -139,5 +175,7 @@
       </div>
 
     </div>
+
+    <script src="script/expense.js"></script>
   </body>
 </html>

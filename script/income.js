@@ -88,7 +88,7 @@ function submitIncome() {
       
       dialog.close();
       generateHTML();
-      console.log(id)
+
 
     });
   });
@@ -106,7 +106,7 @@ document.querySelectorAll('.js-income-delete-button')
       
       deleteIncome (deleteButtonId);
       generateHTML();
-
+      console.log('delete button listeners added');
     })
   })
 
