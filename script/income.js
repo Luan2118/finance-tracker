@@ -45,6 +45,7 @@ function generateHTML() {
           <div>${incomeSourceValue}</div>
           <div class="income-date">>${dateValue}</div>
         </div>
+
         <div class="income-right-side">
           <div class="income-delete-button-grid"><button class="income-delete-button js-income-delete-button" data-id="${id}">X</button></div>
           <div class="income-amount-plus">+${amountValue}Kč</div>
@@ -106,7 +107,7 @@ document.querySelectorAll('.js-income-delete-button')
       
       deleteIncome (deleteButtonId);
       generateHTML();
-      console.log('delete button listeners added');
+
     })
   })
 

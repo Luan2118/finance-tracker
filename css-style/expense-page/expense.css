@@ -85,6 +85,25 @@
   margin-left: 10px;
 }
 
+.expense-right-side {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.expense-delete-button-grid {
+  margin-right: 5px;
+
+}
+
+.expense-delete-button {
+  border: none;
+  background-color: white;
+  color: red;
+  cursor: pointer;
+  font-size: 13px;
+}
+
 .expense-date {
   color: grey;
   font-size: 12px;
