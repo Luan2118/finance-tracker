@@ -1,3 +1,4 @@
+import { incomeData, saveToStorageIncome, deleteIncome } from "../data/incomeData.js";
 
 const dialog = document.getElementById('add-income-dialog')
 
@@ -13,21 +14,9 @@ document.querySelector('.js-add-income-popup-close')
     dialog.close();
   })
 
-
-
-let incomeData =  JSON.parse(localStorage.getItem('incomeData')) || [
-  {
-    incomeSourceValue: 'Example',
-    amountValue: 10000,
-    dateValue: '2025-05-17',
-    id: crypto.randomUUID()
-  }
-]
-
-
-
-
 generateHTML();
+submitIncome();
+deleteButton();
 
 
 function generateHTML() {
@@ -61,10 +50,6 @@ function generateHTML() {
   deleteButton();
 }
 
-
-
-submitIncome();
-
 function submitIncome() {
   
   document.querySelectorAll('.js-add-income-button-submit')
@@ -83,7 +68,7 @@ function submitIncome() {
         id: id
       })
       
-      localStorage.setItem('incomeData', JSON.stringify(incomeData));
+      saveToStorageIncome();
 
       
       
@@ -95,9 +80,6 @@ function submitIncome() {
   });
 
 }
-
-deleteButton();
-
 
 function deleteButton() {
 document.querySelectorAll('.js-income-delete-button')
@@ -111,21 +93,5 @@ document.querySelectorAll('.js-income-delete-button')
     })
   })
 
-}
-
-function deleteIncome (deleteButtonId) {
-
-  const newData = [];
-
-  incomeData.forEach((dataObject) => {
-    if (dataObject.id !== deleteButtonId) {
-      newData.push(dataObject)
-    } 
-
-  })
-
-  incomeData = newData;
-  
-  localStorage.setItem('incomeData', JSON.stringify(incomeData));
 }
 

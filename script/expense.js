@@ -1,3 +1,6 @@
+import { expenseData, saveToStorageExpenses, deleteExpense } from "../data/expenseData.js";
+
+
 const dialog = document.getElementById('add-expense-dialog')
 
 
@@ -11,22 +14,10 @@ document.querySelector('.js-add-expense-popup-close')
     dialog.close();
   })
 
-
-let expenseData = JSON.parse(localStorage.getItem('expenseData')) || [{
-  expenseSourceValue : 'Shopping',
-  amountValue : 500,
-  dateValue: '2025-05-17',
-  id: crypto.randomUUID()
-},
-{
-  expenseSourceValue : 'Food',
-  amountValue : 1000,
-  dateValue: '2025-05-17',
-  id: crypto.randomUUID()
-},
-]
-
 generateHTML();
+submitExpense();
+deleteExpenseButton();
+
 
 function generateHTML() {
 let dataHTML = '';
@@ -57,12 +48,8 @@ document.querySelector('.js-each-expense-grid')
   .innerHTML = dataHTML;
 
 deleteExpenseButton();
+
 }
-
-
-
-submitExpense();
-
 
 function submitExpense() {
   document.querySelectorAll('.js-add-expense-button-submit')
@@ -72,6 +59,7 @@ function submitExpense() {
         const amountValue = document.querySelector('.js-amount-value').value
         const dateValue = document.querySelector('.js-date-value').value
         const id = crypto.randomUUID()
+
         expenseData.push({
           expenseSourceValue,
           amountValue,
@@ -81,15 +69,13 @@ function submitExpense() {
 
         dialog.close();
 
-        localStorage.setItem('expenseData', JSON.stringify(expenseData))
+        saveToStorageExpenses();
         generateHTML();
-
       })
     })
   
 }
 
-deleteExpenseButton();
 function deleteExpenseButton () {
   document.querySelectorAll('.js-expense-delete-button') 
   .forEach((button) => {
@@ -98,23 +84,8 @@ function deleteExpenseButton () {
       deleteExpense(deleteExpenseId);
 
       generateHTML();
+
     })
   })
   
-}
-
-
-
-function deleteExpense(deleteExpenseId) {
-  let newData = [];
-
-  expenseData.forEach((dataObject) => {
-    if (dataObject.id !== deleteExpenseId) {
-      newData.push(dataObject);
-    }
-  })
-
-  expenseData = newData;
-
-  localStorage.setItem('expenseData', JSON.stringify(expenseData)) 
 }
