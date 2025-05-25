@@ -12,7 +12,10 @@ export let expenseData = JSON.parse(localStorage.getItem('expenseData')) || [{
 },
 ]
 
-expenseData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
+export function updateDate() {
+  expenseData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
+}
+
 
 export function saveToStorageExpenses() {
   localStorage.setItem('expenseData', JSON.stringify(expenseData)) 

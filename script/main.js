@@ -10,7 +10,7 @@ displayIncome();
 function displayRecentTransactions() {
   let sharedDataHTML = '';
 
-  for (let i = 0 ; i < sharedData.length && i < 10;  i++) {
+  for (let i = 0 ; i < sharedData.length && i < 8;  i++) {
     if (sharedData[i].type === 'expense') {
       const html = `
         <div class="transactions-info-inner-grid">

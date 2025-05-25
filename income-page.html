@@ -11,7 +11,7 @@
 
   <body>
     <div class="heather">
-      <div class="title">Expense Tracker</div>
+      <div class="title"><a href="main-page.html">Expense Tracker</a></div>
     </div>
 
     <div class="sidebar">
@@ -95,7 +95,8 @@
         </dialog>
 
         <div>
-          <img class="income-bar-chart-img" src="icons/income-bar-chart.png">
+          <canvas id="income-chart"></canvas>
+          <input type="month" onchange="filterChart(this)">
         </div>
 
       </div>
@@ -183,5 +184,7 @@
     </div>
 
     <script type="module" src="script/income.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="script/incomeChartJS.js" ></script>
   </body>
 </html>

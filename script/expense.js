@@ -1,4 +1,4 @@
-import { expenseData, saveToStorageExpenses, deleteExpense } from "../data/expenseData.js";
+import { expenseData, saveToStorageExpenses, deleteExpense, updateDate } from "../data/expenseData.js";
 
 
 const dialog = document.getElementById('add-expense-dialog')
@@ -67,10 +67,12 @@ function submitExpense() {
           id
         });
 
-        dialog.close();
+        
 
         saveToStorageExpenses();
+        updateDate();
         generateHTML();
+        dialog.close();
       })
     })
   

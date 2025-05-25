@@ -9,7 +9,10 @@ export let incomeData =  JSON.parse(localStorage.getItem('incomeData')) || [
   }
 ]
 
-incomeData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
+export function updateDate() {
+  incomeData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
+}
+
 
 export function saveToStorageIncome() {
   localStorage.setItem('incomeData', JSON.stringify(incomeData));

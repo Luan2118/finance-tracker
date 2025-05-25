@@ -1,4 +1,4 @@
-import { incomeData, saveToStorageIncome, deleteIncome } from "../data/incomeData.js";
+import { incomeData, saveToStorageIncome, deleteIncome, updateDate } from "../data/incomeData.js";
 
 const dialog = document.getElementById('add-income-dialog')
 
@@ -16,6 +16,7 @@ document.querySelector('.js-add-income-popup-close')
 
 generateHTML();
 submitIncome();
+
 deleteButton();
 
 
@@ -48,6 +49,7 @@ function generateHTML() {
 
   document.querySelector('.js-each-income-grid').innerHTML = dataHTML;
   deleteButton();
+  updateDate();
 }
 
 function submitIncome() {
@@ -72,9 +74,10 @@ function submitIncome() {
 
       
       
-      dialog.close();
+      
+      updateDate();
       generateHTML();
-
+      dialog.close();
 
     });
   });
