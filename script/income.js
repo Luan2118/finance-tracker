@@ -1,4 +1,5 @@
 import { incomeData, saveToStorageIncome, deleteIncome, updateDate } from "../data/incomeData.js";
+import { myChart } from "./incomeChartJS.js";
 
 const dialog = document.getElementById('add-income-dialog')
 
@@ -13,6 +14,7 @@ document.querySelector('.js-add-income-popup-close')
   .addEventListener('click', () => {
     dialog.close();
   })
+
 
 generateHTML();
 submitIncome();
@@ -73,12 +75,18 @@ function submitIncome() {
       saveToStorageIncome();
 
       
-      
-      
-      updateDate();
       generateHTML();
+      updateDate();
+      const labels = incomeData.map(item => item.dateValue);
+
+      const data = incomeData.map(item => item.amountValue);
+
+      myChart.data.labels = labels;
+      myChart.data.datasets[0].data = data;
+      myChart.update()
       dialog.close();
 
+      
     });
   });
 
@@ -92,7 +100,13 @@ document.querySelectorAll('.js-income-delete-button')
       
       deleteIncome (deleteButtonId);
       generateHTML();
+      const labels = incomeData.map(item => item.dateValue);
 
+      const data = incomeData.map(item => item.amountValue);
+
+      myChart.data.labels = labels;
+      myChart.data.datasets[0].data = data;
+      myChart.update()
     })
   })
 
