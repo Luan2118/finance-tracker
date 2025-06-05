@@ -1,17 +1,12 @@
 export let expenseData = JSON.parse(localStorage.getItem('expenseData')) || [{
   expenseSourceValue : 'Shopping',
   amountValue : 500,
-  dateValue: '2025-05-17',
+  dateValue: '2025-01-17',
   id: crypto.randomUUID()
-},
-{
-  expenseSourceValue : 'Food',
-  amountValue : 1000,
-  dateValue: '2025-05-17',
-  id: crypto.randomUUID()
-},
+}
 ]
 
+updateDate();
 export function updateDate() {
   expenseData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
 }
@@ -28,6 +23,7 @@ export function updateExpenseData(newData) {
   saveToStorageExpenses();
 }
 */
+
 
 
 export function deleteExpense(deleteExpenseId) {

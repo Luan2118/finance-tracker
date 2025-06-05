@@ -1,5 +1,6 @@
 import { expenseData, saveToStorageExpenses, deleteExpense, updateDate } from "../data/expenseData.js";
 
+import { myChart } from "./chartJS/expenseChartJS.js";
 
 const dialog = document.getElementById('add-expense-dialog')
 
@@ -72,6 +73,15 @@ function submitExpense() {
         saveToStorageExpenses();
         updateDate();
         generateHTML();
+        const labels = expenseData.map(item => item.dateValue);
+        const data = expenseData.map(item => item.amountValue);
+
+        myChart.data.labels = labels
+        myChart.data.datasets[0].data = data
+        myChart.update()
+
+        
+        
         dialog.close();
       })
     })
@@ -84,8 +94,14 @@ function deleteExpenseButton () {
     button.addEventListener('click', () => {
       const deleteExpenseId = button.dataset.id;
       deleteExpense(deleteExpenseId);
-
       generateHTML();
+      const labels = expenseData.map(item => item.dateValue)
+      const data = expenseData.map(item => item.amountValue)
+
+      myChart.data.labels = labels
+      myChart.data.datasets[0].data = data
+      myChart.update()
+      
 
     })
   })

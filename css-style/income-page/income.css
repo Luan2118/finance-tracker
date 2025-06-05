@@ -2,6 +2,12 @@
   background-color: white;
   border-radius: 15px;
   padding: 20px;
+
+}
+
+.income-chart-grid {
+  width: 1600px;
+  height: 450px;
 }
 
 .income-overview-grid {

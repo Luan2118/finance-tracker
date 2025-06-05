@@ -4,6 +4,11 @@
   padding: 20px;
 }
 
+.expense-chart-grid {
+  width: 1600px;
+  height: 450px;
+}
+
 .expense-overview-grid {
   display: flex;
   flex-direction: row;

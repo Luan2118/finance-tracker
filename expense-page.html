@@ -94,8 +94,10 @@
             </form>
         </dialog>
 
-        <div>
-          <img class="expense-bar-chart-img" src="icons/expense-line-chart.png">
+        <div class="expense-chart-grid">
+          <canvas id="expense-chart"></canvas>
+          <input id="chart-filter" type="month">
+          <button id="chart-reset-button">Reset</button>
         </div>
 
       </div>
@@ -177,6 +179,9 @@
 
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script type="module" src="script/expense.js"></script>
+    <script type="module" src="script/chartJS/expenseChartJS.js"></script>
   </body>
 </html>

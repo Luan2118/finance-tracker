@@ -9,6 +9,8 @@ export let incomeData =  JSON.parse(localStorage.getItem('incomeData')) || [
   }
 ]
 
+updateDate();
+
 export function updateDate() {
   incomeData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
 }

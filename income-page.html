@@ -94,10 +94,10 @@
             </form>
         </dialog>
 
-        <div>
+        <div class="income-chart-grid">
           <canvas id="income-chart"></canvas>
           <input id="chart-filter" type="month">
-          <button id="chart-reset-button">Reset</button>>
+          <button id="chart-reset-button">Reset</button>
         </div>
 
       </div>
@@ -184,9 +184,10 @@
 
     </div>
     
-    <script type="module" src="script/income.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-    <script type="module" src="script/incomeChartJS.js" ></script>
+    <script type="module" src="script/income.js" ></script>
+    <script type="module" src="script/chartJS/incomeChartJS.js" ></script>
+
   </body>
 </html>
