@@ -16,15 +16,6 @@ export function saveToStorageExpenses() {
   localStorage.setItem('expenseData', JSON.stringify(expenseData)) 
 }
 
-/*
-export function updateExpenseData(newData) {
-  expenseData.length = 0;
-  expenseData.push(...newData);
-  saveToStorageExpenses();
-}
-*/
-
-
 
 export function deleteExpense(deleteExpenseId) {
   let newData = [];

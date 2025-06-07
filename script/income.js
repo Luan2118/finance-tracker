@@ -1,9 +1,7 @@
 import { incomeData, saveToStorageIncome, deleteIncome, updateDate } from "../data/incomeData.js";
-import { myChart } from "./chartJS/incomeChartJS.js";
+import { myChart, updateIncomeChartSummary  } from "./chartJS/incomeChartJS.js";
 
 const dialog = document.getElementById('add-income-dialog')
-
-// const showPopUpDialog = (show) => show ? dialog.showModal() : dialog.close();
 
 document.querySelector('.js-add-income-button')
   .addEventListener('click', () => {
@@ -72,21 +70,19 @@ function submitIncome() {
       })
       
       saveToStorageIncome();
-
-      
      
       updateDate();
       generateHTML();
-      const labels = incomeData.map(item => item.dateValue);
 
-      const data = incomeData.map(item => item.amountValue);
+      const monthlySums = updateIncomeChartSummary();
 
-      myChart.data.labels = labels;
-      myChart.data.datasets[0].data = data;
+      myChart.data.labels = Object.keys(monthlySums)
+      myChart.data.datasets[0].data = Object.values(monthlySums)
+
       myChart.update()
+      
       dialog.close();
 
-      
     });
   });
 
@@ -97,15 +93,16 @@ document.querySelectorAll('.js-income-delete-button')
   .forEach((link) => {
     link.addEventListener('click', () => {
       const deleteButtonId = link.dataset.id
-      
+
       deleteIncome (deleteButtonId);
+      saveToStorageExpenses();
       generateHTML();
-      const labels = incomeData.map(item => item.dateValue);
 
-      const data = incomeData.map(item => item.amountValue);
+      const monthlySums = updateIncomeChartSummary();
 
-      myChart.data.labels = labels;
-      myChart.data.datasets[0].data = data;
+      myChart.data.labels = Object.keys(monthlySums)
+      myChart.data.datasets[0].data = Object.values(monthlySums)
+
       myChart.update()
     })
   })

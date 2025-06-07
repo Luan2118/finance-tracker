@@ -94,6 +94,7 @@ function deleteExpenseButton () {
     button.addEventListener('click', () => {
       const deleteExpenseId = button.dataset.id;
       deleteExpense(deleteExpenseId);
+      saveToStorageExpenses();
       generateHTML();
       const labels = expenseData.map(item => item.dateValue)
       const data = expenseData.map(item => item.amountValue)
