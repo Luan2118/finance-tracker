@@ -1,14 +1,28 @@
 import { expenseData } from "../../data/expenseData.js"
 
-
-
-
 const ctx = document.getElementById('expense-chart')
 
 
+export function monthlyExpenseSummary() {
+  const monthlySum = {};
+  expenseData.forEach((data) => {
+  const date = new Date(data.dateValue)
+  const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}` 
 
-const labels = expenseData.map(item => new Date(item.dateValue))
-const data = expenseData.map(item => item.amountValue)
+  if(!monthlySum[monthKey]) {
+    monthlySum[monthKey] = 0
+  }
+
+  monthlySum[monthKey] += Number(data.amountValue);
+
+  })
+  return monthlySum;
+}
+
+const monthlySum = monthlyExpenseSummary();
+
+const labels = Object.keys(monthlySum);
+const data = Object.values(monthlySum);
 
 export const myChart = new Chart(ctx, {
   type: 'bar',
@@ -72,6 +86,10 @@ filter.addEventListener('change', (date) => {
 
  myChart.options.scales.x.min = `${date.target.value}-01`;
  myChart.options.scales.x.max = `${date.target.value}-${lastDay(year, month)}`;
+
+ myChart.data.labels = expenseData.map(data => data.dateValue);
+ myChart.data.datasets[0].data = expenseData.map(data => data.amountValue);
+
  myChart.options.scales.x.time.unit = 'day';
  myChart.update();
 })
@@ -82,5 +100,8 @@ chartResetButton.addEventListener('click', () => {
  myChart.options.scales.x.min = undefined;
  myChart.options.scales.x.max = undefined;
  myChart.options.scales.x.time.unit = 'month';
+
+ myChart.data.labels = Object.keys(monthlySum);
+ myChart.data.datasets[0].data = Object.values(monthlySum);
  myChart.update();
 })

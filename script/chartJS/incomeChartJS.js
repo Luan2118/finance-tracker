@@ -4,7 +4,7 @@ import { incomeData } from "../../data/incomeData.js";
 
 const ctx = document.getElementById('income-chart')
 
-export function updateIncomeChartSummary() {
+export function monthlyIncomeSummary() {
   const monthlySums = {};
   incomeData.forEach(item => {
     const date = new Date(item.dateValue)
@@ -13,7 +13,7 @@ export function updateIncomeChartSummary() {
 
     if (!monthlySums[monthKey]) {
       monthlySums[monthKey] = 0;
-    }
+    } 
 
     monthlySums[monthKey] += Number(item.amountValue)
   })
@@ -21,7 +21,8 @@ export function updateIncomeChartSummary() {
   return monthlySums;
 }
 
-const monthlySums = updateIncomeChartSummary();
+
+const monthlySums = monthlyIncomeSummary();
 
 const labels = Object.keys(monthlySums)
 const data = Object.values(monthlySums)
