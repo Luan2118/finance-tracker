@@ -205,3 +205,8 @@ dialog {
   font-size: 18px;
 }
 
+.expense-amount-input-alert,
+.expense-date-input-alert {
+  color: red;
+  font-size: 13px;
+} 

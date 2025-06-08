@@ -13,6 +13,18 @@ document.querySelector('.js-add-income-popup-close')
     dialog.close();
   })
 
+const amountInput = document.getElementById('income-amount-input')
+
+amountInput.addEventListener('input', (event) => {
+  event.target.value = event.target.value.replace(/[^0-9]/g,'')
+})
+
+
+const incomeSourceInput = document.getElementById('income-source-input')
+
+incomeSourceInput.addEventListener('input', (event) => {
+  event.target.value = event.target.value.replace(/[^a-zA-Z]/g, '')
+})
 
 generateHTML();
 submitIncome();
@@ -55,18 +67,31 @@ function submitIncome() {
   
   document.querySelectorAll('.js-add-income-button-submit')
     .forEach((click) => {
-      click.addEventListener('click', () => {
-      let id = crypto.randomUUID()
+      click.addEventListener('click', (event) => {
       const incomeSourceValue = document.querySelector('.js-income-value').value;
       const amountValue = document.querySelector('.js-amount-value').value;
       const dateValue = document.querySelector('.js-date-value').value;
-
+      
+      document.querySelector('.js-income-amount-input-alert').innerHTML = '';
+      document.querySelector('.js-income-date-input-alert').innerHTML = '';
+      
+      if (Number(amountValue) <= 0 ) {
+        document.querySelector('.js-income-amount-input-alert')
+          .innerHTML = '<p>Amount has to be greater than 0!</p>'
+        return;
+      }
+      
+      if (!dateValue) {
+        document.querySelector('.js-income-date-input-alert')
+          .innerHTML = '<p>Please pick a date!</p>'
+        return;
+      }
 
       incomeData.push({
-        incomeSourceValue: incomeSourceValue,
-        amountValue: amountValue,
-        dateValue: dateValue,
-        id: id
+      incomeSourceValue: incomeSourceValue,
+      amountValue: amountValue,
+      dateValue: dateValue,
+      id: crypto.randomUUID()
       })
       
       saveToStorageIncome();
@@ -82,6 +107,9 @@ function submitIncome() {
       myChart.update()
       
       dialog.close();
+      
+      
+
 
     });
   });

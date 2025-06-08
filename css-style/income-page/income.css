@@ -206,3 +206,8 @@ dialog {
   font-size: 18px;
 }
 
+.income-amount-input-alert,
+.income-date-input-alert {
+  color: red;
+  font-size: 13px;
+} 

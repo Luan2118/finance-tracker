@@ -15,6 +15,20 @@ document.querySelector('.js-add-expense-popup-close')
     dialog.close();
   })
 
+
+const expenseSourceInput = document.getElementById('expense-source-input')
+
+expenseSourceInput.addEventListener('input', (event) => {
+  event.target.value = event.target.value.replace(/[^a-zA-Z]/g, '')
+})
+
+const expenseAmountInput = document.getElementById('expense-amount-input')
+
+expenseAmountInput.addEventListener('input', (event) => {
+  event.target.value = event.target.value.replace(/[^0-9]/g, '')
+})
+
+
 generateHTML();
 submitExpense();
 deleteExpenseButton();
@@ -56,20 +70,35 @@ function submitExpense() {
   document.querySelectorAll('.js-add-expense-button-submit')
     .forEach((click) => {
       click.addEventListener('click', () => {
-        const expenseSourceValue = document.querySelector('.js-expense-value').value
-        const amountValue = document.querySelector('.js-amount-value').value
-        const dateValue = document.querySelector('.js-date-value').value
-        const id = crypto.randomUUID()
+        const expenseSourceValue = document.querySelector('.js-expense-value').value;
+        const amountValue = document.querySelector('.js-amount-value').value;
+        const dateValue = document.querySelector('.js-date-value').value;
+
+        document.querySelector('.js-expense-amount-input-alert').innerHTML = '';
+        document.querySelector('.js-expense-date-input-alert').innerHTML = '';
+
+        if (Number(amountValue) <= 0) {
+          document.querySelector('.js-expense-amount-input-alert')
+            .innerHTML = '<p>Amount has to be greater than 0!</p>'
+    
+          return;
+        }
+
+        if (!dateValue) {
+          document.querySelector('.js-expense-date-input-alert')
+            .innerHTML= '<p>Please pick a date!</p>'
+          return;
+        }
 
         expenseData.push({
           expenseSourceValue,
           amountValue,
           dateValue,
-          id
+          id: crypto.randomUUID()
         });
 
         
-
+        
         saveToStorageExpenses();
         updateDate();
         generateHTML();

@@ -72,17 +72,20 @@
             
             <div class="add-expense-inputs">
               <div>Expense Source</div>
-              <input class="add-expense-input-element js-expense-value" type="text" name="incomeValue">
+              <input id="expense-source-input" class="add-expense-input-element js-expense-value" type="text" name="incomeValue">
+
             </div>
 
             <div class="add-expense-inputs">
               <div>Amount</div>
-              <input class="add-expense-input-element js-amount-value " type="number" min="0" step="1"  oninput="this.value = this.value.replace(/[^0-9]/g,'')">
+              <input id="expense-amount-input" class="add-expense-input-element js-amount-value " type="number" min="0" step="1"  oninput="this.value = this.value.replace(/[^0-9]/g,'')">
+              <div class="expense-amount-input-alert js-expense-amount-input-alert"></div>
             </div>
 
             <div class="add-expense-inputs">
               <div>Date</div>
               <input class="add-expense-input-element js-date-value" type="date">
+              <div class="expense-date-input-alert js-expense-date-input-alert"></div>
             </div>
 
             <div class="right-align">

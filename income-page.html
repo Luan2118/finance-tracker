@@ -59,11 +59,10 @@
         </div>
 
         <dialog id="add-income-dialog" >
-            <form class="add-income-form">
+            <form class="add-income-form" id="income-submit-form">
             <div class="add-income-heather">
               <div class="add-income-heather-title">Add Income</div>
               <button   class="add-income-popup-close-button js-add-income-popup-close" type="button">&times;</button>
-              
             </div>
             <hr>
             
@@ -72,17 +71,19 @@
             
             <div class="add-income-inputs">
               <div>Income Source</div>
-              <input class="add-income-input-element js-income-value" type="text" name="incomeValue">
+              <input id="income-source-input" class="add-income-input-element js-income-value" type="text" name="incomeValue">
             </div>
 
             <div class="add-income-inputs">
               <div>Amount</div>
-              <input class="add-income-input-element js-amount-value " type="number" min="0" step="1"  oninput="this.value = this.value.replace(/[^0-9]/g,'')">
+              <input id="income-amount-input" class="add-income-input-element js-amount-value " type="number" min="1" required>
+              <div class="income-amount-input-alert js-income-amount-input-alert"></div>
             </div>
 
             <div class="add-income-inputs">
               <div>Date</div>
               <input class="add-income-input-element js-date-value" type="date">
+              <div class="income-date-input-alert js-income-date-input-alert"></div>
             </div>
 
             <div class="right-align">
