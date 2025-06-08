@@ -52,17 +52,8 @@ export const myChart = new Chart(ctx, {
       tooltip: {
         callbacks: {
           title: () => {
-            return '';
+            return 'Monthly Expense Summary';
           },
-
-          beforeBody: (context) => {
-            const dataIndex = context[0].dataIndex;
-
-            const item = expenseData[dataIndex];
-
-            return item.expenseSourceValue;
-          },
-
           label: (context) => {
             return `Amount: ${context.formattedValue} Kč`
           }
@@ -86,22 +77,33 @@ filter.addEventListener('change', (date) => {
 
  myChart.options.scales.x.min = `${date.target.value}-01`;
  myChart.options.scales.x.max = `${date.target.value}-${lastDay(year, month)}`;
-
+ myChart.options.scales.x.time.unit = 'day';
+ 
  myChart.data.labels = expenseData.map(data => data.dateValue);
  myChart.data.datasets[0].data = expenseData.map(data => data.amountValue);
 
- myChart.options.scales.x.time.unit = 'day';
+
+ myChart.options.plugins.tooltip.callbacks.title = (context) => {
+  const dataIndex = context[0].dataIndex;
+  const item = expenseData[dataIndex];
+  return item.expenseSourceValue;
+ }
  myChart.update();
 })
 
 const chartResetButton = document.getElementById('chart-reset-button')
 
 chartResetButton.addEventListener('click', () => {
+filter.value = '';
+
  myChart.options.scales.x.min = undefined;
  myChart.options.scales.x.max = undefined;
  myChart.options.scales.x.time.unit = 'month';
 
  myChart.data.labels = Object.keys(monthlySum);
  myChart.data.datasets[0].data = Object.values(monthlySum);
+
+ myChart.options.plugins.tooltip.callbacks.title = () => {return ['Monthly Expense Summary']}
+
  myChart.update();
 })

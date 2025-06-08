@@ -54,13 +54,7 @@ export const myChart = new Chart(ctx, {
             tooltip: {
               callbacks: {
                 title: function() {
-                  return ''
-                },
-                beforeBody: function (context) {
-                  const dataIndex = context[0].dataIndex;
-                  const item = incomeData[dataIndex];
-
-                  return item.incomeSourceValue
+                  return 'Monthly Income Summary'
                 },
                 label: function (context) {
                   return `Amount: ${context.formattedValue}Kč`
@@ -87,17 +81,22 @@ filter.addEventListener('change', (date) => {
 
   const firstDay = `${date.target.value}-01`;
 
-
   const lastDay = `${date.target.value}-${lastDayOfMonth(year, month)}`;
-
-  myChart.data.labels  = incomeData.map(item => item.dateValue);
-
-  myChart.data.datasets[0].data =  incomeData.map(item => item.amountValue);
-
 
   myChart.options.scales.x.min = firstDay;
   myChart.options.scales.x.max = lastDay;
   myChart.options.scales.x.time.unit = 'day';
+
+
+  myChart.data.labels  = incomeData.map(item => item.dateValue);
+  myChart.data.datasets[0].data =  incomeData.map(item => item.amountValue);
+  
+  myChart.options.plugins.tooltip.callbacks.title = function(context) {
+    const dataIndex = context[0].dataIndex;
+    const item = incomeData[dataIndex];
+
+    return item.incomeSourceValue
+  }
 
   myChart.update();
   
@@ -108,11 +107,18 @@ filter.addEventListener('change', (date) => {
 const chartResetButton = document.getElementById('chart-reset-button')
 
 chartResetButton.addEventListener('click', () => {
+  filter.value = ''
+
   myChart.options.scales.x.min = undefined;
   myChart.options.scales.x.max = undefined;
+  myChart.options.scales.x.time.unit = 'month';
+
   myChart.data.labels  = Object.keys(monthlySums);
   myChart.data.datasets[0].data =  Object.values(monthlySums);
-  myChart.options.scales.x.time.unit = 'month';
+
+  myChart.options.plugins.tooltip.callbacks.title = () => {
+    return ['Monthly Income Summary'];}
+
   myChart.update();
 })
 
