@@ -9,6 +9,24 @@ export let incomeData =  JSON.parse(localStorage.getItem('incomeData')) || [
   }
 ]
 
+
+export function monthlyIncomeSummary() {
+  const monthlySums = {};
+  incomeData.forEach(item => {
+    const date = new Date(item.dateValue)
+
+    const monthKey =  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`
+
+    if (!monthlySums[monthKey]) {
+      monthlySums[monthKey] = 0;
+    } 
+
+    monthlySums[monthKey] += Number(item.amountValue)
+  })
+
+  return monthlySums;
+}
+
 updateDate();
 
 export function updateDate() {

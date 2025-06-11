@@ -1,31 +1,15 @@
-import { expenseData } from "../../data/expenseData.js";
-import { incomeData } from "../../data/incomeData.js";
+import { incomeData, monthlyIncomeSummary } from "../../data/incomeData.js";
 
 
 const ctx = document.getElementById('income-chart')
 
-export function monthlyIncomeSummary() {
-  const monthlySums = {};
-  incomeData.forEach(item => {
-    const date = new Date(item.dateValue)
-
-    const monthKey =  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`
-
-    if (!monthlySums[monthKey]) {
-      monthlySums[monthKey] = 0;
-    } 
-
-    monthlySums[monthKey] += Number(item.amountValue)
-  })
-
-  return monthlySums;
-}
 
 
 const monthlySums = monthlyIncomeSummary();
 
 const labels = Object.keys(monthlySums)
 const data = Object.values(monthlySums)
+
 
 export const myChart = new Chart(ctx, {
     type: 'bar', // or 'pie', 'line', etc.
@@ -34,7 +18,7 @@ export const myChart = new Chart(ctx, {
         datasets: [{
             label: 'Income',
             data,
-            backgroundColor: ['#00E946'],
+            backgroundColor: ['#20CA1A'],
         }]
     },
     options: {

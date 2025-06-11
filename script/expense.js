@@ -1,6 +1,6 @@
-import { expenseData, saveToStorageExpenses, deleteExpense, updateDate } from "../data/expenseData.js";
+import { expenseData, saveToStorageExpenses, deleteExpense, updateDate, monthlyExpenseSummary } from "../data/expenseData.js";
 
-import { myChart, monthlyExpenseSummary } from "./chartJS/expenseChartJS.js";
+import { myChart } from "./chartJS/expenseChartJS.js";
 
 const dialog = document.getElementById('add-expense-dialog')
 

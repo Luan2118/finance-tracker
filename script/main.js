@@ -1,10 +1,46 @@
-import { expenseData, saveToStorageExpenses } from "../data/expenseData.js";
-import { incomeData, saveToStorageIncome } from "../data/incomeData.js";
+import { expenseData, saveToStorageExpenses, monthlyExpenseSummary } from "../data/expenseData.js";
+import { incomeData, saveToStorageIncome,monthlyIncomeSummary } from "../data/incomeData.js";
 import { sharedData } from "../data/sharedData.js";
+
+
+
+
+
+const monthlyIncomeSum = monthlyIncomeSummary();
+let monthlyIncomeResult = 0
+
+Object.values(monthlyIncomeSum).forEach((incomeValue) => {
+  monthlyIncomeResult += incomeValue
+})
+
+document.querySelector('.js-income-header-summary').innerHTML = `+${monthlyIncomeResult}Kč`
+
+
+
+const monthlyExpenseSum = monthlyExpenseSummary();
+
+let monthlyExpenseResult = 0
+
+Object.values(monthlyExpenseSum).forEach((expenseValue) => {
+  monthlyExpenseResult += expenseValue
+})
+
+document.querySelector('.js-expense-header-summary').innerHTML = ` -${monthlyExpenseResult}Kč`
+
+
+const totalBalance = monthlyIncomeResult - monthlyExpenseResult 
+const formattedBalance = `${totalBalance >= 0 ? '+' : ''}${totalBalance}Kč`
+
+document.querySelector('.js-total-balance-header-summary')
+  .innerHTML = `${formattedBalance}`
+
+
+
 
 displayRecentTransactions();
 displayExpenses();
 displayIncome();
+
 
 
 function displayRecentTransactions() {
@@ -100,11 +136,122 @@ function displayIncome() {
 }
 
 
-const num1 = 1;
-const num2 = '1';
 
-const result = num1 === num2;
+const labels = ['Total Balance', 'Total Income', 'Total Expenses']
 
-const num3 = 'luan';
+const data = [totalBalance, monthlyIncomeResult, monthlyExpenseResult]
 
-console.log(result);
+
+const financialOverview = document.getElementById('financial-overview-chart')
+
+const doughnutLabel ={
+  id: 'doughnutLabel',
+  beforeDatasetsDraw(chart, args, pluginOptions) {
+    const {ctx, data } = chart;
+    ctx.save();
+
+    const xCoor = chart.getDatasetMeta(0).data[0].x
+    const yCoor = chart.getDatasetMeta(0).data[0].y
+    ctx.font = 'bold 20px Ariel';
+    ctx.fillStyle = '#CE0692';
+    ctx.textAlign = 'center';
+    ctx.textBaseLine = 'middle';
+    ctx.fillText(`${data.labels[0]}:`, xCoor, yCoor - 10)
+    
+    ctx.fillText(`${data.datasets[0].data[0]} Kč`, xCoor, yCoor + 20)
+  }
+}
+const financialOverviewChart = new Chart(financialOverview, {
+  type: 'doughnut',
+  data: {
+    labels,
+    datasets: [{
+      label: 'Amount',
+      data,
+      backgroundColor: ['#6E2CF2', '#20CA1A', '#E50B54']
+    }]
+  },
+  options: {
+    maintainAspectRatio: false,
+    plugins: {
+       tooltip: {
+        callbacks: {
+          label: (context) => {
+
+            if (context.label === 'Total Income') {
+              return `Amount: +${context.formattedValue} Kč`
+            }else if (context.label === 'Total Expenses') {
+              return  `Amount: -${context.formattedValue} Kč`
+            }
+          }
+        }
+       }
+    }
+  },
+  plugins: [doughnutLabel],
+    
+})
+
+
+const expenseCtx = document.getElementById('main-page-expense-chart')
+
+const expenseChartLabels = expenseData.map(item => item.dateValue)
+const expenseChartData = expenseData.map(item => item.amountValue)
+console.log(expenseChartData)
+
+
+var today = new Date();
+var priorDate = new Date(new Date().setDate(today.getDate() - 30));
+
+console.log(today)
+console.log(priorDate);
+
+
+const expenseChart = new Chart(expenseCtx, {
+  type: 'bar',
+  data: {
+    labels: expenseChartLabels,
+    datasets: [{
+      label: 'Last 30 Days Expenses',
+      data: expenseChartData,
+      backgroundColor: '#E50B54'
+    }]
+  },
+  
+  options: {
+    scales: {
+      x: {
+        min: priorDate,
+        max: today,
+        type: 'time',
+        time: {
+          unit: 'day'
+        }
+      }
+    }
+  }
+})
+
+const incomeCtx = document.getElementById('main-page-income-chart')
+
+
+
+const incomeChartData = incomeData.map(item => item.amountValue)
+
+const incomeChart = new Chart(incomeCtx, {
+  type: 'doughnut',
+  data:{
+    labels: [1, 2],
+    datasets: [{
+      label: 'Last 60 days Income',
+      data: incomeChartData
+    }]  
+  },
+  options: {
+    maintainAspectRatio: false,
+  }
+})
+
+const incomeDate = incomeData.map(item => item.dateValue)
+
+console.log(incomeDate)

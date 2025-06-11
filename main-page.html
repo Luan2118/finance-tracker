@@ -4,12 +4,12 @@
     <title>Finance Tracker</title>
     <link rel="stylesheet" href="css-style/main-page/main.css">
     <link rel="stylesheet" href="css-style/shared/general.css">
-    <link rel="stylesheet" href="css-style/shared/heather.css">
+    <link rel="stylesheet" href="css-style/shared/header.css">
     <link rel="stylesheet" href="css-style/shared/sidebar.css">
   </head>
 
   <body>
-    <div class="heather">
+    <div class="header">
       
       <div class="title"><a href="main-page.html">Expense Tracker</a></div>
 
@@ -54,7 +54,7 @@
         <div> <img class="summary-img" src="icons/balance-icon.png"></div>
         <div class="summary-balance-grid">
           <div class="balance-text">Total Balance</div>
-          <div class="summary-amount">100000Kč</div>
+          <div class="summary-amount js-total-balance-header-summary">100000Kč</div>
         </div>
       </div>
       
@@ -62,7 +62,7 @@
         <div> <img class="summary-img" src="icons/income-icon.png"></div>
         <div class="summary-balance-grid">
           <div class="balance-text">Total Income</div>
-          <div class="summary-amount">40000Kč</div>
+          <div class="summary-amount js-income-header-summary"></div>
         </div>
       </div>
 
@@ -70,7 +70,7 @@
         <div> <img class="summary-img" src="icons/expenses-icon.png"></div>
         <div class="summary-balance-grid">
           <div class="balance-text">Total Expenses</div>
-          <div class="summary-amount">32500Kč</div>
+          <div class="summary-amount js-expense-header-summary"></div>
         </div>
       </div>
     </div>
@@ -90,11 +90,9 @@
   
       <div class="pie-chart-grid">
         <div class="financial-overview-text">Financial Overview</div>
-        <div class="pie-chart-img-box"><img class="pie-chart-img" src="icons/pie-chart-img.png"></div>
+        <div class="financial-overview-chart-grid"><canvas id="financial-overview-chart"></canvas></div>
         <div class="pie-chart-summary">
-          <div>Total Balance</div>
-          <div>Total Income</div>
-          <div>Total Expenses</div>
+
         </div>
       </div>
 
@@ -116,7 +114,7 @@
 
       <div class="pie-chart-grid">
         <div class="financial-overview-text">Last 30 Days Expenses</div>
-        <div class="pie-chart-img-box"><img class="pie-chart-img" src="icons/bar-chart.png"></div>
+        <div class="main-page-expense-chart"><canvas id="main-page-expense-chart"></canvas></div>
       </div>
 
       <div class="transactions-grid">
@@ -133,15 +131,14 @@
 
       <div class="pie-chart-grid">
         <div class="financial-overview-text">Last 60 Days Income</div>
-        <div class="pie-chart-img-box"><img class="pie-chart-img" src="icons/income-chart.png"></div>
+        <div class="main-page-income-chart-grid"><canvas id="main-page-income-chart"></canvas></div>
         <div class="pie-chart-summary">
-          <div>Salary</div>
-          <div>Overtime</div>
-          <div>Veru's Job</div>
         </div>
       </div>
     </div>
     
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script type="module" src="script/main.js" ></script>
 
   </body>

@@ -140,9 +140,8 @@
   font-weight: 600;
 }
 
-.pie-chart-img-box {
-  display: flex;
-  justify-content: center;
+.financial-overview-chart-grid {
+  height: 500px;
 }
 .pie-chart-summary{
   width: 400px;
@@ -154,3 +153,6 @@
   
 }
 
+.main-page-income-chart-grid{
+  height: 370px
+}

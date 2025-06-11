@@ -1,5 +1,5 @@
-import { incomeData, saveToStorageIncome, deleteIncome, updateDate } from "../data/incomeData.js";
-import { myChart, monthlyIncomeSummary  } from "./chartJS/incomeChartJS.js";
+import { incomeData, saveToStorageIncome, deleteIncome, updateDate, monthlyIncomeSummary } from "../data/incomeData.js";
+import { myChart,   } from "./chartJS/incomeChartJS.js";
 
 const dialog = document.getElementById('add-income-dialog')
 
@@ -130,12 +130,12 @@ document.querySelectorAll('.js-income-delete-button')
       myChart.data.labels = Object.keys(monthlySums)
       myChart.data.datasets[0].data = Object.values(monthlySums)
 
-      
+      myChart.update()
 
       saveToStorageIncome();
 
       generateHTML();
-      myChart.update()
+      
     })
   })
 

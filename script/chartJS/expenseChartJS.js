@@ -1,40 +1,22 @@
-import { expenseData } from "../../data/expenseData.js"
+import { expenseData, monthlyExpenseSummary } from "../../data/expenseData.js"
 
 const ctx = document.getElementById('expense-chart')
-
-
-export function monthlyExpenseSummary() {
-  const monthlySum = {};
-  expenseData.forEach((data) => {
-  const date = new Date(data.dateValue)
-  const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}` 
-
-  if(!monthlySum[monthKey]) {
-    monthlySum[monthKey] = 0
-  }
-
-  monthlySum[monthKey] += Number(data.amountValue);
-
-  })
-  return monthlySum;
-}
 
 const monthlySum = monthlyExpenseSummary();
 
 const labels = Object.keys(monthlySum);
 const data = Object.values(monthlySum);
 
-export const myChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
+const chartData = {
     labels,
     datasets: [{
       label: 'Expenses',
       data,
-      backgroundColor: 'red'
+      backgroundColor: '#E50B54'
     }]
-  },
-  options: {
+  }
+
+const chartOptions = {
     scales: {
       x: {
         type: 'time',
@@ -61,24 +43,32 @@ export const myChart = new Chart(ctx, {
       }
     }
   }
+
+export let myChart = new Chart(ctx, {
+  type: 'bar',
+  data: chartData,
+  options: chartOptions
 })
 
 
 const filter = document.getElementById('chart-filter')
 
-filter.addEventListener('change', (date) => {
- const year = date.target.value.substring(0, 4);
- const month = date.target.value.substring(5, 7);
+filter.addEventListener('change', (event) => {
+ const year = event.target.value.substring(0, 4);
+ const month = event.target.value.substring(5, 7);
  
  const lastDay = (y, m) => {
   return new Date(y , m, 0).getDate()
  }
 
+ createChart('line')
 
- myChart.options.scales.x.min = `${date.target.value}-01`;
- myChart.options.scales.x.max = `${date.target.value}-${lastDay(year, month)}`;
+
+ myChart.options.scales.x.min = `${event.target.value}-01`;
+ myChart.options.scales.x.max = `${event.target.value}-${lastDay(year, month)}`;
  myChart.options.scales.x.time.unit = 'day';
  
+
  myChart.data.labels = expenseData.map(data => data.dateValue);
  myChart.data.datasets[0].data = expenseData.map(data => data.amountValue);
 
@@ -88,13 +78,17 @@ filter.addEventListener('change', (date) => {
   const item = expenseData[dataIndex];
   return item.expenseSourceValue;
  }
+
+
  myChart.update();
 })
 
 const chartResetButton = document.getElementById('chart-reset-button')
 
 chartResetButton.addEventListener('click', () => {
-filter.value = '';
+  createChart('bar')
+
+ filter.value = '';
 
  myChart.options.scales.x.min = undefined;
  myChart.options.scales.x.max = undefined;
@@ -107,3 +101,16 @@ filter.value = '';
 
  myChart.update();
 })
+
+
+
+
+function createChart (chart) {
+  myChart.destroy();
+  myChart = new Chart(ctx, {
+  type: chart,
+  data : chartData,
+  options: chartOptions
+ })
+
+}
