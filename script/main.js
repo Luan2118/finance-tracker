@@ -188,7 +188,7 @@ const financialOverviewChart = new Chart(financialOverview, {
        }
     }
   },
-  plugins: [doughnutLabel],
+  plugins: [doughnutLabel]
     
 })
 
@@ -251,11 +251,33 @@ const filteredIncomeData = incomeData.filter(item => {
   amountValue: item.amountValue
 }))
 
+const last60DaysIncomeSum = filteredIncomeData.reduce((sum, item) => {
+  return sum + Number(item.amountValue);
+}, 0)
+
+console.log(last60DaysIncomeSum)
 
 const incomeChartLabels = filteredIncomeData.map(item => item.dateValue);
 const incomeChartData = filteredIncomeData.map(item => item.amountValue);
 
 
+const incomeDoughnutLabel = {
+  id: 'incomeDoughnutLabel',
+  beforeDatasetsDraw(chart, args, pluginOptions) {
+    const {ctx, data} = chart;
+    ctx.save();
+
+    const xCoor = chart.getDatasetMeta(0).data[0].x
+    const yCoor = chart.getDatasetMeta(0).data[0].y
+
+    ctx.font = 'bold 18px Arial';
+    ctx.fillStyle = 'black'
+    ctx.textAlign = 'center';
+    ctx.textBaseLine = 'middle'
+     ctx.fillText('Total Income:', xCoor, yCoor - 10)
+    ctx.fillText(`${last60DaysIncomeSum}Kč`, xCoor, yCoor + 20)
+  }
+}
 
 const incomeChart = new Chart(incomeCtx, {
   type: 'doughnut',
@@ -283,8 +305,8 @@ const incomeChart = new Chart(incomeCtx, {
         }
       }
     }
-  }
+  },
+  plugins: [incomeDoughnutLabel]
 })
 
-const incomeDate = incomeData.map(item => item.dateValue)
 
