@@ -11,6 +11,7 @@ const labels = Object.keys(monthlySums)
 const data = Object.values(monthlySums)
 
 
+
 export const myChart = new Chart(ctx, {
     type: 'bar', // or 'pie', 'line', etc.
     data: {

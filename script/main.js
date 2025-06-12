@@ -153,7 +153,7 @@ const doughnutLabel ={
     const xCoor = chart.getDatasetMeta(0).data[0].x
     const yCoor = chart.getDatasetMeta(0).data[0].y
     ctx.font = 'bold 20px Ariel';
-    ctx.fillStyle = '#CE0692';
+    ctx.fillStyle = 'black';
     ctx.textAlign = 'center';
     ctx.textBaseLine = 'middle';
     ctx.fillText(`${data.labels[0]}:`, xCoor, yCoor - 10)
@@ -197,14 +197,13 @@ const expenseCtx = document.getElementById('main-page-expense-chart')
 
 const expenseChartLabels = expenseData.map(item => item.dateValue)
 const expenseChartData = expenseData.map(item => item.amountValue)
-console.log(expenseChartData)
 
 
-var today = new Date();
-var priorDate = new Date(new Date().setDate(today.getDate() - 30));
 
-console.log(today)
-console.log(priorDate);
+const today = new Date();
+const last30Days = new Date(new Date().setDate(today.getDate() - 30));
+
+
 
 
 const expenseChart = new Chart(expenseCtx, {
@@ -221,7 +220,7 @@ const expenseChart = new Chart(expenseCtx, {
   options: {
     scales: {
       x: {
-        min: priorDate,
+        min: last30Days,
         max: today,
         type: 'time',
         time: {
@@ -235,13 +234,33 @@ const expenseChart = new Chart(expenseCtx, {
 const incomeCtx = document.getElementById('main-page-income-chart')
 
 
+const today1 = new Date()
+const yearMonthToday = `${today1.getFullYear()}-${String(today1.getMonth() + 1).padStart(2, '0')}`
 
-const incomeChartData = incomeData.map(item => item.amountValue)
+const last60 = new Date(new Date().setDate(today1.getDate() - 60))
+const yearMonthLast60 = `${last60.getFullYear()}-${String(last60.getMonth() + 1).padStart(2, '0')}`
+
+
+const filteredIncomeData = incomeData.filter(item => {
+  const yearMonth = item.dateValue.substring(0, 7)
+  return yearMonth <= yearMonthToday && yearMonth >= yearMonthLast60
+})
+.map(item => ({
+  incomeSourceValue: item.incomeSourceValue,
+  dateValue: item.dateValue,
+  amountValue: item.amountValue
+}))
+
+
+const incomeChartLabels = filteredIncomeData.map(item => item.dateValue);
+const incomeChartData = filteredIncomeData.map(item => item.amountValue);
+
+
 
 const incomeChart = new Chart(incomeCtx, {
   type: 'doughnut',
   data:{
-    labels: [1, 2],
+    labels: incomeChartLabels,
     datasets: [{
       label: 'Last 60 days Income',
       data: incomeChartData
@@ -249,9 +268,23 @@ const incomeChart = new Chart(incomeCtx, {
   },
   options: {
     maintainAspectRatio: false,
+    plugins: {
+      tooltip: {
+        callbacks: {
+          title: (context) => {
+            const dataIndex = context[0].dataIndex;
+            const item = filteredIncomeData[dataIndex];
+
+            return item.incomeSourceValue
+          },
+          label: (context) => {
+            return `Amount: ${context.formattedValue} Kč`
+          }
+        }
+      }
+    }
   }
 })
 
 const incomeDate = incomeData.map(item => item.dateValue)
 
-console.log(incomeDate)
