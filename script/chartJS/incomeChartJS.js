@@ -19,7 +19,11 @@ export const myChart = new Chart(ctx, {
         datasets: [{
             label: 'Income',
             data,
-            backgroundColor: ['#20CA1A'],
+            backgroundColor: ['rgb(90, 207, 100)'],
+            barPercentage: 0.7,
+            borderRadius: 15,
+            hoverBackgroundColor: 'rgba(96, 224, 107, 0.81)',
+            hoverBorderWidth: '50px'
         }]
     },
     options: {

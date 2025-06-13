@@ -1,6 +1,6 @@
 import { expenseData, monthlyExpenseSummary } from "../../data/expenseData.js"
 
-const ctx = document.getElementById('expense-chart')
+const ctx = document.getElementById('expense-chart').getContext('2d')
 
 const monthlySum = monthlyExpenseSummary();
 
@@ -12,7 +12,10 @@ const chartData = {
     datasets: [{
       label: 'Expenses',
       data,
-      backgroundColor: '#E50B54'
+      backgroundColor: 'rgb(216, 85, 67)',
+      barPercentage: 0.7,
+      borderRadius: 15,
+      hoverBackgroundColor: 'rgba(241, 84, 63, 0.81)'
     }]
   }
 
@@ -61,17 +64,14 @@ filter.addEventListener('change', (event) => {
   return new Date(y , m, 0).getDate()
  }
 
- createChart('line')
+ myChart.data.labels = expenseData.map(data => data.dateValue);
+ myChart.data.datasets[0].data = expenseData.map(data => data.amountValue);
 
+ createChart('line')
 
  myChart.options.scales.x.min = `${event.target.value}-01`;
  myChart.options.scales.x.max = `${event.target.value}-${lastDay(year, month)}`;
  myChart.options.scales.x.time.unit = 'day';
- 
-
- myChart.data.labels = expenseData.map(data => data.dateValue);
- myChart.data.datasets[0].data = expenseData.map(data => data.amountValue);
-
 
  myChart.options.plugins.tooltip.callbacks.title = (context) => {
   const dataIndex = context[0].dataIndex;
@@ -103,10 +103,30 @@ chartResetButton.addEventListener('click', () => {
 })
 
 
-
+const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+gradient.addColorStop(0, 'rgb(216, 85, 67, 0.6)');  // top
+gradient.addColorStop(0.5, 'rgb(216, 85, 67, 0.3)');
+gradient.addColorStop(1, 'rgb(216, 85, 67, 0)');    // bottom
 
 function createChart (chart) {
   myChart.destroy();
+  if (chart === 'line') {
+    chartData.datasets[0] = {
+      ...chartData.datasets[0],
+      backgroundColor: gradient,
+      borderColor: 'rgb(216, 85, 67)',
+      borderWidth: 5,
+      tension: 0.4,
+      fill: {
+        target: true,
+      }
+    }
+  }else {
+    chartData.datasets[0] = {
+      ...chartData.datasets[0],
+      backgroundColor: 'rgb(216, 85, 67)'
+    }
+  }
   myChart = new Chart(ctx, {
   type: chart,
   data : chartData,

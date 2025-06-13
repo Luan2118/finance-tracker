@@ -152,7 +152,7 @@ const doughnutLabel ={
 
     const xCoor = chart.getDatasetMeta(0).data[0].x
     const yCoor = chart.getDatasetMeta(0).data[0].y
-    ctx.font = 'bold 20px Ariel';
+    ctx.font = 'bold 25px Ariel';
     ctx.fillStyle = 'black';
     ctx.textAlign = 'center';
     ctx.textBaseLine = 'middle';
@@ -168,10 +168,15 @@ const financialOverviewChart = new Chart(financialOverview, {
     datasets: [{
       label: 'Amount',
       data,
-      backgroundColor: ['#6E2CF2', '#20CA1A', '#E50B54']
+      backgroundColor: ['rgb(68, 136, 201)', 'rgb(90, 207, 100)', 'rgb(216, 85, 67)'],
+      borderWidth: 5,
+      borderRadius: 5,
+      hoverBackgroundColor: ['rgb(76, 154, 228, 0.97)', 'rgba(96, 224, 107, 0.97)', 'rgba(241, 84, 63, 0.97)']
+      
     }]
   },
   options: {
+    cutout: '65%',
     maintainAspectRatio: false,
     plugins: {
        tooltip: {
@@ -182,6 +187,8 @@ const financialOverviewChart = new Chart(financialOverview, {
               return `Amount: +${context.formattedValue} Kč`
             }else if (context.label === 'Total Expenses') {
               return  `Amount: -${context.formattedValue} Kč`
+            }else {
+              return `Amount: ${context.formattedValue}Kč`
             }
           }
         }
@@ -213,7 +220,10 @@ const expenseChart = new Chart(expenseCtx, {
     datasets: [{
       label: 'Last 30 Days Expenses',
       data: expenseChartData,
-      backgroundColor: '#E50B54'
+      backgroundColor: 'rgb(216, 85, 67)',
+      hoverBackgroundColor: 'rgba(241, 84, 63, 0.81)',
+      barPercentage: 0.6,
+      borderRadius: 15,
     }]
   },
   
@@ -235,6 +245,7 @@ const incomeCtx = document.getElementById('main-page-income-chart')
 
 
 const today1 = new Date()
+console.log(today1)
 const yearMonthToday = `${today1.getFullYear()}-${String(today1.getMonth() + 1).padStart(2, '0')}`
 
 const last60 = new Date(new Date().setDate(today1.getDate() - 60))
@@ -252,12 +263,13 @@ const filteredIncomeData = incomeData.filter(item => {
 }))
 
 const last60DaysIncomeSum = filteredIncomeData.reduce((sum, item) => {
-  return sum + Number(item.amountValue);
+  const result = sum + Number(item.amountValue);
+  return result;
 }, 0)
 
-console.log(last60DaysIncomeSum)
 
-const incomeChartLabels = filteredIncomeData.map(item => item.dateValue);
+
+const incomeChartLabels = filteredIncomeData.map(item => item.incomeSourceValue);
 const incomeChartData = filteredIncomeData.map(item => item.amountValue);
 
 
@@ -274,8 +286,8 @@ const incomeDoughnutLabel = {
     ctx.fillStyle = 'black'
     ctx.textAlign = 'center';
     ctx.textBaseLine = 'middle'
-     ctx.fillText('Total Income:', xCoor, yCoor - 10)
-    ctx.fillText(`${last60DaysIncomeSum}Kč`, xCoor, yCoor + 20)
+    ctx.fillText('Total Income:', xCoor, yCoor - 10)
+    ctx.fillText(`${last60DaysIncomeSum} Kč`, xCoor, yCoor + 20)
   }
 }
 
@@ -285,10 +297,13 @@ const incomeChart = new Chart(incomeCtx, {
     labels: incomeChartLabels,
     datasets: [{
       label: 'Last 60 days Income',
-      data: incomeChartData
+      data: incomeChartData,
+      borderWidth: 5,
+      borderRadius: 5
     }]  
   },
   options: {
+    cutout: '65%',
     maintainAspectRatio: false,
     plugins: {
       tooltip: {

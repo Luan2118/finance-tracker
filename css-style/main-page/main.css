@@ -103,8 +103,8 @@
 .transactions-amount-minus {
   display: flex;
   align-items: center;
-  background-color: rgb(248, 209, 209);
-  color: rgb(182, 46, 46);
+  background-color: rgb(192, 88, 74);
+  color: white;
   padding: 4px 10px;
   font-size: 13px;
   border-radius: 6px;
@@ -113,8 +113,8 @@
 .transactions-amount-plus {
   display: flex;
   align-items: center;
-  background-color: rgb(195, 247, 195);
-  color: green;
+  background-color: rgb(75, 173, 83);
+  color: white;
   padding: 4px 10px;
   font-size: 13px;
   border-radius: 6px;
