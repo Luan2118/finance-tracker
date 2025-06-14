@@ -1,12 +1,19 @@
 
+
+
+
 .summary-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 20px;
-
-  
 }
 
+@media (max-width: 830px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+  }
+}
 .summary-inner-grid {
   display: flex;
   flex-direction: row; 
@@ -48,6 +55,7 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 8px;
+  min-width: 300px;
 }
 
 .see-all-button {
@@ -127,7 +135,7 @@
   border-radius: 15px;
   padding: 10px;
   margin-top: 30px;
-
+  min-width: 300px;
 }
 .pie-chart-img {
   margin-top: 35px;

@@ -15,8 +15,17 @@ body {
   column-gap: 20px;
 }
 
+@media (max-width: 940px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 a {
   text-decoration: none;
   color: inherit;    
 }
 
+.main-page-expense-chart-grid {
+  min-height: 300px;
+}

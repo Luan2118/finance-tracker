@@ -228,6 +228,8 @@ const expenseChart = new Chart(expenseCtx, {
   },
   
   options: {
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       x: {
         min: last30Days,

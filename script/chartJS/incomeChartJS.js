@@ -36,20 +36,21 @@ export const myChart = new Chart(ctx, {
         },
       },
         maintainAspectRatio: false,
+        responsive: true,
         plugins: {
-            legend: {
-              position: 'top',
-            },
-            tooltip: {
-              callbacks: {
-                title: function() {
-                  return 'Monthly Income Summary'
-                },
-                label: function (context) {
-                  return `Amount: ${context.formattedValue}Kč`
-                }
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            callbacks: {
+              title: function() {
+                return 'Monthly Income Summary'
+              },
+              label: function (context) {
+                return `Amount: ${context.formattedValue}Kč`
               }
             }
+          }
         },
     }
 });

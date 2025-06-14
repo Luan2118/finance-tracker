@@ -1,13 +1,33 @@
+* {
+  box-sizing: border-box;
+}
+
 .top-part {
   background-color: white;
   border-radius: 15px;
   padding: 20px;
+  min-width: 340px;
+  
+}
+
+.bottom-part {
+  min-width: 340px;
 
 }
 
+
+
 .income-chart-grid {
-  width: 1600px;
+  width: 100%;
   height: 550px;
+  height: calc(30vw);
+  min-height: 275px;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .income-overview-grid {
@@ -17,6 +37,7 @@
 }
 
 .income-bar-chart-img {
+  display: block;
   width: 100%;
   height:  300px;
 }
@@ -69,6 +90,7 @@
   grid-template-columns: 50px 1fr;
   margin-bottom: 15px;
   align-items: center;
+
 }
 
 .income-title {
@@ -127,6 +149,12 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 20px;
+}
+
+@media (max-width: 830px) {
+  .each-income-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 
