@@ -116,16 +116,25 @@ canvas {
 
 .expense-delete-button-grid {
   margin-right: 5px;
-
 }
 
+.delete-icon {
+  height: 16px;
+}
 .expense-delete-button {
   border: none;
   background-color: white;
   color: red;
   cursor: pointer;
   font-size: 13px;
+  transition: background-color 0.3s ease, opacity 0.3s;
+  opacity: 0;
 }
+
+.expense-delete-button:hover {
+  opacity: 1
+}
+
 
 .expense-date {
   color: grey;

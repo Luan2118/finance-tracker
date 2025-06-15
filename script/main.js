@@ -152,7 +152,7 @@ const doughnutLabel ={
 
     const xCoor = chart.getDatasetMeta(0).data[0].x
     const yCoor = chart.getDatasetMeta(0).data[0].y
-    ctx.font = 'bold 25px Ariel';
+    ctx.font = 'bold 25px Arial';
     ctx.fillStyle = 'black';
     ctx.textAlign = 'center';
     ctx.textBaseLine = 'middle';
@@ -180,7 +180,9 @@ const financialOverviewChart = new Chart(financialOverview, {
     maintainAspectRatio: false,
     plugins: {
       legend: {
+        position: 'bottom',
         labels: {
+          padding: 30,
           font: {
             size: 16,
             family: 'Arial'
@@ -279,7 +281,6 @@ const incomeCtx = document.getElementById('main-page-income-chart')
 
 
 const today1 = new Date()
-console.log(today1)
 const yearMonthToday = `${today1.getFullYear()}-${String(today1.getMonth() + 1).padStart(2, '0')}`
 
 const last60 = new Date(new Date().setDate(today1.getDate() - 60))
@@ -333,7 +334,8 @@ const incomeChart = new Chart(incomeCtx, {
       label: 'Last 60 days Income',
       data: incomeChartData,
       borderWidth: 5,
-      borderRadius: 5
+      borderRadius: 5,
+
     }]  
   },
   options: {
@@ -341,7 +343,9 @@ const incomeChart = new Chart(incomeCtx, {
     maintainAspectRatio: false,
     plugins: {
       legend: {
+        position: 'bottom',
         labels: {
+          padding: 30,
           font: {
             size: 15,
             family: 'Arial'

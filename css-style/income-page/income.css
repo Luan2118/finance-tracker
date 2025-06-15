@@ -133,13 +133,24 @@ canvas {
 
 }
 
+.delete-icon {
+  height: 16px;
+}
+
 .income-delete-button {
   border: none;
   background-color: white;
   color: red;
   cursor: pointer;
   font-size: 13px;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
 }
+
+.income-delete-button:hover {
+  opacity: 1
+}
+
 .income-date {
   color: grey;
   font-size: 12px;

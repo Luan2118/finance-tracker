@@ -149,7 +149,7 @@
 }
 
 .financial-overview-chart-grid {
-  height: 500px;
+  height: 100%;
 }
 .pie-chart-summary{
   width: 400px;
@@ -163,7 +163,7 @@
 
 
 .main-page-income-chart-grid{
-  height: 350px;
+  height: 100%;
 }
 
 .main-page-expense-chart-grid {

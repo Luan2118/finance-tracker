@@ -42,9 +42,6 @@ document.querySelector('.js-emoji-picker')
       })
   })
 
-/*
-<emoji-picker></emoji-picker>
-*/
 
 
 
@@ -83,7 +80,7 @@ function generateHTML() {
         </div>
 
         <div class="income-right-side">
-          <div class="income-delete-button-grid"><button class="income-delete-button js-income-delete-button" data-id="${id}">X</button></div>
+          <div class="income-delete-button-grid"><button class="income-delete-button js-income-delete-button" data-id="${id}"><img class="delete-icon" src=../icons/bin-icon.png></button></div>
           <div class="income-amount-plus">+${amountValue} Kč</div>
         </div>
       </div>

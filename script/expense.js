@@ -41,6 +41,7 @@ expenseAmountInput.addEventListener('input', (event) => {
 })
 
 
+
 generateHTML();
 submitExpense();
 deleteExpenseButton();
@@ -61,7 +62,7 @@ expenseData.forEach((dataObject) => {
         </div>
         
         <div class="expense-right-side">
-          <div class="expense-delete-button-grid"><button class="expense-delete-button js-expense-delete-button" data-id="${dataObject.id}">X</button></div>
+          <div class="expense-delete-button-grid"><button class="expense-delete-button js-expense-delete-button" data-id="${dataObject.id}"><img class="delete-icon" src=../icons/bin-icon.png></button></div>
           <div class="expense-amount-minus">-${dataObject.amountValue} Kč</div>
         </div>
       </div>
