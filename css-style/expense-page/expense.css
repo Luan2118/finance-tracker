@@ -154,8 +154,8 @@ canvas {
 }
 dialog {
   border: none;
-  width: 800px;
-  height: 600px;
+  width: 850px;
+  height: 670px;
   border-radius: 15px;
   padding: 20px 
   
@@ -186,8 +186,38 @@ dialog {
   font-size: 22px;
   font-weight: 600;
 }
+
+.emoji-picker-grid {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.emoji-picker {
+  height: 35px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.emoji-element {
+  position: absolute;
+  top: 200px;
+}
+
+.pick-icon {
+  font-size: 20px;
+}
+
+.emoji-picked {
+  padding: 5px;
+  font-size: 25px;
+  width: 50px;
+  margin-left: 10px;
+}
+
 .input-grid {
-  margin-top: 100px;
+  margin-top: 50px;
 }
 .add-expense-inputs  {
   margin-bottom: 40px;

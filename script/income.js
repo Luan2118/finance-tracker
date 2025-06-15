@@ -1,6 +1,6 @@
 import { incomeData, saveToStorageIncome, deleteIncome, updateDate, monthlyIncomeSummary } from "../data/incomeData.js";
 import { myChart,   } from "./chartJS/incomeChartJS.js";
-import textFieldEdit from 'https://cdn.jsdelivr.net/npm/text-field-edit@^4/index.js'
+import textFieldEdit from 'https://cdn.jsdelivr.net/npm/text-field-edit@^4/index.js';
 
 
 

@@ -68,7 +68,17 @@
             <hr>
             
             <div class="input-grid">
+              <div class="emoji-picker-grid">
 
+                <div><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png">
+                </div>
+
+                <div class="js-emoji-picker-element"></div>
+                <div class="pick-icon"><p>Pick Icon</p></div>
+                <div><input maxlength="2" id="emoji-input"class=" emoji-picked js-emoji-picked"></div>
+              </div>
+
+              <div class="emoji-input-alert js-emoji-input-alert"></div>
             
             <div class="add-expense-inputs">
               <div>Expense Source</div>
@@ -121,6 +131,7 @@
 
     </div>
 
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script type="module" src="script/expense.js"></script>

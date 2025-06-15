@@ -1,6 +1,6 @@
 import { expenseData, saveToStorageExpenses, deleteExpense, updateDate, monthlyExpenseSummary } from "../data/expenseData.js";
-
 import { myChart } from "./chartJS/expenseChartJS.js";
+import textFieldEdit from 'https://cdn.jsdelivr.net/npm/text-field-edit@^4/index.js'
 
 const dialog = document.getElementById('add-expense-dialog')
 
@@ -13,6 +13,18 @@ document.querySelector('.js-add-expense-button')
 document.querySelector('.js-add-expense-popup-close')
   .addEventListener('click', () => {
     dialog.close();
+  })
+
+
+document.querySelector('.js-emoji-picker')
+  .addEventListener('click', () => {
+    document.querySelector('.js-emoji-picker-element').innerHTML = '<emoji-picker class="emoji-element light"></emoji-picker>'
+
+    document.querySelector('emoji-picker').addEventListener('emoji-click', e => {
+    document.getElementById('emoji-input').value = '';
+    document.querySelector('.js-emoji-picker-element').innerHTML = '';
+    textFieldEdit.insert(document.querySelector('input'), e.detail.unicode)
+  })
   })
 
 
@@ -41,7 +53,7 @@ expenseData.forEach((dataObject) => {
   const html = `
     <div class="each-expense">
       <div class="expense-info-inner-grid">
-      <div class="expense-img-grid"><img class="expense-img" src="icons/shopping-icon.png"></div>
+      <div class="expense-img-grid">${dataObject.emoji}</div>
       <div class="expense-info">
         <div>
           <div>${dataObject.expenseSourceValue}</div>
@@ -73,6 +85,7 @@ function submitExpense() {
         const expenseSourceValue = document.querySelector('.js-expense-value').value;
         const amountValue = document.querySelector('.js-amount-value').value;
         const dateValue = document.querySelector('.js-date-value').value;
+        const emoji = document.querySelector('.js-emoji-picked').value;
 
         document.querySelector('.js-expense-amount-input-alert').innerHTML = '';
         document.querySelector('.js-expense-date-input-alert').innerHTML = '';
@@ -94,7 +107,8 @@ function submitExpense() {
           expenseSourceValue,
           amountValue,
           dateValue,
-          id: crypto.randomUUID()
+          id: crypto.randomUUID(),
+          emoji
         });
 
         

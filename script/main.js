@@ -50,7 +50,7 @@ function displayRecentTransactions() {
     if (sharedData[i].type === 'expense') {
       const html = `
         <div class="transactions-info-inner-grid">
-          <div class="transaction-img-grid"><img class="transactions-img" src="icons/shopping-icon.png"></div>
+          <div class="transaction-img-grid">${sharedData[i].emoji}</div>
           <div class="transactions-info">
             <div>
               <div>
@@ -68,7 +68,7 @@ function displayRecentTransactions() {
     }else if (sharedData[i].type === 'income') {
       const html = `
         <div class="transactions-info-inner-grid">
-          <div class="transaction-img-grid"><img class="transactions-img" src="icons/salary-icon.png"></div>
+          <div class="transaction-img-grid">${sharedData[i].emoji}</div>
           <div class="transactions-info">
             <div>
               <div>${sharedData[i].incomeSourceValue}</div>
@@ -93,7 +93,7 @@ function displayExpenses() {
   for (let i = 0 ; i < expenseData.length && i < 5 ; i ++) {
     const html = `
       <div class="transactions-info-inner-grid">
-        <div class="transaction-img-grid"><img class="transactions-img" src="icons/shopping-icon.png"></div>
+        <div class="transaction-img-grid">${expenseData[i].emoji}</div>
         <div class="transactions-info">
           <div>
             <div>${expenseData[i].expenseSourceValue}</div>
@@ -119,7 +119,7 @@ function displayIncome() {
   for (let i = 0 ; i < incomeData.length && i < 5 ; i ++ ) {
      let html = `
       <div class="transactions-info-inner-grid">
-        <div class="transaction-img-grid"><img class="transactions-img" src="icons/shopping-icon.png"></div>
+        <div class="transaction-img-grid">${incomeData[i].emoji}</div>
         <div class="transactions-info">
           <div>
             <div>${incomeData[i].incomeSourceValue}</div>
