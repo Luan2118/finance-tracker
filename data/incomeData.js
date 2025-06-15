@@ -5,7 +5,8 @@ export let incomeData =  JSON.parse(localStorage.getItem('incomeData')) || [
     incomeSourceValue: 'Example',
     amountValue: 10000,
     dateValue: '2025-05-17',
-    id: crypto.randomUUID()
+    id: crypto.randomUUID(),
+    emoji: ''
   }
 ]
 

@@ -67,7 +67,17 @@
             <hr>
             
             <div class="input-grid">
+              <div class="emoji-picker-grid">
 
+                <div><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png">
+                </div>
+
+                <div class="js-emoji-picker-element"></div>
+                <div class="pick-icon"><p>Pick Icon</p></div>
+                <div><input maxlength="2" id="emoji-input"class=" emoji-picked js-emoji-picked"></div>
+              </div>
+
+              <div class="emoji-input-alert js-emoji-input-alert"></div>
             
             <div class="add-income-inputs">
               <div>Income Source</div>
@@ -97,8 +107,8 @@
 
           <div class="income-chart-grid">
             <canvas id="income-chart"></canvas>
-            <input id="chart-filter" type="month">
-            <button id="chart-reset-button">Reset</button>
+            <input class="income-chart-filter-input" id="chart-filter" type="month">
+            <button class="reset-filter-button" id="chart-reset-button">Reset</button>
           </div>
 
       </div>
@@ -108,7 +118,7 @@
 
         <div class="income-sources-grid">
           <div class="income-title">Income Sources</div>
-          <div><button class="see-all-button">Download <span class="see-all-arrow">&#8594;</span></button></div>
+          <div><button class="download-button">Download <span class="see-all-arrow">&#8594;</span></button></div>
         </div>
   
         <div class="income-info-grid">
@@ -122,7 +132,7 @@
       </div>
 
     </div>
-    
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script type="module" src="script/income.js" ></script>

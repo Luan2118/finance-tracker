@@ -13,7 +13,7 @@ Object.values(monthlyIncomeSum).forEach((incomeValue) => {
   monthlyIncomeResult += incomeValue
 })
 
-document.querySelector('.js-income-header-summary').innerHTML = `+${monthlyIncomeResult}Kč`
+document.querySelector('.js-income-header-summary').innerHTML = `+${monthlyIncomeResult} Kč`
 
 
 
@@ -25,11 +25,11 @@ Object.values(monthlyExpenseSum).forEach((expenseValue) => {
   monthlyExpenseResult += expenseValue
 })
 
-document.querySelector('.js-expense-header-summary').innerHTML = ` -${monthlyExpenseResult}Kč`
+document.querySelector('.js-expense-header-summary').innerHTML = ` -${monthlyExpenseResult} Kč`
 
 
 const totalBalance = monthlyIncomeResult - monthlyExpenseResult 
-const formattedBalance = `${totalBalance >= 0 ? '+' : ''}${totalBalance}Kč`
+const formattedBalance = `${totalBalance >= 0 ? '+' : ''}${totalBalance} Kč`
 
 document.querySelector('.js-total-balance-header-summary')
   .innerHTML = `${formattedBalance}`
@@ -59,7 +59,7 @@ function displayRecentTransactions() {
               <div class="transactions-date">${sharedData[i].dateValue}</div>
             </div>
             
-            <div class="transactions-amount-minus">-${sharedData[i].amountValue}Kč</div>
+            <div class="transactions-amount-minus">-${sharedData[i].amountValue} Kč</div>
           </div>
         </div>
       `
@@ -75,7 +75,7 @@ function displayRecentTransactions() {
               <div class="transactions-date">${sharedData[i].dateValue}</div>
             </div>
             
-            <div class="transactions-amount-plus">+${sharedData[i].amountValue}Kč</div>
+            <div class="transactions-amount-plus">+${sharedData[i].amountValue} Kč</div>
           </div>
         </div>
       `
@@ -100,7 +100,7 @@ function displayExpenses() {
             <div class="transactions-date">${expenseData[i].dateValue}</div>
           </div>
           
-          <div class="transactions-amount-minus">-${expenseData[i].amountValue}Kč</div>
+          <div class="transactions-amount-minus">-${expenseData[i].amountValue} Kč</div>
         </div>
       </div>  
     `
@@ -126,7 +126,7 @@ function displayIncome() {
             <div class="transactions-date">${incomeData[i].dateValue}</div>
           </div>
           
-          <div class="transactions-amount-plus">+${incomeData[i].amountValue}Kč</div>
+          <div class="transactions-amount-plus">+${incomeData[i].amountValue} Kč</div>
         </div>
       </div>
     `
@@ -179,6 +179,14 @@ const financialOverviewChart = new Chart(financialOverview, {
     cutout: '65%',
     maintainAspectRatio: false,
     plugins: {
+      legend: {
+        labels: {
+          font: {
+            size: 16,
+            family: 'Arial'
+          }
+        }
+      },
        tooltip: {
         callbacks: {
           label: (context) => {
@@ -237,10 +245,34 @@ const expenseChart = new Chart(expenseCtx, {
         type: 'time',
         time: {
           unit: 'day'
+        },
+        ticks: {
+          font: {
+            size: 12,
+            family: 'Arial'
+          }
+        }
+      },
+      y: {
+        ticks: {
+          font: {
+            size: 12,
+            family: 'Arial'
+          }
+        }
+      }
+  },
+   plugins: {
+        legend: {
+          labels: {
+            font: {
+              size: 18,
+              family: 'Ariaĺ'
+            }
+          }
         }
       }
     }
-  }
 })
 
 const incomeCtx = document.getElementById('main-page-income-chart')
@@ -308,6 +340,14 @@ const incomeChart = new Chart(incomeCtx, {
     cutout: '65%',
     maintainAspectRatio: false,
     plugins: {
+      legend: {
+        labels: {
+          font: {
+            size: 15,
+            family: 'Arial'
+          }
+        }
+      },
       tooltip: {
         callbacks: {
           title: (context) => {

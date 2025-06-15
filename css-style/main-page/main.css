@@ -163,5 +163,9 @@
 
 
 .main-page-income-chart-grid{
-  height: 350px
+  height: 350px;
+}
+
+.main-page-expense-chart-grid {
+  height: 100%;
 }

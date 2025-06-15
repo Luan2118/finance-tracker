@@ -20,19 +20,38 @@ const chartData = {
   }
 
 const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       x: {
         type: 'time',
         time: {
           unit: 'month',
         },
-        
+        ticks: {
+          font: {
+            size: 15,
+            family: 'Arial'
+          }
+        }
+      },
+      y: {
+        ticks: {
+          font: {
+            size: 15,
+            family: 'Arial'
+          }
+        }
       }
     },
-    maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: 'top'
+        labels: {
+          font: {
+            size: 19,
+            family: 'Arial'
+          }
+        }
       },
       tooltip: {
         callbacks: {

@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: Arial;
 }
 
 .top-part {
@@ -66,12 +67,20 @@ canvas {
   padding: 8px;
 }
 
-.see-all-button {
-  background-color: rgb(240, 240, 240);
+.download-button {
+  background-color: rgb(236, 236, 236);
   border: none;
-  padding: 5px 15px;
+  padding: 8px 15px;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.download-button:hover {
+  opacity: 0.9;
+}
+
+.download-button:active {
+  opacity: 0.7;
 }
 
 .see-all-arrow {
@@ -160,14 +169,14 @@ canvas {
 
 dialog {
   border: none;
-  width: 800px;
-  height: 600px;
+  width: 850px;
+  height: 650px;
   border-radius: 15px;
   padding: 20px 
   
 }
 
-.add-income-heather {
+.add-income-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -188,12 +197,43 @@ dialog {
   opacity: 0.4;
 }
 
-.add-income-heather-title {
+.add-income-header-title {
   font-size: 22px;
   font-weight: 600;
 }
+
+.emoji-picker-grid {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.emoji-picker {
+  height: 35px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.emoji-element {
+  position: absolute;
+  top: 200px;
+}
+
+.pick-icon {
+  font-size: 20px;
+}
+
+.emoji-picked {
+  padding: 5px;
+  font-size: 25px;
+  width: 50px;
+  margin-left: 10px;
+}
+
+
 .input-grid {
-  margin-top: 100px;
+  margin-top: 50px;
 }
 .add-income-inputs  {
   margin-bottom: 40px;
@@ -203,8 +243,26 @@ dialog {
   text-align: right;
 }
 
+.add-income-button {
+  background-color: rgb(164, 223, 159);
+  color: rgb(27, 107, 20);
+  padding: 9px 14px;
+  border-radius: 6px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.add-income-button:hover {
+  opacity: 0.9
+}
+
+.add-income-button:active {
+  opacity: 0.7;
+}
 .add-income-button-submit {
-  background-color: rgb(103, 1, 199);
+  background-color: rgb(40, 119, 29);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -235,7 +293,9 @@ dialog {
 }
 
 .income-amount-input-alert,
-.income-date-input-alert {
+.income-date-input-alert, 
+.emoji-input-alert  {
   color: red;
   font-size: 13px;
 } 
+

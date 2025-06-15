@@ -27,19 +27,38 @@ export const myChart = new Chart(ctx, {
         }]
     },
     options: {
+      responsive: true,
+      maintainAspectRatio: false,
       scales: {
         x: {
           type: 'time',
           time: {
             unit: 'month',
           },
+          ticks: {
+            font: {
+              size: 13,
+              family: 'Arial'
+            }
+          }
         },
+        y: {
+          ticks: {
+            font: {
+              size: 15,
+              family: 'Arial'
+            }
+          }
+        }
       },
-        maintainAspectRatio: false,
-        responsive: true,
         plugins: {
           legend: {
-            position: 'top',
+            labels: {
+              font: {
+                size: 19,
+                family: 'Arial'
+              }
+            },
           },
           tooltip: {
             callbacks: {
@@ -50,7 +69,8 @@ export const myChart = new Chart(ctx, {
                 return `Amount: ${context.formattedValue}Kč`
               }
             }
-          }
+          },
+          
         },
     }
 });

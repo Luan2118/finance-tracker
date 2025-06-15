@@ -134,7 +134,7 @@ canvas {
 .expense-amount-minus {
   display: flex;
   align-items: center;
- background-color: rgb(192, 88, 74);
+  background-color: rgb(192, 88, 74);
   color: white;
   padding: 4px 10px;
   font-size: 13px;
@@ -161,7 +161,7 @@ dialog {
   
 }
 
-.add-expense-heather {
+.add-expense-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -182,7 +182,7 @@ dialog {
   opacity: 0.4;
 }
 
-.add-expense-heather-title {
+.add-expense-header-title {
   font-size: 22px;
   font-weight: 600;
 }
@@ -197,8 +197,26 @@ dialog {
   text-align: right;
 }
 
+.add-expense-button {
+  background-color: rgb(216, 167, 161);
+  color: rgb(146, 33, 33);
+  padding: 9px 14px;
+  border-radius: 6px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.add-expense-button:hover {
+  opacity: 0.9;
+}
+
+.add-expense-button:active {
+  opacity: 0.7;
+}
 .add-expense-button-submit {
-  background-color: rgb(103, 1, 199);
+  background-color: rgb(143, 35, 35);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -233,3 +251,4 @@ dialog {
   color: red;
   font-size: 13px;
 } 
+
