@@ -277,7 +277,8 @@ dialog {
 }
 
 .expense-amount-input-alert,
-.expense-date-input-alert {
+.expense-date-input-alert,
+.emoji-input-alert {
   color: red;
   font-size: 13px;
 } 

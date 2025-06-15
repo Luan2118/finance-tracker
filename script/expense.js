@@ -90,6 +90,10 @@ function submitExpense() {
         document.querySelector('.js-expense-amount-input-alert').innerHTML = '';
         document.querySelector('.js-expense-date-input-alert').innerHTML = '';
 
+        if (emoji === '') {
+          document.querySelector('.js-emoji-input-alert').innerHTML = '<p>Please pick an icon!</p>'
+          return;
+        }
         if (Number(amountValue) <= 0) {
           document.querySelector('.js-expense-amount-input-alert')
             .innerHTML = '<p>Amount has to be greater than 0!</p>'
