@@ -1,8 +1,6 @@
 import { incomeData, saveToStorageIncome, deleteIncome, updateDate, monthlyIncomeSummary } from "../data/incomeData.js";
 import { myChart,   } from "./chartJS/incomeChartJS.js";
-import textFieldEdit from 'https://cdn.jsdelivr.net/npm/text-field-edit@^4/index.js';
-
-
+import {iconPicker} from './utils/icon-picker.js'
 
 const dialog = document.getElementById('add-income-dialog')
 
@@ -15,35 +13,7 @@ document.querySelector('.js-add-income-popup-close')
   .addEventListener('click', () => {
     dialog.close();
   })
-
-  const emojiInput = document.getElementById('emoji-input')
-
-  emojiInput.addEventListener('keydown', (event) => {
-    const allowedKeys = [
-      'Backspace',
-    ];
-
-    if (!allowedKeys.includes(event.key)) {
-      event.preventDefault();
-    }
-  })
-
-
-document.querySelector('.js-emoji-picker')
-  .addEventListener('click', () => {
-    document.querySelector('.js-emoji-picker-element').innerHTML = '<emoji-picker class="emoji-element light"></emoji-picker'
-
-
-    document.querySelector('emoji-picker')
-      .addEventListener('emoji-click', (event) => {
-        document.getElementById('emoji-input').value = '';
-        document.querySelector('.js-emoji-picker-element').innerHTML = ''
-        textFieldEdit.insert(document.querySelector('.js-emoji-picked'), event.detail.unicode)
-      })
-  })
-
-
-
+iconPicker();
 
 const amountInput = document.getElementById('income-amount-input')
 
@@ -55,7 +25,7 @@ amountInput.addEventListener('input', (event) => {
 const incomeSourceInput = document.getElementById('income-source-input')
 
 incomeSourceInput.addEventListener('input', (event) => {
-  event.target.value = event.target.value.replace(/[^a-zA-Z]/g, '')
+  event.target.value = event.target.value.replace(/[^a-zA-Z\- ]/g, '')
 })
 
 generateHTML();

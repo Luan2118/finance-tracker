@@ -3,7 +3,7 @@ export let expenseData = JSON.parse(localStorage.getItem('expenseData')) || [{
   amountValue : 500,
   dateValue: '2025-01-17',
   id: crypto.randomUUID(),
-  emoji
+  emoji: ''
 }
 ]
 

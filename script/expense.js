@@ -1,9 +1,9 @@
 import { expenseData, saveToStorageExpenses, deleteExpense, updateDate, monthlyExpenseSummary } from "../data/expenseData.js";
 import { myChart } from "./chartJS/expenseChartJS.js";
-import textFieldEdit from 'https://cdn.jsdelivr.net/npm/text-field-edit@^4/index.js'
+import {iconPicker} from './utils/icon-picker.js'
+
 
 const dialog = document.getElementById('add-expense-dialog')
-
 
 document.querySelector('.js-add-expense-button')
   .addEventListener('click', () => {
@@ -16,22 +16,14 @@ document.querySelector('.js-add-expense-popup-close')
   })
 
 
-document.querySelector('.js-emoji-picker')
-  .addEventListener('click', () => {
-    document.querySelector('.js-emoji-picker-element').innerHTML = '<emoji-picker class="emoji-element light"></emoji-picker>'
 
-    document.querySelector('emoji-picker').addEventListener('emoji-click', e => {
-    document.getElementById('emoji-input').value = '';
-    document.querySelector('.js-emoji-picker-element').innerHTML = '';
-    textFieldEdit.insert(document.querySelector('input'), e.detail.unicode)
-  })
-  })
+iconPicker();
 
 
 const expenseSourceInput = document.getElementById('expense-source-input')
 
 expenseSourceInput.addEventListener('input', (event) => {
-  event.target.value = event.target.value.replace(/[^a-zA-Z]/g, '')
+  event.target.value = event.target.value.replace(/[^a-zA-Z\- ]/g, '')
 })
 
 const expenseAmountInput = document.getElementById('expense-amount-input')

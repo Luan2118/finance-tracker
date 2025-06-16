@@ -110,11 +110,6 @@ canvas {
   background-color: white;
   padding: 10px
 }
-.income-img {
-  width: 30px;
-  border-radius: 15px;
-}
-
 .income-info {
   display: flex;
   flex-direction: row;

@@ -1,6 +1,7 @@
-
-
-
+* {
+  box-sizing: border-box;
+  font-family: Arial;
+}
 
 .summary-grid {
   display: grid;
@@ -26,7 +27,8 @@
   margin-left: 10px;
 }
 .summary-img {
-  width: 50px;
+  width: 100%;
+  max-width: 50px;
   border-radius: 17px;
 }
 
@@ -50,7 +52,8 @@
 }
 
 .recent-transactions-grid {
-  height: 40px;
+  height: auto;
+  max-height: 40px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -91,10 +94,7 @@
   background-color: white;
   padding: 10px
 }
-.transactions-img {
-  width: 30px;
-  border-radius: 15px;
-}
+
 
 .transactions-info {
   display: flex;
@@ -137,11 +137,6 @@
   margin-top: 30px;
   min-width: 300px;
 }
-.pie-chart-img {
-  margin-top: 35px;
-  width: 300px;
-  background-color: transparent;
-} 
 
 .financial-overview-text {
   padding: 10px;
@@ -152,7 +147,7 @@
   height: 100%;
 }
 .pie-chart-summary{
-  width: 400px;
+  width: 100%;
   margin-left: 100px;
   display: flex;
   flex-direction: row;

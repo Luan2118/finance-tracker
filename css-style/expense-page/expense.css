@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: Arial;
 }
 
 .top-part {
@@ -95,10 +96,6 @@ canvas {
 .expense-img-grid {
   background-color: white;
   padding: 10px
-}
-.expense-img {
-  width: 30px;
-  border-radius: 15px;
 }
 
 .expense-info {
