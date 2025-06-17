@@ -9,10 +9,20 @@ document.querySelector('.js-add-income-button')
     dialog.showModal();
   })
 
-document.querySelector('.js-add-income-popup-close')
-  .addEventListener('click', () => {
+function handleClosePopUp(event) {
+  if (event.type === 'click') {
     dialog.close();
-  })
+  }
+
+  if (event.type === 'keydown' && event.key === 'Enter') {
+    event.preventDefault();
+  }
+}
+
+const popUpCloseButton = document.querySelector('.js-add-income-popup-close')
+
+popUpCloseButton.addEventListener('click', handleClosePopUp)
+popUpCloseButton.addEventListener('keydown', handleClosePopUp)
 
 
 iconPicker();

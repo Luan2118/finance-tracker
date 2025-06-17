@@ -10,10 +10,22 @@ document.querySelector('.js-add-expense-button')
     dialog.showModal();
   })
 
-document.querySelector('.js-add-expense-popup-close')
-  .addEventListener('click', () => {
+function handleClosePopUp(event) {
+  if (event.type === 'click') {
     dialog.close();
-  })
+  }
+
+  if (event.type === 'keydown' && event.key === 'Enter') {
+    event.preventDefault();
+  }
+}
+
+const popUpCloseButton = document.querySelector('.js-add-expense-popup-close')
+
+popUpCloseButton.addEventListener('click', handleClosePopUp)
+
+
+popUpCloseButton.addEventListener('keydown', handleClosePopUp)
 
 
 
@@ -30,6 +42,12 @@ const expenseAmountInput = document.getElementById('expense-amount-input')
 
 expenseAmountInput.addEventListener('input', (event) => {
   event.target.value = event.target.value.replace(/[^0-9]/g, '')
+})
+
+const dialogForm = document.querySelector('.js-add-expense-form')
+
+dialogForm.addEventListener('keydown', (event) => {
+  console.log(event.key)
 })
 
 
@@ -73,8 +91,8 @@ deleteExpenseButton();
 
 function submitExpense() {
   document.querySelectorAll('.js-add-expense-button-submit')
-    .forEach((click) => {
-      click.addEventListener('click', () => {
+    .forEach((event) => {
+      event.addEventListener('click', () => {
         const expenseSourceValue = document.querySelector('.js-expense-value').value;
         const amountValue = document.querySelector('.js-amount-value').value;
         const dateValue = document.querySelector('.js-date-value').value;
