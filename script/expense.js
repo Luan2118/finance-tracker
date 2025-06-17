@@ -106,9 +106,16 @@ function submitExpense() {
           document.querySelector('.js-emoji-input-alert').innerHTML = '<p>Please pick an icon!</p>'
           return;
         }
+
+        if (expenseSourceValue === '') {
+          document.querySelector('.js-expense-source-input-alert')
+            .innerHTML = "<p>Expense Source can't be empty!</p>"
+          return;
+        }
+        
         if (Number(amountValue) <= 0) {
           document.querySelector('.js-expense-amount-input-alert')
-            .innerHTML = '<p>Amount has to be greater than 0!</p>'
+            .innerHTML = "<p>Amount can't be empty and has to be greater than 0!</p>"
     
           return;
         }

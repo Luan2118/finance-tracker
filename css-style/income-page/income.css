@@ -142,6 +142,12 @@ canvas {
   opacity: 0;
 }
 
+@media (max-width: 830px) {
+  .income-delete-button {
+    opacity: 1
+  }
+}
+
 .income-delete-button:hover {
   opacity: 1
 }
@@ -300,7 +306,8 @@ dialog {
 
 .income-amount-input-alert,
 .income-date-input-alert, 
-.emoji-input-alert  {
+.emoji-input-alert,
+.income-source-input-alert  {
   color: red;
   font-size: 13px;
 } 

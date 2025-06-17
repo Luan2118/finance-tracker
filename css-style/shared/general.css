@@ -1,7 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
 
 body {
   background-color: rgb(250, 250, 250);
-  margin: 0;
   font-family: Arial;
   font-size: 18px;
   padding-left: 240px;
