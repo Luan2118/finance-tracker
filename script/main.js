@@ -152,7 +152,9 @@ const doughnutLabel ={
 
     const xCoor = chart.getDatasetMeta(0).data[0].x
     const yCoor = chart.getDatasetMeta(0).data[0].y
-    ctx.font = 'bold 25px Arial';
+    
+    const fontSize = Math.round(chart.height / 16);
+    ctx.font = `bold ${fontSize}px Arial`;
     ctx.fillStyle = 'black';
     ctx.textAlign = 'center';
     ctx.textBaseLine = 'middle';
@@ -182,9 +184,9 @@ const financialOverviewChart = new Chart(financialOverview, {
       legend: {
         position: 'bottom',
         labels: {
-          padding: 30,
+          padding: 10,
           font: {
-            size: 16,
+            size: 14,
             family: 'Arial'
           }
         }
@@ -316,13 +318,14 @@ const incomeDoughnutLabel = {
 
     const xCoor = chart.getDatasetMeta(0).data[0].x
     const yCoor = chart.getDatasetMeta(0).data[0].y
-
-    ctx.font = 'bold 18px Arial';
+    
+    const fontSize = Math.round(chart.height / 16);
+    ctx.font = `bold ${fontSize}px Arial`;
     ctx.fillStyle = 'black'
     ctx.textAlign = 'center';
     ctx.textBaseLine = 'middle'
     ctx.fillText('Total Income:', xCoor, yCoor - 10)
-    ctx.fillText(`${last60DaysIncomeSum} Kč`, xCoor, yCoor + 20)
+    ctx.fillText(`${last60DaysIncomeSum} Kč`, xCoor, yCoor + 10)
   }
 }
 
@@ -345,9 +348,10 @@ const incomeChart = new Chart(incomeCtx, {
       legend: {
         position: 'bottom',
         labels: {
-          padding: 30,
+          boxWidth: 35,
+          padding: 10,
           font: {
-            size: 15,
+            size: 14,
             family: 'Arial'
           }
         }

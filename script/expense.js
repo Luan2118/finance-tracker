@@ -36,7 +36,7 @@ expenseAmountInput.addEventListener('input', (event) => {
 
 generateHTML();
 submitExpense();
-deleteExpenseButton();
+
 
 
 function generateHTML() {
@@ -79,6 +79,7 @@ function submitExpense() {
         const amountValue = document.querySelector('.js-amount-value').value;
         const dateValue = document.querySelector('.js-date-value').value;
         const emoji = document.querySelector('.js-emoji-picked').value;
+        const id = crypto.randomUUID();
 
         document.querySelector('.js-expense-amount-input-alert').innerHTML = '';
         document.querySelector('.js-expense-date-input-alert').innerHTML = '';
@@ -104,23 +105,20 @@ function submitExpense() {
           expenseSourceValue,
           amountValue,
           dateValue,
-          id: crypto.randomUUID(),
+          id,
           emoji
         });
-
         
-        
-        saveToStorageExpenses();
-        updateDate();
-        generateHTML();
-
+        console.log(`Id: ${id}`)
         const monthlySum = monthlyExpenseSummary();
 
         myChart.data.labels = Object.keys(monthlySum);
         myChart.data.datasets[0].data = Object.values(monthlySum);
         myChart.update()
 
-        
+        saveToStorageExpenses();
+        updateDate();
+        generateHTML();
         
         dialog.close();
       })
@@ -133,8 +131,11 @@ function deleteExpenseButton () {
   .forEach((button) => {
     button.addEventListener('click', () => {
       const deleteExpenseId = button.dataset.id;
+
+      console.log(`Delete ID: ${deleteExpenseId}`)
       deleteExpense(deleteExpenseId);
 
+      saveToStorageExpenses();
 
       const monthlySum = monthlyExpenseSummary();
 
@@ -142,7 +143,7 @@ function deleteExpenseButton () {
       myChart.data.datasets[0].data = Object.values(monthlySum);
       myChart.update()
       
-      saveToStorageExpenses();
+      
       generateHTML();
     })
   })

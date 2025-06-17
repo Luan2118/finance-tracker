@@ -13,6 +13,8 @@ document.querySelector('.js-add-income-popup-close')
   .addEventListener('click', () => {
     dialog.close();
   })
+
+
 iconPicker();
 
 const amountInput = document.getElementById('income-amount-input')
@@ -30,7 +32,7 @@ incomeSourceInput.addEventListener('input', (event) => {
 
 generateHTML();
 submitIncome();
-deleteButton();
+
 
 
 function generateHTML() {
@@ -74,8 +76,8 @@ function submitIncome() {
       const amountValue = document.querySelector('.js-amount-value').value;
       const dateValue = document.querySelector('.js-date-value').value;
       const emoji = document.querySelector('.js-emoji-picked').value
-
-      console.log(emoji)
+      const id= crypto.randomUUID();
+    
       
       document.querySelector('.js-income-amount-input-alert').innerHTML = '';
       document.querySelector('.js-income-date-input-alert').innerHTML = '';
@@ -101,14 +103,10 @@ function submitIncome() {
       incomeSourceValue: incomeSourceValue,
       amountValue: amountValue,
       dateValue: dateValue,
-      id: crypto.randomUUID(),
+      id,
       emoji
       })
       
-      saveToStorageIncome();
-     
-      updateDate();
-      generateHTML();
 
       const monthlySums = monthlyIncomeSummary();
 
@@ -119,7 +117,10 @@ function submitIncome() {
       
       dialog.close();
       
-      
+      saveToStorageIncome();
+     
+      updateDate();
+      generateHTML();
 
 
     });
@@ -135,7 +136,7 @@ document.querySelectorAll('.js-income-delete-button')
 
       deleteIncome (deleteButtonId);
       
-
+      saveToStorageIncome();
       const monthlySums = monthlyIncomeSummary();
 
       myChart.data.labels = Object.keys(monthlySums)
@@ -143,8 +144,7 @@ document.querySelectorAll('.js-income-delete-button')
 
       myChart.update()
 
-      saveToStorageIncome();
-
+      
       generateHTML();
       
     })
