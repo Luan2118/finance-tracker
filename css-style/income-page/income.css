@@ -8,14 +8,22 @@
   border-radius: 15px;
   padding: 20px;
   min-width: 340px;
+  margin-top: 80px;
+  margin-left: 240px;
   
 }
 
 .bottom-part {
   min-width: 340px;
-
+  margin-left: 240px;
 }
 
+@media (max-width: 940px) {
+  .top-part,
+  .bottom-part{
+    margin-left: 0;
+  }
+}
 
 
 .income-chart-grid {

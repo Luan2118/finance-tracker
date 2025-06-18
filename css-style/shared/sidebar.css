@@ -1,11 +1,16 @@
 .sidebar {
   position: fixed;
-  width: 220px;
+  max-width: 220px;
   background-color: white;
-  top: 50px;
+  top: 63px;
   left: 0;
   height: 100%;
+}
 
+@media (max-width: 940px) {
+  .sidebar {
+    display: none;
+  }
 }
 
 .side-bar-link {
@@ -13,7 +18,8 @@
   justify-content: space-between, center;
   align-items: center;
   margin-bottom: 20px;
-  margin-left: 40px;
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 
@@ -27,7 +33,7 @@
 }
 
 .profile-picture {
-  width: 70px;
+  max-width: 70px;
   border-radius: 35px;
 }
 
@@ -36,9 +42,9 @@
 }
 
 .sidebar-icon {
-  width: 25px;
+  max-width: 25px;
 }
 
 .side-bar-text {
-  margin-left: 12px;  
+  padding-left: 1rem; 
 }
