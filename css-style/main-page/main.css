@@ -5,16 +5,11 @@
 
 .summary-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(430px, 1fr));
+  row-gap: 20px;
   column-gap: 20px;
 }
 
-@media (max-width: 830px) {
-  .summary-grid {
-    grid-template-columns: 1fr;
-    row-gap: 20px;
-  }
-}
 .summary-inner-grid {
   display: flex;
   flex-direction: row; 
@@ -52,7 +47,7 @@
 }
 
 .recent-transactions-grid {
-  height: auto;
+
   max-height: 40px;
   display: flex;
   flex-direction: row;
