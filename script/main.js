@@ -1,30 +1,9 @@
 import { expenseData, saveToStorageExpenses, monthlyExpenseSummary } from "../data/expenseData.js";
 import { incomeData, saveToStorageIncome,monthlyIncomeSummary } from "../data/incomeData.js";
 import { sharedData } from "../data/sharedData.js";
+import { menuIcon } from "./utils/menuIcon.js";
 
-
-
-  const menuIconBox = document.getElementById('menu-icon-box')
-  
-  const originalHTML = menuIconBox.innerHTML;
-  const changedHTML = '<img class="menu-icon js-menu-icon" src="icons/menu-close-icon.png"></img>'
-
-
-  menuIconBox.addEventListener('click', () => {
-    console.log(menuIconBox.innerHTML)
-
-    if(menuIconBox.innerHTML === originalHTML) {
-      sidebar.style.display = 'block';
-      menuIconBox.innerHTML = changedHTML;
-      console.log(menuIconBox.innerHTML)
-    } else {
-      menuIconBox.innerHTML = originalHTML;
-      console.log(changedHTML)
-      sidebar.style.display = 'none';
-    }
-  })
-
-
+menuIcon();
 
 
 const monthlyIncomeSum = monthlyIncomeSummary();

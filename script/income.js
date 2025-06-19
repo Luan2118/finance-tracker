@@ -1,17 +1,22 @@
 import { incomeData, saveToStorageIncome, deleteIncome, updateDate, monthlyIncomeSummary } from "../data/incomeData.js";
 import { myChart,   } from "./chartJS/incomeChartJS.js";
 import {iconPicker} from './utils/icon-picker.js'
+import { menuIcon } from "./utils/menuIcon.js";
+
+menuIcon();
 
 const dialog = document.getElementById('add-income-dialog')
 
 document.querySelector('.js-add-income-button')
   .addEventListener('click', () => {
     dialog.showModal();
+    document.body.style.overflow = 'hidden';
   })
 
 function handleClosePopUp(event) {
   if (event.type === 'click') {
     dialog.close();
+    document.body.style.overflow = '';
   }
 
   if (event.type === 'keydown' && event.key === 'Enter') {

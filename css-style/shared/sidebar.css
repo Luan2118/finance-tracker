@@ -2,6 +2,8 @@
   position: fixed;
   max-width: 220px;
   background-color: white;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   top: 63px;
   left: 0;
   height: 100%;
@@ -12,6 +14,8 @@
     display: none;
   }
 }
+
+
 
 .side-bar-link {
   display: flex;
@@ -47,4 +51,16 @@
 
 .side-bar-text {
   padding-left: 1rem; 
+}
+
+@media (max-width: 350px) {
+  .sidebar {
+    max-width: 180px;
+  }
+
+  .side-bar-link {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
 }

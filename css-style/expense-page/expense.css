@@ -5,6 +5,8 @@
 
 .top-part {
   background-color: white;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border-radius: 15px;
   padding: 20px;
   min-width: 340px;
@@ -15,6 +17,9 @@
 .bottom-part {
   min-width: 340px;
   margin-left: 240px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-radius: 15px;
 }
 
 @media (max-width: 940px) {
@@ -71,6 +76,7 @@ canvas {
   flex-direction: row;
   justify-content: space-between;
   padding: 8px;
+  margin-bottom: 15px;
 }
 
 .see-all-button {

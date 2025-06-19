@@ -1,7 +1,9 @@
 import { expenseData, saveToStorageExpenses, deleteExpense, updateDate, monthlyExpenseSummary } from "../data/expenseData.js";
 import { myChart } from "./chartJS/expenseChartJS.js";
 import {iconPicker} from './utils/icon-picker.js'
+import { menuIcon } from "./utils/menuIcon.js";
 
+menuIcon();
 
 const dialog = document.getElementById('add-expense-dialog')
 
