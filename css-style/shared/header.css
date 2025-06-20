@@ -1,5 +1,7 @@
 .header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -18,6 +20,32 @@
   cursor: pointer;
 }
 
+.currency-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.dropdown {
+  margin-right: 20px;
+}
+
+.dropdown-arrow-icon {
+  height: 20px;
+  margin-left: 5px;
+  cursor: pointer;  
+}
+
+.options {
+  position: absolute;
+  background-color: rgb(245, 245, 245);
+  display: none;
+}
+
+.option {
+  font-size: 12px;
+  padding: 5px;
+}
 @media (max-width: 940px) {
   .menu-icon {
     display: block;

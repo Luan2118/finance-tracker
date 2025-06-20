@@ -13,16 +13,13 @@ export function menuIcon() {
 
   menuIconBox.addEventListener('click', () => {
 
-
     if(menuIconBox.innerHTML === originalHTML) {
       sidebar.style.display = 'block';
       document.body.style.overflow = 'hidden';
       menuIconImg.src = changedImg;
-      //menuIconBox.innerHTML = changedHTML;
 
 
     } else {
-      //menuIconBox.innerHTML = originalHTML;
       sidebar.style.display = 'none';
       document.body.style.overflow = '';
       menuIconImg.src = originalImg;

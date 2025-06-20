@@ -3,7 +3,53 @@ import { incomeData, saveToStorageIncome,monthlyIncomeSummary } from "../data/in
 import { sharedData } from "../data/sharedData.js";
 import { menuIcon } from "./utils/menuIcon.js";
 
+
+
+
 menuIcon();
+
+const dropDownIconBtn = document.getElementById('drop-down-icon')
+
+const iconSrc = document.querySelector('#drop-down-box img')
+const dropDownIcon = 'icons/dropdown-arrow-icon.png';
+const dropUpIcon = 'icons/dropup-arrow-icon.png';
+
+const currencyOptions = document.getElementById('options')
+
+dropDownIconBtn.addEventListener('click', () => {
+  if (iconSrc.src.includes(dropDownIcon)) {
+    iconSrc.src = dropUpIcon;
+    currencyOptions.style.display = 'block';
+  }else {
+    iconSrc.src = dropDownIcon;
+    currencyOptions.style.display = '';
+  }
+})
+
+
+exchangeCurreny(25, 'CZK', 'USD'); 
+
+const baseCurrency = 'CZK'
+
+async function exchangeCurreny(amount, from, to) {
+  try {
+    const response = await fetch("https://api.frankfurter.app/latest?from=USD");
+    const data =  await response.json();
+
+    console.log(data.rates[to])
+    const result = `${amount * (data.amount / data.rates[from])}`
+
+    console.log(data)
+    console.log(result)
+  }
+  catch (error) {
+    console.error(error)
+  }
+}
+
+
+
+
 
 
 const monthlyIncomeSum = monthlyIncomeSummary();
@@ -373,5 +419,4 @@ const incomeChart = new Chart(incomeCtx, {
   },
   plugins: [incomeDoughnutLabel]
 })
-
 
