@@ -2,6 +2,7 @@ import { incomeData, saveToStorageIncome, deleteIncome, updateDate, monthlyIncom
 import { myChart,   } from "./chartJS/incomeChartJS.js";
 import {iconPicker} from './utils/icon-picker.js'
 import { menuIcon } from "./utils/menuIcon.js";
+import { getSymbol } from "./utils/currencySymbols.js";
 
 menuIcon();
 
@@ -51,7 +52,9 @@ submitIncome();
 
 
 function generateHTML() {
+  const currencySymbol = getSymbol(incomeData);
   let dataHTML = '';
+
   incomeData.forEach((dataObject) => {
 
   const {incomeSourceValue, amountValue, dateValue, id, emoji } = dataObject;
@@ -68,7 +71,7 @@ function generateHTML() {
 
         <div class="income-right-side">
           <div class="income-delete-button-grid"><button class="income-delete-button js-income-delete-button" data-id="${id}"><img class="delete-icon" src=../icons/bin-icon.png></button></div>
-          <div class="income-amount-plus">+${amountValue} Kč</div>
+          <div class="income-amount-plus">+${currencySymbol !== 'Kč' ? currencySymbol: ''}${amountValue} ${currencySymbol === 'Kč' ? currencySymbol: ''}</div>
         </div>
       </div>
       </div>
@@ -120,9 +123,10 @@ function submitIncome() {
       }
 
       incomeData.push({
-      incomeSourceValue: incomeSourceValue,
-      amountValue: amountValue,
-      dateValue: dateValue,
+      incomeSourceValue,
+      amountValue,
+      currency: 'CZK',
+      dateValue,
       id,
       emoji
       })
