@@ -13,6 +13,10 @@
   padding: 20px;
 }
 
+.menu-box {
+  display: flex;
+}
+
 .menu-icon {
   display: none;
   height: 20px;

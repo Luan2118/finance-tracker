@@ -2,6 +2,7 @@ import { expenseData, saveToStorageExpenses, deleteExpense, updateDate, monthlyE
 import { myChart } from "./chartJS/expenseChartJS.js";
 import {iconPicker} from './utils/icon-picker.js'
 import { menuIcon } from "./utils/menuIcon.js";
+import {getSymbol} from './utils/currencySymbols.js'
 
 menuIcon();
 
@@ -48,40 +49,44 @@ expenseAmountInput.addEventListener('input', (event) => {
 
 const dialogForm = document.querySelector('.js-add-expense-form')
 
-dialogForm.addEventListener('keydown', (event) => {
-  console.log(event.key)
-})
-
 
 
 generateHTML();
 submitExpense();
 
+console.log(expenseData)
+
+
+
 
 
 function generateHTML() {
-let dataHTML = '';
+  const currencySymbol = getSymbol(expenseData);
 
-expenseData.forEach((dataObject) => {
-  const html = `
-    <div class="each-expense">
-      <div class="expense-info-inner-grid">
-      <div class="expense-img-grid">${dataObject.emoji}</div>
-      <div class="expense-info">
-        <div>
-          <div>${dataObject.expenseSourceValue}</div>
-          <div class="expense-date">${dataObject.dateValue}</div>
+  let dataHTML = '';
+
+  expenseData.forEach((dataObject) => {
+    const html = `
+      <div class="each-expense">
+        <div class="expense-info-inner-grid">
+        <div class="expense-img-grid">${dataObject.emoji}</div>
+        <div class="expense-info">
+          <div>
+            <div>${dataObject.expenseSourceValue}</div>
+            <div class="expense-date">${dataObject.dateValue}</div>
+          </div>
+          
+          <div class="expense-right-side">
+            <div class="expense-delete-button-grid"><button class="expense-delete-button js-expense-delete-button" data-id="${dataObject.id}"><img class="delete-icon" src=../icons/bin-icon.png></button></div>
+            <div class="expense-amount-minus">-${currencySymbol !== 'Kč' ? [currencySymbol] : ''}${dataObject.amountValue} 
+            ${currencySymbol === 'Kč' ? [currencySymbol] : ''}
+            </div>
+          </div>
         </div>
-        
-        <div class="expense-right-side">
-          <div class="expense-delete-button-grid"><button class="expense-delete-button js-expense-delete-button" data-id="${dataObject.id}"><img class="delete-icon" src=../icons/bin-icon.png></button></div>
-          <div class="expense-amount-minus">-${dataObject.amountValue} Kč</div>
         </div>
       </div>
-      </div>
-    </div>
-  `
-  dataHTML += html;
+    `
+    dataHTML += html;
 })
 
 document.querySelector('.js-each-expense-grid')
@@ -131,12 +136,12 @@ function submitExpense() {
         expenseData.push({
           expenseSourceValue,
           amountValue,
+          currency: 'CZK',
           dateValue,
           id,
           emoji
         });
         
-        console.log(`Id: ${id}`)
         const monthlySum = monthlyExpenseSummary();
 
         myChart.data.labels = Object.keys(monthlySum);
@@ -159,7 +164,6 @@ function deleteExpenseButton () {
     button.addEventListener('click', () => {
       const deleteExpenseId = button.dataset.id;
 
-      console.log(`Delete ID: ${deleteExpenseId}`)
       deleteExpense(deleteExpenseId);
 
       saveToStorageExpenses();
