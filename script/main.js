@@ -2,7 +2,7 @@ import { expenseData, saveToStorageExpenses, monthlyExpenseSummary } from "../da
 import { incomeData, saveToStorageIncome,monthlyIncomeSummary } from "../data/incomeData.js";
 import { sharedData } from "../data/sharedData.js";
 import { menuIcon } from "./utils/menuIcon.js";
-import { getSymbol } from "./utils/currencySymbols.js";
+import {getSymbol, formatCurrency} from './utils/currencySymbols.js'
 
 
 
@@ -10,7 +10,8 @@ menuIcon();
 
 document.querySelector('.js-currency').innerHTML = sharedData[0].currency
 
-const currencySymbol = getSymbol(sharedData)
+let symbol = getSymbol(sharedData);
+
 
 const dropDownIconBtn = document.getElementById('drop-down-icon')
 
@@ -30,10 +31,12 @@ dropDownIconBtn.addEventListener('click', () => {
   }
 })
 
+
+
 currencyOptions.addEventListener('change', (event) => {
+      iconSrc.src = dropDownIcon;
       const inputCurrencyId = event.target.id
       exchangeCurrency(sharedData, inputCurrencyId)
-      iconSrc.src = dropDownIcon;
       currencyOptions.style.display = 'none';
       document.querySelector('.js-currency').innerHTML = `${inputCurrencyId}`
       
@@ -63,7 +66,6 @@ async function exchangeCurrency(sharedData, to) {
     }))
     const from = sharedData.map(item => item.currency)
 
-    
     if (from === 'USD') {
       return;
 
@@ -93,6 +95,14 @@ async function exchangeCurrency(sharedData, to) {
           
         }
       })
+      
+      
+
+      sharedData.forEach((item, i) => {
+        item.amountValue = convertedAmountAndType[i].amountValue;
+        item.currency = convertedAmountAndType[i].currency;
+        item.type = convertedAmountAndType[i].type
+      });
 
       convertedAmountAndType.forEach((amount) => {
         if(amount.type ==='income') {
@@ -114,24 +124,30 @@ async function exchangeCurrency(sharedData, to) {
           })
            saveToStorageExpenses();
         }
-
-        setTimeout(() => {
-          menuIcon();
-          displayMonthlyIncomeSummary();
-          displayMonthlyExpenseSummary();
-          displayTotalBalance();
-          displayRecentTransactions();
-          displayExpenses();
-          displayIncome();
-        }, 200)
-
       })
+
+      financialOverviewChart.data.datasets[0].data = [getTotalBalance(), getMonthlyIncomeSum(), getMonthlyExpenseSum()]
+      let filteredIncomeData = filteredIncome();
+      incomeChart.data.datasets[0].data = filteredIncomeData.map(item => item.amountValue)
+
     }
+    symbol  = getSymbol(sharedData);
+    menuIcon();
+    displayMonthlyIncomeSummary();
+    displayMonthlyExpenseSummary();
+    displayTotalBalance();
+    displayRecentTransactions();
+    displayExpenses();
+    displayIncome();
+    financialOverviewChart.update();
+    incomeChart.update();
+
   }
   catch (error) {
     console.error(error)
   }
 }
+
 
 
 displayMonthlyIncomeSummary();
@@ -151,9 +167,9 @@ function getMonthlyIncomeSum() {
 
 function displayMonthlyIncomeSummary() {
   const monthlyIncomeResult = getMonthlyIncomeSum();
-  document.querySelector('.js-income-header-summary').innerHTML = `+${currencySymbol !== 'Kč' ? currencySymbol : ''}${monthlyIncomeResult} ${currencySymbol === 'Kč' ? currencySymbol : ''}`
-  
+  document.querySelector('.js-income-header-summary').innerHTML = `+${formatCurrency(monthlyIncomeResult, symbol)}` 
 }
+
 
 function getMonthlyExpenseSum() {
   const monthlyExpenseSum = monthlyExpenseSummary();
@@ -169,7 +185,7 @@ function getMonthlyExpenseSum() {
 
 function displayMonthlyExpenseSummary() {
   const monthlyExpenseResult = getMonthlyExpenseSum()
-  document.querySelector('.js-expense-header-summary').innerHTML = `-${currencySymbol !== 'Kč' ? currencySymbol : ''}${monthlyExpenseResult} ${currencySymbol === 'Kč' ? currencySymbol : ''}`
+  document.querySelector('.js-expense-header-summary').innerHTML = `-${formatCurrency(monthlyExpenseResult, symbol)}`
 }
 
 function getTotalBalance() {
@@ -182,9 +198,10 @@ function getTotalBalance() {
   return totalBalance;
 }
 
+
 function displayTotalBalance() {
   const totalBalance = getTotalBalance();
-  const formattedBalance = `${totalBalance >= 0 ? '+' : ''}${currencySymbol !== 'Kč' ? currencySymbol : ''}${totalBalance} ${currencySymbol === 'Kč' ? currencySymbol : ''}`
+  const formattedBalance = `${totalBalance >= 0 ? '+' : ''}${formatCurrency(totalBalance, symbol)}`
   document.querySelector('.js-total-balance-header-summary')
     .innerHTML = `${formattedBalance}`
 }
@@ -200,7 +217,6 @@ displayIncome();
 
 
 function displayRecentTransactions() {
-
   let sharedDataHTML = '';
 
   for (let i = 0 ; i < sharedData.length && i < 8;  i++) {
@@ -216,7 +232,7 @@ function displayRecentTransactions() {
               <div class="transactions-date">${sharedData[i].dateValue}</div>
             </div>
             
-            <div class="transactions-amount-minus">-${currencySymbol !== 'Kč' ? currencySymbol: ''}${sharedData[i].amountValue} ${currencySymbol === 'Kč' ? currencySymbol : ''}</div>
+            <div class="transactions-amount-minus">-${formatCurrency(sharedData[i].amountValue, symbol)}</div>
           </div>
         </div>
       `
@@ -232,7 +248,7 @@ function displayRecentTransactions() {
               <div class="transactions-date">${sharedData[i].dateValue}</div>
             </div>
             
-            <div class="transactions-amount-plus">+${currencySymbol !== 'Kč' ? currencySymbol: ''}${sharedData[i].amountValue} ${currencySymbol === 'Kč' ? currencySymbol : ''}</div>
+            <div class="transactions-amount-plus">+${formatCurrency(sharedData[i].amountValue, symbol)} </div>
           </div>
         </div>
       `
@@ -257,7 +273,7 @@ function displayExpenses() {
             <div class="transactions-date">${expenseData[i].dateValue}</div>
           </div>
           
-          <div class="transactions-amount-minus">-${currencySymbol !== 'Kč' ? currencySymbol: ''}${expenseData[i].amountValue} ${currencySymbol === 'Kč' ? currencySymbol : ''}</div>
+          <div class="transactions-amount-minus">-${formatCurrency(expenseData[i].amountValue, symbol)} </div>
         </div>
       </div>  
     `
@@ -283,7 +299,7 @@ function displayIncome() {
             <div class="transactions-date">${incomeData[i].dateValue}</div>
           </div>
           
-          <div class="transactions-amount-plus">+${currencySymbol !== 'Kč' ? currencySymbol: ''}${incomeData[i].amountValue} ${currencySymbol === 'Kč' ? currencySymbol : ''}</div>
+          <div class="transactions-amount-plus">+${formatCurrency(incomeData[i].amountValue, symbol)} </div>
         </div>
       </div>
     `
@@ -292,12 +308,16 @@ function displayIncome() {
   document.querySelector('.js-income-transactions-info-grid').innerHTML = incomeDataHTML;
 }
 
-renderFinancialOverviewChart();
 
-function renderFinancialOverviewChart() {
+
   const labels = ['Total Balance', 'Total Income', 'Total Expenses']
 
-  const data = [getTotalBalance(), getMonthlyIncomeSum(), getMonthlyExpenseSum()]
+  const totalBalance = getTotalBalance();
+  const monthlyIncomeResult = getMonthlyIncomeSum();
+  const monthlyExpenseResult = getMonthlyExpenseSum()
+
+ 
+  const data = [totalBalance, monthlyIncomeResult, monthlyExpenseResult]
 
 
   const financialOverview = document.getElementById('financial-overview-chart')
@@ -315,10 +335,12 @@ function renderFinancialOverviewChart() {
       ctx.font = `bold ${fontSize}px Arial`;
       ctx.fillStyle = 'black';
       ctx.textAlign = 'center';
-      ctx.textBaseLine = 'middle';
+      ctx.textBaseline = 'middle';
       ctx.fillText(`${data.labels[0]}:`, xCoor, yCoor - 10)
       
-      ctx.fillText(`${currencySymbol !== 'Kč' ? currencySymbol : ''}${data.datasets[0].data[0]} ${currencySymbol === 'Kč' ? currencySymbol : ''}`, xCoor, yCoor + 20)
+      const total = getTotalBalance();
+      ctx.fillText(`${formatCurrency(total, symbol)} `, xCoor, yCoor + 20)
+      
     }
   }
 
@@ -355,11 +377,11 @@ function renderFinancialOverviewChart() {
             label: (context) => {
 
               if (context.label === 'Total Income') {
-                return `Amount: + ${currencySymbol !== 'Kč' ? currencySymbol : ''}${context.formattedValue} ${currencySymbol === 'Kč' ? currencySymbol : ''}`
+                return `Amount: + ${formatCurrency(context.formattedValue, symbol)} `
               }else if (context.label === 'Total Expenses') {
-                return  `Amount: -${currencySymbol !== 'Kč' ? currencySymbol : ''}${context.formattedValue} ${currencySymbol === 'Kč' ? currencySymbol : ''}`
+                return  `Amount: -${formatCurrency(context.formattedValue, symbol)}`
               }else {
-                return `Amount: ${currencySymbol !== 'Kč' ? currencySymbol : ''}${context.formattedValue} ${currencySymbol === 'Kč' ? currencySymbol : ''}`
+                return `Amount:${formatCurrency(context.formattedValue, symbol)} }`
               }
             }
           }
@@ -369,7 +391,7 @@ function renderFinancialOverviewChart() {
     plugins: [doughnutLabel]
       
   })
-}
+
 
 renderExpenseChart();
 
@@ -438,9 +460,9 @@ function renderExpenseChart() {
   })
 }
 
-renderIncomeChart();
 
-function renderIncomeChart() {
+
+
   const incomeCtx = document.getElementById('main-page-income-chart')
 
 
@@ -451,7 +473,10 @@ function renderIncomeChart() {
   const yearMonthLast60 = `${last60.getFullYear()}-${String(last60.getMonth() + 1).padStart(2, '0')}`
 
 
-  const filteredIncomeData = incomeData.filter(item => {
+
+
+function filteredIncome() {
+    const filteredIncomeData = incomeData.filter(item => {
     const yearMonth = item.dateValue.substring(0, 7)
     return yearMonth <= yearMonthToday && yearMonth >= yearMonthLast60
   })
@@ -461,11 +486,24 @@ function renderIncomeChart() {
     amountValue: item.amountValue
   }))
 
+  return filteredIncomeData;
+}
+
+
+  let filteredIncomeData = filteredIncome();
+
+function incomeLast60DaysSum() {
+  filteredIncomeData = filteredIncome();
   const last60DaysIncomeSum = filteredIncomeData.reduce((sum, item) => {
-    const result = sum + Number(item.amountValue);
+  const result = sum + Number(item.amountValue);
     return result;
   }, 0)
 
+  return last60DaysIncomeSum;
+}
+
+
+  let last60DaysIncome = incomeLast60DaysSum();
 
 
   const incomeChartLabels = filteredIncomeData.map(item => item.incomeSourceValue);
@@ -487,7 +525,11 @@ function renderIncomeChart() {
       ctx.textAlign = 'center';
       ctx.textBaseLine = 'middle'
       ctx.fillText('Total Income:', xCoor, yCoor - 10)
-      ctx.fillText(`${currencySymbol !== 'Kč' ? currencySymbol : ''}${last60DaysIncomeSum} ${currencySymbol === 'Kč' ? currencySymbol : ''}`, xCoor, yCoor + 10)
+
+      
+      const income = incomeLast60DaysSum();
+
+      ctx.fillText(`${formatCurrency(income, symbol)} `, xCoor, yCoor + 10)
     }
   }
 
@@ -527,7 +569,7 @@ function renderIncomeChart() {
               return item.incomeSourceValue
             },
             label: (context) => {
-              return `Amount: ${currencySymbol !== 'Kč' ? currencySymbol : ''}${context.formattedValue} ${currencySymbol === 'Kč' ? currencySymbol : ''}`
+              return `Amount: ${formatCurrency(context.formattedValue, symbol)}`
             }
           }
         }
@@ -536,4 +578,3 @@ function renderIncomeChart() {
     plugins: [incomeDoughnutLabel]
   })
 
-}
