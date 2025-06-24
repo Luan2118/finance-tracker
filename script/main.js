@@ -45,7 +45,7 @@ currencyOptions.addEventListener('change', (event) => {
 
 async function exchangeCurrency(sharedData, to) {
   try {
-    const response = await fetch("https://v6.exchangerate-api.com/v6/API_KEY/latest/USD");
+    const response = await fetch("https://api.frankfurter.dev/v1/latest?base=CAD");
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -55,24 +55,19 @@ async function exchangeCurrency(sharedData, to) {
     const data =  await response.json();
 
    
-    if (data.result !== 'success') {
-      throw new Error('API returned failure:', data);
-      return;
-    }
+    console.log(data)
 
     const amountsAndType = sharedData.map(item => ({
       amounValue: item.amountValue,
       type: item.type
     }))
+
     const from = sharedData.map(item => item.currency)
 
-    if (from === 'USD') {
-      return;
-
-    }else {
       const amountsInUSDAndType = amountsAndType.map((item, i) => {
+
         const fromCurrencies = from[i]
-        const convertedToUSD =  item.amounValue / data.conversion_rates[fromCurrencies]
+        const convertedToUSD =  item.amounValue / data.rates[fromCurrencies]
 
         return {
           amountValue: convertedToUSD,
@@ -82,10 +77,10 @@ async function exchangeCurrency(sharedData, to) {
       })
 
 
-      const rate = data.conversion_rates[to]
+      const rate = data.rates[to]
       
       const convertedAmountAndType = amountsInUSDAndType.map((item, i) => {
-        const convertedAmounts = Number(item.amountValue * rate).toFixed(2)
+        const convertedAmounts = to === 'CZK' ? Math.round(item.amountValue * rate) : Number(item.amountValue * rate).toFixed(2)
         const convertedCurrency = Array(amountsAndType.length).fill(to)
 
         return {
@@ -130,7 +125,7 @@ async function exchangeCurrency(sharedData, to) {
       let filteredIncomeData = filteredIncome();
       incomeChart.data.datasets[0].data = filteredIncomeData.map(item => item.amountValue)
 
-    }
+    
     symbol  = getSymbol(sharedData);
     menuIcon();
     displayMonthlyIncomeSummary();
@@ -192,18 +187,23 @@ function getTotalBalance() {
   const monthlyIncomeResult = getMonthlyIncomeSum();
   const monthlyExpenseResult = getMonthlyExpenseSum()
 
-  const totalBalance = Number(monthlyIncomeResult - monthlyExpenseResult).toFixed(2) 
+  const result = Number(monthlyIncomeResult - monthlyExpenseResult).toFixed(2) 
 
-
-  return totalBalance;
+  if (result < 0) {
+    const  formattedResult = result.slice(1)
+    const totalBalance = `${formattedResult < 0 ? '-' : ''}${formatCurrency(formattedResult, symbol)}`
+    return totalBalance;
+  }else {
+    return formatCurrency(result, symbol);
+    return result;
+  }
 }
 
 
 function displayTotalBalance() {
   const totalBalance = getTotalBalance();
-  const formattedBalance = `${totalBalance >= 0 ? '+' : ''}${formatCurrency(totalBalance, symbol)}`
   document.querySelector('.js-total-balance-header-summary')
-    .innerHTML = `${formattedBalance}`
+    .innerHTML = `${totalBalance}`
 }
 
 
@@ -316,6 +316,7 @@ function displayIncome() {
   const monthlyIncomeResult = getMonthlyIncomeSum();
   const monthlyExpenseResult = getMonthlyExpenseSum()
 
+
  
   const data = [totalBalance, monthlyIncomeResult, monthlyExpenseResult]
 
@@ -339,7 +340,7 @@ function displayIncome() {
       ctx.fillText(`${data.labels[0]}:`, xCoor, yCoor - 10)
       
       const total = getTotalBalance();
-      ctx.fillText(`${formatCurrency(total, symbol)} `, xCoor, yCoor + 20)
+      ctx.fillText(total, xCoor, yCoor + 20)
       
     }
   }
@@ -499,7 +500,7 @@ function incomeLast60DaysSum() {
     return result;
   }, 0)
 
-  return last60DaysIncomeSum;
+  return last60DaysIncomeSum.toFixed(2);
 }
 
 
