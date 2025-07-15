@@ -26,9 +26,5 @@ const expenseSchema = new mongoose.Schema({
   }
 })
 
-expenseSchema.virtual('dateOnly').get(function() {
-  return this.dateValue.toISOString().substring(0, 10);
-});
-
 
 export default mongoose.model('Expense', expenseSchema);

@@ -71,7 +71,7 @@ async function generateHTML() {
           </div>
           
           <div class="expense-right-side">
-            <div class="expense-delete-button-grid"><button class="expense-delete-button js-expense-delete-button" data-id="${dataObject._id}"><img class="delete-icon" src="../icons/bin-icon.png"></button></div>
+            <div class="expense-delete-button-grid"><button class="expense-delete-button js-expense-delete-button" data-id="${dataObject._id}"><img class="delete-icon" src="./icons/bin-icon.png"></button></div>
             <div class="expense-amount-minus">-${currencySymbol !== 'Kč' ? [currencySymbol] : ''}${dataObject.amountValue} 
             ${currencySymbol === 'Kč' ? [currencySymbol] : ''}
             </div>

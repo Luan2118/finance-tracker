@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import expensesRouter from './routes/expenses.js'
+import incomeRouter from './routes/income.js'
 import cors from 'cors';
 
 const PORT = process.env.PORT;
@@ -14,7 +15,7 @@ server.use(cors());
 server.use(express.json());
 
 server.use('/expenses', expensesRouter)
-
+server.use('/income', incomeRouter)
 
 
 server.listen(PORT, () => {

@@ -1,5 +1,5 @@
-import { expenseData, saveToStorageExpenses, monthlyExpenseSummary } from "../data/expenseData.js";
-import { incomeData, saveToStorageIncome,monthlyIncomeSummary } from "../data/incomeData.js";
+import { expenseData,  monthlyExpenseSummary } from "../data/expenseData.js";
+import { incomeData, monthlyIncomeSummary } from "../data/incomeData.js";
 import { sharedData } from "../data/sharedData.js";
 import { menuIcon } from "./utils/menuIcon.js";
 import {getSymbol, formatCurrency} from './utils/currencySymbols.js'
@@ -107,7 +107,7 @@ async function exchangeCurrency(sharedData, to) {
               currency: amount.currency
             })
           })
-           saveToStorageIncome();
+
         }
 
         if(amount.type === 'expense') {
@@ -117,7 +117,7 @@ async function exchangeCurrency(sharedData, to) {
               currency: amount.currency
             })
           })
-           saveToStorageExpenses();
+
         }
       })
 

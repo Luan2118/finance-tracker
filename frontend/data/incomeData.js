@@ -1,17 +1,22 @@
+export let incomeData;
+
+async function getIncome() {
+  const response = await fetch('http://localhost:3000/income');
+  const data = await response.json();
+  incomeData = data;
+  return incomeData;
+}
 
 
-export let incomeData =  JSON.parse(localStorage.getItem('incomeData')) || [{
-    incomeSourceValue: 'Example',
-    amountValue: 10000,
-    currency: 'CZK',
-    dateValue: '2025-05-17',
-    id: crypto.randomUUID(),
-    emoji: ''
-  }
-]
+export async function loadIncome() {
+  return await getIncome();
+
+}
 
 
-export function monthlyIncomeSummary() {
+
+export async function monthlyIncomeSummary() {
+  await loadIncome();
   const monthlySums = {};
   incomeData.forEach(item => {
     const date = new Date(item.dateValue)
@@ -30,28 +35,7 @@ export function monthlyIncomeSummary() {
 
 updateDate();
 
-export function updateDate() {
-  incomeData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
-}
-
-
-export function saveToStorageIncome() {
-  localStorage.setItem('incomeData', JSON.stringify(incomeData));
-}
-
-
-
-export function deleteIncome (deleteButtonId) {
-  const newData = [];
-
-  incomeData.forEach((dataObject) => {
-    if (dataObject.id !== deleteButtonId) {
-      newData.push(dataObject)
-    } 
-
-  })
-
-  incomeData = newData;
-  
-  saveToStorageIncome();
+export async function updateDate() {
+   await loadIncome();
+    incomeData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
 }

@@ -1,4 +1,4 @@
-import { incomeData, saveToStorageIncome, deleteIncome, updateDate, monthlyIncomeSummary } from "../data/incomeData.js";
+import { incomeData, loadIncome, updateDate, monthlyIncomeSummary } from "../data/incomeData.js";
 import { myChart,   } from "./chartJS/incomeChartJS.js";
 import {iconPicker} from './utils/icon-picker.js'
 import { menuIcon } from "./utils/menuIcon.js";
@@ -51,13 +51,15 @@ submitIncome();
 
 
 
-function generateHTML() {
+async function generateHTML() {
+  await loadIncome();
+  await updateDate();
   const currencySymbol = getSymbol(incomeData);
   let dataHTML = '';
 
   incomeData.forEach((dataObject) => {
 
-  const {incomeSourceValue, amountValue, dateValue, id, emoji } = dataObject;
+  const {incomeSourceValue, amountValue, dateValue, _id, emoji } = dataObject;
   
   const html = `
     <div class="each-income">
@@ -70,7 +72,7 @@ function generateHTML() {
         </div>
 
         <div class="income-right-side">
-          <div class="income-delete-button-grid"><button class="income-delete-button js-income-delete-button" data-id="${id}"><img class="delete-icon" src="../icons/bin-icon.png"></button></div>
+          <div class="income-delete-button-grid"><button class="income-delete-button js-income-delete-button" data-id="${_id}"><img class="delete-icon" src="./icons/bin-icon.png"></button></div>
           <div class="income-amount-plus">+${currencySymbol !== 'Kč' ? currencySymbol: ''}${amountValue} ${currencySymbol === 'Kč' ? currencySymbol: ''}</div>
         </div>
       </div>
@@ -89,13 +91,12 @@ function submitIncome() {
   
   document.querySelectorAll('.js-add-income-button-submit')
     .forEach((click) => {
-      click.addEventListener('click', (event) => {
+      click.addEventListener('click', async (event) => {
       const incomeSourceValue = document.querySelector('.js-income-value').value;
       const amountValue = document.querySelector('.js-amount-value').value;
       const dateValue = document.querySelector('.js-date-value').value;
       const emoji = document.querySelector('.js-emoji-picked').value
-      const id= crypto.randomUUID();
-    
+  
       
       document.querySelector('.js-income-amount-input-alert').innerHTML = '';
       document.querySelector('.js-income-date-input-alert').innerHTML = '';
@@ -122,29 +123,40 @@ function submitIncome() {
         return;
       }
 
-      incomeData.push({
-      incomeSourceValue,
-      amountValue,
-      currency: 'CZK',
-      dateValue,
-      id,
-      emoji
-      })
-      
+      const newIncome = {
+        incomeSourceValue,
+        amountValue,
+        currency: 'CZK',
+        dateValue,
+        emoji
+      }
 
-      const monthlySums = monthlyIncomeSummary();
+      try {
+        const response = await fetch('http://localhost:3000/income', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newIncome)
+        })
 
-      myChart.data.labels = Object.keys(monthlySums)
-      myChart.data.datasets[0].data = Object.values(monthlySums)
+        if (!response.ok) throw new Error('Failed to add income')
+          const monthlySums = monthlyIncomeSummary();
+      
+          myChart.data.labels = Object.keys(monthlySums)
+          myChart.data.datasets[0].data = Object.values(monthlySums)
+      
+          myChart.update()
+          
+          dialog.close();
+          
 
-      myChart.update()
-      
-      dialog.close();
-      
-      saveToStorageIncome();
-     
-      updateDate();
-      generateHTML();
+         
+          updateDate();
+          generateHTML();
+      } catch (error) {
+        console.log(error.message)
+      }
 
 
     });
@@ -155,21 +167,33 @@ function submitIncome() {
 function deleteButton() {
 document.querySelectorAll('.js-income-delete-button')
   .forEach((link) => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', async () => {
       const deleteButtonId = link.dataset.id
 
-      deleteIncome (deleteButtonId);
+      try {
+        const response = await fetch(`http://localhost:3000/income/${deleteButtonId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+
+        if(!response.ok) throw new Error('Failed to delete income')
+
+          const monthlySums = monthlyIncomeSummary();
       
-      saveToStorageIncome();
-      const monthlySums = monthlyIncomeSummary();
-
-      myChart.data.labels = Object.keys(monthlySums)
-      myChart.data.datasets[0].data = Object.values(monthlySums)
-
-      myChart.update()
-
+          myChart.data.labels = Object.keys(monthlySums)
+          myChart.data.datasets[0].data = Object.values(monthlySums)
       
-      generateHTML();
+          myChart.update()
+      
+          
+          generateHTML();
+
+      } catch (error) {
+        console.log(error.message)
+      }
+        console.log(await loadIncome());
       
     })
   })

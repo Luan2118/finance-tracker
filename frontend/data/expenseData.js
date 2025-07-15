@@ -17,8 +17,8 @@ async function getExpenseData() {
 }
 
 export async function loadExpenseData() {
-  expenseData = await getExpenseData();
-  return expenseData ;
+  return await getExpenseData();
+
 }
 
 
