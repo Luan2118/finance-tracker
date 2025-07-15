@@ -1,27 +1,29 @@
-export let expenseData = JSON.parse(localStorage.getItem('expenseData')) || [{
-  expenseSourceValue : 'Example',
-  amountValue : 500,
-  currency: 'CZK',
-  dateValue: '2025-01-17',
-  id: crypto.randomUUID(),
-  emoji: ''
-}
-]
+// export let expenseData = JSON.parse(localStorage.getItem('expenseData')) || [{
+//   expenseSourceValue : 'Example',
+//   amountValue : 500,
+//   currency: 'CZK',
+//   dateValue: '2025-01-17',
+//   id: crypto.randomUUID(),
+//   emoji: ''
+// }
+// ]
 
-let dataExpense;
+export let expenseData;
 async function getExpenseData() {
   const response = await fetch('http://localhost:3000/expenses',)
   const data = await response.json();
-  dataExpense = data;
-
+  expenseData = data;
+  return expenseData
 }
 
-getExpenseData().then(() =>{
-  console.log(dataExpense)
-})
+export async function loadExpenseData() {
+  expenseData = await getExpenseData();
+  return expenseData ;
+}
 
 
-export function monthlyExpenseSummary() {
+export async function monthlyExpenseSummary() {
+  await loadExpenseData();
   const monthlySum = {};
   expenseData.forEach((data) => {
   const date = new Date(data.dateValue)
@@ -37,29 +39,13 @@ export function monthlyExpenseSummary() {
   return monthlySum;
 }
 
+
 updateDate();
-export function updateDate() {
-  console.log(expenseData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue)))  
-
+export async function updateDate() {
+  await loadExpenseData();
+  expenseData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
+  // console.log(expenseData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue)))
 }
 
 
-export function saveToStorageExpenses() {
-  localStorage.setItem('expenseData', JSON.stringify(expenseData)) 
-}
-
-
-export function deleteExpense(deleteExpenseId) {
-  let newData = [];
-
-  expenseData.forEach((dataObject) => {
-    if (dataObject.id !== deleteExpenseId) {
-      newData.push(dataObject);
-    }
-  })
-
-  expenseData = newData;
-  saveToStorageExpenses(); 
-}
-
-  
+loadExpenseData().then( data => console.log(data))

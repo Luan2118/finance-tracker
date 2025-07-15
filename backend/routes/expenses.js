@@ -6,7 +6,8 @@ const router = express.Router();
 // Get all expenses
 router.get('/', async (req , res) => {
    try {
-    const expenses = await Expense.find();
+    const expenses = await Expense.find()
+
     res.status(200).json(expenses)
   } catch (error) {
     res.status(500).json({msg: error.message})
@@ -46,5 +47,7 @@ router.delete('/:id', async (req , res) => {
     res.status(500).json({msg: error.message})
   }
 })
+
+
 
 export default router;

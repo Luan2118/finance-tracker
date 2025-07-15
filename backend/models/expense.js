@@ -17,7 +17,7 @@ const expenseSchema = new mongoose.Schema({
     required: true,
   },
   dateValue: {
-    type: Date, 
+    type: String, 
     required: true
   },
   emoji: {
@@ -25,5 +25,10 @@ const expenseSchema = new mongoose.Schema({
     default: ''
   }
 })
+
+expenseSchema.virtual('dateOnly').get(function() {
+  return this.dateValue.toISOString().substring(0, 10);
+});
+
 
 export default mongoose.model('Expense', expenseSchema);

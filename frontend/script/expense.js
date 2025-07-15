@@ -1,4 +1,4 @@
-import { expenseData, saveToStorageExpenses, deleteExpense, updateDate, monthlyExpenseSummary } from "../data/expenseData.js";
+import { loadExpenseData, expenseData, updateDate, monthlyExpenseSummary } from "../data/expenseData.js";
 import { myChart } from "./chartJS/expenseChartJS.js";
 import {iconPicker} from './utils/icon-picker.js'
 import { menuIcon } from "./utils/menuIcon.js";
@@ -6,6 +6,11 @@ import {getSymbol} from './utils/currencySymbols.js'
 
 
 menuIcon();
+iconPicker();
+
+
+generateHTML();
+submitExpense();
 
 const dialog = document.getElementById('add-expense-dialog')
 
@@ -32,10 +37,6 @@ popUpCloseButton.addEventListener('click', handleClosePopUp)
 popUpCloseButton.addEventListener('keydown', handleClosePopUp)
 
 
-
-iconPicker();
-
-
 const expenseSourceInput = document.getElementById('expense-source-input')
 
 expenseSourceInput.addEventListener('input', (event) => {
@@ -51,17 +52,9 @@ expenseAmountInput.addEventListener('input', (event) => {
 const dialogForm = document.querySelector('.js-add-expense-form')
 
 
-
-generateHTML();
-submitExpense();
-
-console.log(expenseData)
-
-
-
-
-
-function generateHTML() {
+async function generateHTML() {
+  await loadExpenseData();
+  await updateDate();
   const currencySymbol = getSymbol(expenseData);
 
   let dataHTML = '';
@@ -78,7 +71,7 @@ function generateHTML() {
           </div>
           
           <div class="expense-right-side">
-            <div class="expense-delete-button-grid"><button class="expense-delete-button js-expense-delete-button" data-id="${dataObject.id}"><img class="delete-icon" src="../icons/bin-icon.png"></button></div>
+            <div class="expense-delete-button-grid"><button class="expense-delete-button js-expense-delete-button" data-id="${dataObject._id}"><img class="delete-icon" src="../icons/bin-icon.png"></button></div>
             <div class="expense-amount-minus">-${currencySymbol !== 'Kč' ? [currencySymbol] : ''}${dataObject.amountValue} 
             ${currencySymbol === 'Kč' ? [currencySymbol] : ''}
             </div>
@@ -88,11 +81,13 @@ function generateHTML() {
       </div>
     `
     dataHTML += html;
+
 })
 
 document.querySelector('.js-each-expense-grid')
   .innerHTML = dataHTML;
 
+  
 deleteExpenseButton();
 
 }
@@ -105,7 +100,7 @@ function submitExpense() {
         const amountValue = document.querySelector('.js-amount-value').value;
         const dateValue = document.querySelector('.js-date-value').value;
         const emoji = document.querySelector('.js-emoji-picked').value;
-        const id = crypto.randomUUID();
+        // let id;
 
         document.querySelector('.js-expense-amount-input-alert').innerHTML = '';
         document.querySelector('.js-expense-date-input-alert').innerHTML = '';
@@ -134,15 +129,6 @@ function submitExpense() {
           return;
         }
 
-        expenseData.push({
-          expenseSourceValue,
-          amountValue,
-          currency: 'CZK',
-          dateValue,
-          id,
-          emoji
-        });
-
         const newExpense = {
           expenseSourceValue,
           amountValue,
@@ -151,7 +137,6 @@ function submitExpense() {
           emoji
         };
 
-        console.log(dateValue)
         try {
           const response = await fetch('http://localhost:3000/expenses', {
             method: 'POST',
@@ -171,7 +156,6 @@ function submitExpense() {
           myChart.data.datasets[0].data = Object.values(monthlySum);
           myChart.update()
   
-          saveToStorageExpenses();
           updateDate();
           generateHTML();
           
@@ -188,21 +172,30 @@ function submitExpense() {
 function deleteExpenseButton () {
   document.querySelectorAll('.js-expense-delete-button') 
   .forEach((button) => {
-    button.addEventListener('click', () => {
+    button.addEventListener('click', async () => {
       const deleteExpenseId = button.dataset.id;
 
-      deleteExpense(deleteExpenseId);
+      try {
+        const response = await fetch(`http://localhost:3000/expenses/${deleteExpenseId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
 
-      saveToStorageExpenses();
+        if (!response.ok) throw new Error('Failed to delete expense')
+        
+          const monthlySum = monthlyExpenseSummary();
+    
+          myChart.data.labels = Object.keys(monthlySum);
+          myChart.data.datasets[0].data = Object.values(monthlySum);
+          myChart.update()
+          
 
-      const monthlySum = monthlyExpenseSummary();
-
-      myChart.data.labels = Object.keys(monthlySum);
-      myChart.data.datasets[0].data = Object.values(monthlySum);
-      myChart.update()
-      
-      
-      generateHTML();
+          generateHTML();
+      } catch (error) {
+        console.log(error.message)
+      }
     })
   })
   
