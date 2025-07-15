@@ -4,6 +4,7 @@ import {iconPicker} from './utils/icon-picker.js'
 import { menuIcon } from "./utils/menuIcon.js";
 import {getSymbol} from './utils/currencySymbols.js'
 
+
 menuIcon();
 
 const dialog = document.getElementById('add-expense-dialog')
@@ -77,7 +78,7 @@ function generateHTML() {
           </div>
           
           <div class="expense-right-side">
-            <div class="expense-delete-button-grid"><button class="expense-delete-button js-expense-delete-button" data-id="${dataObject.id}"><img class="delete-icon" src=../icons/bin-icon.png></button></div>
+            <div class="expense-delete-button-grid"><button class="expense-delete-button js-expense-delete-button" data-id="${dataObject.id}"><img class="delete-icon" src="../icons/bin-icon.png"></button></div>
             <div class="expense-amount-minus">-${currencySymbol !== 'Kč' ? [currencySymbol] : ''}${dataObject.amountValue} 
             ${currencySymbol === 'Kč' ? [currencySymbol] : ''}
             </div>
@@ -99,7 +100,7 @@ deleteExpenseButton();
 function submitExpense() {
   document.querySelectorAll('.js-add-expense-button-submit')
     .forEach((event) => {
-      event.addEventListener('click', () => {
+      event.addEventListener('click', async () => {
         const expenseSourceValue = document.querySelector('.js-expense-value').value;
         const amountValue = document.querySelector('.js-amount-value').value;
         const dateValue = document.querySelector('.js-date-value').value;
@@ -141,18 +142,44 @@ function submitExpense() {
           id,
           emoji
         });
-        
-        const monthlySum = monthlyExpenseSummary();
 
-        myChart.data.labels = Object.keys(monthlySum);
-        myChart.data.datasets[0].data = Object.values(monthlySum);
-        myChart.update()
+        const newExpense = {
+          expenseSourceValue,
+          amountValue,
+          currency: 'CZK',
+          dateValue,
+          emoji
+        };
 
-        saveToStorageExpenses();
-        updateDate();
-        generateHTML();
-        
-        dialog.close();
+        console.log(dateValue)
+        try {
+          const response = await fetch('http://localhost:3000/expenses', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newExpense)
+          }) 
+
+          if(!response.ok) throw new Error('Failed to add expense')
+  
+          const data =  await response.json()
+          
+          const monthlySum = monthlyExpenseSummary();
+  
+          myChart.data.labels = Object.keys(monthlySum);
+          myChart.data.datasets[0].data = Object.values(monthlySum);
+          myChart.update()
+  
+          saveToStorageExpenses();
+          updateDate();
+          generateHTML();
+          
+          dialog.close();
+        } catch (error) {
+          console.error('Error adding expense:', error)
+        }
+      
       })
     })
   

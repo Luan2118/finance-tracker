@@ -55,7 +55,7 @@ async function exchangeCurrency(sharedData, to) {
     const data =  await response.json();
 
    
-    console.log(data)
+    
 
     const amountsAndType = sharedData.map(item => ({
       amounValue: item.amountValue,

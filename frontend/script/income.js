@@ -70,7 +70,7 @@ function generateHTML() {
         </div>
 
         <div class="income-right-side">
-          <div class="income-delete-button-grid"><button class="income-delete-button js-income-delete-button" data-id="${id}"><img class="delete-icon" src=../icons/bin-icon.png></button></div>
+          <div class="income-delete-button-grid"><button class="income-delete-button js-income-delete-button" data-id="${id}"><img class="delete-icon" src="../icons/bin-icon.png"></button></div>
           <div class="income-amount-plus">+${currencySymbol !== 'Kč' ? currencySymbol: ''}${amountValue} ${currencySymbol === 'Kč' ? currencySymbol: ''}</div>
         </div>
       </div>

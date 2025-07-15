@@ -8,6 +8,19 @@ export let expenseData = JSON.parse(localStorage.getItem('expenseData')) || [{
 }
 ]
 
+let dataExpense;
+async function getExpenseData() {
+  const response = await fetch('http://localhost:3000/expenses',)
+  const data = await response.json();
+  dataExpense = data;
+
+}
+
+getExpenseData().then(() =>{
+  console.log(dataExpense)
+})
+
+
 export function monthlyExpenseSummary() {
   const monthlySum = {};
   expenseData.forEach((data) => {
@@ -26,7 +39,8 @@ export function monthlyExpenseSummary() {
 
 updateDate();
 export function updateDate() {
-  expenseData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
+  console.log(expenseData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue)))  
+
 }
 
 
