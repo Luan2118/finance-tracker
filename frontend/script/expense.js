@@ -1,39 +1,28 @@
 import { loadExpenseData, expenseData, updateDate, monthlyExpenseSummary } from "../data/expenseData.js";
-import { myChart } from "./chartJS/expenseChartJS.js";
+import { myChart } from "./chartJS/expense-page-chart.js";
 import {iconPicker} from './utils/icon-picker.js'
 import { menuIcon } from "./utils/menuIcon.js";
 import {formatCurrency, loadGetSymbol} from './utils/currencySymbols.js';
 
 
-
+// utils
 menuIcon();
 iconPicker();
 
 
-generateHTML();
-submitExpense();
-
-
-let symbol;
-
-loadExpenseData().then(() => {
-  loadGetSymbol(expenseData).then((data) => {
-    symbol = data;
-  })
-})
-
+// pop up 
 const dialog = document.getElementById('add-expense-dialog')
 
 document.querySelector('.js-add-expense-button')
-  .addEventListener('click', () => {
-    dialog.showModal();
-  })
+.addEventListener('click', () => {
+  dialog.showModal();
+})
 
 function handleClosePopUp(event) {
   if (event.type === 'click') {
     dialog.close();
   }
-
+  
   if (event.type === 'keydown' && event.key === 'Enter') {
     event.preventDefault();
   }
@@ -47,6 +36,16 @@ popUpCloseButton.addEventListener('click', handleClosePopUp)
 popUpCloseButton.addEventListener('keydown', handleClosePopUp)
 
 
+// get currency symbol
+let symbol;
+
+loadExpenseData().then(() => {
+  loadGetSymbol(expenseData).then((data) => {
+    symbol = data;
+  })
+})
+
+// submit validation
 const expenseSourceInput = document.getElementById('expense-source-input')
 
 expenseSourceInput.addEventListener('input', (event) => {
@@ -59,8 +58,9 @@ expenseAmountInput.addEventListener('input', (event) => {
   event.target.value = event.target.value.replace(/[^0-9]/g, '')
 })
 
-const dialogForm = document.querySelector('.js-add-expense-form')
 
+generateHTML();
+submitExpense();
 
 async function generateHTML() {
   await loadExpenseData();

@@ -1,12 +1,14 @@
 import { incomeData, loadIncomeData, updateDate, monthlyIncomeSummary } from "../data/incomeData.js";
-import { myChart,   } from "./chartJS/incomeChartJS.js";
+import { myChart,   } from "./chartJS/income-page-chart.js";
 import {iconPicker} from './utils/icon-picker.js'
 import { menuIcon } from "./utils/menuIcon.js";
 import {formatCurrency, loadGetSymbol } from "./utils/currencySymbols.js";
 
-
+// utils
 menuIcon();
+iconPicker();
 
+// get currency symbol
 let symbol;
 
 loadIncomeData().then(() => {
@@ -15,8 +17,7 @@ loadIncomeData().then(() => {
   })
 })
 
-
-
+// pop up
 const dialog = document.getElementById('add-income-dialog')
 
 document.querySelector('.js-add-income-button')
@@ -42,8 +43,7 @@ popUpCloseButton.addEventListener('click', handleClosePopUp)
 popUpCloseButton.addEventListener('keydown', handleClosePopUp)
 
 
-iconPicker();
-
+// submit validation
 const amountInput = document.getElementById('income-amount-input')
 
 amountInput.addEventListener('input', (event) => {
@@ -57,10 +57,10 @@ incomeSourceInput.addEventListener('input', (event) => {
   event.target.value = event.target.value.replace(/[^a-zA-Z\- ]/g, '')
 })
 
+
+
 generateHTML();
 submitIncome();
-
-
 
 async function generateHTML() {
   await loadIncomeData();
