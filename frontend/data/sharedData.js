@@ -1,16 +1,28 @@
-import { expenseData } from "./expenseData.js";
-import { incomeData } from "./incomeData.js";
+import { expenseData, loadExpenseData } from "./expenseData.js";
+import { incomeData, loadIncomeData } from "./incomeData.js";
 
 
 
-
-export const sharedData =   [
-  ...expenseData.map(item => ({...item, type: 'expense'})),
-  ...incomeData.map(item => ({...item, type: 'income'}))
-] 
+export let sharedData;
 
 
-sharedData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
+
+export async function loadSharedData() {
+  await loadExpenseData();
+  await loadIncomeData();
+  sharedData =  [
+    ...expenseData.map(item => ({...item, type: 'expense'})),
+    ...incomeData.map(item => ({...item, type: 'income'}))
+  ]
+  return sharedData; 
+}
+
+
+
+async function updateDate() {
+  await loadSharedData();
+  sharedData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
+}
 
 
 

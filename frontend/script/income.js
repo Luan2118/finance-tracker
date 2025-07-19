@@ -1,10 +1,21 @@
-import { incomeData, loadIncome, updateDate, monthlyIncomeSummary } from "../data/incomeData.js";
+import { incomeData, loadIncomeData, updateDate, monthlyIncomeSummary } from "../data/incomeData.js";
 import { myChart,   } from "./chartJS/incomeChartJS.js";
 import {iconPicker} from './utils/icon-picker.js'
 import { menuIcon } from "./utils/menuIcon.js";
-import { getSymbol } from "./utils/currencySymbols.js";
+import {formatCurrency, loadGetSymbol } from "./utils/currencySymbols.js";
+
 
 menuIcon();
+
+let symbol;
+
+loadIncomeData().then(() => {
+  loadGetSymbol(incomeData).then((data) => {
+    symbol = data;
+  })
+})
+
+
 
 const dialog = document.getElementById('add-income-dialog')
 
@@ -52,9 +63,8 @@ submitIncome();
 
 
 async function generateHTML() {
-  await loadIncome();
+  await loadIncomeData();
   await updateDate();
-  const currencySymbol = getSymbol(incomeData);
   let dataHTML = '';
 
   incomeData.forEach((dataObject) => {
@@ -73,7 +83,7 @@ async function generateHTML() {
 
         <div class="income-right-side">
           <div class="income-delete-button-grid"><button class="income-delete-button js-income-delete-button" data-id="${_id}"><img class="delete-icon" src="./icons/bin-icon.png"></button></div>
-          <div class="income-amount-plus">+${currencySymbol !== 'Kč' ? currencySymbol: ''}${amountValue} ${currencySymbol === 'Kč' ? currencySymbol: ''}</div>
+          <div class="income-amount-plus">+${formatCurrency(amountValue, symbol)}</div>
         </div>
       </div>
       </div>
@@ -193,7 +203,7 @@ document.querySelectorAll('.js-income-delete-button')
       } catch (error) {
         console.log(error.message)
       }
-        console.log(await loadIncome());
+        
       
     })
   })

@@ -1,17 +1,14 @@
-import { expenseData,  monthlyExpenseSummary } from "../data/expenseData.js";
-import { incomeData, monthlyIncomeSummary } from "../data/incomeData.js";
-import { sharedData } from "../data/sharedData.js";
+import { expenseData,  loadExpenseData,  monthlyExpenseSummary } from "../data/expenseData.js";
+import { incomeData, loadIncomeData, monthlyIncomeSummary } from "../data/incomeData.js";
+import { sharedData, loadSharedData } from "../data/sharedData.js";
 import { menuIcon } from "./utils/menuIcon.js";
-import {getSymbol, formatCurrency} from './utils/currencySymbols.js'
-
-
+import {formatCurrency, loadGetSymbol} from './utils/currencySymbols.js'
 
 menuIcon();
 
-document.querySelector('.js-currency').innerHTML = sharedData[0].currency
+loadSharedData().then(() => document.querySelector('.js-currency').innerHTML = sharedData[0].currency)
 
-let symbol = getSymbol(sharedData);
-
+let symbol;
 
 const dropDownIconBtn = document.getElementById('drop-down-icon')
 
@@ -33,18 +30,21 @@ dropDownIconBtn.addEventListener('click', () => {
 
 
 
-currencyOptions.addEventListener('change', (event) => {
-      iconSrc.src = dropDownIcon;
-      const inputCurrencyId = event.target.id
-      exchangeCurrency(sharedData, inputCurrencyId)
-      currencyOptions.style.display = 'none';
-      document.querySelector('.js-currency').innerHTML = `${inputCurrencyId}`
-      
-    })
+currencyOptions.addEventListener('change', async (event) => {
+  await loadSharedData();
+  iconSrc.src = dropDownIcon;
+  const inputCurrencyId = event.target.id
+  exchangeCurrency(sharedData, inputCurrencyId)
+  currencyOptions.style.display = 'none';
+  document.querySelector('.js-currency').innerHTML = `${inputCurrencyId}`
+  
+})
 
 
 async function exchangeCurrency(sharedData, to) {
   try {
+    await loadSharedData();
+
     const response = await fetch("https://api.frankfurter.dev/v1/latest?base=CAD");
 
     if (!response.ok) {
@@ -54,88 +54,110 @@ async function exchangeCurrency(sharedData, to) {
 
     const data =  await response.json();
 
-   
-    
 
     const amountsAndType = sharedData.map(item => ({
-      amounValue: item.amountValue,
+      amountValue: item.amountValue,
       type: item.type
     }))
 
+
     const from = sharedData.map(item => item.currency)
-
-      const amountsInUSDAndType = amountsAndType.map((item, i) => {
-
-        const fromCurrencies = from[i]
-        const convertedToUSD =  item.amounValue / data.rates[fromCurrencies]
-
-        return {
-          amountValue: convertedToUSD,
-          type: item.type
-        }
-
-      })
-
-
-      const rate = data.rates[to]
-      
-      const convertedAmountAndType = amountsInUSDAndType.map((item, i) => {
-        const convertedAmounts = to === 'CZK' ? Math.round(item.amountValue * rate) : Number(item.amountValue * rate).toFixed(2)
-        const convertedCurrency = Array(amountsAndType.length).fill(to)
-
-        return {
-          amountValue: convertedAmounts,
-          currency: convertedCurrency[i],
-          type: item.type,
-          
-        }
-      })
-      
-      
-
-      sharedData.forEach((item, i) => {
-        item.amountValue = convertedAmountAndType[i].amountValue;
-        item.currency = convertedAmountAndType[i].currency;
-        item.type = convertedAmountAndType[i].type
-      });
-
-      convertedAmountAndType.forEach((amount) => {
-        if(amount.type ==='income') {
-          incomeData.forEach((item) => {
-            Object.assign(item, {
-              amountValue: amount.amountValue,
-              currency: amount.currency
-            })
-          })
-
-        }
-
-        if(amount.type === 'expense') {
-          expenseData.forEach((item) => {
-            Object.assign(item, {
-              amountValue: amount.amountValue,
-              currency: amount.currency
-            })
-          })
-
-        }
-      })
-
-      financialOverviewChart.data.datasets[0].data = [getTotalBalance(), getMonthlyIncomeSum(), getMonthlyExpenseSum()]
-      let filteredIncomeData = filteredIncome();
-      incomeChart.data.datasets[0].data = filteredIncomeData.map(item => item.amountValue)
-
     
-    symbol  = getSymbol(sharedData);
-    menuIcon();
-    displayMonthlyIncomeSummary();
-    displayMonthlyExpenseSummary();
-    displayTotalBalance();
-    displayRecentTransactions();
-    displayExpenses();
-    displayIncome();
+
+    const amountsInUSDAndType = amountsAndType.map((item, i) => {
+
+      const fromCurrencies = from[i]
+      const convertedToUSD =  item.amountValue / data.rates[fromCurrencies]
+
+      return {
+        amountValue: convertedToUSD,
+        type: item.type
+      }
+
+    })
+
+
+    const rate = data.rates[to]
+    
+    const convertedAmountAndType = amountsInUSDAndType.map((item, i) => {
+      const convertedAmounts = to === 'CZK' ? Math.round(item.amountValue * rate) : Number(item.amountValue * rate).toFixed(2)
+      const convertedCurrency = Array(amountsAndType.length).fill(to)
+
+      return {
+        amountValue: convertedAmounts,
+        currency: convertedCurrency[i],
+        type: item.type,
+        
+      }
+    })
+    
+
+    sharedData.forEach((item, i) => {
+      item.amountValue = convertedAmountAndType[i].amountValue;
+      item.currency = convertedAmountAndType[i].currency;
+      item.type = convertedAmountAndType[i].type
+    });
+    
+
+    const updatedIncomes = convertedAmountAndType.filter(item => item.type === 'income')
+    const updatedExpenses = convertedAmountAndType.filter(item => item.type === 'expense')
+
+    incomeData.forEach((item, i) => {
+      item.amountValue = updatedIncomes[i].amountValue,
+      item.currency =  updatedIncomes[i].currency
+    })
+    
+    try {
+      const  incomeResponse = await fetch('http://localhost:3000/income', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(incomeData)
+      })
+      
+    } catch (error) {
+      console.error(error.message)
+    }
+
+    expenseData.forEach((item, i) => {
+      item.amountValue = updatedExpenses[i].amountValue,
+      item.currency =  updatedExpenses[i].currency
+    })
+
+
+    try {
+      const  expenseResponse = await fetch('http://localhost:3000/expenses', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(expenseData)
+      })
+      
+    } catch (error) {
+      console.error(error.message)
+    }
+
+    const totalBalance = await getTotalBalance();
+
+
+    financialOverviewChart.data.datasets[0].data = [await getTotalBalance(), await getMonthlyIncomeSum(), await getMonthlyExpenseSum()]
+    let filteredIncomeData = await filteredIncome();
+    incomeChart.data.datasets[0].data = filteredIncomeData.map(item => item.amountValue)
+
     financialOverviewChart.update();
+    total = await getTotalBalance();
     incomeChart.update();
+    income60 = await incomeLast60DaysSum();
+    menuIcon();
+    await displayMonthlyIncomeSummary();
+    await displayMonthlyExpenseSummary();
+    await displayTotalBalance();
+    await displayRecentTransactions();
+    await displayExpenses();
+    await displayIncome();
+    
 
   }
   catch (error) {
@@ -149,8 +171,8 @@ displayMonthlyIncomeSummary();
 displayMonthlyExpenseSummary();
 displayTotalBalance();
 
-function getMonthlyIncomeSum() {
-  const monthlyIncomeSum = monthlyIncomeSummary();
+async function getMonthlyIncomeSum() {
+  const monthlyIncomeSum = await monthlyIncomeSummary();
   let monthlyIncomeResult = 0
 
   Object.values(monthlyIncomeSum).forEach((incomeValue) => {
@@ -160,14 +182,21 @@ function getMonthlyIncomeSum() {
   return monthlyIncomeResult;
 }
 
-function displayMonthlyIncomeSummary() {
-  const monthlyIncomeResult = getMonthlyIncomeSum();
+async function displayMonthlyIncomeSummary() {
+   loadExpenseData().then(() => {
+    loadGetSymbol(expenseData).then((data) => {
+      symbol = data
+    })
+  })
+
+  const monthlyIncomeResult = await getMonthlyIncomeSum();
   document.querySelector('.js-income-header-summary').innerHTML = `+${formatCurrency(monthlyIncomeResult, symbol)}` 
+
 }
 
 
-function getMonthlyExpenseSum() {
-  const monthlyExpenseSum = monthlyExpenseSummary();
+async function getMonthlyExpenseSum() {
+  const monthlyExpenseSum = await monthlyExpenseSummary();
 
   let monthlyExpenseResult = 0
 
@@ -178,32 +207,41 @@ function getMonthlyExpenseSum() {
   return monthlyExpenseResult;
 }
 
-function displayMonthlyExpenseSummary() {
-  const monthlyExpenseResult = getMonthlyExpenseSum()
+async function displayMonthlyExpenseSummary() {
+   loadExpenseData().then(() => {
+    loadGetSymbol(expenseData).then((data) => {
+      symbol = data
+    })
+  })
+  const monthlyExpenseResult = await getMonthlyExpenseSum()
   document.querySelector('.js-expense-header-summary').innerHTML = `-${formatCurrency(monthlyExpenseResult, symbol)}`
 }
 
-function getTotalBalance() {
-  const monthlyIncomeResult = getMonthlyIncomeSum();
-  const monthlyExpenseResult = getMonthlyExpenseSum()
+let result;
 
-  const result = Number(monthlyIncomeResult - monthlyExpenseResult).toFixed(2) 
+async function getTotalBalance() {
+  
+  const monthlyIncomeResult = await getMonthlyIncomeSum();
+  const monthlyExpenseResult = await getMonthlyExpenseSum()
+
+   result = Number(monthlyIncomeResult - monthlyExpenseResult).toFixed(2) 
+
+
 
   if (result < 0) {
     const  formattedResult = result.slice(1)
     const totalBalance = `${formattedResult < 0 ? '-' : ''}${formatCurrency(formattedResult, symbol)}`
     return totalBalance;
   }else {
-    return formatCurrency(result, symbol);
-    return result;
+    return result
   }
 }
 
 
-function displayTotalBalance() {
-  const totalBalance = getTotalBalance();
+async function displayTotalBalance() {
+  const totalBalance = await getTotalBalance();
   document.querySelector('.js-total-balance-header-summary')
-    .innerHTML = `${totalBalance}`
+    .innerHTML = formatCurrency(totalBalance, symbol)
 }
 
 
@@ -216,7 +254,14 @@ displayIncome();
 
 
 
-function displayRecentTransactions() {
+async function displayRecentTransactions() {
+  loadSharedData().then(() => {
+    loadGetSymbol(sharedData).then((data) => {
+      symbol = data
+    })
+  })
+
+  await loadSharedData();
   let sharedDataHTML = '';
 
   for (let i = 0 ; i < sharedData.length && i < 8;  i++) {
@@ -260,7 +305,14 @@ function displayRecentTransactions() {
     .innerHTML = sharedDataHTML;
 }
 
-function displayExpenses() {
+async function displayExpenses() {
+  loadExpenseData().then(() => {
+    loadGetSymbol(expenseData).then((data) => {
+      symbol = data
+    })
+  })
+
+  await loadExpenseData();
   let expenseDataHTML = '';
 
   for (let i = 0 ; i < expenseData.length && i < 5 ; i ++) {
@@ -286,7 +338,13 @@ function displayExpenses() {
 }
 
 
-function displayIncome() {
+async function displayIncome() {
+  loadIncomeData().then(() => {
+    loadGetSymbol(incomeData).then((data) => {
+      symbol = data
+    })
+  })
+  await loadIncomeData();
   let incomeDataHTML = '';
 
   for (let i = 0 ; i < incomeData.length && i < 5 ; i ++ ) {
@@ -312,23 +370,27 @@ function displayIncome() {
 
   const labels = ['Total Balance', 'Total Income', 'Total Expenses']
 
-  const totalBalance = getTotalBalance();
-  const monthlyIncomeResult = getMonthlyIncomeSum();
-  const monthlyExpenseResult = getMonthlyExpenseSum()
 
+  financialOverview();
 
- 
-  const data = [totalBalance, monthlyIncomeResult, monthlyExpenseResult]
+let financialOverviewChart;
+let total;
+getTotalBalance().then((data) => total = data)
 
+async function financialOverview() {
+  let  monthlyIncomeResult = await getMonthlyIncomeSum();
+  let  monthlyExpenseResult = await getMonthlyExpenseSum()
 
+  const data = [total, monthlyIncomeResult, monthlyExpenseResult] 
+  
   const financialOverview = document.getElementById('financial-overview-chart')
-
+  
   const doughnutLabel ={
     id: 'doughnutLabel',
     beforeDatasetsDraw(chart, args, pluginOptions) {
       const {ctx, data } = chart;
       ctx.save();
-
+  
       const xCoor = chart.getDatasetMeta(0).data[0].x
       const yCoor = chart.getDatasetMeta(0).data[0].y
       
@@ -338,14 +400,13 @@ function displayIncome() {
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(`${data.labels[0]}:`, xCoor, yCoor - 10)
-      
-      const total = getTotalBalance();
-      ctx.fillText(total, xCoor, yCoor + 20)
+;
+      ctx.fillText(formatCurrency(total, symbol), xCoor, yCoor + 20)
       
     }
   }
-
-  const financialOverviewChart = new Chart(financialOverview, {
+  
+   financialOverviewChart = new Chart(financialOverview, {
     type: 'doughnut',
     data: {
       labels,
@@ -376,7 +437,7 @@ function displayIncome() {
         tooltip: {
           callbacks: {
             label: (context) => {
-
+  
               if (context.label === 'Total Income') {
                 return `Amount: + ${formatCurrency(context.formattedValue, symbol)} `
               }else if (context.label === 'Total Expenses') {
@@ -393,10 +454,14 @@ function displayIncome() {
       
   })
 
+  return financialOverviewChart;
+}
+
 
 renderExpenseChart();
 
-function renderExpenseChart() {
+async function renderExpenseChart() {
+  await loadExpenseData();
   const expenseCtx = document.getElementById('main-page-expense-chart')
 
   const expenseChartLabels = expenseData.map(item => item.dateValue)
@@ -476,7 +541,8 @@ function renderExpenseChart() {
 
 
 
-function filteredIncome() {
+async function filteredIncome() {
+    await loadIncomeData();
     const filteredIncomeData = incomeData.filter(item => {
     const yearMonth = item.dateValue.substring(0, 7)
     return yearMonth <= yearMonthToday && yearMonth >= yearMonthLast60
@@ -491,10 +557,10 @@ function filteredIncome() {
 }
 
 
-  let filteredIncomeData = filteredIncome();
+  let filteredIncomeData;
 
-function incomeLast60DaysSum() {
-  filteredIncomeData = filteredIncome();
+async function incomeLast60DaysSum() {
+  filteredIncomeData = await filteredIncome();
   const last60DaysIncomeSum = filteredIncomeData.reduce((sum, item) => {
   const result = sum + Number(item.amountValue);
     return result;
@@ -504,19 +570,35 @@ function incomeLast60DaysSum() {
 }
 
 
-  let last60DaysIncome = incomeLast60DaysSum();
 
 
-  const incomeChartLabels = filteredIncomeData.map(item => item.incomeSourceValue);
-  const incomeChartData = filteredIncomeData.map(item => item.amountValue);
+  let incomeChartLabels;
+  let incomeChartData;
 
+async function setupIncomeChart() {
+  filteredIncomeData = await filteredIncome();
+  incomeChartLabels = filteredIncomeData.map(item => item.incomeSourceValue);
+  incomeChartData = filteredIncomeData.map(item => item.amountValue);
+}
+
+setupIncomeChart();
+
+incomeChartMain();
+
+let incomeChart;
+let income60;
+
+incomeLast60DaysSum().then((data) => income60 = data)
+async function incomeChartMain() {
+  await setupIncomeChart();
+  await filteredIncome();
 
   const incomeDoughnutLabel = {
     id: 'incomeDoughnutLabel',
     beforeDatasetsDraw(chart, args, pluginOptions) {
       const {ctx, data} = chart;
       ctx.save();
-
+  
       const xCoor = chart.getDatasetMeta(0).data[0].x
       const yCoor = chart.getDatasetMeta(0).data[0].y
       
@@ -526,15 +608,11 @@ function incomeLast60DaysSum() {
       ctx.textAlign = 'center';
       ctx.textBaseLine = 'middle'
       ctx.fillText('Total Income:', xCoor, yCoor - 10)
-
-      
-      const income = incomeLast60DaysSum();
-
-      ctx.fillText(`${formatCurrency(income, symbol)} `, xCoor, yCoor + 10)
+      ctx.fillText(`${formatCurrency(income60, symbol)} `, xCoor, yCoor + 10)
     }
   }
-
-  const incomeChart = new Chart(incomeCtx, {
+  
+   incomeChart = new Chart(incomeCtx, {
     type: 'doughnut',
     data:{
       labels: incomeChartLabels,
@@ -543,7 +621,7 @@ function incomeLast60DaysSum() {
         data: incomeChartData,
         borderWidth: 5,
         borderRadius: 5,
-
+  
       }]  
     },
     options: {
@@ -566,7 +644,7 @@ function incomeLast60DaysSum() {
             title: (context) => {
               const dataIndex = context[0].dataIndex;
               const item = filteredIncomeData[dataIndex];
-
+  
               return item.incomeSourceValue
             },
             label: (context) => {
@@ -579,3 +657,5 @@ function incomeLast60DaysSum() {
     plugins: [incomeDoughnutLabel]
   })
 
+  
+}  

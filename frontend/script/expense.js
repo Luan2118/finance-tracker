@@ -2,7 +2,8 @@ import { loadExpenseData, expenseData, updateDate, monthlyExpenseSummary } from 
 import { myChart } from "./chartJS/expenseChartJS.js";
 import {iconPicker} from './utils/icon-picker.js'
 import { menuIcon } from "./utils/menuIcon.js";
-import {getSymbol} from './utils/currencySymbols.js'
+import {formatCurrency, loadGetSymbol} from './utils/currencySymbols.js';
+
 
 
 menuIcon();
@@ -11,6 +12,15 @@ iconPicker();
 
 generateHTML();
 submitExpense();
+
+
+let symbol;
+
+loadExpenseData().then(() => {
+  loadGetSymbol(expenseData).then((data) => {
+    symbol = data;
+  })
+})
 
 const dialog = document.getElementById('add-expense-dialog')
 
@@ -55,7 +65,7 @@ const dialogForm = document.querySelector('.js-add-expense-form')
 async function generateHTML() {
   await loadExpenseData();
   await updateDate();
-  const currencySymbol = getSymbol(expenseData);
+
 
   let dataHTML = '';
 
@@ -72,8 +82,7 @@ async function generateHTML() {
           
           <div class="expense-right-side">
             <div class="expense-delete-button-grid"><button class="expense-delete-button js-expense-delete-button" data-id="${dataObject._id}"><img class="delete-icon" src="./icons/bin-icon.png"></button></div>
-            <div class="expense-amount-minus">-${currencySymbol !== 'Kč' ? [currencySymbol] : ''}${dataObject.amountValue} 
-            ${currencySymbol === 'Kč' ? [currencySymbol] : ''}
+            <div class="expense-amount-minus">-${formatCurrency(dataObject.amountValue, symbol)}
             </div>
           </div>
         </div>

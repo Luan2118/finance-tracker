@@ -8,7 +8,7 @@ async function getIncome() {
 }
 
 
-export async function loadIncome() {
+export async function loadIncomeData() {
   return await getIncome();
 
 }
@@ -16,7 +16,7 @@ export async function loadIncome() {
 
 
 export async function monthlyIncomeSummary() {
-  await loadIncome();
+  await loadIncomeData();
   const monthlySums = {};
   incomeData.forEach(item => {
     const date = new Date(item.dateValue)
@@ -36,6 +36,6 @@ export async function monthlyIncomeSummary() {
 updateDate();
 
 export async function updateDate() {
-   await loadIncome();
+   await loadIncomeData();
     incomeData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
 }

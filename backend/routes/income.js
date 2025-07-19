@@ -30,6 +30,21 @@ router.post('/', async (req, res) => {
      res.status(500).json({msg: error.message});
   }
 })
+
+
+// Update an expense
+router.put('/', async (req, res) =>{
+  try {
+    await Income.deleteMany({})
+    const newIncome = await Income.insertMany(req.body)
+
+    res.status(200).json(newIncome)
+
+  } catch (error) {
+    res.status(500).json({msg: error.message})
+  }
+})
+
 // Delete an income
 router.delete('/:id', async (req, res) => {
   const id = req.params.id;

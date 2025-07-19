@@ -1,14 +1,7 @@
-// export let expenseData = JSON.parse(localStorage.getItem('expenseData')) || [{
-//   expenseSourceValue : 'Example',
-//   amountValue : 500,
-//   currency: 'CZK',
-//   dateValue: '2025-01-17',
-//   id: crypto.randomUUID(),
-//   emoji: ''
-// }
-// ]
 
 export let expenseData;
+
+
 async function getExpenseData() {
   const response = await fetch('http://localhost:3000/expenses',)
   const data = await response.json();
@@ -44,8 +37,6 @@ updateDate();
 export async function updateDate() {
   await loadExpenseData();
   expenseData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
-  // console.log(expenseData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue)))
 }
 
 
-loadExpenseData().then( data => console.log(data))
