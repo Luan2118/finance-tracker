@@ -47,7 +47,7 @@ export async function getMonthlyExpenseSum() {
     monthlyExpenseResult += expenseValue
   })
   
-  return monthlyExpenseResult;
+ww  return Number(monthlyExpenseResult).toFixed(2);
 }
 
 export async function getMonthlyIncomeSum() {
@@ -58,7 +58,7 @@ export async function getMonthlyIncomeSum() {
     monthlyIncomeResult += incomeValue
   })
   
-  return monthlyIncomeResult;
+  return Number(monthlyIncomeResult).toFixed(2);
 }
 
 // Display total balance / income / expenses

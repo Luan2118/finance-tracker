@@ -1,5 +1,7 @@
 import express from 'express';
 import Expense from '../models/expense.js'
+import errorHandler from '../middleware/errorHandler.js';
+import validateId from '../middleware/validateID.js';
 
 const router = express.Router();
 
@@ -10,24 +12,34 @@ router.get('/', async (req , res) => {
 
     res.status(200).json(expenses)
   } catch (error) {
-    res.status(500).json({msg: error.message})
+    next(error)
   }
 })
 
 // // Create an expense
-router.post('/', async (req , res) => {
-  const expense = new Expense({
-    expenseSourceValue: req.body.expenseSourceValue,
-    amountValue : req.body.amountValue,
-    currency: req.body.currency,
-    dateValue: req.body.dateValue,
-    emoji: req.body.emoji
-  })
+router.post('/', async (req , res, next) => {
   try {
+    const {expenseSourceValue, amountValue, currency, dateValue, emoji } = req.body;
+
+    if (!expenseSourceValue || !amountValue || !currency || !dateValue || !emoji) {
+      const error = new Error('Please fill all fields!')
+      error.status = 400;
+      return next(error)
+    }
+
+    const expense = new Expense({
+      expenseSourceValue,
+      amountValue,
+      currency,
+      dateValue,
+      emoji
+    })
+
     const newExpense = await expense.save();
-    res.status(200).json(newExpense)
+    res.status(200).json({msg: newExpense})
+
   } catch (error) {
-    res.status(400).json({msg: error.message})
+    next(error)
   }
 })
 
@@ -38,25 +50,19 @@ router.put('/', async (req, res) =>{
     const newExpenses = await Expense.insertMany(req.body)
     res.status(200).json(newExpenses)
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 
 })
 
 // // Delete an expense
-router.delete('/:id', async (req , res) => {
-  const id = req.params.id
-  const expense = await Expense.findById(id);
-
-  if(!expense) {
-    res.status(404).json({msg: 'Expense not found'})
-  }
-
+router.delete('/:id', validateId, async (req , res) => {
+  
   try {
-    const deletedExpense = await Expense.deleteOne(expense);
+    await Expense.deleteOne({_id: req.params.id});
     res.status(200).json({msg: 'Expense Deleted'})
   } catch (error) {
-    res.status(500).json({msg: error.message})
+    next(error)
   }
 })
 
