@@ -103,11 +103,11 @@ function submitIncome() {
     .forEach((click) => {
       click.addEventListener('click', async (event) => {
       const incomeSourceValue = document.querySelector('.js-income-value').value;
-      const amountValue = document.querySelector('.js-amount-value').value;
+      let amountValue = document.querySelector('.js-amount-value').value;
       const dateValue = document.querySelector('.js-date-value').value;
       const emoji = document.querySelector('.js-emoji-picked').value
   
-      
+      amountValue = Number(amountValue)
       document.querySelector('.js-income-amount-input-alert').innerHTML = '';
       document.querySelector('.js-income-date-input-alert').innerHTML = '';
 

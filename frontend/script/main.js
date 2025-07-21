@@ -31,10 +31,8 @@ export async function getTotalBalance() {
   
   if (result < 0) {
     const  formattedResult = result.slice(1)
-    const totalBalance = `${formattedResult < 0 ? '-' : ''}${formatCurrency(formattedResult, symbol)}`
+    const totalBalance = `${formattedResult < 0 ? '-' : ''}${formattedResult}`
     return totalBalance;
-  }else {
-    return result
   }
 }
 
@@ -47,7 +45,7 @@ export async function getMonthlyExpenseSum() {
     monthlyExpenseResult += expenseValue
   })
   
-ww  return Number(monthlyExpenseResult).toFixed(2);
+  return Number(monthlyExpenseResult).toFixed(2);
 }
 
 export async function getMonthlyIncomeSum() {

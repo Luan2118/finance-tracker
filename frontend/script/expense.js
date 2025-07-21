@@ -106,9 +106,12 @@ function submitExpense() {
     .forEach((event) => {
       event.addEventListener('click', async () => {
         const expenseSourceValue = document.querySelector('.js-expense-value').value;
-        const amountValue = document.querySelector('.js-amount-value').value;
+        let amountValue = document.querySelector('.js-amount-value').value;
         const dateValue = document.querySelector('.js-date-value').value;
         const emoji = document.querySelector('.js-emoji-picked').value;
+
+         amountValue = Number(amountValue)
+
         // let id;
 
         document.querySelector('.js-expense-amount-input-alert').innerHTML = '';
@@ -138,6 +141,7 @@ function submitExpense() {
           return;
         }
 
+      
         const newExpense = {
           expenseSourceValue,
           amountValue,
@@ -145,6 +149,7 @@ function submitExpense() {
           dateValue,
           emoji
         };
+
 
         try {
           const response = await fetch('http://localhost:3000/expenses', {

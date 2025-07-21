@@ -14,13 +14,7 @@ export const getAllIncome = async (req, res, next) => {
 export const createIncome =  async (req, res, next ) => {
   try {
     const {incomeSourceValue, amountValue, currency, dateValue, emoji} = req.body
-
-    if (!incomeSourceValue || !amountValue || !currency || !dateValue || !emoji) {
-      const error = new Error('Please fill all fields!')
-      error.status = 400;
-      return next(error)
-    }
-
+    
     const income = new Income({
       incomeSourceValue,
       amountValue,

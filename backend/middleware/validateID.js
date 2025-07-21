@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import Income from '../models/income.js'
-import Expense from '../models/expense.js'
 
 function validateId(Model) {
   return async (req, res, next) =>{

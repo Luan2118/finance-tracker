@@ -13,13 +13,6 @@ export const getAllExpense = async (req , res, next) => {
 export const createExpense = async (req , res, next) => {
   try {
     const {expenseSourceValue, amountValue, currency, dateValue, emoji } = req.body;
-
-    if (!expenseSourceValue || !amountValue || !currency || !dateValue || !emoji) {
-      const error = new Error('Please fill all fields!')
-      error.status = 400;
-      return next(error)
-    }
-
     const expense = new Expense({
       expenseSourceValue,
       amountValue,
