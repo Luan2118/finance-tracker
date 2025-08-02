@@ -1,0 +1,108 @@
+
+.title-grid {
+  margin-bottom: 80px;
+  padding: 20px;
+}
+.title {
+  font-size: 30px;
+}
+
+.main-grid {
+  background-color: white;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+
+.main-inner-grid {
+  display: flex;
+  max-height: 1000px;
+
+}
+
+.left-grid {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  height: auto;
+  max-width: 500px;
+  flex: 1;
+  
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.login-text {
+  font-size: 35px;
+  margin-bottom: 40px;
+}
+
+.login-inner {
+  display: flex;
+}
+
+.login-link {
+  margin-top: 25px;
+  width: 100%;
+}
+
+.login-input {
+  width:  100%;
+  padding: 15px 0;
+  font-size: 22px;
+  margin-top: 10px;
+}
+
+.email-text {
+  font-size: 25px;
+}
+
+.password-text {
+  font-size: 25px;
+}
+
+.remember-forgot-grid {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top:
+}
+
+.remember-me-grid {
+  display: flex;
+}
+
+.login-button {
+  font-size: 25px;
+  width: 100%;
+  margin-top: 15px;
+  padding: 15px 0px;
+
+}
+
+.register-link-grid {
+  display: flex;
+  
+}
+
+.register-link {
+  margin-left: 5px;
+}
+.right-grid {
+ height: auto;
+ flex: 1;
+}
+
+
+.login-register-img {
+  max-height: 880px;
+  width: 100%;
+
+}

@@ -52,7 +52,7 @@ function validateInput(sourceValueType) {
       return next(error)
     }
 
-    
+
     if(typeof emoji !== 'string' || /^[a-zA-Z0-9]*$/.test(emoji)) {
       const error = new Error('Invalid emoji input!')
       error.status = 400;
