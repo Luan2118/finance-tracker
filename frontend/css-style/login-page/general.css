@@ -1,5 +1,7 @@
 body {
+  box-sizing: border-box;
   background-color: rgb(235, 235, 235);
-  padding: 140px 250px;
   font-family: Arial;
+  margin: 0;
+  padding: 0;
 }

@@ -1,34 +1,40 @@
 
-.title-grid {
-  margin-bottom: 80px;
-  padding: 20px;
-}
-.title {
-  font-size: 30px;
-}
 
 .main-grid {
-  background-color: white;
-  border-radius: 30px;
-  overflow: hidden;
-}
-
-
-.main-inner-grid {
+  background-image: url('../../icons/finance-main-2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  
   display: flex;
-  max-height: 1000px;
+  align-items: center;
+  justify-content: flex-start; /* aligns to the left */
+  padding-left: 180px; /* spacing from edge */
+}
+
+
+.welcome-text {
+  font-size: 70px;
 
 }
 
-.left-grid {
+.catchy-text {
+  color: rgb(94, 93, 93);
+}
+
+.login-grid {
   display: flex;
   flex-direction: column;
-  background-color: white;
-  height: auto;
-  max-width: 500px;
-  flex: 1;
-  
+  background-color: rgba(255, 255, 255, 0.85); /* slightly see-through white */
+  padding: 40px;
+  border-radius: 10px;
+  max-width: 600px;
+  color: black;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
+
+
 
 .login {
   display: flex;
@@ -55,16 +61,16 @@
 .login-input {
   width:  100%;
   padding: 15px 0;
-  font-size: 22px;
+  font-size: 18px;
   margin-top: 10px;
 }
 
 .email-text {
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .password-text {
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .remember-forgot-grid {
@@ -72,7 +78,7 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-top:
+  margin-top: 25px;
 }
 
 .remember-me-grid {
@@ -83,7 +89,7 @@
   font-size: 25px;
   width: 100%;
   margin-top: 15px;
-  padding: 15px 0px;
+  padding: 15px 5px;
 
 }
 
