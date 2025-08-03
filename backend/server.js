@@ -6,6 +6,7 @@ import cors from 'cors';
 import errorHandler from './middleware/errorHandler.js';
 import notFound from './middleware/notFound.js';
 import logger from './middleware/logger.js';
+import registerRouter from './routes/register.js'
 
 const PORT = process.env.PORT;
 const server = express();
@@ -23,6 +24,7 @@ server.use(logger)
 
 server.use('/expenses', expensesRouter)
 server.use('/income', incomeRouter)
+server.use('/register', registerRouter)
 
 
 // Error Handlers

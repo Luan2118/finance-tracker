@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 300px;
+  padding-right: 200px;
 }
 
 .register-grid {
@@ -51,4 +51,42 @@
   width: 100%;
   margin-top: 15px;
   padding: 15px 0px;
+}
+
+.username-input-validation,
+.email-input-validation,
+.confirm-password-input-validation {
+  color: red;
+}
+
+.dialog {
+  border: none;
+  border-color: none;
+  border-radius: 10px;
+}
+
+.dialog-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog-text {
+  font-size: 20px;
+  padding: 10px;
+}
+
+.loading-icon-box {
+  display: flex;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform:  rotate(0deg); }
+  100% { transform:  rotate(360deg); }
+}
+
+.loading-icon {
+  object-fit: cover;
+  max-height: 35px;
 }

@@ -17,27 +17,37 @@
 
         <div class="register-link">
           <div class="register-text">Username</div>
-          <input class="register-input" type="text" placeholder="Enter your username">
+          <input class="register-input username-input-js" type="text" placeholder="Enter your username">
+          <div class="username-input-validation"></div>
         </div>
 
         <div class="register-link">
           <div class="register-text">Email</div>
-          <input class="register-input" type="text" placeholder="Enter your email">
+          <input class="register-input email-input-js" type="text" placeholder="Enter your email">
+          <div class="email-input-validation"></div>
         </div>
 
         <div class="register-link">
           <div class="register-text">Password</div>
-          <input class="register-input" type="password" placeholder="Enter your password">
+          <input class="register-input password-input-js" type="password" placeholder="Enter your password">
+          <div class="password-input-validation"></div>
         </div>
 
         <div class="register-link">
           <div class="register-text">Confirm password</div>
-          <input class="register-input" type="password" placeholder="Confirm your password">
+          <input class="register-input confirm-password-input-js" type="password" placeholder="Confirm your password">
+          <div class="confirm-password-input-validation"></div>
         </div>
 
-        <div class="register-button-grid"><button class="register-button">Register</button></div>
+        <div class="register-button-grid"><button class="register-button register-button-js">Register</button></div>
       </div>
 
+      <dialog class="dialog">
+        <div class="dialog-box">
+          <div class="dialog-text">User registered succesfully!&#9989</div>
+          <div class="loading-icon-box"><img class="loading-icon" src="./icons/loading-icon.png"></div>
+        </div>
+      </dialog>
     </div>
 
     <script src="./script/register.js">
