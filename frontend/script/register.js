@@ -25,10 +25,13 @@ registerBtn.addEventListener('click', async () => {
   if(username.length < 3) {
     return usernameValidation.innerHTML = '<div>Username has to have at least 3 character</div>'
   }
+  usernameValidation.innerHTML = '';
 
   if (!emailRegex.test(email)) {
     return emailValidation.innerHTML = '<div>Invalid e-mail</div>'
   }
+
+  emailValidation.innerHTML = '';
 
   if(!passwordRegex.test(password)) {
     return passwordValidation.innerHTML = 
@@ -40,6 +43,8 @@ registerBtn.addEventListener('click', async () => {
     </span>`
   }
 
+  passwordValidation.innerHTML = '';
+  
   if (confirmPassword !== password) {
     return confirmPasswordValidation.innerHTML = `<div>Password doesn't match </div>`
   }
@@ -48,21 +53,42 @@ registerBtn.addEventListener('click', async () => {
     confirmPasswordValidation.innerHTML = ''
   }
 
-  const userData = {
+  const newUser = {
     username,
     email,
     password
   }
 
+  try {
+    const response = await fetch('http://localhost:3000/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newUser)
+    })
+
+    const result = await response.json();
+
+ 
+    if (!response.ok) {
+      if(result.error === 'User with this name already exists') return usernameValidation.innerHTML = result.error;
+      if(result.error === 'User with this email already exists') return emailValidation.innerHTML = result.error
+      return document.querySelector('.register-error-js').innerHTML = result.error;
+    }
+
+      console.log('User registered')
+      dialog.showModal();
+    
+      setTimeout(() => {
+        window.location.href= 'login.html'
+      },2000)
+      
+  } catch (error) {
+    console.error(error.message);
+  }
   
 
-  console.log('User registered')
-  dialog.showModal();
-
-  setTimeout(() => {
-    window.location.href= 'login.html'
-  },2000)
 
 
 })
-

@@ -90,3 +90,7 @@
   object-fit: cover;
   max-height: 35px;
 }
+
+.register-error {
+  color: red;
+}

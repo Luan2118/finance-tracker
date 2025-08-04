@@ -161,8 +161,6 @@ function submitExpense() {
           }) 
 
           if(!response.ok) throw new Error('Failed to add expense')
-  
-          const data =  await response.json()
           
           const monthlySum = monthlyExpenseSummary();
   
