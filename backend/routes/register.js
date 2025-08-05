@@ -4,15 +4,7 @@ import validateRegister from '../middleware/validateRegister.js';
 import bcrypt from 'bcrypt';
 const router = express.Router();
 
-router.get('/users', async(req, res, next) => {
-  try {
-    const allUsers = await User.find();
 
-    res.send(allUsers)
-  } catch (error) {
-    next(error)
-  }
-})
 
 router.post('/', validateRegister(), async (req, res, next ) => {
   try {

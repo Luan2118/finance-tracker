@@ -8,6 +8,7 @@ import notFound from './middleware/notFound.js';
 import logger from './middleware/logger.js';
 import registerRouter from './routes/register.js'
 import loginRouter from './routes/login.js'
+import cookieParser from 'cookie-parser';
 
 const PORT = process.env.PORT;
 const server = express();
@@ -20,6 +21,7 @@ server.use(cors());
 server.use(express.json());
 server.use(express.urlencoded({extended: false}));
 
+server.use(cookieParser());
 // logger middleware
 server.use(logger)
 
