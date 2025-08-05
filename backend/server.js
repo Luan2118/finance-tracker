@@ -7,6 +7,7 @@ import errorHandler from './middleware/errorHandler.js';
 import notFound from './middleware/notFound.js';
 import logger from './middleware/logger.js';
 import registerRouter from './routes/register.js'
+import loginRouter from './routes/login.js'
 
 const PORT = process.env.PORT;
 const server = express();
@@ -22,9 +23,10 @@ server.use(express.urlencoded({extended: false}));
 // logger middleware
 server.use(logger)
 
+server.use('/register', registerRouter)
+server.use('/login', loginRouter)
 server.use('/expenses', expensesRouter)
 server.use('/income', incomeRouter)
-server.use('/register', registerRouter)
 
 
 // Error Handlers

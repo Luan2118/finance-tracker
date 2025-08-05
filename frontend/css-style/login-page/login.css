@@ -112,3 +112,8 @@
   width: 100%;
 
 }
+
+.email-input-validation,
+.password-input-validation {
+  color: red;
+}

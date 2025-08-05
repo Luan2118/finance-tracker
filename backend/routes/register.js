@@ -1,7 +1,7 @@
 import express from 'express';
 import User from '../models/user.js'
 import validateRegister from '../middleware/validateRegister.js';
-
+import bcrypt from 'bcrypt';
 const router = express.Router();
 
 router.get('/users', async(req, res, next) => {
@@ -16,14 +16,19 @@ router.get('/users', async(req, res, next) => {
 
 router.post('/', validateRegister(), async (req, res, next ) => {
   try {
+
+    
     const {username, email, password} = req.body;
-  
+    
+    const hashedPassword = await bcrypt.hash(password, 10)
+    
     const user = new User({
       username,
       email,
-      password
+      password: hashedPassword
     })
     
+
     const newUser = await user.save();
     res.status(201).json({msg: 'User succesfully registered'})
   } catch (error) {
