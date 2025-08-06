@@ -34,7 +34,7 @@ loginButton.addEventListener('click', async () => {
       return document.querySelector('.login-validation').innerHTML = result.error;
     }
 
-    console.log('logged in')
+    window.location.href = 'index.html'
   } catch (error) {
     console.error(error.message);
   }
