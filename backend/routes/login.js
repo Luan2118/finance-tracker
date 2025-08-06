@@ -4,6 +4,8 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 
+
+
 const router = express.Router();
 
 router.get('/user', authenticateToken, async(req, res, next) => {
@@ -17,7 +19,7 @@ router.get('/user', authenticateToken, async(req, res, next) => {
 })
 
 
-router.post('/', async (req, res, next) => {  
+router.post('/test-login', async (req, res, next) => {  
   try {
     const {email, password} = req.body;
     
@@ -58,17 +60,12 @@ router.post('/', async (req, res, next) => {
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
 
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'Strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000
-    });
-
+    console.log('✅ login.js is loaded');
+    console.log('✅ Login route hit, no tokens returned')
     res.status(200).json({
-      accessToken,
-      refreshToken
+      msg: 'Login succesful'
     })
+
   } catch (error) {
     next(error)
   }
@@ -105,7 +102,7 @@ router.post('/refresh', (req , res, next) => {
 
 router.post('/logout', (req, res) => {
   res.clearCookie('refreshToken', {
-    httponly: true,
+    httpOnly: true,
     secure: true,
     sameSite: 'Strict',
   })

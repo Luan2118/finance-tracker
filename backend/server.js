@@ -16,7 +16,19 @@ const server = express();
 mongoose.connect(process.env.DATABASE_URL)
 
 // Enable CORS for all origins (you can restrict it later)
-server.use(cors());
+const allowedOrigins = ['http://localhost:5500', 'http://127.0.0.1:5500'];
+
+server.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  optionsSuccessStatus: 200
+}));
 
 server.use(express.json());
 server.use(express.urlencoded({extended: false}));
@@ -24,6 +36,7 @@ server.use(express.urlencoded({extended: false}));
 server.use(cookieParser());
 // logger middleware
 server.use(logger)
+
 
 server.use('/register', registerRouter)
 server.use('/login', loginRouter)

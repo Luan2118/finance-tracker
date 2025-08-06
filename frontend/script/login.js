@@ -21,6 +21,7 @@ loginButton.addEventListener('click', async () => {
   try {
     const response = await fetch('http://localhost:3000/login', {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -33,7 +34,7 @@ loginButton.addEventListener('click', async () => {
       return document.querySelector('.login-validation').innerHTML = result.error;
     }
 
-
+    console.log('logged in')
   } catch (error) {
     console.error(error.message);
   }
