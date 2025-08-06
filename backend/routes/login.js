@@ -23,7 +23,7 @@ router.post('/', async (req, res, next) => {
     
     const user = await User.findOne({email: email})
 
-    if(user.length === 0) {
+    if(!user) {
       const error = new Error('User not found')
       error.status = 404;
       return next(error)
@@ -45,9 +45,11 @@ router.post('/', async (req, res, next) => {
     }
 
     const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: '15m'
+      expiresIn: '15s'
     })
-    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET)
+    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+      expiresIn: '7d'
+    })
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
@@ -65,22 +67,54 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+router.post('/refresh', (req , res, next) => {
+  const refreshToken = req.cookies.refreshToken;
 
-// router.get('/refresh', (req, res) => {
+  if(!refreshToken) {
+    const error = new Error('Token not found');
+    error.status = 401;
+    return next(error);
+  }
 
-// })
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, payload) => {
+    if (err) {
+      const error = new Error('Token veritification failed');
+      error.status = 403;
+      return next(error);
+    }
+
+    const payload2 = {
+      id: payload.id,
+      username: payload.username
+    }
+
+    const accessToken = jwt.sign(payload2, process.env.ACCESS_TOKEN_SECRET, {
+      expiresIn: '15s'
+    })
+
+    res.status(200).json({accessToken})
+  })
+})
+
+router.post('/logout', (req, res) => {
+  res.clearCookie('refreshToken', {
+    httponly: true,
+    secure: true,
+    sameSite: 'Strict',
+  })
+  res.status(200).json({msg: 'Logged out'})
+})
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
-    const error = new Error('Invalid token')
+    const error = new Error('Token not found')
     error.status = 400;
     return next(error)
   }
 
-  console.log(token)
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
     if(err) {
       const error = new Error('Token veritification failed')
