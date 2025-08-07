@@ -6,6 +6,7 @@ import {formatCurrency, loadGetSymbol} from './utils/currencySymbols.js'
 import {incomeChart, renderIncomeChart, filteredIncome, incomeLast60DaysSum}  from "./chartJS/main-page/income-chart.js";
 import renderExpenseChart from "./chartJS/main-page/expense-chart.js";
 import  { financialOverviewChart, renderFinancialOverviewChart}  from "./chartJS/main-page/financial-overview-chart.js"
+import logOut from "./logout.js";
 
 // utils
 menuIcon();
@@ -16,7 +17,7 @@ let symbol;
 let income60; 
 let total;
 
-
+logOut();
 // Get summary of total balance/ expenses / incomes
 let result;
 

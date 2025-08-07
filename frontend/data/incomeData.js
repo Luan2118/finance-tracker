@@ -1,7 +1,16 @@
+import getAccessToken from "../script/utils/getToken.js";
+
 export let incomeData;
 
+const token = getAccessToken();
+
 async function getIncome() {
-  const response = await fetch('http://localhost:3000/income');
+  const response = await fetch('http://localhost:3000/income', {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
   const data = await response.json();
   incomeData = data;
   return incomeData;

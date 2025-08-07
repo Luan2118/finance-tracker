@@ -4,14 +4,15 @@ import errorHandler from '../middleware/errorHandler.js';
 import validateId from '../middleware/validateID.js';
 import validateInput from '../middleware/validateInput.js';
 import { getAllExpense, createExpense, updateExpense, deleteExpense } from '../controllers/expenseController.js';
+import { authenticateToken } from './login.js';
 
 const router = express.Router();
 
 // Get all expenses
-router.get('/', getAllExpense)
+router.get('/', authenticateToken, getAllExpense)
 
 // // Create an expense
-router.post('/', validateInput('expenseSourceValue'), createExpense)
+router.post('/', validateInput('expenseSourceValue'), authenticateToken, createExpense)
 
 // Update an expense
 router.put('/', updateExpense)

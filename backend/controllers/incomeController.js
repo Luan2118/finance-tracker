@@ -4,7 +4,7 @@ import Income from '../models/income.js'
 
 export const getAllIncome = async (req, res, next) => {
   try {
-    const incomes = await Income.find();
+    const incomes = await Income.find({user: req.user.id});
     res.status(200).json(incomes);
   } catch (error) {
     next(error)
@@ -20,7 +20,8 @@ export const createIncome =  async (req, res, next ) => {
       amountValue,
       currency,
       dateValue,
-      emoji
+      emoji,
+      user: req.user.id
     })
 
     const newIncome = await income.save();

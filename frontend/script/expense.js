@@ -3,11 +3,13 @@ import { myChart } from "./chartJS/expense-page-chart.js";
 import {iconPicker} from './utils/icon-picker.js'
 import { menuIcon } from "./utils/menuIcon.js";
 import {formatCurrency, loadGetSymbol} from './utils/currencySymbols.js';
-
+import getAccessToken from "./utils/getToken.js";
+import logOut from "./logout.js";
 
 // utils
 menuIcon();
 iconPicker();
+logOut();
 
 
 // pop up 
@@ -150,12 +152,15 @@ function submitExpense() {
           emoji
         };
 
+        const token = getAccessToken();
+
 
         try {
           const response = await fetch('http://localhost:3000/expenses', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(newExpense)
           }) 
@@ -172,6 +177,8 @@ function submitExpense() {
           generateHTML();
           
           dialog.close();
+
+          console.log(newExpense)
         } catch (error) {
           console.error('Error adding expense:', error)
         }

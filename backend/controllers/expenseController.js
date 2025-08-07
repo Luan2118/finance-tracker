@@ -2,7 +2,7 @@ import Expense from '../models/expense.js'
 
 export const getAllExpense = async (req , res, next) => {
    try {
-    const expenses = await Expense.find()
+    const expenses = await Expense.find({user: req.user.id})
 
     res.status(200).json(expenses)
   } catch (error) {
@@ -13,12 +13,14 @@ export const getAllExpense = async (req , res, next) => {
 export const createExpense = async (req , res, next) => {
   try {
     const {expenseSourceValue, amountValue, currency, dateValue, emoji } = req.body;
+
     const expense = new Expense({
       expenseSourceValue,
       amountValue,
       currency,
       dateValue,
-      emoji
+      emoji,
+      user: req.user.id
     })
 
     const newExpense = await expense.save();

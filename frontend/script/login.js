@@ -1,6 +1,9 @@
+
+
 const loginButton = document.querySelector('.login-button-js');
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,10}$/;
+
 
 
 loginButton.addEventListener('click', async () => {
@@ -34,7 +37,11 @@ loginButton.addEventListener('click', async () => {
       return document.querySelector('.login-validation').innerHTML = result.error;
     }
 
-    window.location.href = 'index.html'
+    if (result.accessToken) {
+      sessionStorage.setItem('accessToken', result.accessToken);
+      window.location.href = 'index.html'
+    } 
+
   } catch (error) {
     console.error(error.message);
   }

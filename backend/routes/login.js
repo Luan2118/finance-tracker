@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/user', authenticateToken, async(req, res, next) => {
   try {
-    const user = await User.findOne({username: req.user.username});
+    const user = await User.findOne({_id: req.user.id});
 
     res.send(user)
   } catch (error) {
@@ -45,7 +45,7 @@ router.post('/', async (req, res, next) => {
     }
 
     const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: '15s'
+      expiresIn: '15m'
     })
     const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
       expiresIn: '7d'
@@ -89,7 +89,7 @@ router.post('/refresh', (req , res, next) => {
     }
 
     const accessToken = jwt.sign(payload2, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: '15s'
+      expiresIn: '15m'
     })
 
     res.status(200).json({accessToken})
@@ -105,7 +105,7 @@ router.post('/logout', (req, res) => {
   res.status(200).json({msg: 'Logged out'})
 })
 
-function authenticateToken(req, res, next) {
+export function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 

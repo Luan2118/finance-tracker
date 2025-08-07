@@ -3,10 +3,13 @@ import { myChart,   } from "./chartJS/income-page-chart.js";
 import {iconPicker} from './utils/icon-picker.js'
 import { menuIcon } from "./utils/menuIcon.js";
 import {formatCurrency, loadGetSymbol } from "./utils/currencySymbols.js";
+import getAccessToken from "./utils/getToken.js";
+import logOut from "./logout.js";
 
 // utils
 menuIcon();
 iconPicker();
+logOut();
 
 // get currency symbol
 let symbol;
@@ -141,11 +144,14 @@ function submitIncome() {
         emoji
       }
 
+      const token = getAccessToken();
+
       try {
         const response = await fetch('http://localhost:3000/income', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify(newIncome)
         })

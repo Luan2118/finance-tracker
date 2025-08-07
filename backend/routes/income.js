@@ -3,14 +3,15 @@ import Income from '../models/income.js'
 import validateId from '../middleware/validateID.js';
 import {getAllIncome, createIncome, updateIncome, deleteIncome} from '../controllers/incomeController.js';
 import validateInput from '../middleware/validateInput.js';
+import { authenticateToken } from './login.js';
 
 const router = express.Router();
 
 // Get all incomes
-router.get('/', getAllIncome)
+router.get('/', authenticateToken, getAllIncome)
 
 // Create an income
-router.post('/', validateInput('incomeSourceValue'), createIncome)
+router.post('/', validateInput('incomeSourceValue'), authenticateToken, createIncome)
 
 
 // Update an expense
