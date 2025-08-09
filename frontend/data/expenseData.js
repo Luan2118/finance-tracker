@@ -1,19 +1,44 @@
 import getAccessToken from "../script/utils/getToken.js";
+import refreshToken from "../script/utils/refreshToken.js";
 
 export let expenseData;
 
-const token = getAccessToken();
 
 async function getExpenseData() {
-  const response = await fetch('http://localhost:3000/expenses', {
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${token}`
+  try {
+    let token = getAccessToken();
+
+    let response = await fetch('http://localhost:3000/expenses', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    
+    if(response.status === 401) {
+      token = await refreshToken();
+      sessionStorage.setItem('accessToken', token)
+      response = await fetch('http://localhost:3000/expenses', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+
     }
-  })
-  const data = await response.json();
-  expenseData = data;
-  return expenseData
+
+   
+    
+
+    if(!response.ok)  throw new Error(`Failed to fetch: ${response.status}`);
+
+    const data = await response.json();
+    expenseData = data;
+    return expenseData
+    
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export async function loadExpenseData() {

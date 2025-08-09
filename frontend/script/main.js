@@ -8,6 +8,10 @@ import renderExpenseChart from "./chartJS/main-page/expense-chart.js";
 import  { financialOverviewChart, renderFinancialOverviewChart}  from "./chartJS/main-page/financial-overview-chart.js"
 import logOut from "./logout.js";
 
+import refreshToken from "./utils/refreshToken.js";
+
+refreshToken();
+
 // utils
 menuIcon();
 
@@ -29,7 +33,7 @@ export async function getTotalBalance() {
   result = Number(monthlyIncomeResult - monthlyExpenseResult).toFixed(2) 
   
 
-  console.log(result)
+
   
   if (result < 0) {
     const  formattedResult = result.slice(1)
@@ -72,7 +76,7 @@ async function displayTotalBalance() {
   const totalBalance = await getTotalBalance();
   document.querySelector('.js-total-balance-header-summary')
   .innerHTML = formatCurrency(totalBalance, symbol)
-  console.log(totalBalance)
+
 }
 
 async function displayMonthlyIncomeSummary() {

@@ -17,7 +17,7 @@ mongoose.connect(process.env.DATABASE_URL)
 
 // Enable CORS for all origins (you can restrict it later)
 server.use(cors({
-  origin: 'http://127.0.0.1:5500',
+  origin: 'http://localhost:5500',
   credentials: true            
 }));
 

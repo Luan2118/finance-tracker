@@ -3,7 +3,7 @@ import Expense from '../models/expense.js'
 export const getAllExpense = async (req , res, next) => {
    try {
     const expenses = await Expense.find({user: req.user.id})
-
+    
     res.status(200).json(expenses)
   } catch (error) {
     next(error)

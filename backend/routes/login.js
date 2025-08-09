@@ -45,7 +45,7 @@ router.post('/', async (req, res, next) => {
     }
 
     const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: '15m'
+      expiresIn: '15s'
     })
     const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
       expiresIn: '7d'
@@ -53,7 +53,7 @@ router.post('/', async (req, res, next) => {
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: 'Strict',
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
@@ -106,19 +106,22 @@ router.post('/logout', (req, res) => {
 })
 
 export function authenticateToken(req, res, next) {
+
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
+  
+
   if (!token) {
     const error = new Error('Token not found')
-    error.status = 400;
+    error.status = 401;
     return next(error)
   }
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
     if(err) {
       const error = new Error('Token veritification failed')
-      error.status = 400;
+      error.status = 401;
       return next(error)
     }
 

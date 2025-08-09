@@ -5,6 +5,7 @@ import { menuIcon } from "./utils/menuIcon.js";
 import {formatCurrency, loadGetSymbol} from './utils/currencySymbols.js';
 import getAccessToken from "./utils/getToken.js";
 import logOut from "./logout.js";
+import refreshToken from "./utils/refreshToken.js";
 
 // utils
 menuIcon();
@@ -152,11 +153,10 @@ function submitExpense() {
           emoji
         };
 
-        const token = getAccessToken();
-
-
+        
         try {
-          const response = await fetch('http://localhost:3000/expenses', {
+          let token = getAccessToken();
+          let response = await fetch('http://localhost:3000/expenses', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -164,6 +164,20 @@ function submitExpense() {
             },
             body: JSON.stringify(newExpense)
           }) 
+
+          if (response.status === 401) {  
+            token = await refreshToken();
+            sessionStorage.setItem('accessToken', token)
+            response = await fetch('http://localhost:3000/expenses', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(newExpense)
+          }) 
+           console.log(token)
+          }
 
           if(!response.ok) throw new Error('Failed to add expense')
           
@@ -178,7 +192,7 @@ function submitExpense() {
           
           dialog.close();
 
-          console.log(newExpense)
+         
         } catch (error) {
           console.error('Error adding expense:', error)
         }

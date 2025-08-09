@@ -5,6 +5,7 @@ import { menuIcon } from "./utils/menuIcon.js";
 import {formatCurrency, loadGetSymbol } from "./utils/currencySymbols.js";
 import getAccessToken from "./utils/getToken.js";
 import logOut from "./logout.js";
+import refreshToken from "./utils/refreshToken.js";
 
 // utils
 menuIcon();
@@ -144,10 +145,11 @@ function submitIncome() {
         emoji
       }
 
-      const token = getAccessToken();
-
+      
       try {
-        const response = await fetch('http://localhost:3000/income', {
+        let token = getAccessToken();
+
+        let response = await fetch('http://localhost:3000/income', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -155,6 +157,19 @@ function submitIncome() {
           },
           body: JSON.stringify(newIncome)
         })
+
+        if(response.status === 401) {
+          token = await refreshToken();
+          sessionStorage.setItem('accessToken', token)
+          response = await fetch('http://localhost:3000/income', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(newIncome)
+        })
+        }
 
         if (!response.ok) throw new Error('Failed to add income')
           const monthlySums = monthlyIncomeSummary();
