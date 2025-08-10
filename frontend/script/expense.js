@@ -111,7 +111,7 @@ function submitExpense() {
         const expenseSourceValue = document.querySelector('.js-expense-value').value;
         let amountValue = document.querySelector('.js-amount-value').value;
         const dateValue = document.querySelector('.js-date-value').value;
-        const emoji = document.querySelector('.js-emoji-picked').value;
+        let emoji = document.querySelector('.js-emoji-picked').value;
 
          amountValue = Number(amountValue)
 
@@ -119,11 +119,6 @@ function submitExpense() {
 
         document.querySelector('.js-expense-amount-input-alert').innerHTML = '';
         document.querySelector('.js-expense-date-input-alert').innerHTML = '';
-
-        if (emoji === '') {
-          document.querySelector('.js-emoji-input-alert').innerHTML = '<p>Please pick an icon!</p>'
-          return;
-        }
 
         if (expenseSourceValue === '') {
           document.querySelector('.js-expense-source-input-alert')
@@ -153,7 +148,7 @@ function submitExpense() {
           emoji
         };
 
-        
+        console.log(newExpense)
         try {
           let token = getAccessToken();
           let response = await fetch('http://localhost:3000/expenses', {
@@ -176,7 +171,6 @@ function submitExpense() {
             },
             body: JSON.stringify(newExpense)
           }) 
-           console.log(token)
           }
 
           if(!response.ok) throw new Error('Failed to add expense')

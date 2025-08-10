@@ -18,7 +18,7 @@ export async function loadSharedData() {
 }
 
 
-
+updateDate() 
 async function updateDate() {
   await loadSharedData();
   sharedData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))

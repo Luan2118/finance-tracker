@@ -6,8 +6,7 @@ function validateInput(sourceValueType) {
     const sourceType = sourceValueType === 'expenseSourceValue' ? 'Expense' : 'Income'
 
     const {amountValue, currency, dateValue, emoji } = req.body;
-    console.log(sourceValueType)
-    
+
     const isOnlyLettersSource = /^[a-zA-Z]+$/.test(req.body[sourceValueType]);
 
     const parsedAmount = Number(amountValue);
@@ -19,7 +18,7 @@ function validateInput(sourceValueType) {
     const isValidDateFormat = /^\d{4}-\d{2}-\d{2}$/.test(dateValue);
 
     
-    if (!req.body[sourceValueType] || !amountValue || !currency || !dateValue || !emoji) {
+    if (!req.body[sourceValueType] || !amountValue || !currency || !dateValue) {
       const error = new Error('Please fill all fields!')
       error.status = 400;
       return next(error)
@@ -28,7 +27,6 @@ function validateInput(sourceValueType) {
     if(typeof req.body[sourceValueType] !== 'string' || !isOnlyLettersSource) {
       const error = new Error(`${sourceType}Source has to be a word`)
       error.status = 400;
-      console.log(typeof req.body.expenseSourceValue)
       return next(error)
     }
 
@@ -53,11 +51,11 @@ function validateInput(sourceValueType) {
     }
 
 
-    if(typeof emoji !== 'string' || /^[a-zA-Z0-9]*$/.test(emoji)) {
-      const error = new Error('Invalid emoji input!')
-      error.status = 400;
-      return next(error)
-    }
+    // if(typeof emoji !== 'string' || /^[a-zA-Z0-9]*$/.test(emoji)) {
+    //   const error = new Error('Invalid emoji input!')
+    //   error.status = 400;
+    //   return next(error)
+    // }
     next()
   }
 } 

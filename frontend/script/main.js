@@ -7,15 +7,53 @@ import {incomeChart, renderIncomeChart, filteredIncome, incomeLast60DaysSum}  fr
 import renderExpenseChart from "./chartJS/main-page/expense-chart.js";
 import  { financialOverviewChart, renderFinancialOverviewChart}  from "./chartJS/main-page/financial-overview-chart.js"
 import logOut from "./logout.js";
-
+import getAccessToken from "./utils/getToken.js";
 import refreshToken from "./utils/refreshToken.js";
 
+
 refreshToken();
+getName();
+
+async function getName() {
+  try {
+    let token = await getAccessToken();
+
+    const response = await fetch('http://localhost:3000/login/user', {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+
+    if(response.status === 401) {
+      token = await refreshToken();
+      sessionStorage.setItem('accessToken', token)
+      const response = await fetch('http://localhost:3000/login/user', {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    }
+
+    const result = await response.json();
+    
+
+    document.querySelector('.profile-name-js').innerHTML = result.username;
+  } catch (error) {
+    console.error(error.message)
+  }
+  
+
+}
 
 // utils
 menuIcon();
 
 loadSharedData().then(() => document.querySelector('.js-currency').innerHTML = sharedData[0].currency)
+
 
 let symbol;
 let income60; 
@@ -23,25 +61,16 @@ let total;
 
 logOut();
 // Get summary of total balance/ expenses / incomes
-let result;
 
 export async function getTotalBalance() {
+
   
   const monthlyIncomeResult = await getMonthlyIncomeSum();
   const monthlyExpenseResult = await getMonthlyExpenseSum()
   
-  result = Number(monthlyIncomeResult - monthlyExpenseResult).toFixed(2) 
-  
+  const result = Number(monthlyIncomeResult - monthlyExpenseResult).toFixed(2) 
 
-
-  
-  if (result < 0) {
-    const  formattedResult = result.slice(1)
-    const totalBalance = `${formattedResult < 0 ? '-' : ''}${formattedResult}`
-    return totalBalance;
-  }else {
-    return result;
-  }
+  return result;
 }
 
 export async function getMonthlyExpenseSum() {
@@ -341,8 +370,7 @@ async function displayIncome() {
       } catch (error) {
         console.error(error.message)
       }
-  
-      const totalBalance = await getTotalBalance();
+
   
   
       financialOverviewChart.data.datasets[0].data = [await getTotalBalance(), await getMonthlyIncomeSum(), await getMonthlyExpenseSum()]

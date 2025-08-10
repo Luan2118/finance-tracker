@@ -218,6 +218,7 @@ dialog {
 .emoji-picker-grid {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
   margin-bottom: 10px;
 }
@@ -244,9 +245,21 @@ dialog {
   margin-left: 10px;
 }
 
+.emoji-category-grid {
+  display: flex;
+}
+
 .input-grid {
   margin-top: 50px;
 }
+
+.category-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 100px;
+}
+
 .add-expense-inputs  {
   margin-bottom: 40px;
 }

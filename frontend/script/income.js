@@ -115,28 +115,25 @@ function submitIncome() {
       document.querySelector('.js-income-amount-input-alert').innerHTML = '';
       document.querySelector('.js-income-date-input-alert').innerHTML = '';
 
-      if (emoji === '') {
-        document.querySelector('.js-emoji-input-alert').innerHTML = '<p>Please pick an icon!</p>'
-        return;
-      }
-      
       if (incomeSourceValue === '') {
         document.querySelector('.js-income-source-input-alert').innerHTML = "<p>Income Source can't be empty!</p>"
         return;
       }
-
+      
       if (Number(amountValue) <= 0 ) {
         document.querySelector('.js-income-amount-input-alert')
-          .innerHTML = "<p>Amount can't be empty and has to be greater than 0!</p>"
+        .innerHTML = "<p>Amount can't be empty and has to be greater than 0!</p>"
         return;
       }
       
       if (!dateValue) {
         document.querySelector('.js-income-date-input-alert')
-          .innerHTML = '<p>Please pick a date!</p>'
+        .innerHTML = '<p>Please pick a date!</p>'
         return;
       }
-
+      
+      
+      
       const newIncome = {
         incomeSourceValue,
         amountValue,
@@ -145,6 +142,7 @@ function submitIncome() {
         emoji
       }
 
+      console.log(newIncome)
       
       try {
         let token = getAccessToken();

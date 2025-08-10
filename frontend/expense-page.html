@@ -26,7 +26,7 @@
       <a href="index.html">
         <div class="side-bar-link">
           <div><img class="sidebar-icon" src="icons/dashboard-icon.png"></div>
-          <div class="side-bar-text">Dashboard</div>
+          <div class="side-bar-text"><button class="dashboard-button">Dashboard</button></div>
         </div>
       </a>
 
@@ -34,20 +34,20 @@
       <div class="side-bar-link">
         <div><img class="sidebar-icon" src="icons/sidebar-income-icon.png"></div>
         <div class="side-bar-text">
-          Income</div>
+          <button class="income-button">Income</button></div>
       </div>
       </a>
       
       <a href="expense-page.html">
         <div class="side-bar-link">
           <div><img class="sidebar-icon" src="icons/sidebar-expense-icon.png"></div>
-          <div class="side-bar-text">Expense</div>
+          <div class="side-bar-text"><button class="expense-button">Expense</button></div>
         </div>
       </a>
 
       <div class="side-bar-link">
         <div><img class="sidebar-icon" src="icons/logout-icon.jpg"></div>
-        <div class="side-bar-text logout-button-js">Logout</div>
+        <div class="side-bar-text logout-button-js"><button class="logout-button">Logout</button></div>
       </div>
     </div>
 
@@ -71,17 +71,23 @@
             <hr>
             
             <div class="input-grid">
-              <div class="emoji-picker-grid">
-
-                <div><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png">
+              <div class="emoji-category-grid">
+                <div class="emoji-picker-grid">
+  
+                  <div><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png">
+                  </div>
+  
+                  <div class="js-emoji-picker-element"></div>
+                  <div class="pick-icon"><p>Pick Icon</p></div>
+                  <div><input maxlength="2" id="emoji-input"class=" emoji-picked js-emoji-picked"></div>
                 </div>
 
-                <div class="js-emoji-picker-element"></div>
-                <div class="pick-icon"><p>Pick Icon</p></div>
-                <div><input maxlength="2" id="emoji-input"class=" emoji-picked js-emoji-picked"></div>
+
+                <div class="category-box">Category</div>
               </div>
 
               <div class="emoji-input-alert js-emoji-input-alert"></div>
+
             
             <div class="add-expense-inputs">
               <div>Expense Source</div>

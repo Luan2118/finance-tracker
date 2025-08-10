@@ -24,7 +24,7 @@ export const createIncome =  async (req, res, next ) => {
       user: req.user.id
     })
 
-    const newIncome = await income.save();
+    await income.save();
     res.status(201).json({income})
   } catch (error) {
      next(error)
