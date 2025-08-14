@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>See all Income</title>
+    
+    <link rel="stylesheet" href="./css-style/income-page/see-all-income.css">
+    <link rel="stylesheet" href="./css-style/income-page/header.css">
+    <link rel="stylesheet" href="./css-style/shared/sidebar.css">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+
+  <body>
+    <div  class="header">
+      <div id="menu-icon-box"><img class="menu-icon js-menu-icon" src="icons/menu-icon.png"></div>
+      <div class="title"><a href="index.html">Expense Tracker</a></div>
+    </div>
+
+    <div id="sidebar" class="sidebar">
+      <div class="profile-link">
+        <div><img class="profile-picture" src="icons/profile-picture.jpg"></div>
+        <div class="profile-name">Luan Le</div>
+      </div>
+
+      <a href="index.html">
+        <div class="side-bar-link">
+          <div><img class="sidebar-icon" src="icons/dashboard-icon.png"></div>
+          <div class="side-bar-text"><button class="dashboard-button">Dashboard</button></div>
+        </div>
+      </a>
+
+      <a href="income-page.html">
+      <div class="side-bar-link">
+        <div><img class="sidebar-icon" src="icons/sidebar-income-icon.png"></div>
+        <div class="side-bar-text">
+          <button class="income-button">Income</button></div>
+      </div>
+      </a>
+      
+      <a href="expense-page.html">
+        <div class="side-bar-link">
+          <div><img class="sidebar-icon" src="icons/sidebar-expense-icon.png"></div>
+          <div class="side-bar-text"><button class="expense-button">Expense</button></div>
+        </div>
+      </a>
+
+      <div class="side-bar-link">
+        <div><img class="sidebar-icon" src="icons/logout-icon.jpg"></div>
+        <div class="side-bar-text logout-button-js"><button class="logout-button">Logout</button></div>
+      </div>
+    </div>
+
+
+    <div class="main-grid">
+      <div class="see-all-title">
+        See All Income
+      </div>
+      
+      <div class="top-part">
+        <div class="filter-text">
+          Filter:
+        </div>
+        <div class="filter-grid">
+            <div class="category-grid">
+              <div class="category-text">Category</div>
+              <label >
+                <select class="income-category" name="category">
+                  <option value="" selected disabled>Select a category</option>
+                  <option value="salary">Salary</option>
+                  <option value="part-time">Part Time</option>
+                  <option value="overtime">Overtime</option>
+                  <option value="interest">Interest</option>
+                  <option value="other-income">Other-Income</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="timeline-grid">
+              <div class="timeline-text">Timeline</div>
+
+              <div class="timeline-inner-grid">
+                <div><button class="filter-button">See all</button></div>
+
+                <div><button class="filter-button">Custom</button></div>
+
+                <div><button class="filter-button">Last 7 days</button></div>
+
+                <div><button class="filter-button">Last 30 days</button></div>
+
+                <div><button class="filter-button">Last 60 days</button></div>
+
+              </div>
+            </div>
+
+            <div class="amount-grid">
+
+              <div class="income-range-text">Income range</div>
+
+              <div class="amount-inner-grid">
+                <div><button class="filter-button">See all</button></div>
+  
+                <div><button class="filter-button">Custom</button></div>
+  
+                <div><button class="filter-button">up to 5000Kč</button></div>
+  
+                <div><button class="filter-button">up to 10000Kč</button></div>
+  
+                <div><button class="filter-button">up to 20000kč</button></div>
+              </div>
+
+            </div>
+
+            <div class="filter-submit-button-box"><button class="filter-submit-button">Filter</button></div>
+        </div>
+
+
+      </div>
+
+      <div class="bottom-part">
+          <div class="income-grid">
+
+            <div>
+              <div class="income-inner-title">Income Overview</div>
+              
+            </div>
+      
+            <div class="income-info-grid js-income-info-grid">
+      
+            </div>
+          </div>
+      
+          <div class="pie-chart-grid">
+            <div class="financial-overview-text">Financial Overview</div>
+            <div class="financial-overview-chart-grid"><canvas id="financial-overview-chart"></canvas></div>
+            <div class="pie-chart-summary">
+
+            </div>
+          </div>
+
+    </div>
+
+
+    <script type="module" src="./script/income-page/see-all-income.js"></script>
+  </body>
+</html>

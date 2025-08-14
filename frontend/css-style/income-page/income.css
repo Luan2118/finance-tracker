@@ -83,6 +83,27 @@ canvas {
   margin-bottom: 15px;
 }
 
+.see-all-download-box{
+  display: flex;
+}
+
+.see-all-button {
+  background-color: rgb(236, 236, 236);
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.see-all-button:hover {
+  opacity: 0.9;
+}
+
+.see-all-button:active {
+  opacity: 0.7;
+}
+
 .download-button {
   background-color: rgb(236, 236, 236);
   border: none;
@@ -233,6 +254,14 @@ dialog {
 .emoji-picker-grid {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.emoji-picker-inner-grid {
+  display: flex;
+  flex-direction: row;
   align-items: center;
   margin-bottom: 10px;
 }
@@ -257,6 +286,11 @@ dialog {
   font-size: 25px;
   width: 50px;
   margin-left: 10px;
+}
+
+.category-grid {
+  display: flex;
+  
 }
 
 
@@ -323,7 +357,8 @@ dialog {
 .income-amount-input-alert,
 .income-date-input-alert, 
 .emoji-input-alert,
-.income-source-input-alert  {
+.income-source-input-alert,
+.category-input-alert  {
   color: red;
   font-size: 13px;
 } 

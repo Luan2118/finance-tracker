@@ -3,10 +3,10 @@
   <head>
     <title>Finance Tracker</title>
 
-    <link rel="stylesheet" href="css-style/income-page/income.css">
-    <link rel="stylesheet" href="css-style/shared/general.css">
-    <link rel="stylesheet" href="css-style/shared/header.css">
-    <link rel="stylesheet" href="css-style/shared/sidebar.css">
+    <link rel="stylesheet" href="./css-style/income-page/income.css">
+    <link rel="stylesheet" href="./css-style/shared/general.css">
+    <link rel="stylesheet" href="./css-style/income-page/header.css">
+    <link rel="stylesheet" href="./css-style/shared/sidebar.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
@@ -72,16 +72,32 @@
             <div class="input-grid">
               <div class="emoji-picker-grid">
 
-                <div><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png">
+                <div class="emoji-picker-inner-grid">
+                  <div><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png">
+                  </div>
+  
+                  <div class="js-emoji-picker-element"></div>
+                  <div class="pick-icon"><p>Pick Icon</p></div>
+                  <div><input maxlength="2" id="emoji-input"class=" emoji-picked js-emoji-picked"></div>
                 </div>
 
-                <div class="js-emoji-picker-element"></div>
-                <div class="pick-icon"><p>Pick Icon</p></div>
-                <div><input maxlength="2" id="emoji-input"class=" emoji-picked js-emoji-picked"></div>
+                <div>
+                 <label>
+                  Category:
+                  <select class="income-category" name="category">
+                    <option value="" selected disabled>Select a category</option>
+                    <option value="salary">Salary</option>
+                    <option value="part-time">Part Time</option>
+                    <option value="overtime">Overtime</option>
+                    <option value="interest">Interest</option>
+                    <option value="other-income">Other-Income</option>
+                  </select>
+                </label>
+                </div>
               </div>
 
-              <div class="emoji-input-alert js-emoji-input-alert"></div>
-            
+              <div class="category-input-alert js-category-input-alert"></div>
+              
             <div class="add-income-inputs">
               <div>Income Source</div>
               <input id="income-source-input" class="add-income-input-element js-income-value" type="text" name="incomeValue">
@@ -122,7 +138,11 @@
 
         <div class="income-sources-grid">
           <div class="income-title">Income Sources</div>
-          <div><button class="download-button">Download <span class="see-all-arrow">&#8594;</span></button></div>
+
+          <div class="see-all-download-box">
+            <div><button class="see-all-button see-all-button-js">See all Income</button></div>
+            <div><button class="download-button">Download <span class="see-all-arrow">&#8594;</span></button></div>
+          </div>
         </div>
   
         <div class="income-info-grid">
@@ -139,7 +159,7 @@
     <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-    <script type="module" src="script/income.js" ></script>
+    <script type="module" src="script/income-page/income.js" ></script>
     <script type="module" src="script/chartJS/income-page-chart.js" ></script>
 
   </body>

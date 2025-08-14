@@ -13,9 +13,10 @@ export const getAllIncome = async (req, res, next) => {
 
 export const createIncome =  async (req, res, next ) => {
   try {
-    const {incomeSourceValue, amountValue, currency, dateValue, emoji} = req.body
+    const {category, incomeSourceValue, amountValue, currency, dateValue, emoji} = req.body
     
     const income = new Income({
+      category,
       incomeSourceValue,
       amountValue,
       currency,

@@ -9,6 +9,7 @@ import  { financialOverviewChart, renderFinancialOverviewChart}  from "./chartJS
 import logOut from "./logout.js";
 import getAccessToken from "./utils/getToken.js";
 import refreshToken from "./utils/refreshToken.js";
+import { dropDownMenu } from "./utils/dropDownMenu.js";
 
 
 refreshToken();
@@ -155,7 +156,7 @@ async function displayRecentTransactions() {
       `
       sharedDataHTML += html
       
-    }else if (sharedData[i].type === 'income') {
+    }else if (sharedData[i].type === 'income') {    
       const html = `
       <div class="transactions-info-inner-grid">
       <div class="transaction-img-grid">${sharedData[i].emoji}</div>
@@ -242,24 +243,11 @@ async function displayIncome() {
 
 
   // Exchance Currency
-  const dropDownIconBtn = document.getElementById('drop-down-icon')
-  
-  const iconSrc = document.querySelector('#drop-down-box img')
-  const dropDownIcon = 'icons/dropdown-arrow-icon.png';
-  const dropUpIcon = 'icons/dropup-arrow-icon.png';
-  
+
+dropDownMenu()
+
+
   const currencyOptions = document.getElementById('options')
-  
-  dropDownIconBtn.addEventListener('click', () => {
-    if (iconSrc.src.includes(dropDownIcon)) {
-      iconSrc.src = dropUpIcon;
-      currencyOptions.style.display = 'block';
-    }else {
-      iconSrc.src = dropDownIcon;
-      currencyOptions.style.display = 'none';
-    }
-  })
-  
   
   
   currencyOptions.addEventListener('change', async (event) => {

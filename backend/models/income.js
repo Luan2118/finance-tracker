@@ -6,6 +6,10 @@ const incomeSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
+  category: {
+    type: String,
+    required: true,
+  },
   incomeSourceValue: {
     type: String,
     minlength: 3,

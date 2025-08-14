@@ -1,11 +1,12 @@
-import { incomeData, loadIncomeData, updateDate, monthlyIncomeSummary } from "../data/incomeData.js";
-import { myChart,   } from "./chartJS/income-page-chart.js";
-import {iconPicker} from './utils/icon-picker.js'
-import { menuIcon } from "./utils/menuIcon.js";
-import {formatCurrency, loadGetSymbol } from "./utils/currencySymbols.js";
-import getAccessToken from "./utils/getToken.js";
-import logOut from "./logout.js";
-import refreshToken from "./utils/refreshToken.js";
+import { incomeData, loadIncomeData, updateDate, monthlyIncomeSummary } from "../../data/incomeData.js";
+import { myChart,   } from "../chartJS/income-page-chart.js";
+import {iconPicker} from '../utils/icon-picker.js'
+import { menuIcon } from "../utils/menuIcon.js";
+import {formatCurrency, loadGetSymbol } from "../utils/currencySymbols.js";
+import getAccessToken from "../utils/getToken.js";
+import logOut from "../logout.js";
+import refreshToken from "../utils/refreshToken.js";
+
 
 // utils
 menuIcon();
@@ -106,6 +107,7 @@ function submitIncome() {
   document.querySelectorAll('.js-add-income-button-submit')
     .forEach((click) => {
       click.addEventListener('click', async (event) => {
+      const category = document.querySelector('.income-category').value
       const incomeSourceValue = document.querySelector('.js-income-value').value;
       let amountValue = document.querySelector('.js-amount-value').value;
       const dateValue = document.querySelector('.js-date-value').value;
@@ -114,6 +116,12 @@ function submitIncome() {
       amountValue = Number(amountValue)
       document.querySelector('.js-income-amount-input-alert').innerHTML = '';
       document.querySelector('.js-income-date-input-alert').innerHTML = '';
+
+
+      if (category === '') {
+        document.querySelector('.js-category-input-alert').innerHTML = "<p>Please select a category!</p>"
+        return;
+      }
 
       if (incomeSourceValue === '') {
         document.querySelector('.js-income-source-input-alert').innerHTML = "<p>Income Source can't be empty!</p>"
@@ -135,12 +143,14 @@ function submitIncome() {
       
       
       const newIncome = {
+        category,
         incomeSourceValue,
         amountValue,
         currency: 'CZK',
         dateValue,
         emoji
       }
+      
 
       console.log(newIncome)
       
@@ -181,8 +191,8 @@ function submitIncome() {
           
 
          
-          updateDate();
-          generateHTML();
+          await updateDate();
+          await generateHTML();
       } catch (error) {
         console.log(error.message)
       }
@@ -230,3 +240,8 @@ document.querySelectorAll('.js-income-delete-button')
 }
 
 
+const seeAllBtn = document.querySelector('.see-all-button-js')
+
+seeAllBtn.addEventListener('click', () => {
+  window.location.href = 'see-all-income.html'
+})
