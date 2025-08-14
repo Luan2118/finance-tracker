@@ -6,12 +6,13 @@ import {formatCurrency, loadGetSymbol} from './utils/currencySymbols.js';
 import getAccessToken from "./utils/getToken.js";
 import logOut from "./logout.js";
 import refreshToken from "./utils/refreshToken.js";
+import getUsername from "./utils/getrUserName.js";
 
 // utils
 menuIcon();
 iconPicker();
 logOut();
-
+getUsername().then((data) => document.querySelector('.profile-name-js').innerHTML = data)
 
 // pop up 
 const dialog = document.getElementById('add-expense-dialog')

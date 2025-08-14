@@ -7,48 +7,18 @@ import {incomeChart, renderIncomeChart, filteredIncome, incomeLast60DaysSum}  fr
 import renderExpenseChart from "./chartJS/main-page/expense-chart.js";
 import  { financialOverviewChart, renderFinancialOverviewChart}  from "./chartJS/main-page/financial-overview-chart.js"
 import logOut from "./logout.js";
-import getAccessToken from "./utils/getToken.js";
 import refreshToken from "./utils/refreshToken.js";
 import { dropDownMenu } from "./utils/dropDownMenu.js";
+import getUsername from "./utils/getrUserName.js";
 
 
 refreshToken();
-getName();
 
-async function getName() {
-  try {
-    let token = await getAccessToken();
+getUsername().then((data) => document.querySelector('.profile-name-js').innerHTML = data)
 
-    const response = await fetch('http://localhost:3000/login/user', {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
 
-    if(response.status === 401) {
-      token = await refreshToken();
-      sessionStorage.setItem('accessToken', token)
-      const response = await fetch('http://localhost:3000/login/user', {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-    }
 
-    const result = await response.json();
-    
 
-    document.querySelector('.profile-name-js').innerHTML = result.username;
-  } catch (error) {
-    console.error(error.message)
-  }
-  
-
-}
 
 // utils
 menuIcon();
