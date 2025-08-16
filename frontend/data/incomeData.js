@@ -47,6 +47,10 @@ export async function loadIncomeData() {
 }
 
 
+export   function setIncomeData(data) {
+  
+  return  incomeData = data;
+}
 
 export async function monthlyIncomeSummary() {
   await loadIncomeData();

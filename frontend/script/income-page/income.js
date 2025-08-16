@@ -75,7 +75,7 @@ async function generateHTML() {
 
   incomeData.forEach((dataObject) => {
 
-  const {incomeSourceValue, amountValue, dateValue, _id, emoji } = dataObject;
+  const {category, incomeSourceValue, amountValue, dateValue, _id, emoji } = dataObject;
   
   const html = `
     <div class="each-income">
@@ -84,7 +84,8 @@ async function generateHTML() {
       <div class="income-info">
         <div>
           <div>${incomeSourceValue}</div>
-          <div class="income-date">>${dateValue}</div>
+          <div class="income-date">${dateValue}</div>
+          <div class="income-category">Category: ${category}</div>
         </div>
 
         <div class="income-right-side">
@@ -108,7 +109,8 @@ function submitIncome() {
   document.querySelectorAll('.js-add-income-button-submit')
     .forEach((click) => {
       click.addEventListener('click', async (event) => {
-      const category = document.querySelector('.income-category').value
+      const label = document.querySelector('.income-category')
+      const category = label.querySelector('select').value
       const incomeSourceValue = document.querySelector('.js-income-value').value;
       let amountValue = document.querySelector('.js-amount-value').value;
       const dateValue = document.querySelector('.js-date-value').value;

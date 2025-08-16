@@ -64,32 +64,34 @@
         <div class="filter-grid">
             <div class="category-grid">
               <div class="category-text">Category</div>
-              <label >
+              <label class="label">
                 <select class="income-category" name="category">
                   <option value="" selected disabled>Select a category</option>
-                  <option value="salary">Salary</option>
-                  <option value="part-time">Part Time</option>
-                  <option value="overtime">Overtime</option>
-                  <option value="interest">Interest</option>
-                  <option value="other-income">Other-Income</option>
+                  <option value="Salary">Salary</option>
+                  <option value="Part-Time">Part-Time</option>
+                  <option value="Overtime">Overtime</option>
+                  <option value="Interest">Interest</option>
+                  <option value="Other-Income">Other-Income</option>
+                  <option value="see-all">See all</option>
                 </select>
               </label>
+
             </div>
+            <div class="category-validation category-validation-js"></div>
 
             <div class="timeline-grid">
               <div class="timeline-text">Timeline</div>
 
-              <div class="timeline-inner-grid">
-                <div><button class="filter-button">See all</button></div>
-
-                <div><button class="filter-button">Custom</button></div>
-
-                <div><button class="filter-button">Last 7 days</button></div>
-
-                <div><button class="filter-button">Last 30 days</button></div>
-
-                <div><button class="filter-button">Last 60 days</button></div>
-
+              <div class="timeline-inner-grid"> 
+                <div><button class="filter-button-timeline"  value="custom">Custom</button></div>
+                
+                <div><button class="filter-button-timeline"  value="7">Last 7 days</button></div>
+                
+                <div><button class="filter-button-timeline"  value="30">Last 30 days</button></div>
+                
+                <div><button class="filter-button-timeline"  value="60">Last 60 days</button></div>
+                
+                <div><button class="filter-button-timeline" value="see-all">See all</button></div>
               </div>
             </div>
 
@@ -98,20 +100,20 @@
               <div class="income-range-text">Income range</div>
 
               <div class="amount-inner-grid">
-                <div><button class="filter-button">See all</button></div>
-  
-                <div><button class="filter-button">Custom</button></div>
-  
-                <div><button class="filter-button">up to 5000Kč</button></div>
-  
-                <div><button class="filter-button">up to 10000Kč</button></div>
-  
-                <div><button class="filter-button">up to 20000kč</button></div>
+                <div><button class="filter-button-amount" value="custom">Custom</button></div>
+                
+                <div><button class="filter-button-amount" value="5000">up to 5000Kč</button></div>
+                
+                <div><button class="filter-button-amount" value="10000">up to 10000Kč</button></div>
+                
+                <div><button class="filter-button-amount" value=" 20000">up to 20000kč</button></div>
+
+                <div><button class="filter-button-amount" value="see-all">See all</button></div>
               </div>
 
             </div>
-
-            <div class="filter-submit-button-box"><button class="filter-submit-button">Filter</button></div>
+            
+            <div class="filter-submit-button-box"><button class="filter-submit-button filter-submit-button-js">Filter</button></div>
         </div>
 
 

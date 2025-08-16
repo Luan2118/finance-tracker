@@ -214,7 +214,7 @@ async function displayIncome() {
 
   // Exchance Currency
 
-dropDownMenu()
+  dropDownMenu()
 
 
   const currencyOptions = document.getElementById('options')

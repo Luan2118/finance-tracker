@@ -189,7 +189,8 @@ canvas {
   opacity: 1
 }
 
-.income-date {
+.income-date, 
+.income-category {
   color: grey;
   font-size: 12px;
 }
