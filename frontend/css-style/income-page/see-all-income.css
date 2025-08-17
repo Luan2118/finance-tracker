@@ -59,7 +59,8 @@ a {
 }
 
 .filter-text,
-.income-inner-title {
+.income-inner-title,
+.income-overview-text {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 20px;
@@ -124,7 +125,7 @@ a {
 
 .bottom-part {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 800px 1fr;
   column-gap: 20px;
   border-radius: 15px;
 }
@@ -143,7 +144,7 @@ a {
 }
 
 
-.pie-chart-grid {
+.income-chart-grid {
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -153,6 +154,12 @@ a {
   padding: 10px;
   margin-top: 30px;
   min-width: 300px;
+  max-height: 550px;
+}
+
+.income-overview-chart-grid {
+  height: 100%;
+
 }
 
 .income-info-grid {

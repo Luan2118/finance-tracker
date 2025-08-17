@@ -1,5 +1,6 @@
 import { incomeData, loadIncomeData, updateDate, setIncomeData } from "../../data/incomeData.js";
 import { formatCurrency, loadGetSymbol } from "../utils/currencySymbols.js";
+import { incomeChart } from "../chartJS/income-page/see-all-page-chart.js";
 
 incomeData;
 const MAX_VALUE = 100_000_000
@@ -23,21 +24,25 @@ async function displayIncome(data) {
 
   let incomeHTML = '';
   
-  console.log(incomeData)
+  
 
   incomeData.forEach((income) => {
+    const {emoji, incomeSourceValue, dateValue, amountValue} = income;
+
+    const formattedDate = dateValue.substring(8,10) + '-' + dateValue.substring(5,7) + '-' +  dateValue.substring(0, 4)
+
     let html = `
      <div class="income-info-inner-grid">
-     <div class="income-img-grid">${income.emoji}</div>
+     <div class="income-img-grid">${emoji}</div>
      <div class="income-info">
      <div>
      <div>
-     ${income.incomeSourceValue}
+     ${incomeSourceValue}
      </div>
-     <div class="income-date">${income.dateValue}</div>
+     <div class="income-date">${formattedDate}</div>
      </div>
      
-     <div class="income-amount-minus">+${formatCurrency(income.amountValue, symbol)}</div>
+     <div class="income-amount-minus">+${formatCurrency(amountValue, symbol)}</div>
      </div>
      </div>
    `
@@ -128,10 +133,7 @@ filterButton.addEventListener('click', async () => {
     
   )
 
-  // setIncomeData(filteredIncome)
+  
    await displayIncome(filteredIncome)
-
-
-  console.log(filteredIncome)
-  console.log(incomeData)
 })
+

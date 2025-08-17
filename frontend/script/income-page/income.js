@@ -77,6 +77,10 @@ async function generateHTML() {
 
   const {category, incomeSourceValue, amountValue, dateValue, _id, emoji } = dataObject;
   
+
+  const formattedDate = dateValue.substring(8,10) + '-' + dateValue.substring(5,7) + '-' +  dateValue.substring(0, 4)
+    
+  
   const html = `
     <div class="each-income">
       <div class="income-info-inner-grid">
@@ -84,7 +88,7 @@ async function generateHTML() {
       <div class="income-info">
         <div>
           <div>${incomeSourceValue}</div>
-          <div class="income-date">${dateValue}</div>
+          <div class="income-date">${formattedDate}</div>
           <div class="income-category">Category: ${category}</div>
         </div>
 
