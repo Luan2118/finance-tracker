@@ -1,5 +1,5 @@
 import { incomeData, loadIncomeData, updateDate, monthlyIncomeSummary } from "../../data/incomeData.js";
-import { myChart,   } from "../chartJS/income-page-chart.js";
+import { myChart,   } from "../chartJS/income-page/income-page-chart.js";
 import {iconPicker} from '../utils/icon-picker.js'
 import { menuIcon } from "../utils/menuIcon.js";
 import {formatCurrency, loadGetSymbol } from "../utils/currencySymbols.js";
