@@ -1,4 +1,4 @@
-import { incomeData, loadIncomeData } from "../../../data/incomeData.js";
+import { monthlyIncomeSummary} from "../../../data/incomeData.js";
 
 
 
@@ -7,10 +7,13 @@ export let incomeChart = null;
 renderIncomeChart();
 
 async function renderIncomeChart() {
-  await loadIncomeData();
 
-  const labels =  incomeData.map(income => income.dateValue)
-  const data = incomeData.map(income => income.amountValue)
+   const monthlySums = await monthlyIncomeSummary();
+  
+    const labels = Object.keys(monthlySums)
+    const data = Object.values(monthlySums)
+  
+    console.log(monthlySums)
   
   const ctx = document.getElementById('income-chart')
   
@@ -20,15 +23,22 @@ async function renderIncomeChart() {
       labels,
       datasets: [{
         label: 'Income Chart',
-        data
+        data,
+        backgroundColor: ['rgb(90, 207, 100)'],
+        barPercentage: 0.7,
+        borderRadius: 15,
+        hoverBackgroundColor: 'rgba(96, 224, 107, 0.81)',
+        hoverBorderWidth: '50px'
       }]
     },
     options: {
+      responsive: true,
+      maintainAspectRatio: false,
       scales: {
         x: {
           type: 'time',
           time: {
-            unit: 'day'
+            unit: 'month'
           },
           ticks: {
             font: {
