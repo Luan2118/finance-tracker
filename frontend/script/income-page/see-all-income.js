@@ -71,6 +71,28 @@ filterTime.forEach((buttonTime) => {
   })
 })
 
+const filterTimeCustonBtn = document.querySelector('.filter-button-timeline-custom')
+
+
+const timeFromId = document.getElementById('time-from')
+const timeToId = document.getElementById('time-to')
+
+filterTimeCustonBtn.addEventListener('click', () => {
+  
+  timeFromId.innerHTML = 'From<input class="time-from-js" type="date">'
+  timeToId.innerHTML =  'To<input class="time-to-js" type="date">'
+  
+  if (timeFromId.style.display === 'block' || timeToId.style.display === 'block') {
+    timeFromId.style.display = 'none'
+    timeToId.style.display = 'none'
+  } else {
+    timeFromId.style.display = 'block'
+    timeToId.style.display = 'block'
+  }
+})
+
+
+
 // Get the Date / Days
 const today = new Date();
 const formattedToday = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`
@@ -121,6 +143,37 @@ filterButton.addEventListener('click', async () => {
     return document.querySelector('.category-validation-js').innerHTML = '<div>Please select a category</div>'
   }
   
+  if(filterTimeValue === 'custom') {
+    const timeFromValue = document.querySelector('.time-from-js').value
+    const timeToValue = document.querySelector('.time-to-js').value
+
+    const timeFromValueDate = new Date(timeFromValue)
+    const timeToValueDate = new Date(timeToValue)
+
+    const formattedTimeFromValueDate = `${timeFromValueDate.getFullYear()}-${String(timeFromValueDate.getMonth() + 1).padStart(2, '0')}-${timeFromValueDate.getDate()}`
+    const formattedTimeToValueDate = `${timeToValueDate.getFullYear()}-${String(timeToValueDate.getMonth() + 1).padStart(2, '0')}-${timeToValueDate.getDate()}`
+
+    const filteredIncomeCustom = incomeData.filter(income => {
+      return income.dateValue >= formattedTimeFromValueDate && income.dateValue <= formattedTimeToValueDate
+    })
+
+
+    console.log(filteredIncomeCustom)
+
+    const labels = filteredIncomeCustom.map(income => income.dateValue)
+   const data = filteredIncomeCustom.map(income => income.amountValue)
+
+   incomeChart.data.labels = labels;
+   incomeChart.data.datasets[0].data = data;
+
+    incomeChart.options.scales.x.time.min = formattedTimeFromValueDate;
+    incomeChart.options.scales.x.time.max = formattedTimeToValueDate;
+    incomeChart.options.scales.x.time.unit = 'day';
+    incomeChart.update();
+
+    return;
+  }
+
   document.querySelector('.category-validation-js').innerHTML = ''
   
   // Income range validation

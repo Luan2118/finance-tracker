@@ -13,7 +13,7 @@ async function renderIncomeChart() {
     const labels = Object.keys(monthlySums)
     const data = Object.values(monthlySums)
   
-    console.log(monthlySums)
+    
   
   const ctx = document.getElementById('income-chart')
   
