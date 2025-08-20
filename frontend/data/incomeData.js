@@ -47,9 +47,10 @@ export async function loadIncomeData() {
 }
 
 
-export   function setIncomeData(data) {
-  
-  return  incomeData = data;
+export  function setIncomeData(data) {
+  incomeData = data;
+  incomeData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
+  return  incomeData;
 }
 
 export async function monthlyIncomeSummary() {

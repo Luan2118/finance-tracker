@@ -159,7 +159,7 @@ function submitIncome() {
       }
       
 
-      console.log(newIncome)
+      
       
       try {
         let token = getAccessToken();

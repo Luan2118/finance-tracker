@@ -1,9 +1,10 @@
-import { incomeData, loadIncomeData, updateDate, setIncomeData } from "../../data/incomeData.js";
+import { incomeData, loadIncomeData, updateDate, setIncomeData, monthlyIncomeSummary } from "../../data/incomeData.js";
 import { formatCurrency, loadGetSymbol } from "../utils/currencySymbols.js";
 import { incomeChart } from "../chartJS/income-page/see-all-page-chart.js";
 
 // get currency symbol
 let symbol;
+
 
 loadIncomeData().then(() => {
   loadGetSymbol(incomeData).then((data) => {
@@ -15,15 +16,16 @@ loadIncomeData().then(() => {
 // Generating html for income
 displayIncome();
 async function displayIncome(data) {
+  
   const allData = await loadIncomeData();
   await updateDate();
-
+  
   if(data) setIncomeData(data)
 
+  console.log(allData)
+  console.log(data)
   let incomeHTML = '';
   
-  
-
   incomeData.forEach((income) => {
     const {emoji, incomeSourceValue, dateValue, amountValue} = income;
 
@@ -110,9 +112,8 @@ const formattedLast30Days = `${last30Days.getFullYear()}-${String(last30Days.get
 const last60Days = new Date(new Date().setDate(today.getDate() - 60))
 const formattedLast60Days = `${last60Days.getFullYear()}-${String(last60Days.getMonth() + 1).padStart(2, '0')}-${String(last60Days.getDate()).padStart(2, '0')}`
 
-
-
-  
+const maxDate = new Date(new Date().setDate(today.getDate() - 1000))
+const formattedMaxDate = `${maxDate.getFullYear()}-${String(maxDate.getMonth() + 1).padStart(2, '0')}-${String(maxDate.getDate()).padStart(2, '0')}`
 
 
 // Income range filter
@@ -132,81 +133,129 @@ const MAX_VALUE = 100_000_000
 
 
 
-
-
-
 // Filter button - filtering income
 const filterButton = document.querySelector('.filter-submit-button-js')
 
 filterButton.addEventListener('click', async () => {
+
+  document.querySelector('.income-validation').innerHTML = ''
+
   if (category.value === '') {
     return document.querySelector('.category-validation-js').innerHTML = '<div>Please select a category</div>'
   }
+
+  document.querySelector('.category-validation-js').innerHTML = ''
   
+  filterAmountValue = Number.isNaN(filterAmountValue) || filterAmountValue === undefined ? MAX_VALUE : filterAmountValue
+  
+  if (category.value === 'see-all' && filterTimeValue === 'see-all' && filterAmountValue === MAX_VALUE) {
+
+    const monthlySums = await monthlyIncomeSummary();
+  
+    const labels = Object.keys(monthlySums)
+    const data = Object.values(monthlySums)
+
+    incomeChart.data.labels = labels;
+    incomeChart.data.datasets[0].data = data; 
+
+    incomeChart.options.scales.x.time.unit = 'month';
+    incomeChart.update();
+
+    await displayIncome(incomeData)
+    return;
+  
+  }
+  
+  
+  // Income range validation
+  
+  // Custom timeline
   if(filterTimeValue === 'custom') {
+    // Category validation
+    
+    
     const timeFromValue = document.querySelector('.time-from-js').value
     const timeToValue = document.querySelector('.time-to-js').value
-
+    
     const timeFromValueDate = new Date(timeFromValue)
     const timeToValueDate = new Date(timeToValue)
-
+    
     const formattedTimeFromValueDate = `${timeFromValueDate.getFullYear()}-${String(timeFromValueDate.getMonth() + 1).padStart(2, '0')}-${timeFromValueDate.getDate()}`
     const formattedTimeToValueDate = `${timeToValueDate.getFullYear()}-${String(timeToValueDate.getMonth() + 1).padStart(2, '0')}-${timeToValueDate.getDate()}`
-
+    
     const filteredIncomeCustom = incomeData.filter(income => {
-      return income.dateValue >= formattedTimeFromValueDate && income.dateValue <= formattedTimeToValueDate
+      const categoryValue = category.value === 'see-all' ? income.category : category.value
+      return income.dateValue >= formattedTimeFromValueDate && income.dateValue <= formattedTimeToValueDate &&
+      income.amountValue <= filterAmountValue &&
+      income.category === categoryValue
     })
 
 
-    console.log(filteredIncomeCustom)
-
     const labels = filteredIncomeCustom.map(income => income.dateValue)
-   const data = filteredIncomeCustom.map(income => income.amountValue)
+    const data = filteredIncomeCustom.map(income => income.amountValue)
 
-   incomeChart.data.labels = labels;
-   incomeChart.data.datasets[0].data = data;
+    incomeChart.data.labels = labels;
+    incomeChart.data.datasets[0].data = data;
 
     incomeChart.options.scales.x.time.min = formattedTimeFromValueDate;
     incomeChart.options.scales.x.time.max = formattedTimeToValueDate;
     incomeChart.options.scales.x.time.unit = 'day';
     incomeChart.update();
 
+    if(filteredIncomeCustom.length === 0) {
+      document.querySelector('.income-validation').innerHTML = '<div> No income matches your filter</div>'
+    }
+    
+    await displayIncome(filteredIncomeCustom)
     return;
   }
 
-  document.querySelector('.category-validation-js').innerHTML = ''
   
-  // Income range validation
-  filterAmountValue = Number.isNaN(filterAmountValue) || filterAmountValue === undefined ? MAX_VALUE : filterAmountValue
+  
+  
 
-
+  
   // After selecting a time range/ time line 
   const timeResult = 
     filterTimeValue === '7' ? formattedLast7Days 
     : filterTimeValue === '30' ? formattedLast30Days
     : filterTimeValue === '60' ? formattedLast60Days
-    : ''
+    : filterTimeValue === 'see-all' ? formattedMaxDate : ''
 
+
+
+   // Specific days and income range 
    let filteredIncome = incomeData.filter(income => {
-     const categoryValue = category.value === 'see-all' ? income.category : category.value
-     return income.dateValue <= formattedToday && income.dateValue >= timeResult &&
+      // Category validation
+      const categoryValue = category.value === 'see-all' ? income.category : category.value
+      console.log(categoryValue)    
+      console.log(timeResult)
+      console.log(filterAmountValue)
+     return income.dateValue  >= timeResult && income.dateValue <= formattedToday &&
      income.amountValue <= filterAmountValue &&
      income.category === categoryValue
-   })
+    })
+    
+    filteredIncome.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
+ 
+    const labels = filteredIncome.map(income => income.dateValue)
+    const data = filteredIncome.map(income => income.amountValue)
+    
 
-   filteredIncome.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
+    incomeChart.data.labels = labels;
+    incomeChart.data.datasets[0].data = data;
+    incomeChart.options.scales.x.time.unit = 'day';
+ 
+    incomeChart.update();
 
-   const labels = filteredIncome.map(income => income.dateValue)
-   const data = filteredIncome.map(income => income.amountValue)
+    if(filteredIncome.length === 0) {
+      document.querySelector('.income-validation').innerHTML = '<div> No income matches your filter</div>'
+    }
 
-   incomeChart.data.labels = labels;
-   incomeChart.data.datasets[0].data = data;
-   incomeChart.options.scales.x.time.unit = 'day';
 
-   incomeChart.update();
 
-   console.log(timeResult)
-   await displayIncome(filteredIncome)
-
-})
+    console.log(filteredIncome)
+    await displayIncome(filteredIncome)
+     
+    })
 

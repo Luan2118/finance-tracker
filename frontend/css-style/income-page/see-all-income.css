@@ -254,3 +254,9 @@ a {
   cursor: pointer;
   margin-left: 20px;
 }
+
+.income-validation {
+  color: rgb(136, 136, 136);
+  display: flex;
+  justify-content: center;
+}
