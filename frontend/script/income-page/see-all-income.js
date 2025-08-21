@@ -20,7 +20,7 @@ async function displayIncome(data) {
   const allData = await loadIncomeData();
   await updateDate();
   
-  if(data) setIncomeData(data)
+  if(data) setIncomeData(data);
 
   console.log(allData)
   console.log(data)
@@ -52,14 +52,39 @@ async function displayIncome(data) {
 
   document.querySelector('.js-income-info-grid').innerHTML = incomeHTML;
 
-  await setIncomeData(allData)
+  await setIncomeData(allData);
 }
 
 // Category 
-const label = document.querySelector('.label')
-const category = label.querySelector('select')
+const label = document.querySelector('.label');
+const category = label.querySelector('select');
 
 
+// Time line Custom
+const filterTimeCustonBtn = document.querySelector('.filter-button-timeline-custom-js')
+let customTimelineClicked;
+
+
+const timeFromId = document.getElementById('time-from');
+const timeToId = document.getElementById('time-to');
+
+filterTimeCustonBtn.addEventListener('click', () => {
+  customTimelineClicked = true;
+
+  document.querySelector('.special')?.classList.remove('special');
+  filterTimeCustonBtn.classList.add('special');
+  
+  timeFromId.innerHTML = 'From<input class="time-from-js" type="date">';
+  timeToId.innerHTML =  'To<input class="time-to-js" type="date">';
+  
+  if (timeFromId.style.display === 'block' || timeToId.style.display === 'block') {
+    timeFromId.style.display = 'none';
+    timeToId.style.display = 'none';
+  } else {
+    timeFromId.style.display = 'block';
+    timeToId.style.display = 'block';
+  }
+})
 
 // Time line Filter
 const filterTime = document.querySelectorAll('.filter-button-timeline')
@@ -67,30 +92,14 @@ let filterTimeValue;
 
 filterTime.forEach((buttonTime) => {
   buttonTime.addEventListener('click', () => {
-    document.querySelector('.special')?.classList.remove('special')
-     buttonTime.classList.add('special')
-     filterTimeValue = buttonTime.value
+    customTimelineClicked = false;
+    timeFromId.style.display = 'none';
+    timeToId.style.display = 'none';
+
+    document.querySelector('.special')?.classList.remove('special');
+    buttonTime.classList.add('special');
+    filterTimeValue = buttonTime.value;
   })
-})
-
-const filterTimeCustonBtn = document.querySelector('.filter-button-timeline-custom')
-
-
-const timeFromId = document.getElementById('time-from')
-const timeToId = document.getElementById('time-to')
-
-filterTimeCustonBtn.addEventListener('click', () => {
-  
-  timeFromId.innerHTML = 'From<input class="time-from-js" type="date">'
-  timeToId.innerHTML =  'To<input class="time-to-js" type="date">'
-  
-  if (timeFromId.style.display === 'block' || timeToId.style.display === 'block') {
-    timeFromId.style.display = 'none'
-    timeToId.style.display = 'none'
-  } else {
-    timeFromId.style.display = 'block'
-    timeToId.style.display = 'block'
-  }
 })
 
 
@@ -170,23 +179,25 @@ filterButton.addEventListener('click', async () => {
   }
   
   
- 
+ console.log(customTimelineClicked)
   
   // CUSTOM TIMELINE
-
-  if(filterTimeValue === 'custom') {
+  if(customTimelineClicked) {
     // Category validation
-    
-    
+    console.log('called')
     const timeFromValue = document.querySelector('.time-from-js').value
     const timeToValue = document.querySelector('.time-to-js').value
     
+    console.log(timeFromValue)
+    console.log(timeToValue)
     const timeFromValueDate = new Date(timeFromValue)
     const timeToValueDate = new Date(timeToValue)
     
     const formattedTimeFromValueDate = `${timeFromValueDate.getFullYear()}-${String(timeFromValueDate.getMonth() + 1).padStart(2, '0')}-${timeFromValueDate.getDate()}`
     const formattedTimeToValueDate = `${timeToValueDate.getFullYear()}-${String(timeToValueDate.getMonth() + 1).padStart(2, '0')}-${timeToValueDate.getDate()}`
     
+
+
     const filteredIncomeCustom = incomeData.filter(income => {
       const categoryValue = category.value === 'see-all' ? income.category : category.value
       return income.dateValue >= formattedTimeFromValueDate && income.dateValue <= formattedTimeToValueDate &&
@@ -210,6 +221,7 @@ filterButton.addEventListener('click', async () => {
       document.querySelector('.income-validation').innerHTML = '<div> No income matches your filter</div>'
     }
     
+    console.log(filteredIncomeCustom)
     await displayIncome(filteredIncomeCustom)
     return;
   }
@@ -228,9 +240,11 @@ filterButton.addEventListener('click', async () => {
 
   const endDate = timeResult === formattedMaxPastDate ? formattedMaxFutureDate : formattedToday
 
-   // Specific days and income range 
-   let filteredIncome = incomeData.filter(income => {
 
+
+   // MAIN FILTER - Specific days and income range 
+   let filteredIncome = incomeData.filter(income => {
+    console.log('called')
       // Category validation
       const categoryValue = category.value === 'see-all' ? income.category : category.value
       // console.log(categoryValue)    

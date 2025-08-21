@@ -211,7 +211,9 @@ a {
   border-radius: 6px;
 }
 
-.filter-button-timeline {
+
+.filter-button-timeline,
+.filter-button-timeline-custom {
   font-size: 14px;
   background-color: rgb(236, 236, 236);
   border: none;
