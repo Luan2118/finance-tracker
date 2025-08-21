@@ -102,6 +102,7 @@ a {
 
 .time-from,
 .time-to {
+  display: none;
   font-size: 18px;
   margin-left: 10px;
   margin-right: 10px;

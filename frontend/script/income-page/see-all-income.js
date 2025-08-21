@@ -115,7 +115,7 @@ const formattedLast60Days = `${last60Days.getFullYear()}-${String(last60Days.get
 const maxPastDate = new Date(new Date().setDate(today.getDate() - 1000))
 const formattedMaxPastDate = `${maxPastDate.getFullYear()}-${String(maxPastDate.getMonth() + 1).padStart(2, '0')}-${String(maxPastDate.getDate()).padStart(2, '0')}`
 
-const maxFutureDate = new Date(new Date().setDate(today.getDate() - 1000))
+const maxFutureDate = new Date(new Date().setDate(today.getDate() + 1000))
 const formattedMaxFutureDate = `${maxFutureDate.getFullYear()}-${String(maxFutureDate.getMonth() + 1).padStart(2, '0')}-${String(maxFutureDate.getDate()).padStart(2, '0')}`
 
 
@@ -226,17 +226,18 @@ filterButton.addEventListener('click', async () => {
     : filterTimeValue === '60' ? formattedLast60Days
     : filterTimeValue === 'see-all' ? formattedMaxPastDate : ''
 
-
+  const endDate = timeResult === formattedMaxPastDate ? formattedMaxFutureDate : formattedToday
 
    // Specific days and income range 
    let filteredIncome = incomeData.filter(income => {
-      
+
       // Category validation
       const categoryValue = category.value === 'see-all' ? income.category : category.value
       // console.log(categoryValue)    
       // console.log(timeResult)
       // console.log(filterAmountValue)
-     return income.dateValue  >= timeResult && income.dateValue <= timeResult === 'see-all' ? formattedMaxFutureDate : formattedToday &&
+     return income.dateValue  >= timeResult && 
+     income.dateValue <= endDate  &&
      income.amountValue <= filterAmountValue &&
      income.category === categoryValue
     })
