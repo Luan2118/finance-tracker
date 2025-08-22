@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>See all Income</title>
+    <title>See all Expenses</title>
     
-    <link rel="stylesheet" href="./css-style/income-page/see-all-income.css">
-    <link rel="stylesheet" href="./css-style/income-page/header.css">
+    <link rel="stylesheet" href="./css-style/expense-page/see-all-expenses.css">
+    <link rel="stylesheet" href="./css-style/expense-page/header.css">
     <link rel="stylesheet" href="./css-style/shared/sidebar.css">
     
     <meta charset="UTF-8">
@@ -54,7 +54,7 @@
 
     <div class="main-grid">
       <div class="see-all-title">
-        See All Income
+        See All Expenses
       </div>
       
       <div class="top-part">
@@ -65,13 +65,13 @@
             <div class="category-grid">
               <div class="category-text">Category</div>
               <label class="label">
-                <select class="income-category" name="category">
+                <select class="expense-category" name="category">
                   <option value="" selected disabled>Select a category</option>
                   <option value="Salary">Salary</option>
                   <option value="Part-Time">Part-Time</option>
                   <option value="Overtime">Overtime</option>
                   <option value="Interest">Interest</option>
-                  <option value="Other-Income">Other-Income</option>
+                  <option value="Other-Expenses">Other-Expenses</option>
                   <option value="see-all">See all</option>
                 </select>
               </label>
@@ -101,7 +101,7 @@
 
             <div class="amount-grid">
 
-              <div class="income-range-text">Income range</div>
+              <div class="expense-range-text">Expense range</div>
 
               <div class="amount-inner-grid">
                 <div><button class="filter-button-amount-custom filter-button-amount-custom-js" value="custom">Custom</button></div>
@@ -126,28 +126,28 @@
       </div>
 
       <div class="bottom-part">
-          <div class="income-grid">
+          <div class="expense-grid">
 
             <div>
-              <div class="income-inner-title">Income Overview</div>
+              <div class="expense-inner-title">Expense Overview</div>
               
             </div>
       
-            <div class="income-info-grid js-income-info-grid">
+            <div class="expense-info-grid js-expense-info-grid">
 
             </div>
-            <div class="income-validation"></div>
+            <div class="expense-validation"></div>
           </div>
       
-          <div class="income-chart-grid">
-            <div class="income-overview-text">Income Overview Chart</div>
-            <div class="income-overview-chart-grid"><canvas id="income-chart"></canvas></div>
+          <div class="expense-chart-grid">
+            <div class="expense-overview-text">Expense Overview Chart</div>
+            <div class="expense-overview-chart-grid"><canvas id="expense-chart"></canvas></div>
           </div>
 
     </div>
 
 
-    <script type="module" src="./script/income-page/see-all-income.js"></script>
+    <script type="module" src="./script/expense-page/see-all-expense.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
   </body>

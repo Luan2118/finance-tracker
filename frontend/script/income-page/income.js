@@ -246,9 +246,3 @@ document.querySelectorAll('.js-income-delete-button')
 
 }
 
-
-const seeAllBtn = document.querySelector('.see-all-button-js')
-
-seeAllBtn.addEventListener('click', () => {
-  window.location.href = 'see-all-income.html'
-})

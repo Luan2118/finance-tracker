@@ -43,7 +43,12 @@ async function getExpenseData() {
 
 export async function loadExpenseData() {
   return await getExpenseData();
+}
 
+export  function setExpenseData(data) {
+  expenseData = data;
+  expenseData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
+  return  expenseData;
 }
 
 

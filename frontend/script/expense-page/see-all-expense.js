@@ -1,6 +1,6 @@
-import { incomeData, loadIncomeData, updateDate, setIncomeData, monthlyIncomeSummary } from "../../data/incomeData.js";
+import { expenseData, loadExpenseData, updateDate, setExpenseData, monthlyExpenseSummary } from "../../data/expenseData.js";
 import { formatCurrency, loadGetSymbol } from "../utils/currencySymbols.js";
-import { incomeChart } from "../chartJS/income-page/see-all-income-page-chart.js";
+import { expenseChart } from "../chartJS/expense-page/see-all-expenses-page-chart.js";
 import getUsername from "../utils/getrUserName.js";
 
 
@@ -9,50 +9,51 @@ getUsername().then((data) => document.querySelector('.profile-name-js').innerHTM
 
 // get currency symbol
 let symbol;
-loadIncomeData().then(() => {
-  loadGetSymbol(incomeData).then((data) => {
+loadExpenseData().then(() => {
+  loadGetSymbol(expenseData).then((data) => {
     symbol = data;
   })
 })
 
 
-// Generating html for income
-displayIncome();
-async function displayIncome(data) {
-  const allData = await loadIncomeData();
+// Generating html for expense
+displayExpense();
+async function displayExpense(data) {
+  
+  const allData = await loadExpenseData();
   await updateDate();
   
-  if(data) setIncomeData(data);
+  if(data) setExpenseData(data);
 
-  let incomeHTML = '';
+  let expenseHTML = '';
   
-  incomeData.forEach((income) => {
-    const {emoji, incomeSourceValue, dateValue, amountValue} = income;
+  expenseData.forEach((expense) => {
+    const {emoji, expenseSourceValue, dateValue, amountValue} = expense;
 
     const formattedDate = dateValue.substring(8,10) + '-' + dateValue.substring(5,7) + '-' +  dateValue.substring(0, 4)
 
     let html = `
-     <div class="income-info-inner-grid">
-     <div class="income-img-grid">${emoji}</div>
-     <div class="income-info">
+     <div class="expense-info-inner-grid">
+     <div class="expense-img-grid">${emoji}</div>
+     <div class="expense-info">
      <div>
      <div>
-     ${incomeSourceValue}
+     ${expenseSourceValue}
      </div>
-     <div class="income-date">${formattedDate}</div>
+     <div class="expense-date">${formattedDate}</div>
      </div>
      
-     <div class="income-amount-minus">+${formatCurrency(amountValue, symbol)}</div>
+     <div class="expense-amount-minus">-${formatCurrency(amountValue, symbol)}</div>
      </div>
      </div>
    `
 
-   incomeHTML += html;
+   expenseHTML += html;
   })
 
-  document.querySelector('.js-income-info-grid').innerHTML = incomeHTML;
+  document.querySelector('.js-expense-info-grid').innerHTML = expenseHTML;
 
-  await setIncomeData(allData);
+  await setExpenseData(allData);
 }
 
 // Category 
@@ -130,7 +131,7 @@ const formattedMaxFutureDate = `${maxFutureDate.getFullYear()}-${String(maxFutur
 
 
 
-// Income range CUSTOM
+// Expense range CUSTOM
 const filterAmountCustonBtn = document.querySelector('.filter-button-amount-custom-js')
 let customAmountClicked;
 
@@ -159,7 +160,7 @@ filterAmountCustonBtn.addEventListener('click', () => {
 
 
 
-// Income range filter
+// Expense range filter
 const filterAmount = document.querySelectorAll('.filter-button-amount')
 let filterAmountValue;
 let filteramountclicked;
@@ -179,17 +180,17 @@ filterAmount.forEach((buttonAmount) => {
 })
 
 
-// After selecting an amount range / income range
+// After selecting an amount range / expense range
 const MAX_VALUE = 100_000_000
 
 
 
-// Filter button - filtering income
+// Filter button - filtering expense
 const filterButton = document.querySelector('.filter-submit-button-js')
 
 filterButton.addEventListener('click', async () => {
 
-  document.querySelector('.income-validation').innerHTML = ''
+  document.querySelector('.expense-validation').innerHTML = ''
 
   if (category.value === '') {
     return document.querySelector('.category-validation-js').innerHTML = '<div>Please select a category</div>'
@@ -205,18 +206,18 @@ filterButton.addEventListener('click', async () => {
   if (customAmountClicked === false  && category.value === 'see-all' && filterTimeValue === 'see-all' && filterAmountValue === MAX_VALUE ) {
     console.log('all see alls called')
     
-    const monthlySums = await monthlyIncomeSummary();
+    const monthlySums = await monthlyExpenseSummary();
   
     const labels = Object.keys(monthlySums)
     const data = Object.values(monthlySums)
 
-    incomeChart.data.labels = labels;
-    incomeChart.data.datasets[0].data = data; 
+    expenseChart.data.labels = labels;
+    expenseChart.data.datasets[0].data = data; 
 
-    incomeChart.options.scales.x.time.unit = 'month';
-    incomeChart.update();
+    expenseChart.options.scales.x.time.unit = 'month';
+    expenseChart.update();
 
-    await displayIncome(incomeData)
+    await displayExpense(expenseData)
     return;
   
   }
@@ -238,31 +239,31 @@ filterButton.addEventListener('click', async () => {
     
 
 
-    const filteredIncomeCustom = incomeData.filter(income => {
-      const categoryValue = category.value === 'see-all' ? income.category : category.value
-      return income.dateValue >= formattedTimeFromValueDate && income.dateValue <= formattedTimeToValueDate &&
-      income.amountValue <= filterAmountValue &&
-      income.category === categoryValue
+    const filteredExpenseCustom = expenseData.filter(expense => {
+      const categoryValue = category.value === 'see-all' ? expense.category : category.value
+      return expense.dateValue >= formattedTimeFromValueDate && expense.dateValue <= formattedTimeToValueDate &&
+      expense.amountValue <= filterAmountValue &&
+      expense.category === categoryValue
     })
 
 
-    const labels = filteredIncomeCustom.map(income => income.dateValue)
-    const data = filteredIncomeCustom.map(income => income.amountValue)
+    const labels = filteredExpenseCustom.map(expense => expense.dateValue)
+    const data = filteredExpenseCustom.map(expense => expense.amountValue)
 
-    incomeChart.data.labels = labels;
-    incomeChart.data.datasets[0].data = data;
+    expenseChart.data.labels = labels;
+    expenseChart.data.datasets[0].data = data;
 
-    incomeChart.options.scales.x.time.min = formattedTimeFromValueDate;
-    incomeChart.options.scales.x.time.max = formattedTimeToValueDate;
-    incomeChart.options.scales.x.time.unit = 'day';
-    incomeChart.update();
+    expenseChart.options.scales.x.time.min = formattedTimeFromValueDate;
+    expenseChart.options.scales.x.time.max = formattedTimeToValueDate;
+    expenseChart.options.scales.x.time.unit = 'day';
+    expenseChart.update();
 
-    if(filteredIncomeCustom.length === 0) {
-      document.querySelector('.income-validation').innerHTML = '<div> No income matches your filter</div>'
+    if(filteredExpenseCustom.length === 0) {
+      document.querySelector('.expense-validation').innerHTML = '<div> No expense matches your filter</div>'
     }
     
-    console.log(filteredIncomeCustom)
-    await displayIncome(filteredIncomeCustom)
+    console.log(filteredExpenseCustom)
+    await displayExpense(filteredExpenseCustom)
     return;
   }
 
@@ -282,53 +283,53 @@ filterButton.addEventListener('click', async () => {
 
 
 
-   // MAIN FILTER - Specific days and income range 
-   let filteredIncome = incomeData.filter(income => {
+   // MAIN FILTER - Specific days and expense range 
+   let filteredExpense = expenseData.filter(expense => {
     console.log('called')
     // Category validation
-    const categoryValue = category.value === 'see-all' ? income.category : category.value
+    const categoryValue = category.value === 'see-all' ? expense.category : category.value
 
 
     if(customAmountClicked) {
       const minAmountValue = document.querySelector('.min-amount-js').value
       const maxAmountValue = document.querySelector('.max-amount-js').value
 
-      return income.amountValue >= minAmountValue && income.amountValue <= maxAmountValue &&
-      income.dateValue  >= timeResult && 
-      income.dateValue <= endDate &&
-      income.category === categoryValue
+      return expense.amountValue >= minAmountValue && expense.amountValue <= maxAmountValue &&
+      expense.dateValue  >= timeResult && 
+      expense.dateValue <= endDate &&
+      expense.category === categoryValue
       
     } else {
 
-      return income.dateValue  >= timeResult && 
-      income.dateValue <= endDate  &&
-      income.amountValue <= filterAmountValue &&
-      income.category === categoryValue
+      return expense.dateValue  >= timeResult && 
+      expense.dateValue <= endDate  &&
+      expense.amountValue <= filterAmountValue &&
+      expense.category === categoryValue
     }
 
   })
   
   
-  filteredIncome.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
+  filteredExpense.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
   
-  const labels = filteredIncome.map(income => income.dateValue)
-  const data = filteredIncome.map(income => income.amountValue)
+  const labels = filteredExpense.map(expense => expense.dateValue)
+  const data = filteredExpense.map(expense => expense.amountValue)
   
   
-  incomeChart.data.labels = labels;
-  incomeChart.data.datasets[0].data = data;
-  incomeChart.options.scales.x.time.unit = 'day';
+  expenseChart.data.labels = labels;
+  expenseChart.data.datasets[0].data = data;
+  expenseChart.options.scales.x.time.unit = 'day';
   
-  incomeChart.update();
+  expenseChart.update();
   
-  if(filteredIncome.length === 0) {
-    document.querySelector('.income-validation').innerHTML = '<div> No income matches your filter</div>'
+  if(filteredExpense.length === 0) {
+    document.querySelector('.expense-validation').innerHTML = '<div> No expense matches your filter</div>'
   }
   
   
   
-  console.log(filteredIncome)
-  await displayIncome(filteredIncome)
+  console.log(filteredExpense)
+  await displayExpense(filteredExpense)
 
   
 })

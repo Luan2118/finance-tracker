@@ -1,12 +1,12 @@
-import { loadExpenseData, expenseData, updateDate, monthlyExpenseSummary } from "../data/expenseData.js";
-import { myChart } from "./chartJS/expense-page-chart.js";
-import {iconPicker} from './utils/icon-picker.js'
-import { menuIcon } from "./utils/menuIcon.js";
-import {formatCurrency, loadGetSymbol} from './utils/currencySymbols.js';
-import getAccessToken from "./utils/getToken.js";
-import logOut from "./logout.js";
-import refreshToken from "./utils/refreshToken.js";
-import getUsername from "./utils/getrUserName.js";
+import { loadExpenseData, expenseData, updateDate, monthlyExpenseSummary } from "../../data/expenseData.js";
+import { myChart } from "../chartJS/expense-page/expense-page-chart.js";
+import {iconPicker} from '../utils/icon-picker.js'
+import { menuIcon } from "../utils/menuIcon.js";
+import {formatCurrency, loadGetSymbol} from '../utils/currencySymbols.js';
+import getAccessToken from "../utils/getToken.js";
+import logOut from "../logout.js";
+import refreshToken from "../utils/refreshToken.js";
+import getUsername from "../utils/getrUserName.js";
 
 // utils
 menuIcon();
@@ -149,7 +149,7 @@ function submitExpense() {
           emoji
         };
 
-        console.log(newExpense)
+        
         try {
           let token = getAccessToken();
           let response = await fetch('http://localhost:3000/expenses', {

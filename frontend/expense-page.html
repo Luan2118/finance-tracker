@@ -14,7 +14,7 @@
   <body>
     <div  class="header">
       <div id="menu-icon-box"><img class="menu-icon js-menu-icon" src="icons/menu-icon.png"></div>
-      <div class="title"><a href="index.html">Expense Tracker</a></div>
+      <div class="title"><a href="index.html">Finance Tracker</a></div>
     </div>
 
     <div id="sidebar" class="sidebar">
@@ -129,7 +129,7 @@
 
         <div class="expense-sources-grid">
           <div class="expense-title">All Expenses</div>
-          <div><button class="see-all-button">Download <span class="see-all-arrow">&#8594;</span></button></div>
+          <div><a href="see-all-expenses.html"><button class="see-all-button see-all-button-js">See All Expenses</button></a></div>
         </div>
   
         <div class="expense-info-grid">
@@ -143,8 +143,8 @@
     <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-    <script type="module" src="script/expense.js"></script>
-    <script type="module" src="script/chartJS/expense-page-chart.js"></script>
+    <script type="module" src="script/expense-page/expense.js"></script>
+    <script type="module" src="script/chartJS/expense-page/expense-page-chart.js"></script>
 
   </body>
 </html>
