@@ -101,7 +101,9 @@ a {
 }
 
 .time-from,
-.time-to {
+.time-to,
+.min-amount,
+.max-amount {
   display: none;
   font-size: 18px;
   margin-left: 10px;
@@ -227,7 +229,8 @@ a {
 }
 
 
-.filter-button-amount {
+.filter-button-amount,
+.filter-button-amount-custom {
   font-size: 14px;
   background-color: rgb(236, 236, 236);
   border: none;

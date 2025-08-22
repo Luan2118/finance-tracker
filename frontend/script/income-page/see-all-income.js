@@ -128,17 +128,56 @@ const maxFutureDate = new Date(new Date().setDate(today.getDate() + 1000))
 const formattedMaxFutureDate = `${maxFutureDate.getFullYear()}-${String(maxFutureDate.getMonth() + 1).padStart(2, '0')}-${String(maxFutureDate.getDate()).padStart(2, '0')}`
 
 
+
+
+// Income range CUSTOM
+const filterAmountCustonBtn = document.querySelector('.filter-button-amount-custom-js')
+let customAmountClicked;
+
+
+const minAmountId = document.getElementById('min-amount');
+const maxAmountId = document.getElementById('max-amount');
+
+filterAmountCustonBtn.addEventListener('click', () => {
+  customAmountClicked = true;
+  console.log(customAmountClicked)
+  document.querySelector('.special2')?.classList.remove('special2');
+  filterAmountCustonBtn.classList.add('special2');
+  
+  minAmountId.innerHTML = 'Min<input class="min-amount-js" type="number">';
+  maxAmountId.innerHTML =  'Max<input class="max-amount-js" type="number">';
+  
+  if (minAmountId.style.display === 'block' || maxAmountId.style.display === 'block') {
+    minAmountId.style.display = 'none';
+    maxAmountId.style.display = 'none';
+  } else {
+    minAmountId.style.display = 'block';
+    maxAmountId.style.display = 'block';
+  }
+})
+
+
+
+
 // Income range filter
 const filterAmount = document.querySelectorAll('.filter-button-amount')
 let filterAmountValue;
+let filteramountclicked;
 
 filterAmount.forEach((buttonAmount) => {
   buttonAmount.addEventListener('click', () => {
+    filteramountclicked = true
+    customAmountClicked = false
+    console.log(customAmountClicked)
+    minAmountId.style.display = 'none';
+    maxAmountId.style.display = 'none';
     document.querySelector('.special2')?.classList.remove('special2')
     buttonAmount.classList.add('special2')
     filterAmountValue = Number(buttonAmount.value)
+
   })
 })
+
 
 // After selecting an amount range / income range
 const MAX_VALUE = 100_000_000
@@ -158,10 +197,17 @@ filterButton.addEventListener('click', async () => {
 
   document.querySelector('.category-validation-js').innerHTML = ''
   
+  
   filterAmountValue = Number.isNaN(filterAmountValue) || filterAmountValue === undefined ? MAX_VALUE : filterAmountValue
   
-  if (category.value === 'see-all' && filterTimeValue === 'see-all' && filterAmountValue === MAX_VALUE) {
 
+  console.log(customAmountClicked)
+  console.log(category.value)
+  console.log(filterTimeValue)
+  console.log(filterAmountValue)
+  if (customAmountClicked === false  && category.value === 'see-all' && filterTimeValue === 'see-all' && filterAmountValue === MAX_VALUE ) {
+    console.log('all see alls called')
+    
     const monthlySums = await monthlyIncomeSummary();
   
     const labels = Object.keys(monthlySums)
@@ -178,8 +224,6 @@ filterButton.addEventListener('click', async () => {
   
   }
   
-  
- console.log(customTimelineClicked)
   
   // CUSTOM TIMELINE
   if(customTimelineClicked) {
@@ -245,37 +289,51 @@ filterButton.addEventListener('click', async () => {
    // MAIN FILTER - Specific days and income range 
    let filteredIncome = incomeData.filter(income => {
     console.log('called')
-      // Category validation
-      const categoryValue = category.value === 'see-all' ? income.category : category.value
-      // console.log(categoryValue)    
-      // console.log(timeResult)
-      // console.log(filterAmountValue)
-     return income.dateValue  >= timeResult && 
-     income.dateValue <= endDate  &&
-     income.amountValue <= filterAmountValue &&
-     income.category === categoryValue
-    })
-    
-    filteredIncome.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
- 
-    const labels = filteredIncome.map(income => income.dateValue)
-    const data = filteredIncome.map(income => income.amountValue)
-    
+    // Category validation
+    const categoryValue = category.value === 'see-all' ? income.category : category.value
 
-    incomeChart.data.labels = labels;
-    incomeChart.data.datasets[0].data = data;
-    incomeChart.options.scales.x.time.unit = 'day';
- 
-    incomeChart.update();
 
-    if(filteredIncome.length === 0) {
-      document.querySelector('.income-validation').innerHTML = '<div> No income matches your filter</div>'
+    if(customAmountClicked) {
+      const minAmountValue = document.querySelector('.min-amount-js').value
+      const maxAmountValue = document.querySelector('.max-amount-js').value
+
+      return income.amountValue >= minAmountValue && income.amountValue <= maxAmountValue &&
+      income.dateValue  >= timeResult && 
+      income.dateValue <= endDate &&
+      income.category === categoryValue
+      
+    } else {
+
+      return income.dateValue  >= timeResult && 
+      income.dateValue <= endDate  &&
+      income.amountValue <= filterAmountValue &&
+      income.category === categoryValue
     }
 
+  })
+  
+  
+  filteredIncome.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
+  
+  const labels = filteredIncome.map(income => income.dateValue)
+  const data = filteredIncome.map(income => income.amountValue)
+  
+  
+  incomeChart.data.labels = labels;
+  incomeChart.data.datasets[0].data = data;
+  incomeChart.options.scales.x.time.unit = 'day';
+  
+  incomeChart.update();
+  
+  if(filteredIncome.length === 0) {
+    document.querySelector('.income-validation').innerHTML = '<div> No income matches your filter</div>'
+  }
+  
+  
+  
+  console.log(filteredIncome)
+  await displayIncome(filteredIncome)
 
-
-    console.log(filteredIncome)
-    await displayIncome(filteredIncome)
-     
-    })
+  
+})
 
