@@ -1,8 +1,8 @@
 import { expenseData, loadExpenseData, updateDate, setExpenseData, monthlyExpenseSummary } from "../../data/expenseData.js";
 import { formatCurrency, loadGetSymbol } from "../utils/currencySymbols.js";
 import { expenseChart } from "../chartJS/expense-page/see-all-expenses-page-chart.js";
-import getUsername from "../utils/getrUserName.js";
-
+import getUsername from "../utils/getUserName.js";
+import getFormattedDate from "../utils/getFormattedDate.js"
 
 // Get username
 getUsername().then((data) => document.querySelector('.profile-name-js').innerHTML = data)
@@ -30,7 +30,7 @@ async function displayExpense(data) {
   expenseData.forEach((expense) => {
     const {emoji, expenseSourceValue, dateValue, amountValue} = expense;
 
-    const formattedDate = dateValue.substring(8,10) + '-' + dateValue.substring(5,7) + '-' +  dateValue.substring(0, 4)
+    const formattedDate = getFormattedDate(dateValue)
 
     let html = `
      <div class="expense-info-inner-grid">
@@ -107,26 +107,24 @@ filterTime.forEach((buttonTime) => {
 
 // Get the Date / Days
 const today = new Date();
-const formattedToday = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`
+const formattedToday =  formatDate(today);
 
 
-const last7Days = new Date(new Date().setDate(today.getDate() - 7))
-const formattedLast7Days = `${last7Days.getFullYear()}-${String(last7Days.getMonth() + 1).padStart(2, '0')}-${String(last7Days.getDate()).padStart(2, '0')}`
+const last7Days = setPastDate(7);
+const formattedLast7Days = formatDate(last7Days);
+
+const last30Days = setPastDate(30);
+const formattedLast30Days = formatDate(last30Days);
 
 
+const last60Days = setPastDate(60);
+const formattedLast60Days =  formatDate(last60Days);
 
-const last30Days = new Date(new Date().setDate(today.getDate() - 30))
-const formattedLast30Days = `${last30Days.getFullYear()}-${String(last30Days.getMonth() + 1).padStart(2, '0')}-${String(last30Days.getDate()).padStart(2, '0')}`
+const maxPastDate = setPastDate(1000);
+const formattedMaxPastDate = formatDate(maxPastDate);
 
-
-const last60Days = new Date(new Date().setDate(today.getDate() - 60))
-const formattedLast60Days = `${last60Days.getFullYear()}-${String(last60Days.getMonth() + 1).padStart(2, '0')}-${String(last60Days.getDate()).padStart(2, '0')}`
-
-const maxPastDate = new Date(new Date().setDate(today.getDate() - 1000))
-const formattedMaxPastDate = `${maxPastDate.getFullYear()}-${String(maxPastDate.getMonth() + 1).padStart(2, '0')}-${String(maxPastDate.getDate()).padStart(2, '0')}`
-
-const maxFutureDate = new Date(new Date().setDate(today.getDate() + 1000))
-const formattedMaxFutureDate = `${maxFutureDate.getFullYear()}-${String(maxFutureDate.getMonth() + 1).padStart(2, '0')}-${String(maxFutureDate.getDate()).padStart(2, '0')}`
+const maxFutureDate = new Date(new Date().setDate(today.getDate() + 1000));
+const formattedMaxFutureDate = formatDate(maxFutureDate);
 
 
 
@@ -169,7 +167,6 @@ filterAmount.forEach((buttonAmount) => {
   buttonAmount.addEventListener('click', () => {
     filteramountclicked = true
     customAmountClicked = false
-    console.log(customAmountClicked)
     minAmountId.style.display = 'none';
     maxAmountId.style.display = 'none';
     document.querySelector('.special2')?.classList.remove('special2')
@@ -211,11 +208,7 @@ filterButton.addEventListener('click', async () => {
     const labels = Object.keys(monthlySums)
     const data = Object.values(monthlySums)
 
-    expenseChart.data.labels = labels;
-    expenseChart.data.datasets[0].data = data; 
-
-    expenseChart.options.scales.x.time.unit = 'month';
-    expenseChart.update();
+    updateChart(labels, data, 'month');
 
     await displayExpense(expenseData)
     return;
@@ -234,13 +227,13 @@ filterButton.addEventListener('click', async () => {
     const timeFromValueDate = new Date(timeFromValue)
     const timeToValueDate = new Date(timeToValue)
     
-    const formattedTimeFromValueDate = `${timeFromValueDate.getFullYear()}-${String(timeFromValueDate.getMonth() + 1).padStart(2, '0')}-${timeFromValueDate.getDate()}`
-    const formattedTimeToValueDate = `${timeToValueDate.getFullYear()}-${String(timeToValueDate.getMonth() + 1).padStart(2, '0')}-${timeToValueDate.getDate()}`
+    const formattedTimeFromValueDate = formatDate(timeFromValueDate)
+    const formattedTimeToValueDate = formatDate(timeToValueDate)
     
 
 
     const filteredExpenseCustom = expenseData.filter(expense => {
-      const categoryValue = category.value === 'see-all' ? expense.category : category.value
+      const categoryValue = resolveCategory(expense);
       return expense.dateValue >= formattedTimeFromValueDate && expense.dateValue <= formattedTimeToValueDate &&
       expense.amountValue <= filterAmountValue &&
       expense.category === categoryValue
@@ -250,13 +243,11 @@ filterButton.addEventListener('click', async () => {
     const labels = filteredExpenseCustom.map(expense => expense.dateValue)
     const data = filteredExpenseCustom.map(expense => expense.amountValue)
 
-    expenseChart.data.labels = labels;
-    expenseChart.data.datasets[0].data = data;
-
     expenseChart.options.scales.x.time.min = formattedTimeFromValueDate;
     expenseChart.options.scales.x.time.max = formattedTimeToValueDate;
-    expenseChart.options.scales.x.time.unit = 'day';
-    expenseChart.update();
+    updateChart(labels, data, 'day');
+
+   
 
     if(filteredExpenseCustom.length === 0) {
       document.querySelector('.expense-validation').innerHTML = '<div> No expense matches your filter</div>'
@@ -285,10 +276,8 @@ filterButton.addEventListener('click', async () => {
 
    // MAIN FILTER - Specific days and expense range 
    let filteredExpense = expenseData.filter(expense => {
-    console.log('called')
     // Category validation
-    const categoryValue = category.value === 'see-all' ? expense.category : category.value
-
+    const categoryValue =  resolveCategory(expense);
 
     if(customAmountClicked) {
       const minAmountValue = document.querySelector('.min-amount-js').value
@@ -309,28 +298,40 @@ filterButton.addEventListener('click', async () => {
 
   })
   
-  
   filteredExpense.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
   
   const labels = filteredExpense.map(expense => expense.dateValue)
   const data = filteredExpense.map(expense => expense.amountValue)
   
   
-  expenseChart.data.labels = labels;
-  expenseChart.data.datasets[0].data = data;
-  expenseChart.options.scales.x.time.unit = 'day';
-  
-  expenseChart.update();
+  updateChart(labels, data, 'day');
   
   if(filteredExpense.length === 0) {
     document.querySelector('.expense-validation').innerHTML = '<div> No expense matches your filter</div>'
   }
-  
-  
-  
-  console.log(filteredExpense)
+
   await displayExpense(filteredExpense)
 
   
 })
 
+function resolveCategory(expense) {
+ return category.value === 'see-all' ? expense.category : category.value
+  e
+}
+
+function updateChart(labels, data, unit) {
+  expenseChart.data.labels = labels;
+  expenseChart.data.datasets[0].data = data;
+  expenseChart.options.scales.x.time.unit = unit;
+  expenseChart.update();
+}
+
+
+function setPastDate(number) {
+  return new Date(new Date().setDate(today.getDate() - number))
+}
+
+function formatDate(date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getDate()}`
+}

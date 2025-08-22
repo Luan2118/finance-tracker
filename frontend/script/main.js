@@ -8,7 +8,6 @@ import renderExpenseChart from "./chartJS/main-page/expense-chart.js";
 import  { financialOverviewChart, renderFinancialOverviewChart}  from "./chartJS/main-page/financial-overview-chart.js"
 import logOut from "./logout.js";
 import refreshToken from "./utils/refreshToken.js";
-import { dropDownMenu } from "./utils/dropDownMenu.js";
 import getUsername from "./utils/getrUserName.js";
 
 
@@ -213,13 +212,28 @@ async function displayIncome() {
 
 
   // Exchance Currency
-
-  dropDownMenu()
-
-
+const dropDownIconBtn = document.getElementById('drop-down-icon')
+  
+  const iconSrc = document.querySelector('#drop-down-box img')
+  const dropDownIcon = 'icons/dropdown-arrow-icon.png';
+  const dropUpIcon = 'icons/dropup-arrow-icon.png';
+  
   const currencyOptions = document.getElementById('options')
   
+  dropDownIconBtn.addEventListener('click', () => {
+    if (iconSrc.src.includes(dropDownIcon)) {
+      iconSrc.src = dropUpIcon;
+      currencyOptions.style.display = 'block';
+    }else {
+      iconSrc.src = dropDownIcon;
+      currencyOptions.style.display = 'none';
+    }
+  })
+
+
   
+  
+
   currencyOptions.addEventListener('change', async (event) => {
     await loadSharedData();
     iconSrc.src = dropDownIcon;

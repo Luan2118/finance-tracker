@@ -6,8 +6,8 @@ import {formatCurrency, loadGetSymbol } from "../utils/currencySymbols.js";
 import getAccessToken from "../utils/getToken.js";
 import logOut from "../logout.js";
 import refreshToken from "../utils/refreshToken.js";
-import getUsername from "../utils/getrUserName.js";
-
+import getUsername from "../utils/getUserName.js";
+import getFormattedDate from "../utils/getFormattedDate.js";
 
 // utils
 menuIcon();
@@ -78,7 +78,7 @@ async function generateHTML() {
   const {category, incomeSourceValue, amountValue, dateValue, _id, emoji } = dataObject;
   
 
-  const formattedDate = dateValue.substring(8,10) + '-' + dateValue.substring(5,7) + '-' +  dateValue.substring(0, 4)
+  const formattedDate = getFormattedDate(dateValue);
     
   
   const html = `
