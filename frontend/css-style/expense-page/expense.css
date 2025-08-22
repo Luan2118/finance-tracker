@@ -164,7 +164,8 @@ canvas {
 }
 
 
-.expense-date {
+.expense-date,
+.expense-category {
   color: grey;
   font-size: 12px;
 }
@@ -227,7 +228,14 @@ dialog {
 .emoji-picker-grid {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.emoji-picker-inner-grid {
+  display: flex;
+  flex-direction: row;
   align-items: center;
   margin-bottom: 10px;
 }

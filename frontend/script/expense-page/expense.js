@@ -74,19 +74,23 @@ async function generateHTML() {
   let dataHTML = '';
 
   expenseData.forEach((dataObject) => {
+    const {category, expenseSourceValue, amountValue, dateValue, _id, emoji } = dataObject;
+     const formattedDate = dateValue.substring(8,10) + '-' + dateValue.substring(5,7) + '-' +  dateValue.substring(0, 4)
+    
     const html = `
       <div class="each-expense">
         <div class="expense-info-inner-grid">
-        <div class="expense-img-grid">${dataObject.emoji}</div>
+        <div class="expense-img-grid">${emoji}</div>
         <div class="expense-info">
           <div>
-            <div>${dataObject.expenseSourceValue}</div>
-            <div class="expense-date">${dataObject.dateValue}</div>
+            <div>${expenseSourceValue}</div>
+            <div class="expense-date">${formattedDate}</div>
+            <div class="expense-category">Category: ${category}</div>
           </div>
           
           <div class="expense-right-side">
-            <div class="expense-delete-button-grid"><button class="expense-delete-button js-expense-delete-button" data-id="${dataObject._id}"><img class="delete-icon" src="./icons/bin-icon.png"></button></div>
-            <div class="expense-amount-minus">-${formatCurrency(dataObject.amountValue, symbol)}
+            <div class="expense-delete-button-grid"><button class="expense-delete-button js-expense-delete-button" data-id="${_id}"><img class="delete-icon" src="./icons/bin-icon.png"></button></div>
+            <div class="expense-amount-minus">-${formatCurrency(amountValue, symbol)}
             </div>
           </div>
         </div>

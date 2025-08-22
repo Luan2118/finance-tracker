@@ -71,9 +71,9 @@
             <hr>
             
             <div class="input-grid">
-              <div class="emoji-category-grid">
-                <div class="emoji-picker-grid">
-  
+              <div class="emoji-picker-grid">
+
+                <div class="emoji-picker-inner-grid">
                   <div><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png">
                   </div>
   
@@ -83,7 +83,24 @@
                 </div>
 
 
-                <div class="category-box">Category</div>
+                <div>
+                 <label class="expense-category">
+                  Category:
+                  <select  name="category">
+                    <option value="" selected disabled>Select a category</option>
+                    <option value="Food & Groceries">Food & Groceries</option>
+                    <option value="Dining Out / Takeout">Dining Out / Takeout</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Health">Health</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Education">Education</option>
+                    <option value="Housing">Housing</option>
+                    <option value="Other-Expense">Other-Expense</option>
+                  </select>
+                </label>
+                </div>
               </div>
 
               <div class="emoji-input-alert js-emoji-input-alert"></div>
