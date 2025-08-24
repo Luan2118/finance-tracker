@@ -8,6 +8,7 @@ import logOut from "../logout.js";
 import refreshToken from "../utils/refreshToken.js";
 import getUsername from "../utils/getUserName.js";
 import getFormattedDate from "../utils/getFormattedDate.js";
+import { updateChart } from "../utils/updateChart.js";
 
 // utils
 menuIcon();
@@ -187,12 +188,12 @@ function submitIncome() {
         }
 
         if (!response.ok) throw new Error('Failed to add income')
-          const monthlySums = monthlyIncomeSummary();
-      
-          myChart.data.labels = Object.keys(monthlySums)
-          myChart.data.datasets[0].data = Object.values(monthlySums)
-      
-          myChart.update()
+          const monthlySums = await monthlyIncomeSummary();
+
+          const labels = Object.keys(monthlySums)
+          const data = Object.values(monthlySums)
+
+          updateChart(myChart,labels, data);
           
           dialog.close();
           
@@ -226,14 +227,14 @@ document.querySelectorAll('.js-income-delete-button')
 
         if(!response.ok) throw new Error('Failed to delete income')
 
-          const monthlySums = monthlyIncomeSummary();
+          const monthlySums = await monthlyIncomeSummary();
       
-          myChart.data.labels = Object.keys(monthlySums)
-          myChart.data.datasets[0].data = Object.values(monthlySums)
-      
-          myChart.update()
-      
-          
+          const labels = Object.keys(monthlySums)
+          const data = Object.values(monthlySums)
+
+          updateChart(myChart, labels, data);
+
+          updateDate();
           generateHTML();
 
       } catch (error) {

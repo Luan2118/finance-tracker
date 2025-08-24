@@ -79,6 +79,7 @@ async function generateHTML() {
     const {category, expenseSourceValue, amountValue, dateValue, _id, emoji } = dataObject;
      const formattedDate = getFormattedDate(dateValue);
     
+ 
     const html = `
       <div class="each-expense">
         <div class="expense-info-inner-grid">
@@ -115,6 +116,8 @@ function submitExpense() {
   document.querySelectorAll('.js-add-expense-button-submit')
     .forEach((event) => {
       event.addEventListener('click', async () => {
+        const label = document.querySelector('.expense-category');
+        const category = label.querySelector('select').value
         const expenseSourceValue = document.querySelector('.js-expense-value').value;
         let amountValue = document.querySelector('.js-amount-value').value;
         const dateValue = document.querySelector('.js-date-value').value;
@@ -123,7 +126,7 @@ function submitExpense() {
          amountValue = Number(amountValue)
 
         // let id;
-
+        
         document.querySelector('.js-expense-amount-input-alert').innerHTML = '';
         document.querySelector('.js-expense-date-input-alert').innerHTML = '';
 
@@ -148,6 +151,7 @@ function submitExpense() {
 
       
         const newExpense = {
+          category,
           expenseSourceValue,
           amountValue,
           currency: 'CZK',
@@ -182,11 +186,13 @@ function submitExpense() {
 
           if(!response.ok) throw new Error('Failed to add expense')
           
-          const monthlySum = monthlyExpenseSummary();
-  
-          myChart.data.labels = Object.keys(monthlySum);
-          myChart.data.datasets[0].data = Object.values(monthlySum);
-          myChart.update()
+          const monthlySums = await monthlyExpenseSummary();
+                
+          const labels = Object.keys(monthlySums)
+          const data = Object.values(monthlySums)
+
+          updateChart(myChart, labels, data);
+                
   
           updateDate();
           generateHTML();
@@ -219,11 +225,12 @@ function deleteExpenseButton () {
 
         if (!response.ok) throw new Error('Failed to delete expense')
         
-          const monthlySum = monthlyExpenseSummary();
-    
-          myChart.data.labels = Object.keys(monthlySum);
-          myChart.data.datasets[0].data = Object.values(monthlySum);
-          myChart.update()
+          const monthlySums = await monthlyExpenseSummary();
+                
+          const labels = Object.keys(monthlySums)
+          const data = Object.values(monthlySums)
+
+          updateChart(myChart, labels, data);
           
 
           generateHTML();

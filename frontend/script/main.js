@@ -8,8 +8,8 @@ import renderExpenseChart from "./chartJS/main-page/expense-chart.js";
 import  { financialOverviewChart, renderFinancialOverviewChart}  from "./chartJS/main-page/financial-overview-chart.js"
 import logOut from "./logout.js";
 import refreshToken from "./utils/refreshToken.js";
-import getUsername from "./utils/getrUserName.js";
-
+import getUsername from "./utils/getUserName.js";
+import getFormattedDate from "./utils/getFormattedDate.js";
 
 refreshToken();
 
@@ -107,6 +107,9 @@ async function displayRecentTransactions() {
   let sharedDataHTML = '';
   
   for (let i = 0 ; i < sharedData.length && i < 8;  i++) {
+
+    const formattedDate = getFormattedDate(sharedData[i].dateValue)
+
     if (sharedData[i].type === 'expense') {
       const html = `
       <div class="transactions-info-inner-grid">
@@ -116,7 +119,7 @@ async function displayRecentTransactions() {
       <div>
       ${sharedData[i].expenseSourceValue}
       </div>
-      <div class="transactions-date">${sharedData[i].dateValue}</div>
+      <div class="transactions-date">${formattedDate}</div>
       </div>
       
       <div class="transactions-amount-minus">-${formatCurrency(sharedData[i].amountValue, symbol)}</div>
@@ -132,7 +135,7 @@ async function displayRecentTransactions() {
       <div class="transactions-info">
       <div>
       <div>${sharedData[i].incomeSourceValue}</div>
-      <div class="transactions-date">${sharedData[i].dateValue}</div>
+      <div class="transactions-date">${formattedDate}</div>
       </div>
       
       <div class="transactions-amount-plus">+${formatCurrency(sharedData[i].amountValue, symbol)} </div>
@@ -153,13 +156,14 @@ async function displayExpenses() {
   let expenseDataHTML = '';
   
   for (let i = 0 ; i < expenseData.length && i < 5 ; i ++) {
+    const formattedDate = getFormattedDate(expenseData[i].dateValue)
     const html = `
     <div class="transactions-info-inner-grid">
     <div class="transaction-img-grid">${expenseData[i].emoji}</div>
     <div class="transactions-info">
     <div>
     <div>${expenseData[i].expenseSourceValue}</div>
-    <div class="transactions-date">${expenseData[i].dateValue}</div>
+    <div class="transactions-date">${formattedDate}</div>
     </div>
     
     <div class="transactions-amount-minus">-${formatCurrency(expenseData[i].amountValue, symbol)} </div>
@@ -181,13 +185,14 @@ async function displayIncome() {
   let incomeDataHTML = '';
   
   for (let i = 0 ; i < incomeData.length && i < 5 ; i ++ ) {
+    const formattedDate = getFormattedDate(incomeData[i].dateValue)
      let html = `
      <div class="transactions-info-inner-grid">
      <div class="transaction-img-grid">${incomeData[i].emoji}</div>
      <div class="transactions-info">
      <div>
      <div>${incomeData[i].incomeSourceValue}</div>
-     <div class="transactions-date">${incomeData[i].dateValue}</div>
+     <div class="transactions-date">${formattedDate}</div>
      </div>
      
      <div class="transactions-amount-plus">+${formatCurrency(incomeData[i].amountValue, symbol)} </div>

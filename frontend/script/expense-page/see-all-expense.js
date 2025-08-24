@@ -3,6 +3,12 @@ import { formatCurrency, loadGetSymbol } from "../utils/currencySymbols.js";
 import { expenseChart } from "../chartJS/expense-page/see-all-expenses-page-chart.js";
 import getUsername from "../utils/getUserName.js";
 import getFormattedDate from "../utils/getFormattedDate.js"
+import { updateChart } from "../utils/updateChart.js";
+import {setupCustomAmountFilter, filterAmountValue, customAmountClicked} from "../utils/see-all-income-expense-page/setupCustomAmountFilter.js";
+import { setUpCustomTimelineFilter, filterTimeValue, customTimelineClicked } from "../utils/see-all-income-expense-page/setUpCustomTimelineFilter.js";
+import formatDate from "../utils/see-all-income-expense-page/FormatDate.js";
+import setPastDate from "../utils/see-all-income-expense-page/setPastDate.js";
+import resolveCategory from "../utils/see-all-income-expense-page/resolveCategory.js";
 
 // Get username
 getUsername().then((data) => document.querySelector('.profile-name-js').innerHTML = data)
@@ -28,23 +34,22 @@ async function displayExpense(data) {
   let expenseHTML = '';
   
   expenseData.forEach((expense) => {
-    const {emoji, expenseSourceValue, dateValue, amountValue} = expense;
+    const {category, emoji, expenseSourceValue, dateValue, amountValue} = expense;
 
     const formattedDate = getFormattedDate(dateValue)
 
     let html = `
      <div class="expense-info-inner-grid">
-     <div class="expense-img-grid">${emoji}</div>
-     <div class="expense-info">
-     <div>
-     <div>
-     ${expenseSourceValue}
-     </div>
-     <div class="expense-date">${formattedDate}</div>
-     </div>
-     
-     <div class="expense-amount-minus">-${formatCurrency(amountValue, symbol)}</div>
-     </div>
+      <div class="expense-img-grid">${emoji}</div>
+      <div class="expense-info">
+      <div>
+        <div>${expenseSourceValue}</div>
+        <div class="expense-date">${formattedDate}</div>
+        <div class="expense-category-display">Category: ${category}</div>
+        </div>
+      
+        <div class="expense-amount-minus">-${formatCurrency(amountValue, symbol)}</div>
+      </div>
      </div>
    `
 
@@ -60,50 +65,8 @@ async function displayExpense(data) {
 const label = document.querySelector('.label');
 const category = label.querySelector('select');
 
-
 // Time line Custom
-const filterTimeCustonBtn = document.querySelector('.filter-button-timeline-custom-js')
-let customTimelineClicked;
-
-
-const timeFromId = document.getElementById('time-from');
-const timeToId = document.getElementById('time-to');
-
-filterTimeCustonBtn.addEventListener('click', () => {
-  customTimelineClicked = true;
-
-  document.querySelector('.special')?.classList.remove('special');
-  filterTimeCustonBtn.classList.add('special');
-  
-  timeFromId.innerHTML = 'From<input class="time-from-js" type="date">';
-  timeToId.innerHTML =  'To<input class="time-to-js" type="date">';
-  
-  if (timeFromId.style.display === 'block' || timeToId.style.display === 'block') {
-    timeFromId.style.display = 'none';
-    timeToId.style.display = 'none';
-  } else {
-    timeFromId.style.display = 'block';
-    timeToId.style.display = 'block';
-  }
-})
-
-// Time line Filter
-const filterTime = document.querySelectorAll('.filter-button-timeline')
-let filterTimeValue;
-
-filterTime.forEach((buttonTime) => {
-  buttonTime.addEventListener('click', () => {
-    customTimelineClicked = false;
-    timeFromId.style.display = 'none';
-    timeToId.style.display = 'none';
-
-    document.querySelector('.special')?.classList.remove('special');
-    buttonTime.classList.add('special');
-    filterTimeValue = buttonTime.value;
-  })
-})
-
-
+setUpCustomTimelineFilter();
 
 // Get the Date / Days
 const today = new Date();
@@ -130,55 +93,9 @@ const formattedMaxFutureDate = formatDate(maxFutureDate);
 
 
 // Expense range CUSTOM
-const filterAmountCustonBtn = document.querySelector('.filter-button-amount-custom-js')
-let customAmountClicked;
+setupCustomAmountFilter()
 
 
-const minAmountId = document.getElementById('min-amount');
-const maxAmountId = document.getElementById('max-amount');
-
-filterAmountCustonBtn.addEventListener('click', () => {
-  customAmountClicked = true;
-
-  document.querySelector('.special2')?.classList.remove('special2');
-  filterAmountCustonBtn.classList.add('special2');
-  
-  minAmountId.innerHTML = 'Min<input class="min-amount-js" type="number">';
-  maxAmountId.innerHTML =  'Max<input class="max-amount-js" type="number">';
-  
-  if (minAmountId.style.display === 'block' || maxAmountId.style.display === 'block') {
-    minAmountId.style.display = 'none';
-    maxAmountId.style.display = 'none';
-  } else {
-    minAmountId.style.display = 'block';
-    maxAmountId.style.display = 'block';
-  }
-})
-
-
-
-
-// Expense range filter
-const filterAmount = document.querySelectorAll('.filter-button-amount')
-let filterAmountValue;
-let filteramountclicked;
-
-filterAmount.forEach((buttonAmount) => {
-  buttonAmount.addEventListener('click', () => {
-    filteramountclicked = true
-    customAmountClicked = false
-    minAmountId.style.display = 'none';
-    maxAmountId.style.display = 'none';
-    document.querySelector('.special2')?.classList.remove('special2')
-    buttonAmount.classList.add('special2')
-    filterAmountValue = Number(buttonAmount.value)
-
-  })
-})
-
-
-// After selecting an amount range / expense range
-const MAX_VALUE = 100_000_000
 
 
 
@@ -186,7 +103,7 @@ const MAX_VALUE = 100_000_000
 const filterButton = document.querySelector('.filter-submit-button-js')
 
 filterButton.addEventListener('click', async () => {
-
+  console.log(filterAmountValue)
   document.querySelector('.expense-validation').innerHTML = ''
 
   if (category.value === '') {
@@ -196,8 +113,9 @@ filterButton.addEventListener('click', async () => {
   document.querySelector('.category-validation-js').innerHTML = ''
   
   
-  filterAmountValue = Number.isNaN(filterAmountValue) || filterAmountValue === undefined ? MAX_VALUE : filterAmountValue
-  
+
+  // After selecting an amount range / expense range
+  const MAX_VALUE = 100_000_000
 
  
   if (customAmountClicked === false  && category.value === 'see-all' && filterTimeValue === 'see-all' && filterAmountValue === MAX_VALUE ) {
@@ -208,7 +126,7 @@ filterButton.addEventListener('click', async () => {
     const labels = Object.keys(monthlySums)
     const data = Object.values(monthlySums)
 
-    updateChart(labels, data, 'month');
+    updateChart(expenseChart,labels, data, 'month');
 
     await displayExpense(expenseData)
     return;
@@ -245,7 +163,7 @@ filterButton.addEventListener('click', async () => {
 
     expenseChart.options.scales.x.time.min = formattedTimeFromValueDate;
     expenseChart.options.scales.x.time.max = formattedTimeToValueDate;
-    updateChart(labels, data, 'day');
+     updateChart(expenseChart,labels, data, 'day');
 
    
 
@@ -304,7 +222,7 @@ filterButton.addEventListener('click', async () => {
   const data = filteredExpense.map(expense => expense.amountValue)
   
   
-  updateChart(labels, data, 'day');
+  updateChart(expenseChart,labels, data, 'day');
   
   if(filteredExpense.length === 0) {
     document.querySelector('.expense-validation').innerHTML = '<div> No expense matches your filter</div>'
@@ -315,23 +233,7 @@ filterButton.addEventListener('click', async () => {
   
 })
 
-function resolveCategory(expense) {
- return category.value === 'see-all' ? expense.category : category.value
-  e
-}
-
-function updateChart(labels, data, unit) {
-  expenseChart.data.labels = labels;
-  expenseChart.data.datasets[0].data = data;
-  expenseChart.options.scales.x.time.unit = unit;
-  expenseChart.update();
-}
 
 
-function setPastDate(number) {
-  return new Date(new Date().setDate(today.getDate() - number))
-}
 
-function formatDate(date) {
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getDate()}`
-}
+

@@ -1,4 +1,4 @@
-import Expense from '../models/expense.js'
+                                 import Expense from '../models/expense.js'
 
 export const getAllExpense = async (req , res, next) => {
    try {
@@ -12,9 +12,10 @@ export const getAllExpense = async (req , res, next) => {
 
 export const createExpense = async (req , res, next) => {
   try {
-    const {expenseSourceValue, amountValue, currency, dateValue, emoji } = req.body;
+    const {category, expenseSourceValue, amountValue, currency, dateValue, emoji } = req.body;
 
     const expense = new Expense({
+      category,
       expenseSourceValue,
       amountValue,
       currency,

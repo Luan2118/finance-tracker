@@ -198,7 +198,9 @@ a {
   margin-left: 10px;
 }
 
-.expense-date {
+
+.expense-date,
+.expense-category-display {
   color: grey;
   font-size: 12px;
 }
