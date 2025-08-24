@@ -1,4 +1,4 @@
-import { incomeData, loadIncomeData, updateDate, monthlyIncomeSummary } from "../../data/incomeData.js";
+import { incomeData, loadIncomeData, updateIncomeDate, monthlyIncomeSummary } from "../../data/incomeData.js";
 import { myChart,   } from "../chartJS/income-page/income-page-chart.js";
 import {iconPicker} from '../utils/icon-picker.js'
 import { menuIcon } from "../utils/menuIcon.js";
@@ -71,7 +71,7 @@ submitIncome();
 
 async function generateHTML() {
   await loadIncomeData();
-  await updateDate();
+  await updateIncomeDate();
   let dataHTML = '';
 
   incomeData.forEach((dataObject) => {
@@ -199,7 +199,7 @@ function submitIncome() {
           
 
          
-          await updateDate();
+          await updateIncomeDate();
           await generateHTML();
       } catch (error) {
         console.log(error.message)
@@ -234,7 +234,7 @@ document.querySelectorAll('.js-income-delete-button')
 
           updateChart(myChart, labels, data);
 
-          updateDate();
+          updateIncomeDate();
           generateHTML();
 
       } catch (error) {

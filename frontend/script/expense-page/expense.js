@@ -1,4 +1,4 @@
-import { loadExpenseData, expenseData, updateDate, monthlyExpenseSummary } from "../../data/expenseData.js";
+import { loadExpenseData, expenseData, updateExpenseDate, monthlyExpenseSummary } from "../../data/expenseData.js";
 import { myChart } from "../chartJS/expense-page/expense-page-chart.js";
 import {iconPicker} from '../utils/icon-picker.js'
 import { menuIcon } from "../utils/menuIcon.js";
@@ -70,7 +70,7 @@ submitExpense();
 
 async function generateHTML() {
   await loadExpenseData();
-  await updateDate();
+  await updateExpenseDate();
 
 
   let dataHTML = '';
@@ -194,7 +194,7 @@ function submitExpense() {
           updateChart(myChart, labels, data);
                 
   
-          updateDate();
+          updateExpenseDate();
           generateHTML();
           
           dialog.close();

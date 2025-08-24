@@ -9,12 +9,20 @@ async function renderExpenseChart() {
   }
   await loadExpenseData();
   const expenseCtx = document.getElementById('main-page-expense-chart')
-
-  const expenseChartLabels = expenseData.map(item => item.dateValue)
-  const expenseChartData = expenseData.map(item => item.amountValue)
-
+  
   const today = new Date();
   const last30Days = new Date(new Date().setDate(today.getDate() - 30));
+
+  const formattedToday = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`
+  const formattedLast30Days = `${last30Days.getFullYear()}-${String(last30Days.getMonth() + 1).padStart(2, '0')}-${String(last30Days.getDate()).padStart(2, '0')}`
+
+
+  const filteredExpense = expenseData.filter(expense => {
+    return expense.dateValue <= formattedToday && expense.dateValue >= formattedLast30Days
+  })
+  const expenseChartLabels = filteredExpense.map(expense => expense.dateValue)
+  const expenseChartData = filteredExpense.map(expense => expense.amountValue)
+
 
 
   expenseChart = new Chart(expenseCtx, {

@@ -1,6 +1,6 @@
-import { expenseData,  loadExpenseData,  monthlyExpenseSummary } from "../data/expenseData.js";
-import { incomeData, loadIncomeData, monthlyIncomeSummary } from "../data/incomeData.js";
-import { sharedData, loadSharedData } from "../data/sharedData.js";
+import { expenseData,  loadExpenseData,  monthlyExpenseSummary, updateExpenseDate   } from "../data/expenseData.js";
+import { incomeData, loadIncomeData, monthlyIncomeSummary, updateIncomeDate } from "../data/incomeData.js";
+import { sharedData, loadSharedData, updateSharedDate } from "../data/sharedData.js";
 import { menuIcon } from "./utils/menuIcon.js";
 import {formatCurrency, loadGetSymbol} from './utils/currencySymbols.js'
 import {incomeChart, renderIncomeChart, filteredIncome, incomeLast60DaysSum}  from "./chartJS/main-page/income-chart.js";
@@ -102,6 +102,7 @@ displayIncome();
 
 async function displayRecentTransactions() {
   await loadSharedData();
+  await updateSharedDate();
   symbol = await loadGetSymbol(sharedData);
   
   let sharedDataHTML = '';
@@ -152,7 +153,9 @@ async function displayRecentTransactions() {
 
 async function displayExpenses() {
   await loadExpenseData();
+  await updateExpenseDate();
   symbol = await loadGetSymbol(expenseData)
+
   let expenseDataHTML = '';
   
   for (let i = 0 ; i < expenseData.length && i < 5 ; i ++) {
@@ -181,6 +184,7 @@ async function displayExpenses() {
 
 async function displayIncome() {
   await loadIncomeData();
+  await updateIncomeDate();
   symbol = await loadGetSymbol(incomeData);
   let incomeDataHTML = '';
   

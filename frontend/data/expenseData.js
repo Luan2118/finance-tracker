@@ -70,8 +70,8 @@ export async function monthlyExpenseSummary() {
 }
 
 
-updateDate();
-export async function updateDate() {
+updateExpenseDate();
+export async function updateExpenseDate() {
   await loadExpenseData();
   expenseData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
 }

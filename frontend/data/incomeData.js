@@ -71,9 +71,9 @@ export async function monthlyIncomeSummary() {
   return monthlySums;
 }
 
-updateDate();
+updateIncomeDate();
 
-export async function updateDate() {
+export async function updateIncomeDate() {
    await loadIncomeData();
     incomeData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
 }
