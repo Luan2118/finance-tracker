@@ -1,13 +1,16 @@
 import { loadExpenseData, expenseData } from "../../../data/expenseData.js";
+import { formatCurrency, loadGetSymbol } from "../../utils/currencySymbols.js";
 
 let expenseChart = null;
 
-async function renderExpenseChart() {
+async function renderMainPageExpenseChart() {
 
   if (expenseChart) {
     expenseChart.destroy();
   }
   await loadExpenseData();
+
+  const symbol = await loadGetSymbol(expenseData);
   const expenseCtx = document.getElementById('main-page-expense-chart')
   
   const today = new Date();
@@ -40,6 +43,7 @@ async function renderExpenseChart() {
     },
     
     options: {
+      cutout: '65%',
       responsive: true,
       maintainAspectRatio: false,
       scales: {
@@ -71,7 +75,19 @@ async function renderExpenseChart() {
             labels: {
               font: {
                 size: 18,
-                family: 'Ariaĺ'
+                family: 'Arial'
+              }
+            }
+          },
+          tooltip: {
+            callbacks: {
+              title: (context) => {
+                const dataIndex = context[0].dataIndex;
+                const item = filteredExpense[dataIndex]
+                return item.expenseSourceValue
+              },
+              label: (context) => {
+                return `Amount: ${formatCurrency(context.formattedValue, symbol)}`
               }
             }
           }
@@ -80,4 +96,4 @@ async function renderExpenseChart() {
   })
 }
 
-export default renderExpenseChart;
+export default renderMainPageExpenseChart;

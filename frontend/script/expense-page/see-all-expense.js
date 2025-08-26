@@ -1,4 +1,4 @@
-import { expenseData, loadExpenseData, updateDate, setExpenseData, monthlyExpenseSummary } from "../../data/expenseData.js";
+import { expenseData, loadExpenseData, updateExpenseDate, setExpenseData, monthlyExpenseSummary } from "../../data/expenseData.js";
 import { formatCurrency, loadGetSymbol } from "../utils/currencySymbols.js";
 import { expenseChart } from "../chartJS/expense-page/see-all-expenses-page-chart.js";
 import getUsername from "../utils/getUserName.js";
@@ -27,7 +27,7 @@ displayExpense();
 async function displayExpense(data) {
   
   const allData = await loadExpenseData();
-  await updateDate();
+  await updateExpenseDate();
   
   if(data) setExpenseData(data);
 
@@ -151,7 +151,7 @@ filterButton.addEventListener('click', async () => {
 
 
     const filteredExpenseCustom = expenseData.filter(expense => {
-      const categoryValue = resolveCategory(expense);
+      const categoryValue = resolveCategory(category, expense);
       return expense.dateValue >= formattedTimeFromValueDate && expense.dateValue <= formattedTimeToValueDate &&
       expense.amountValue <= filterAmountValue &&
       expense.category === categoryValue
@@ -195,7 +195,7 @@ filterButton.addEventListener('click', async () => {
    // MAIN FILTER - Specific days and expense range 
    let filteredExpense = expenseData.filter(expense => {
     // Category validation
-    const categoryValue =  resolveCategory(expense);
+    const categoryValue =  resolveCategory(category, expense);
 
     if(customAmountClicked) {
       const minAmountValue = document.querySelector('.min-amount-js').value

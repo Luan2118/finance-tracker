@@ -1,4 +1,5 @@
-import { monthlyExpenseSummary} from "../../../data/expenseData.js";
+import { expenseData, loadExpenseData, monthlyExpenseSummary} from "../../../data/expenseData.js";
+import { formatCurrency, loadGetSymbol } from "../../utils/currencySymbols.js";
 
 
 
@@ -7,6 +8,8 @@ export let expenseChart = null;
 renderExpenseChart();
 
 async function renderExpenseChart() {
+  await loadExpenseData();
+  const symbol = await loadGetSymbol(expenseData);
 
    const monthlySums = await monthlyExpenseSummary();
   
@@ -56,7 +59,28 @@ async function renderExpenseChart() {
             }
           }
         }
+      },
+      plugins: {  
+      legend: {
+        labels: {
+          font: {
+            size: 18,
+            family: 'Arial'
+          }
+        }
+      },
+      tooltip: {
+        callbacks: {
+          title: () => {
+            return 'Monthly Expense Summary'
+          },
+          label: (context) => {
+          return `Amount: ${formatCurrency(context.formattedValue, symbol)}`
+        }
+        }
+        
       }
+    }
     }
   })
 }

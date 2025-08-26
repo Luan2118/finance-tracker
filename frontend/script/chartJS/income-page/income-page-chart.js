@@ -1,4 +1,5 @@
-import { incomeData, monthlyIncomeSummary } from "../../../data/incomeData.js";
+import { incomeData, loadIncomeData, monthlyIncomeSummary } from "../../../data/incomeData.js";
+import { loadGetSymbol, formatCurrency } from "../../utils/currencySymbols.js";
 
 
 
@@ -10,11 +11,11 @@ renderIncomeChart();
 
 
 export let myChart = null;
-async function renderIncomeChart() {
-
+export async function renderIncomeChart() {
+  await loadIncomeData();
   const ctx = document.getElementById('income-chart')
 
-
+  const symbol = await loadGetSymbol(incomeData);
 
   const monthlySums = await monthlyIncomeSummary();
 
@@ -76,7 +77,7 @@ async function renderIncomeChart() {
                   return 'Monthly Income Summary'
                 },
                 label: function (context) {
-                  return `Amount: ${context.formattedValue}Kč`
+                  return `Amount: ${formatCurrency(context.formattedValue, symbol)}`
                 }
               }
             },

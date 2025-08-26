@@ -1,4 +1,4 @@
-import { incomeData, loadIncomeData, updateDate, setIncomeData, monthlyIncomeSummary } from "../../data/incomeData.js";
+import { incomeData, loadIncomeData, updateIncomeDate, setIncomeData, monthlyIncomeSummary } from "../../data/incomeData.js";
 import { formatCurrency, loadGetSymbol } from "../utils/currencySymbols.js";
 import { incomeChart } from "../chartJS/income-page/see-all-income-page-chart.js";
 import getUsername from "../utils/getUserName.js";
@@ -26,7 +26,7 @@ loadIncomeData().then(() => {
 displayIncome();
 async function displayIncome(data) {
   const allData = await loadIncomeData();
-  await updateDate();
+  await updateIncomeDate();
   
   if(data) setIncomeData(data);
 
@@ -122,7 +122,7 @@ filterButton.addEventListener('click', async () => {
     const labels = Object.keys(monthlySums)
     const data = Object.values(monthlySums)
 
-    updateChart(labels, data, 'month');
+    updateChart(incomeChart, labels, data, 'month');
 
     await displayIncome(incomeData)
     return;
@@ -146,7 +146,7 @@ filterButton.addEventListener('click', async () => {
 
 
     const filteredIncomeCustom = incomeData.filter(income => {
-      const categoryValue = resolveCategory(income);
+      const categoryValue = resolveCategory(category, income);
       return income.dateValue >= formattedTimeFromValueDate && income.dateValue <= formattedTimeToValueDate &&
       income.amountValue <= filterAmountValue &&
       income.category === categoryValue
@@ -159,7 +159,7 @@ filterButton.addEventListener('click', async () => {
     
     incomeChart.options.scales.x.time.min = formattedTimeFromValueDate;
     incomeChart.options.scales.x.time.max = formattedTimeToValueDate;
-    updateChart(labels, data, 'day');
+    updateChart(incomeChart, labels, data, 'day');
 
     if(filteredIncomeCustom.length === 0) {
       document.querySelector('.income-validation').innerHTML = '<div> No income matches your filter</div>'
@@ -189,7 +189,7 @@ filterButton.addEventListener('click', async () => {
    // MAIN FILTER - Specific days and income range 
    let filteredIncome = incomeData.filter(income => {
     // Category validation
-    const categoryValue = resolveCategory(income);
+    const categoryValue = resolveCategory(category, income);
 
    
     if(customAmountClicked) {
@@ -219,7 +219,7 @@ filterButton.addEventListener('click', async () => {
   const data = filteredIncome.map(income => income.amountValue)
   
   
-  updateChart(labels, data, 'day');
+  updateChart(incomeChart, labels, data, 'day');
   
   if(filteredIncome.length === 0) {
     document.querySelector('.income-validation').innerHTML = '<div> No income matches your filter</div>'

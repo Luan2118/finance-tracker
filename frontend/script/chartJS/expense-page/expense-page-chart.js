@@ -1,17 +1,33 @@
-import { expenseData, monthlyExpenseSummary } from "../../../data/expenseData.js"
+import { expenseData, monthlyExpenseSummary, loadExpenseData } from "../../../data/expenseData.js"
+import { loadGetSymbol, formatCurrency } from "../../utils/currencySymbols.js";
+import { updateChart } from "../../utils/updateChart.js";
 
 
-export let myChart = null;
+export let myExpenseChart = null;
 
 renderExpenseChart();
-async function renderExpenseChart() {
-  const ctx = document.getElementById('expense-chart').getContext('2d')
+export async function renderExpenseChart() {
+  await loadExpenseData();
 
+  if (myExpenseChart) {
+    myExpenseChart.destroy();
+  }
+
+  const canvas = document.getElementById('expense-chart')
+
+  if(!canvas) return;
+
+  const ctx = canvas.getContext('2d')
+  
+  const symbol = await loadGetSymbol(expenseData)
   const monthlySum = await monthlyExpenseSummary();
-
+  
+ 
+  
   const labels = Object.keys(monthlySum);
   const data = Object.values(monthlySum);
-
+  
+ 
   const chartData = {
       labels,
       datasets: [{
@@ -65,14 +81,14 @@ async function renderExpenseChart() {
               return 'Monthly Expense Summary';
             },
             label: (context) => {
-              return `Amount: ${context.formattedValue} Kč`
+              return `Amount: -${formatCurrency(context.formattedValue, symbol)}`
             }
           }
         }
       }
     }
 
-  myChart = new Chart(ctx, {
+  myExpenseChart = new Chart(ctx, {
     type: 'bar',
     data: chartData,
     options: chartOptions
@@ -89,23 +105,28 @@ async function renderExpenseChart() {
     return new Date(y , m, 0).getDate()
   }
 
-  myChart.data.labels = expenseData.map(data => data.dateValue);
-  myChart.data.datasets[0].data = expenseData.map(data => data.amountValue);
+  myExpenseChart.data.labels = expenseData.map(data => data.dateValue);
+  myExpenseChart.data.datasets[0].data = expenseData.map(data => data.amountValue);
 
+  const labels = expenseData.map(data => data.dateValue);
+  const data =  expenseData.map(data => data.amountValue);
+
+  
   createChart('line')
-
-  myChart.options.scales.x.min = `${event.target.value}-01`;
-  myChart.options.scales.x.max = `${event.target.value}-${lastDay(year, month)}`;
-  myChart.options.scales.x.time.unit = 'day';
-
-  myChart.options.plugins.tooltip.callbacks.title = (context) => {
+  
+  myExpenseChart.options.scales.x.min = `${event.target.value}-01`;
+  myExpenseChart.options.scales.x.max = `${event.target.value}-${lastDay(year, month)}`;
+  
+  
+  myExpenseChart.options.plugins.tooltip.callbacks.title = (context) => {
     const dataIndex = context[0].dataIndex;
     const item = expenseData[dataIndex];
     return item.expenseSourceValue;
   }
+  
+  updateChart(myExpenseChart, labels, data, 'day' )
 
-
-  myChart.update();
+  
   })
 
   const chartResetButton = document.getElementById('chart-reset-button')
@@ -115,16 +136,18 @@ async function renderExpenseChart() {
 
   filter.value = '';
 
-  myChart.options.scales.x.min = undefined;
-  myChart.options.scales.x.max = undefined;
-  myChart.options.scales.x.time.unit = 'month';
+  myExpenseChart.options.scales.x.min = undefined;
+  myExpenseChart.options.scales.x.max = undefined;
 
-  myChart.data.labels = Object.keys(monthlySum);
-  myChart.data.datasets[0].data = Object.values(monthlySum);
+  
+  const labels = Object.keys(monthlySum);
+  const data = Object.values(monthlySum);
 
-  myChart.options.plugins.tooltip.callbacks.title = () => {return ['Monthly Expense Summary']}
-
-  myChart.update();
+  
+  myExpenseChart.options.plugins.tooltip.callbacks.title = () => {return ['Monthly Expense Summary']}
+  
+  updateChart(myExpenseChart, labels, data , 'month')
+  
   })
 
 
@@ -134,7 +157,7 @@ async function renderExpenseChart() {
   gradient.addColorStop(1, 'rgb(216, 85, 67, 0)');    // bottom
 
   function createChart (chart) {
-    myChart.destroy();
+    myExpenseChart.destroy();
     if (chart === 'line') {
       chartData.datasets[0] = {
         ...chartData.datasets[0],
@@ -152,7 +175,7 @@ async function renderExpenseChart() {
         backgroundColor: 'rgb(216, 85, 67)'
       }
     }
-    myChart = new Chart(ctx, {
+    myExpenseChart = new Chart(ctx, {
     type: chart,
     data : chartData,
     options: chartOptions

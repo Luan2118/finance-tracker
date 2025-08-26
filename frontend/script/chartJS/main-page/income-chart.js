@@ -1,5 +1,6 @@
 import { loadIncomeData, incomeData } from "../../../data/incomeData.js"
 import { formatCurrency, loadGetSymbol } from "../../utils/currencySymbols.js"
+import { updateChart } from "../../utils/updateChart.js"
 
 
 const today1 = new Date()
@@ -22,6 +23,7 @@ export async function filteredIncome() {
     amountValue: item.amountValue
   }))
   
+
   return filteredIncomeData;
 }
 
@@ -46,13 +48,13 @@ export async function renderIncomeChart(income60) {
   }
   await loadIncomeData();
   const symbol = await loadGetSymbol(incomeData);
-  income60 = await incomeLast60DaysSum()
+  income60 = await incomeLast60DaysSum();
   
   filteredIncomeData = await filteredIncome();
   const incomeChartLabels = filteredIncomeData.map(item => item.incomeSourceValue);
   const incomeChartData = filteredIncomeData.map(item => item.amountValue);
   
-  const incomeCtx = document.getElementById('main-page-income-chart')
+  const incomeCtx = document.getElementById('main-page-income-chart');
 
   const incomeDoughnutLabel = {
     id: 'incomeDoughnutLabel',

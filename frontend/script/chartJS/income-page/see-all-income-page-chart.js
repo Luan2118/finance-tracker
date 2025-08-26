@@ -1,4 +1,5 @@
-import { monthlyIncomeSummary} from "../../../data/incomeData.js";
+import { incomeData, loadIncomeData, monthlyIncomeSummary} from "../../../data/incomeData.js";
+import { formatCurrency, loadGetSymbol } from "../../utils/currencySymbols.js";
 
 
 
@@ -7,7 +8,8 @@ export let incomeChart = null;
 renderIncomeChart();
 
 async function renderIncomeChart() {
-
+  await loadIncomeData();
+  const symbol = await loadGetSymbol(incomeData)
    const monthlySums = await monthlyIncomeSummary();
   
     const labels = Object.keys(monthlySums)
@@ -56,6 +58,26 @@ async function renderIncomeChart() {
             }
           }
         }
+      },
+      plugins: {
+        legend: {
+        labels: {
+          font: {
+            size: 18,
+            family: 'Arial'
+          }
+        }
+      },
+      tooltip: {
+        callbacks: {
+          title: () => {
+            return 'Monthly Income Summary'
+          },
+          label: (context) => {
+            return `Amount: ${formatCurrency(context.formattedValue, symbol)}`
+          }
+        }
+      }
       }
     }
   })

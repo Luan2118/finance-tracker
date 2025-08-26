@@ -4,12 +4,13 @@ import { sharedData, loadSharedData, updateSharedDate } from "../data/sharedData
 import { menuIcon } from "./utils/menuIcon.js";
 import {formatCurrency, loadGetSymbol} from './utils/currencySymbols.js'
 import {incomeChart, renderIncomeChart, filteredIncome, incomeLast60DaysSum}  from "./chartJS/main-page/income-chart.js";
-import renderExpenseChart from "./chartJS/main-page/expense-chart.js";
+import renderMainPageExpenseChart from "./chartJS/main-page/expense-chart.js";
 import  { financialOverviewChart, renderFinancialOverviewChart}  from "./chartJS/main-page/financial-overview-chart.js"
 import logOut from "./logout.js";
 import refreshToken from "./utils/refreshToken.js";
 import getUsername from "./utils/getUserName.js";
 import getFormattedDate from "./utils/getFormattedDate.js";
+import { renderExpenseChart } from "./chartJS/expense-page/expense-page-chart.js";
 
 refreshToken();
 
@@ -213,7 +214,7 @@ async function displayIncome() {
   getTotalBalance().then((data) => total = data);
   renderFinancialOverviewChart(total)
   
-  renderExpenseChart();
+  renderMainPageExpenseChart();
   
   incomeLast60DaysSum().then((data) => income60 = data)
   renderIncomeChart(income60);
@@ -372,7 +373,9 @@ const dropDownIconBtn = document.getElementById('drop-down-icon')
       await displayRecentTransactions();
       await displayExpenses();
       await displayIncome();
-      
+      await renderMainPageExpenseChart();
+      await renderExpenseChart();
+      await renderIncomeChart();
   
     }
     catch (error) {

@@ -77,11 +77,11 @@ export async function renderFinancialOverviewChart(total) {
             label: (context) => {
   
               if (context.label === 'Total Income') {
-                return `Amount: + ${formatCurrency(context.formattedValue, symbol)} `
+                return `Amount: +${formatCurrency(context.formattedValue, symbol)} `
               }else if (context.label === 'Total Expenses') {
                 return  `Amount: -${formatCurrency(context.formattedValue, symbol)}`
               }else {
-                return `Amount:${formatCurrency(context.formattedValue, symbol)} }`
+                return `Amount: ${formatCurrency(context.formattedValue, symbol)}`
               }
             }
           }

@@ -1,5 +1,5 @@
-function resolveCategory(expense) {
- return category.value === 'see-all' ? expense.category : category.value
+function resolveCategory(category, data) {
+ return category.value === 'see-all' ? data.category : category.value
   e
 }
 

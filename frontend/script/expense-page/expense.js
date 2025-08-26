@@ -1,5 +1,5 @@
 import { loadExpenseData, expenseData, updateExpenseDate, monthlyExpenseSummary } from "../../data/expenseData.js";
-import { myChart } from "../chartJS/expense-page/expense-page-chart.js";
+import { myExpenseChart } from "../chartJS/expense-page/expense-page-chart.js";
 import {iconPicker} from '../utils/icon-picker.js'
 import { menuIcon } from "../utils/menuIcon.js";
 import {formatCurrency, loadGetSymbol} from '../utils/currencySymbols.js';
@@ -191,7 +191,7 @@ function submitExpense() {
           const labels = Object.keys(monthlySums)
           const data = Object.values(monthlySums)
 
-          updateChart(myChart, labels, data);
+          updateChart(myExpenseChart, labels, data);
                 
   
           updateExpenseDate();
@@ -230,7 +230,7 @@ function deleteExpenseButton () {
           const labels = Object.keys(monthlySums)
           const data = Object.values(monthlySums)
 
-          updateChart(myChart, labels, data);
+          updateChart(myExpenseChart, labels, data);
           
 
           generateHTML();
