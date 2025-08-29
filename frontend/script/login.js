@@ -1,4 +1,4 @@
-import getAccessToken from "./utils/getToken";
+
 
 
 const loginButton = document.querySelector('.login-button-js');
@@ -23,7 +23,7 @@ loginButton.addEventListener('click', async () => {
   }
 
   try {
-    // let token = getAccessToken();
+
     const response = await fetch('http://localhost:3000/login', {
       method: 'POST',
       credentials: 'include',
