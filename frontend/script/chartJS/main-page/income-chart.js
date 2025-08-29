@@ -1,14 +1,17 @@
 import { loadIncomeData, incomeData } from "../../../data/incomeData.js"
 import { formatCurrency, loadGetSymbol } from "../../utils/currencySymbols.js"
-import { updateChart } from "../../utils/updateChart.js"
+import setPastDate from "../../utils/see-all-income-expense-page/setPastDate.js"
+import formatDate from "../../utils/see-all-income-expense-page/FormatDate.js"
 
 
 const today1 = new Date()
 const yearMonthToday = `${today1.getFullYear()}-${String(today1.getMonth() + 1).padStart(2, '0')}`
 
-const last60 = new Date(new Date().setDate(today1.getDate() - 60))
+const last60 = setPastDate(60)
 const yearMonthLast60 = `${last60.getFullYear()}-${String(last60.getMonth() + 1).padStart(2, '0')}`
 
+console.log(yearMonthToday)
+console.log(yearMonthLast60)
 let filteredIncomeData;
 
 export async function filteredIncome() {
@@ -23,7 +26,7 @@ export async function filteredIncome() {
     amountValue: item.amountValue
   }))
   
-
+  console.log(filteredIncomeData)
   return filteredIncomeData;
 }
 
