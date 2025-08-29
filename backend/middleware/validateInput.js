@@ -37,7 +37,7 @@ function validateInput(sourceValueType) {
 
 
     const allowedCurrencies = ['CZK', 'EUR', 'JPY', 'USD', 'GBP']
-    const normalizedCurrency = currency.toUpperCase();  
+    const normalizedCurrency = typeof currency === 'string' ? currency.toUpperCase() : '';
     const isOnlyLettersCurrency = /^[A-Z]{3}$/.test(normalizedCurrency);
     const parsedDate = new Date(dateValue)
     const isValidDateFormat = /^\d{4}-\d{2}-\d{2}$/.test(dateValue);
@@ -59,7 +59,7 @@ function validateInput(sourceValueType) {
     }
    }
     
-    if (sourceValue == null || sourceValue === '' ||
+    if (req.body[sourceValueType] == null || req.body[sourceValueType] === '' ||
       amountValue == null || amountValue === '' ||
       currency == null || currency === '' ||
       dateValue == null || dateValue === '' ||
