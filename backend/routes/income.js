@@ -15,10 +15,10 @@ router.post('/', validateInput('incomeSourceValue'), authenticateToken, createIn
 
 
 // Update an expense
-router.put('/', updateIncome)
+router.put('/', authenticateToken, updateIncome)
 
 // Delete an income
-router.delete('/:id', validateId(Income), deleteIncome)
+router.delete('/:id', validateId(Income),authenticateToken, deleteIncome)
 
 
 export default router;

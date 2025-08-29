@@ -11,19 +11,19 @@ function validateRegister() {
 
     if (username.length < 3) {
       const error = new Error('Username has to have at least 3 characters')
-      error.status = 400;
+      error.status = 422;
       return next(error);
     }
 
     if(!emailRegex.test(email)) {
       const error = new Error('Invalid email')
-      error.status = 400;
+      error.status = 422;
       return next(error);
     }
 
     if(!passwordRegex.test(password)) {
       const error = new Error('Password has to contain 1 uppercase letter, 1 number, at least 6 characters')
-      error.status = 400;
+      error.status = 422;
       return next(error);
     }
 
@@ -37,7 +37,7 @@ function validateRegister() {
 
     if(newUserName) {
       const error = new Error('User with this name already exists')
-      error.status = 400;
+      error.status = 422;
       return next(error);
     }
 
@@ -45,7 +45,7 @@ function validateRegister() {
 
     if(newUserEmail) {
       const error = new Error('User with this email already exists')
-      error.status = 400;
+      error.status = 422;
       return next(error);
     }
     next();

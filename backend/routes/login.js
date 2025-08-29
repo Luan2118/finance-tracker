@@ -26,7 +26,7 @@ router.post('/', async (req, res, next) => {
 
     if(!user) {
       const error = new Error('User not found')
-      error.status = 404;
+      error.status = 401;
       return next(error)
     }
 
@@ -36,7 +36,7 @@ router.post('/', async (req, res, next) => {
 
     if(!isMatch) {
       const error = new Error('Invalid password')
-      error.status = 404;
+      error.status = 401;
       return next(error)
     }
 
@@ -46,7 +46,7 @@ router.post('/', async (req, res, next) => {
     }
 
     const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: '15s'
+      expiresIn: '15m'
     })
     const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
       expiresIn: '7d'
@@ -79,7 +79,7 @@ router.post('/refresh', (req , res, next) => {
 
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, payload) => {
     if (err) {
-      const error = new Error('Token veritification failed');
+      const error = new Error('Token verification failed');
       error.status = 403;
       return next(error);
     }

@@ -15,7 +15,7 @@ function authenticateToken(req, res, next) {
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
     if(err) {
-      const error = new Error('Token veritification failed')
+      const error = new Error('Token verification failed')
       error.status = 401;
       return next(error)
     }
