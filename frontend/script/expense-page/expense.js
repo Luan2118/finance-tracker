@@ -8,7 +8,7 @@ import logOut from "../logout.js";
 import refreshToken from "../utils/refreshToken.js";
 import getUsername from "../utils/getUserName.js";
 import getFormattedDate from "../utils/getFormattedDate.js";
-
+import { updateChart } from "../utils/updateChart.js";
 
 // utils
 menuIcon();
@@ -215,13 +215,27 @@ function deleteExpenseButton () {
     button.addEventListener('click', async () => {
       const deleteExpenseId = button.dataset.id;
 
+      let token = getAccessToken();
       try {
         const response = await fetch(`http://localhost:3000/expenses/${deleteExpenseId}`, {
           method: 'DELETE',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
           }
         })
+
+        if (response.status === 401) {  
+          token = await refreshToken();
+          sessionStorage.setItem('accessToken', token)
+          response = await fetch(`http://localhost:3000/expenses/${deleteExpenseId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        }) 
+        }
 
         if (!response.ok) throw new Error('Failed to delete expense')
         
@@ -235,7 +249,7 @@ function deleteExpenseButton () {
 
           generateHTML();
       } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
       }
     })
   })

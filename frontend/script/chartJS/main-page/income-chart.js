@@ -10,8 +10,6 @@ const yearMonthToday = `${today1.getFullYear()}-${String(today1.getMonth() + 1).
 const last60 = setPastDate(60)
 const yearMonthLast60 = `${last60.getFullYear()}-${String(last60.getMonth() + 1).padStart(2, '0')}`
 
-console.log(yearMonthToday)
-console.log(yearMonthLast60)
 let filteredIncomeData;
 
 export async function filteredIncome() {
@@ -26,7 +24,7 @@ export async function filteredIncome() {
     amountValue: item.amountValue
   }))
   
-  console.log(filteredIncomeData)
+
   return filteredIncomeData;
 }
 

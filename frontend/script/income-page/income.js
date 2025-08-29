@@ -217,13 +217,27 @@ document.querySelectorAll('.js-income-delete-button')
     link.addEventListener('click', async () => {
       const deleteButtonId = link.dataset.id
 
+      let token = getAccessToken();
       try {
         const response = await fetch(`http://localhost:3000/income/${deleteButtonId}`, {
           method: 'DELETE',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
           }
         })
+
+        if (response.status === 401) {  
+          token = await refreshToken();
+          sessionStorage.setItem('accessToken', token)
+          response = await fetch(`http://localhost:3000/income/${deleteButtonId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        }) 
+        }
 
         if(!response.ok) throw new Error('Failed to delete income')
 

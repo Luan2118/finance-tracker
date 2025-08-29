@@ -18,7 +18,7 @@ router.post('/', validateInput('expenseSourceValue'), authenticateToken, createE
 router.put('/', updateExpense)
 
 //  Delete an expense
-router.delete('/:id', validateId(Expense), deleteExpense)
+router.delete('/:id', validateId(Expense), authenticateToken, deleteExpense)
 
 
 

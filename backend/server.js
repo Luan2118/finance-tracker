@@ -43,12 +43,14 @@ server.use(express.urlencoded({extended: false}));
 server.use(cookieParser());
 
 // Rate limits (global + stricter on auth)
-server.use(rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 300, // limit each IP to 300 requests per window,
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 300,
   standardHeaders: true,
-  legacyHeaders: false
-}))
+  legacyHeaders: false,
+  // don't count CORS preflights; disable in dev
+  skip: (req) => req.method === 'OPTIONS' || process.env.NODE_ENV !== 'production',
+});
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -62,10 +64,17 @@ const authLimiter = rateLimit({
 // Middleware
 server.use(logger)
 
+// --- mount limiters BEFORE routers ---
+server.use('/login', authLimiter);
+server.use('/register', authLimiter);
+
+// apply API limiter only to data routes
+server.use('/expenses', apiLimiter);
+server.use('/income', apiLimiter);
 
 // Routes
-server.use('/register', registerRouter, authLimiter)
-server.use('/login', loginRouter, authLimiter)
+server.use('/register', registerRouter)
+server.use('/login', loginRouter)
 server.use('/expenses', expensesRouter)
 server.use('/income', incomeRouter)
 
