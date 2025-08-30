@@ -39,13 +39,13 @@ export const updateIncome = async (req, res, next ) =>{
     for (const income of data) {
       const {_id, ...updates} = income
 
-        await Income.findByIdAndUpdate(
-        _id,
+        await Income.findOneAndUpdate(
+        {_id, user: req.user.id},
         { $set: updates},
         { new: true}
       )
     }
-
+    
     res.status(200).json({msg: 'Data updated'})
 
   } catch (error) {

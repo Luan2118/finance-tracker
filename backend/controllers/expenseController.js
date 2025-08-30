@@ -41,8 +41,8 @@ export const updateExpense = async (req, res, next) =>{
     for (const expense of data) {
       const {_id, ...updates} = expense
 
-        await Expense.findByIdAndUpdate(
-        _id,
+        await Expense.findOneAndUpdate(
+        {_id, user: req.user.id},
         { $set: updates},
         { new: true}
       )
