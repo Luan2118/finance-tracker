@@ -9,6 +9,13 @@ const incomeSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
+    enum: [
+      "Salary",
+      "Part-Time",
+      "Overtime",
+      "Interest",
+      "Other-Income"
+    ]
   },
   incomeSourceValue: {
     type: String,
@@ -24,6 +31,8 @@ const incomeSchema = new mongoose.Schema({
   currency: {
     type: String,
     required: true,
+    uppercase: true,
+    enum: ['CZK', 'EUR', 'USD', 'JPY', 'GBP']
   },
   dateValue: {
     type: String,

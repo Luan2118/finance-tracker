@@ -42,7 +42,7 @@ export const updateIncome = async (req, res, next ) =>{
         await Income.findOneAndUpdate(
         {_id, user: req.user.id},
         { $set: updates},
-        { new: true}
+        { new: true, runValidators: true}
       )
     }
     

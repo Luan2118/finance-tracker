@@ -44,7 +44,7 @@ export const updateExpense = async (req, res, next) =>{
         await Expense.findOneAndUpdate(
         {_id, user: req.user.id},
         { $set: updates},
-        { new: true}
+        { new: true, runValidators: true}
       )
     }
 

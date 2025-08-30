@@ -8,7 +8,19 @@ const expenseSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    required: true
+    required: true,
+    enum: [
+      "Food & Groceries",
+      "Dining Out / Takeout",
+      "Shopping",
+      "Transportation",
+      "Health",
+      "Entertainment",
+      "Travel",
+      "Education",
+      "Housing",
+      "Other-Expense"
+    ]
   },
   expenseSourceValue: {
     type: String,
@@ -24,6 +36,8 @@ const expenseSchema = new mongoose.Schema({
   currency: {
     type: String,
     required: true,
+    uppercase: true,
+    enum: ['CZK', 'EUR', 'USD', 'JPY', 'GBP']
   },
   dateValue: {
     type: String, 
