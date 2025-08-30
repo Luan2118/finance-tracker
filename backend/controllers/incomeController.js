@@ -56,7 +56,13 @@ export const updateIncome = async (req, res, next ) =>{
 export const deleteIncome = async (req, res, next) => {
 
   try {
-    await Income.deleteOne({_id: req.params.id});
+    const deleted = await Income.findOneAndDelete({
+      _id: req.params.id,
+      user: req.user.id
+  });
+
+    if (!deleted) res.status(404).json({msg: 'Income not found'}) 
+      
     res.status(200).json({msg: 'Income Deleted'})
   } catch (error) {
     next(error)
