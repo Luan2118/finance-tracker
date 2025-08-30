@@ -11,6 +11,7 @@ import refreshToken from "./utils/refreshToken.js";
 import getUsername from "./utils/getUserName.js";
 import getFormattedDate from "./utils/getFormattedDate.js";
 import { renderExpenseChart } from "./chartJS/expense-page/expense-page-chart.js";
+import getAccessToken from "./utils/getToken.js";
 
 refreshToken();
 
@@ -320,15 +321,30 @@ const dropDownIconBtn = document.getElementById('drop-down-icon')
         item.amountValue = updatedIncomes[i].amountValue,
         item.currency =  updatedIncomes[i].currency
       })
-      
+       
+      let token = getAccessToken();
       try {
         const  incomeResponse = await fetch('http://localhost:3000/income', {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify(incomeData)
         })
+
+        if (response.status === 401) {  
+          token = await refreshToken();
+          sessionStorage.setItem('accessToken', token)
+          response = await fetch('http://localhost:3000/income', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(incomeData)
+        }) 
+        }
         
       } catch (error) {
         console.error(error.message)
@@ -339,15 +355,29 @@ const dropDownIconBtn = document.getElementById('drop-down-icon')
         item.currency =  updatedExpenses[i].currency
       })
   
-  
+      console.log(expenseData)
       try {
         const  expenseResponse = await fetch('http://localhost:3000/expenses', {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify(expenseData)
         })
+
+        if (response.status === 401) {  
+          token = await refreshToken();
+          sessionStorage.setItem('accessToken', token)
+          response = await fetch('http://localhost:3000/expenses', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(incomeData)
+        }) 
+        }
         
       } catch (error) {
         console.error(error.message)

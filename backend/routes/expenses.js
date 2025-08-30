@@ -15,7 +15,7 @@ router.get('/', authenticateToken, getAllExpense)
 router.post('/', validateInput('expenseSourceValue'), authenticateToken, createExpense)
 
 // Update an expense
-router.put('/', updateExpense)
+router.put('/',authenticateToken, updateExpense)
 
 //  Delete an expense
 router.delete('/:id', validateId(Expense), authenticateToken, deleteExpense)

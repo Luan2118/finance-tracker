@@ -34,10 +34,19 @@ export const createIncome =  async (req, res, next ) => {
 
 export const updateIncome = async (req, res, next ) =>{
   try {
-    await Income.deleteMany({})
-    const newIncome = await Income.insertMany(req.body)
+    const data = req.body
 
-    res.status(200).json(newIncome)
+    for (const expense of data) {
+      const {_id, ...updates} = expense
+
+        await Expense.findByIdAndUpdate(
+        _id,
+        { $set: updates},
+        { new: true}
+      )
+    }
+
+    res.status(200).json({msg: 'Data updated'})
 
   } catch (error) {
     next(error)
