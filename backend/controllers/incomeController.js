@@ -36,10 +36,10 @@ export const updateIncome = async (req, res, next ) =>{
   try {
     const data = req.body
 
-    for (const expense of data) {
-      const {_id, ...updates} = expense
+    for (const income of data) {
+      const {_id, ...updates} = income
 
-        await Expense.findByIdAndUpdate(
+        await Income.findByIdAndUpdate(
         _id,
         { $set: updates},
         { new: true}
