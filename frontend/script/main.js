@@ -119,7 +119,7 @@ async function displayRecentTransactions() {
       <div class="transaction-img-grid">${sharedData[i].emoji}</div>
       <div class="transactions-info">
       <div>
-      <div>
+      <div class="source-text">
       ${sharedData[i].expenseSourceValue}
       </div>
       <div class="transactions-date">${formattedDate}</div>
@@ -137,7 +137,7 @@ async function displayRecentTransactions() {
       <div class="transaction-img-grid">${sharedData[i].emoji}</div>
       <div class="transactions-info">
       <div>
-      <div>${sharedData[i].incomeSourceValue}</div>
+      <div class="source-text">${sharedData[i].incomeSourceValue}</div>
       <div class="transactions-date">${formattedDate}</div>
       </div>
       
@@ -167,7 +167,7 @@ async function displayExpenses() {
     <div class="transaction-img-grid">${expenseData[i].emoji}</div>
     <div class="transactions-info">
     <div>
-    <div>${expenseData[i].expenseSourceValue}</div>
+    <div class="source-text">${expenseData[i].expenseSourceValue}</div>
     <div class="transactions-date">${formattedDate}</div>
     </div>
     
@@ -197,7 +197,7 @@ async function displayIncome() {
      <div class="transaction-img-grid">${incomeData[i].emoji}</div>
      <div class="transactions-info">
      <div>
-     <div>${incomeData[i].incomeSourceValue}</div>
+     <div class="source-text">${incomeData[i].incomeSourceValue}</div>
      <div class="transactions-date">${formattedDate}</div>
      </div>
      
