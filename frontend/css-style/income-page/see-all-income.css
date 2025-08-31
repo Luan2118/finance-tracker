@@ -190,7 +190,8 @@ a {
   margin-left: 0.625rem;
 }
 
-.income-date {
+.income-date,
+.income-category-display {
   color: grey;
   font-size: 0.75rem;
 }
@@ -254,4 +255,7 @@ a {
   color: rgb(136, 136, 136);
   display: flex;
   justify-content: center;
+}
+.source-text {
+  font-size: 1.2rem;
 }

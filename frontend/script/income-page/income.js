@@ -88,7 +88,7 @@ async function generateHTML() {
       <div class="income-img-grid">${emoji}</div>
       <div class="income-info">
         <div>
-          <div>${incomeSourceValue}</div>
+          <div class="source-text">${incomeSourceValue}</div>
           <div class="income-date">${formattedDate}</div>
           <div class="income-category">Category: ${category}</div>
         </div>

@@ -43,7 +43,7 @@ async function displayExpense(data) {
       <div class="expense-img-grid">${emoji}</div>
       <div class="expense-info">
       <div>
-        <div>${expenseSourceValue}</div>
+        <div class="source-text">${expenseSourceValue}</div>
         <div class="expense-date">${formattedDate}</div>
         <div class="expense-category-display">Category: ${category}</div>
         </div>

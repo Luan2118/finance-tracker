@@ -33,7 +33,7 @@ async function displayIncome(data) {
   let incomeHTML = '';
   
   incomeData.forEach((income) => {
-    const {emoji, incomeSourceValue, dateValue, amountValue} = income;
+    const {category, emoji, incomeSourceValue, dateValue, amountValue} = income;
 
     const formattedDate = getFormattedDate(dateValue)
 
@@ -42,10 +42,11 @@ async function displayIncome(data) {
      <div class="income-img-grid">${emoji}</div>
      <div class="income-info">
      <div>
-     <div>
+     <div class="source-text">
      ${incomeSourceValue}
      </div>
      <div class="income-date">${formattedDate}</div>
+     <div class="income-category-display">Category: ${category}</div>
      </div>
      
      <div class="income-amount-minus">+${formatCurrency(amountValue, symbol)}</div>

@@ -86,7 +86,7 @@ async function generateHTML() {
         <div class="expense-img-grid">${emoji}</div>
         <div class="expense-info">
           <div>
-            <div>${expenseSourceValue}</div>
+            <div class="source-text">${expenseSourceValue}</div>
             <div class="expense-date">${formattedDate}</div>
             <div class="expense-category">Category: ${category}</div>
           </div>
