@@ -9,11 +9,11 @@
   background-color: white;
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  border-radius: 15px;
-  padding: 20px;
+  border-radius: 1rem;
+  padding: 1.25rem;
   min-width: 340px;
-  margin-top: 80px;
-  margin-left: 240px;
+  margin-top: 5rem;
+  margin-left: 15rem;
   
 }
 
@@ -21,8 +21,8 @@
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   min-width: 340px;
-  margin-left: 240px;
-  border-radius: 15px;
+  margin-left: 15rem;
+  border-radius: 1rem;
 }
 
 @media (max-width: 940px) {
@@ -35,9 +35,9 @@
 
 .income-chart-grid {
   width: 100%;
-  height: 550px;
-  height: calc(30vw);
+  max-height: 550px;
   min-height: 275px;
+  padding: 0.75rem;
 }
 
 canvas {
@@ -52,35 +52,26 @@ canvas {
   justify-content: space-between;
 }
 
-.income-bar-chart-img {
-  display: block;
-  width: 100%;
-  height:  300px;
-}
-
 .income-overview-text {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
 }
-
-
 
 .income-grid {
   display: flex;
   flex-direction: column;
   background-color: white;
-  border-radius: 15px;
-  padding: 10px;
-  margin-top: 30px;
+  border-radius: 1rem;
+  padding: 0.625rem;
+  margin-top: 2rem;
 }
 
 .income-sources-grid {
-  height: 40px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 8px;
-  margin-bottom: 15px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 
@@ -88,10 +79,10 @@ canvas {
 .see-all-button {
   background-color: rgb(236, 236, 236);
   border: none;
-  padding: 8px 15px;
-  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
   cursor: pointer;
-  margin-right: 5px;
+  margin-right: 0.25rem;
 }
 
 .see-all-button:hover {
@@ -105,37 +96,37 @@ canvas {
 
 
 .see-all-arrow {
-  margin-left: 5px;
+  margin-left: 0.25rem;;
 }
 
 .income-info-grid {
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 1rem;
+  padding-right: 1rem;
   display: flex;
   flex-direction: column;
 }
 
 .income-info-inner-grid {
   display: grid;
-  grid-template-columns: 50px 1fr;
-  margin-bottom: 15px;
+  grid-template-columns:3.1rem 1fr;
+  margin-bottom: 1rem;
   align-items: center;
 
 }
 
 .income-title {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
 }
 .income-img-grid {
   background-color: white;
-  padding: 10px
+  padding: 0.625rem
 }
 .income-info {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-left: 10px;
+  margin-left: 0.625rem;
 }
 
 .income-right-side {
@@ -145,12 +136,12 @@ canvas {
 }
 
 .income-delete-button-grid {
-  margin-right: 5px;
+  margin-right: 0.25rem;;
 
 }
 
 .delete-icon {
-  height: 16px;
+  max-height: 16px;
 }
 
 .income-delete-button {
@@ -158,7 +149,6 @@ canvas {
   background-color: white;
   color: red;
   cursor: pointer;
-  font-size: 13px;
   transition: background-color 0.3s ease, opacity 0.3s ease;
   opacity: 0;
 }
@@ -176,22 +166,22 @@ canvas {
 .income-date, 
 .income-category {
   color: grey;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 .income-amount-plus {
   display: flex;
   align-items: center;
   background-color: rgb(75, 173, 83);
   color: white;
-  padding: 4px 10px;
-  font-size: 13px;
-  border-radius: 6px;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.9rem;
+  border-radius: 0.25rem;
 }
 
 .each-income-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 20px;
+  column-gap: 1.25rem;
 }
 
 @media (max-width: 830px) {
@@ -203,10 +193,10 @@ canvas {
 
 dialog {
   border: none;
-  width: 850px;
-  height: 670px;
-  border-radius: 15px;
-  padding: 20px 
+  max-width: 850px;
+  max-height: 670px;
+  border-radius: 1rem;
+  padding: 1.25rem 
   
 }
 
@@ -215,11 +205,11 @@ dialog {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 2.5rem;
 }
 
 .add-income-popup-close-button {
-  font-size: 40px;
+  font-size: 2.5rem;
   border: none;
   color:grey;
   background-color: white;
@@ -232,7 +222,7 @@ dialog {
 }
 
 .add-income-header-title {
-  font-size: 22px;
+  font-size: 1.5rem;
   font-weight: 600;
 }
 
@@ -241,36 +231,37 @@ dialog {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
+  padding: 0 2rem;
 }
 
 .emoji-picker-inner-grid {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .emoji-picker {
   height: 35px;
-  margin-right: 10px;
+  margin-right: 0.625rem;
   cursor: pointer;
 }
 
 .emoji-element {
   position: absolute;
-  top: 200px;
+  top: 12.5rem;
 }
 
 .pick-icon {
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .emoji-picked {
-  padding: 5px;
-  font-size: 25px;
-  width: 50px;
-  margin-left: 10px;
+  padding: 0.25rem;
+  font-size: 1.5rem;
+  width: 15%;
+  margin-left: 0.625rem;
 }
 
 .category-grid {
@@ -280,10 +271,10 @@ dialog {
 
 
 .input-grid {
-  margin-top: 50px;
+  margin-top: 3.1rem;
 }
 .add-income-inputs  {
-  margin-bottom: 40px;
+  margin-bottom: 2.5rem;
 }
 
 .right-align {
@@ -293,12 +284,12 @@ dialog {
 .add-income-button {
   background-color: rgb(164, 223, 159);
   color: rgb(27, 107, 20);
-  padding: 9px 14px;
-  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
   border: none;
   font-weight: bold;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 1rem;
 }
 
 .add-income-button:hover {
@@ -312,9 +303,9 @@ dialog {
   background-color: rgb(40, 119, 29);
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-size: 18px;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.625rem;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: 0.15;
 }
@@ -330,13 +321,13 @@ dialog {
 
 
 .add-income-input-element {
-  margin-top: 10px;
-  padding: 15px;
-  width: 770px;
+  margin-top: 0.625rem;
+  padding: 1rem;
+  width: 100%;
   background-color: rgb(235, 237, 240);
   border: none;
-  border-radius: 4px;
-  font-size: 18px;
+  border-radius: 0.25rem;
+  font-size: 1.1rem;
 }
 
 .income-amount-input-alert,
@@ -345,6 +336,6 @@ dialog {
 .income-source-input-alert,
 .category-input-alert  {
   color: red;
-  font-size: 13px;
+  font-size: 0.75rem;
 } 
 
