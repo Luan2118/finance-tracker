@@ -10,7 +10,7 @@
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   margin: 0;
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 .menu-box {
@@ -19,8 +19,8 @@
 
 .menu-icon {
   display: none;
-  height: 20px;
-  margin-right: 10px;
+  height: 1rem;
+  margin-right: 0.625rem;
   cursor: pointer;
 }
 
@@ -31,12 +31,12 @@
 }
 
 .dropdown {
-  margin-right: 20px;
+  margin-right: 1.25rem;
 }
 
 .dropdown-arrow-icon {
-  height: 20px;
-  margin-left: 5px;
+  height: 1.25rem;
+  margin-left: 0.25rem;
   cursor: pointer;  
 }
 
@@ -47,8 +47,8 @@
 }
 
 .option {
-  font-size: 12px;
-  padding: 5px;
+  font-size: 0.75rem;
+  padding: 0.25rem;
 }
 @media (max-width: 940px) {
   .menu-icon {
@@ -57,6 +57,7 @@
 }
 
 .title {
+  font-size: 1.1rem;
   font-weight: 600;
   width: 150px;
 }

@@ -4,7 +4,7 @@
   background-color: white;
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  top: 63px;
+  top: 4rem;
   left: 0;
   height: 100%;
 }
@@ -21,7 +21,7 @@
   display: flex;
   justify-content: space-between, center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   padding-left: 3rem;
   padding-right: 3rem;
 }
@@ -32,13 +32,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
 .profile-picture {
   max-width: 70px;
-  border-radius: 35px;
+  border-radius: 50%;
 }
 
 .profile-name {
@@ -72,9 +72,9 @@
 .logout-button {
   background-color: rgb(255, 255, 255);
   border: none;
-  font-size: 18px;
+  font-size: 1.1rem;
   cursor: pointer;
-  padding: 10px;
+  padding: 0.625rem;
 
 }
 
