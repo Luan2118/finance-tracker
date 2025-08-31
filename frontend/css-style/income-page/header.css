@@ -18,7 +18,7 @@
 
 .menu-icon {
   display: none;
-  height: 1.25rem;
+  height: 100%;
   margin-right: 0.625rem;
   cursor: pointer;
 }
@@ -32,5 +32,5 @@
 
 .title {
   font-weight: 600;
-  width: 150px;
+  max-width: 150px;
 }

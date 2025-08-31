@@ -235,6 +235,10 @@ dialog {
   padding: 0 2rem;
 }
 
+.emoji-element {
+  max-height: 250px;
+}
+
 .emoji-picker-inner-grid {
   display: flex;
   flex-direction: row;
@@ -243,7 +247,7 @@ dialog {
 }
 
 .emoji-picker {
-  height: 35px;
+  max-height: 35px;
   margin-right: 0.625rem;
   cursor: pointer;
 }

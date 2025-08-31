@@ -9,7 +9,7 @@
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   margin: 0;
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 .menu-box {
@@ -18,22 +18,12 @@
 
 .menu-icon {
   display: none;
-  height: 20px;
-  margin-right: 10px;
+  height: 100%;
+  margin-right: 0.625rem;
   cursor: pointer;
 }
 
 
-.options {
-  position: absolute;
-  background-color: rgb(245, 245, 245);
-  display: none;
-}
-
-.option {
-  font-size: 12px;
-  padding: 5px;
-}
 @media (max-width: 940px) {
   .menu-icon {
     display: block;
@@ -42,5 +32,5 @@
 
 .title {
   font-weight: 600;
-  width: 150px;
+  max-width: 150px;
 }

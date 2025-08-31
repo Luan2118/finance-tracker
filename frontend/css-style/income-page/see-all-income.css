@@ -192,7 +192,7 @@ a {
 
 .income-date {
   color: grey;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .income-amount-minus {
@@ -201,7 +201,7 @@ a {
   background-color: rgb(75, 173, 83);
   color: white;
   padding: 0.25rem 0.625rem;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   border-radius: 0.25rem;
 }
 

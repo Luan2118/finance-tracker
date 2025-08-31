@@ -7,19 +7,19 @@
   background-color: white;
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  border-radius: 15px;
-  padding: 20px;
+  border-radius: 1rem;
+  padding: 1.25rem;
   min-width: 340px;
-  margin-top: 80px;
-  margin-left: 240px;
+  margin-top: 5rem;
+  margin-left: 15rem;
 }
 
 .bottom-part {
   min-width: 340px;
-  margin-left: 240px;
+  margin-left: 15rem;
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  border-radius: 15px;
+  border-radius: 1rem;
 }
 
 @media (max-width: 940px) {
@@ -55,7 +55,7 @@ canvas {
 }
 
 .expense-overview-text {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
 }
 
@@ -65,25 +65,24 @@ canvas {
   display: flex;
   flex-direction: column;
   background-color: white;
-  border-radius: 15px;
-  padding: 10px;
+  border-radius: 1rem;
+  padding: 0.625rem;
   margin-top: 30px;
 }
 
 .expense-sources-grid {
-  height: 40px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 8px;
-  margin-bottom: 15px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .see-all-button {
   background-color: rgb(240, 240, 240);
   border: none;
-  padding: 5px 15px;
-  border-radius: 4px;
+  padding: 0.25rem 1rem;
+  border-radius: 0.25rem;
   cursor: pointer;
 }
 
@@ -97,12 +96,12 @@ canvas {
 
 
 .see-all-arrow {
-  margin-left: 5px;
+  margin-left: 0.25rem;
 }
 
 .expense-info-grid {
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 1rem;
+  padding-right: 1rem;
   display: flex;
   flex-direction: column;
 }
@@ -110,24 +109,24 @@ canvas {
 .expense-info-inner-grid {
   display: grid;
   grid-template-columns: 50px 1fr;
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
   align-items: center;
 }
 
 .expense-title {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
 }
 .expense-img-grid {
   background-color: white;
-  padding: 10px
+  padding: 0.625rem
 }
 
 .expense-info {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-left: 10px;
+  margin-left: 0.625rem;
 }
 
 .expense-right-side {
@@ -137,7 +136,7 @@ canvas {
 }
 
 .expense-delete-button-grid {
-  margin-right: 5px;
+  margin-right: 0.25rem;
 }
 
 .delete-icon {
@@ -174,15 +173,15 @@ canvas {
   align-items: center;
   background-color: rgb(192, 88, 74);
   color: white;
-  padding: 4px 10px;
-  font-size: 13px;
-  border-radius: 6px;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.9rem;
+  border-radius: 0.25rem;
 }
 
 .each-expense-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 20px;
+  column-gap: 1.25rem;
 }
 
 @media (max-width: 830px) {
@@ -190,12 +189,13 @@ canvas {
     grid-template-columns: 1fr;
   }
 }
+
 dialog {
   border: none;
-  width: 850px;
-  height: 670px;
-  border-radius: 15px;
-  padding: 20px 
+  max-width: 850px;
+  max-height: 670px;
+  border-radius: 1rem;
+  padding: 1.25rem 
   
 }
 
@@ -204,11 +204,11 @@ dialog {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 1.5rem;
 }
 
 .add-expense-popup-close-button {
-  font-size: 40px;
+  font-size: 1.5rem;
   border: none;
   color:grey;
   background-color: white;
@@ -221,7 +221,7 @@ dialog {
 }
 
 .add-expense-header-title {
-  font-size: 22px;
+  font-size: 1.5rem;
   font-weight: 600;
 }
 
@@ -230,36 +230,37 @@ dialog {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .emoji-picker-inner-grid {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
+  padding: 0 2rem;
 }
 
 .emoji-picker {
-  height: 35px;
-  margin-right: 10px;
+  max-height: 35px;
+  margin-right: 0.625rem;
   cursor: pointer;
 }
 
 .emoji-element {
   position: absolute;
-  top: 200px;
+  top: 12.5rem;
 }
 
 .pick-icon {
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .emoji-picked {
-  padding: 5px;
-  font-size: 25px;
-  width: 50px;
-  margin-left: 10px;
+  padding: 0.25rem;
+  font-size: 1.5rem;
+  width: 15%;
+  margin-left: 0.625rem;
 }
 
 .emoji-category-grid {
@@ -270,15 +271,18 @@ dialog {
   margin-top: 50px;
 }
 
+.emoji-element {
+  max-height: 250px;
+}
 .category-box {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 100px;
+  margin-left: 6.25rem;
 }
 
 .add-expense-inputs  {
-  margin-bottom: 40px;
+  margin-bottom: 1.5rem;
 }
 
 .right-align {
@@ -288,12 +292,12 @@ dialog {
 .add-expense-button {
   background-color: rgb(216, 167, 161);
   color: rgb(146, 33, 33);
-  padding: 9px 14px;
-  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
   border: none;
   font-weight: bold;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 1rem;
 }
 
 .add-expense-button:hover {
@@ -307,9 +311,9 @@ dialog {
   background-color: rgb(143, 35, 35);
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-size: 18px;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.625rem;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: 0.15;
 }
@@ -325,13 +329,13 @@ dialog {
 
 
 .add-expense-input-element {
-  margin-top: 10px;
-  padding: 15px;
-  width: 770px;
+  margin-top: 0.625rem;
+  padding: 1rem;
+  width: 100%;
   background-color: rgb(235, 237, 240);
   border: none;
-  border-radius: 4px;
-  font-size: 18px;
+  border-radius: 0.25rem;
+  font-size: 1.1rem;
 }
 
 .expense-amount-input-alert,
@@ -339,6 +343,6 @@ dialog {
 .emoji-input-alert,
 .expense-source-input-alert {
   color: red;
-  font-size: 13px;
+  font-size: 0.75rem;
 } 
 
