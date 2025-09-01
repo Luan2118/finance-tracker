@@ -30,9 +30,15 @@
   min-height: 275px;
 }
 
-canvas {
+.expense-chart-wrap {
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.expense-chart-wrap > canvas {
   display: block;
-  width: 100%;
+  min-width: 300px;
   height: 100%;
 }
 
@@ -337,7 +343,7 @@ dialog {
 
 @media (max-width: 940px) {
   .layout { grid-template-columns: 1fr; }
-  .main-income-grid { grid-column: 1; }
+  .main-expense-grid { grid-column: 1; }
 }
 
 @media (max-width: 830px) {
