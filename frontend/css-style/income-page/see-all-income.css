@@ -1,11 +1,10 @@
 
-body {
-  padding-top: 5rem;
-}
 .main-grid-see-all {
   display: grid;
   grid-template-columns: 15rem 1fr;
 }
+
+
 .top-part {
   background-color: white;
   background: #fff;

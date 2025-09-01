@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>See all Expenses</title>
+    <link rel="stylesheet" href="./css-style/shared/general.css">
     <link rel="stylesheet" href="./css-style/expense-page/see-all-expenses.css">
     <link rel="stylesheet" href="./css-style/expense-page/header.css">
     <link rel="stylesheet" href="./css-style/shared/sidebar.css">
@@ -17,7 +18,10 @@
       <div class="title"><a href="index.html">Finance Tracker</a></div>
     </div>
 
-    <div id="sidebar" class="sidebar">
+
+    <div class="layout">
+
+      <div id="sidebar" class="sidebar">
       <div class="profile-link">
         <div><img class="profile-picture" src="icons/profile-picture.jpg"></div>
         <div class="profile-name profile-name-js"></div>
@@ -50,105 +54,105 @@
         <div class="side-bar-text logout-button-js"><button class="logout-button">Logout</button></div>
       </div>
     </div>
-
-
-    <div class="main-grid">
-      <div class="see-all-title">
-        See All Expenses
-      </div>
-      
-      <div class="top-part">
-        <div class="filter-text">
-          Filter:
+    
+      <div class="main-grid">
+        <div class="see-all-title">
+          See All Expenses
         </div>
-        <div class="filter-grid">
-            <div class="category-grid">
-              <div class="category-text">Category</div>
-              <label class="label">
-                <select class="expense-category" name="category">
-                  <option value="" selected disabled>Select a category</option>
-                    <option value="Food & Groceries">Food & Groceries</option>
-                    <option value="Dining Out / Takeout">Dining Out / Takeout</option>
-                    <option value="Shopping">Shopping</option>
-                    <option value="Transportation">Transportation</option>
-                    <option value="Health">Health</option>
-                    <option value="Entertainment">Entertainment</option>
-                    <option value="Travel">Travel</option>
-                    <option value="Education">Education</option>
-                    <option value="Housing">Housing</option>
-                    <option value="Other-Expense">Other-Expense</option>
-                    <option value="see-all">See all</option>
-                </select>
-              </label>
-
-            </div>
-            <div class="category-validation category-validation-js"></div>
-
-            <div class="timeline-grid">
-              <div class="timeline-text">Timeline</div>
-
-              <div class="timeline-inner-grid"> 
-                <div><button class="filter-button-timeline-custom filter-button-timeline-custom-js"  value="custom">Custom</button>
+        
+        <div class="top-part">
+          <div class="filter-text">
+            Filter:
+          </div>
+          <div class="filter-grid">
+              <div class="category-grid">
+                <div class="category-text">Category</div>
+                <label class="label">
+                  <select class="expense-category" name="category">
+                    <option value="" selected disabled>Select a category</option>
+                      <option value="Food & Groceries">Food & Groceries</option>
+                      <option value="Dining Out / Takeout">Dining Out / Takeout</option>
+                      <option value="Shopping">Shopping</option>
+                      <option value="Transportation">Transportation</option>
+                      <option value="Health">Health</option>
+                      <option value="Entertainment">Entertainment</option>
+                      <option value="Travel">Travel</option>
+                      <option value="Education">Education</option>
+                      <option value="Housing">Housing</option>
+                      <option value="Other-Expense">Other-Expense</option>
+                      <option value="see-all">See all</option>
+                  </select>
+                </label>
+  
+              </div>
+              <div class="category-validation category-validation-js"></div>
+  
+              <div class="timeline-grid">
+                <div class="timeline-text">Timeline</div>
+  
+                <div class="timeline-inner-grid"> 
+                  <div><button class="filter-button-timeline-custom filter-button-timeline-custom-js"  value="custom">Custom</button>
+                  </div>
+                  <div class="time-from" id="time-from"></div>
+                  <div class="time-to" id="time-to"></div>
+  
+                  
+                  <div><button class="filter-button-timeline"  value="7">Last 7 days</button></div>
+                  
+                  <div><button class="filter-button-timeline"  value="30">Last 30 days</button></div>
+                  
+                  <div><button class="filter-button-timeline"  value="60">Last 60 days</button></div>
+                  
+                  <div><button class="filter-button-timeline" value="see-all">See all</button></div>
                 </div>
-                <div class="time-from" id="time-from"></div>
-                <div class="time-to" id="time-to"></div>
-
-                
-                <div><button class="filter-button-timeline"  value="7">Last 7 days</button></div>
-                
-                <div><button class="filter-button-timeline"  value="30">Last 30 days</button></div>
-                
-                <div><button class="filter-button-timeline"  value="60">Last 60 days</button></div>
-                
-                <div><button class="filter-button-timeline" value="see-all">See all</button></div>
               </div>
-            </div>
-
-            <div class="amount-grid">
-
-              <div class="expense-range-text">Expense range</div>
-
-              <div class="amount-inner-grid">
-                <div><button class="filter-button-amount-custom filter-button-amount-custom-js" value="custom">Custom</button></div>
-                <div class="min-amount" id="min-amount"></div>
-                <div class="max-amount" id="max-amount"></div>
-                
-                <div><button class="filter-button-amount" value="500">up to 500Kč</button></div>
-                
-                <div><button class="filter-button-amount" value="1000">up to 1000Kč</button></div>
-                
-                <div><button class="filter-button-amount" value=" 5000">up to 5000kč</button></div>
-
-                <div><button class="filter-button-amount" value="see-all">See all</button></div>
+  
+              <div class="amount-grid">
+  
+                <div class="expense-range-text">Expense range</div>
+  
+                <div class="amount-inner-grid">
+                  <div><button class="filter-button-amount-custom filter-button-amount-custom-js" value="custom">Custom</button></div>
+                  <div class="min-amount" id="min-amount"></div>
+                  <div class="max-amount" id="max-amount"></div>
+                  
+                  <div><button class="filter-button-amount" value="500">up to 500Kč</button></div>
+                  
+                  <div><button class="filter-button-amount" value="1000">up to 1000Kč</button></div>
+                  
+                  <div><button class="filter-button-amount" value=" 5000">up to 5000kč</button></div>
+  
+                  <div><button class="filter-button-amount" value="see-all">See all</button></div>
+                </div>
+  
               </div>
-
-            </div>
-            
-            <div class="filter-submit-button-box"><button class="filter-submit-button filter-submit-button-js">Filter</button></div>
-        </div>
-
-
-      </div>
-
-      <div class="bottom-part">
-          <div class="expense-grid">
-
-            <div>
-              <div class="expense-inner-title">Expense Overview</div>
               
-            </div>
-      
-            <div class="expense-info-grid js-expense-info-grid">
-
-            </div>
-            <div class="expense-validation"></div>
+              <div class="filter-submit-button-box"><button class="filter-submit-button filter-submit-button-js">Filter</button></div>
           </div>
-      
-          <div class="expense-chart-grid">
-            <div class="expense-overview-text">Expense Overview Chart</div>
-            <div class="expense-overview-chart-grid"><canvas id="expense-chart"></canvas></div>
-          </div>
-
+  
+  
+        </div>
+  
+        <div class="bottom-part">
+            <div class="expense-grid">
+  
+              <div>
+                <div class="expense-inner-title">Expense Overview</div>
+                
+              </div>
+        
+              <div class="expense-info-grid js-expense-info-grid">
+  
+              </div>
+              <div class="expense-validation"></div>
+            </div>
+        
+            <div class="expense-chart-grid">
+              <div class="expense-overview-text">Expense Overview Chart</div>
+              <div class="expense-overview-chart-grid"><canvas id="expense-chart"></canvas></div>
+            </div>
+  
+      </div>
     </div>
 
 
