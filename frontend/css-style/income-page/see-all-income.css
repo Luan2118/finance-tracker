@@ -1,17 +1,17 @@
 
-.main-grid-see-all {
-  display: flex;
-  flex-direction: column;
+body {
+  padding-top: 5rem;
 }
-
-
+.main-grid-see-all {
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+}
 .top-part {
   background-color: white;
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border-radius: 1rem;
   padding: 1.25rem;
-  margin-left: 15rem;;
 }
 
 
@@ -23,8 +23,6 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border-radius: 1rem;
   padding: 1.25rem;
-  margin-top: 5rem;;
-  margin-left: 15rem;;
   margin-bottom: 2rem;
   font-size: 1.5rem;
   font-weight: 600;
@@ -142,7 +140,6 @@
   border-radius: 1rem;
   padding: 0.625rem;
   margin-top: 2rem;
-  margin-left: 15rem;;
 }
 
 
@@ -270,10 +267,7 @@
 }
 
 @media (max-width: 940px) {
-  .top-part,
-  .bottom-part,
-  .income-grid,
-  .see-all-title{
-    margin-left: 0;
+  .main-grid-see-all {
+    grid-template-columns: 1fr;
   }
 }

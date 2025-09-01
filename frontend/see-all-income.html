@@ -18,7 +18,13 @@
       <div class="title"><a href="index.html">Finance Tracker</a></div>
     </div>
 
-    <div id="sidebar" class="sidebar">
+    
+
+
+    <div class="main-grid-see-all">
+
+      <div class="left-side">
+        <div id="sidebar" class="sidebar">
       <div class="profile-link">
         <div><img class="profile-picture" src="icons/profile-picture.jpg"></div>
         <div class="profile-name profile-name-js"></div>
@@ -51,99 +57,100 @@
         <div class="side-bar-text logout-button-js"><button class="logout-button">Logout</button></div>
       </div>
     </div>
-
-
-    <div class="main-grid-see-all">
-      <div class="see-all-title">
-        See All Income
       </div>
-      
-      <div class="top-part">
-        <div class="filter-text">
-          Filter:
+
+      <div class="right-side">
+        <div class="see-all-title">
+          See All Income
         </div>
-        <div class="filter-grid">
-            <div class="category-grid">
-              <div class="category-text">Category</div>
-              <label class="label">
-                <select class="income-category" name="category">
-                  <option value="" selected disabled>Select a category</option>
-                  <option value="Salary">Salary</option>
-                  <option value="Part-Time">Part-Time</option>
-                  <option value="Overtime">Overtime</option>
-                  <option value="Interest">Interest</option>
-                  <option value="Other-Income">Other-Income</option>
-                  <option value="see-all">See all</option>
-                </select>
-              </label>
-
-            </div>
-            <div class="category-validation category-validation-js"></div>
-
-            <div class="timeline-grid">
-              <div class="timeline-text">Timeline</div>
-
-              <div class="timeline-inner-grid"> 
-                <div><button class="filter-button-timeline-custom filter-button-timeline-custom-js"  value="custom">Custom</button>
+        
+        <div class="top-part">
+          <div class="filter-text">
+            Filter:
+          </div>
+          <div class="filter-grid">
+              <div class="category-grid">
+                <div class="category-text">Category</div>
+                <label class="label">
+                  <select class="income-category" name="category">
+                    <option value="" selected disabled>Select a category</option>
+                    <option value="Salary">Salary</option>
+                    <option value="Part-Time">Part-Time</option>
+                    <option value="Overtime">Overtime</option>
+                    <option value="Interest">Interest</option>
+                    <option value="Other-Income">Other-Income</option>
+                    <option value="see-all">See all</option>
+                  </select>
+                </label>
+  
+              </div>
+              <div class="category-validation category-validation-js"></div>
+  
+              <div class="timeline-grid">
+                <div class="timeline-text">Timeline</div>
+  
+                <div class="timeline-inner-grid"> 
+                  <div><button class="filter-button-timeline-custom filter-button-timeline-custom-js"  value="custom">Custom</button>
+                  </div>
+                  <div class="time-from" id="time-from"></div>
+                  <div class="time-to" id="time-to"></div>
+  
+                  
+                  <div><button class="filter-button-timeline"  value="7">Last 7 days</button></div>
+                  
+                  <div><button class="filter-button-timeline"  value="30">Last 30 days</button></div>
+                  
+                  <div><button class="filter-button-timeline"  value="60">Last 60 days</button></div>
+                  
+                  <div><button class="filter-button-timeline" value="see-all">See all</button></div>
                 </div>
-                <div class="time-from" id="time-from"></div>
-                <div class="time-to" id="time-to"></div>
-
-                
-                <div><button class="filter-button-timeline"  value="7">Last 7 days</button></div>
-                
-                <div><button class="filter-button-timeline"  value="30">Last 30 days</button></div>
-                
-                <div><button class="filter-button-timeline"  value="60">Last 60 days</button></div>
-                
-                <div><button class="filter-button-timeline" value="see-all">See all</button></div>
               </div>
-            </div>
-
-            <div class="amount-grid">
-
-              <div class="income-range-text">Income range</div>
-
-              <div class="amount-inner-grid">
-                <div><button class="filter-button-amount-custom filter-button-amount-custom-js" value="custom">Custom</button></div>
-                <div class="min-amount" id="min-amount"></div>
-                <div class="max-amount" id="max-amount"></div>
-                
-                <div><button class="filter-button-amount filter-button-amount-first" value="5000">up to 5000Kč</button></div>
-                
-                <div><button class="filter-button-amount filter-button-amount-second" value="10000">up to 10000Kč</button></div>
-                
-                <div><button class="filter-button-amount filter-button-amount-third" value=" 20000">up to 20000kč</button></div>
-
-                <div><button class="filter-button-amount" value="see-all">See all</button></div>
+  
+              <div class="amount-grid">
+  
+                <div class="income-range-text">Income range</div>
+  
+                <div class="amount-inner-grid">
+                  <div><button class="filter-button-amount-custom filter-button-amount-custom-js" value="custom">Custom</button></div>
+                  <div class="min-amount" id="min-amount"></div>
+                  <div class="max-amount" id="max-amount"></div>
+                  
+                  <div><button class="filter-button-amount filter-button-amount-first" value="5000">up to 5000Kč</button></div>
+                  
+                  <div><button class="filter-button-amount filter-button-amount-second" value="10000">up to 10000Kč</button></div>
+                  
+                  <div><button class="filter-button-amount filter-button-amount-third" value=" 20000">up to 20000kč</button></div>
+  
+                  <div><button class="filter-button-amount" value="see-all">See all</button></div>
+                </div>
+  
               </div>
-
-            </div>
-            
-            <div class="filter-submit-button-box"><button class="filter-submit-button filter-submit-button-js">Filter</button></div>
-        </div>
-
-
-      </div>
-
-      <div class="bottom-part">
-          <div class="income-grid">
-
-            <div>
-              <div class="income-inner-title">Income Overview</div>
               
-            </div>
-      
-            <div class="income-info-grid js-income-info-grid">
-
-            </div>
-            <div class="income-validation"></div>
+              <div class="filter-submit-button-box"><button class="filter-submit-button filter-submit-button-js">Filter</button></div>
           </div>
-      
-          <div class="income-chart-grid">
-            <div class="income-overview-text">Income Overview Chart</div>
-            <div class="income-overview-chart-grid"><canvas id="income-chart"></canvas></div>
-          </div>
+  
+  
+        </div>
+  
+        <div class="bottom-part">
+            <div class="income-grid">
+  
+              <div>
+                <div class="income-inner-title">Income Overview</div>
+                
+              </div>
+        
+              <div class="income-info-grid js-income-info-grid">
+  
+              </div>
+              <div class="income-validation"></div>
+            </div>
+        
+            <div class="income-chart-grid">
+              <div class="income-overview-text">Income Overview Chart</div>
+              <div class="income-overview-chart-grid"><canvas id="income-chart"></canvas></div>
+            </div>
+      </div>
 
     </div>
 
