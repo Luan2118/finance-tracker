@@ -1,31 +1,9 @@
-* {
-  box-sizing: border-box;
-}
 
-
-html {
-  font-size: 100%;
-}
-
-body {
-  background-color: rgb(248, 248, 248);
-  font-family: Arial;
-  padding-left: 0.625rem;
-  padding-bottom: 1.25rem;
-  padding-right: 1.25rem;
-}
-
-
-a {
-  text-decoration: none;
-  color: inherit;    
-}
-
-
-.main-grid {
+.main-grid-see-all {
   display: flex;
   flex-direction: column;
 }
+
 
 .top-part {
   background-color: white;
@@ -33,9 +11,9 @@ a {
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border-radius: 1rem;
   padding: 1.25rem;
-  min-width: 340px;
   margin-left: 15rem;;
 }
+
 
 .see-all-title {
   display: flex;
@@ -45,7 +23,6 @@ a {
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border-radius: 1rem;
   padding: 1.25rem;
-  min-width: 340px;
   margin-top: 5rem;;
   margin-left: 15rem;;
   margin-bottom: 2rem;
@@ -67,13 +44,26 @@ a {
 }
 
 .category-grid {
-  display: flex;
-  margin-bottom: 0.25rem;
+  display: grid;
+  grid-template-columns: auto 1fr; /* label | options side by side */
+  gap: 0.75rem;
+  align-items: center;
+}
+
+/* On small screens, stack them */
+@media (max-width: 400px) {
+  .category-grid {
+    grid-template-columns: 1fr; /* one column only */
+  }
 }
 
 .category-validation {
   color: red;
    margin-bottom: 1.25rem;
+}
+
+.category-text {
+  margin-right: 1rem;
 }
 
 .timeline-text,
@@ -90,8 +80,9 @@ a {
 
 .timeline-inner-grid,
 .amount-inner-grid {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.625rem;
 }
 
 .time-from,
@@ -101,6 +92,15 @@ a {
   display: none;
   margin-left: 0.625rem;
   margin-right: 0.625rem;
+  max-width: 2rem;
+}
+
+.time-from-input,
+.time-to-input,
+.min-amount-input,
+.max-amount-input {
+  margin-left: 0.25rem;
+  max-width: 12rem;
 }
 
 .filter-submit-button-box {
@@ -127,7 +127,7 @@ a {
 
 .bottom-part {
   display: grid;
-  grid-template-columns: 800px 1fr;
+   grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
   column-gap: 1.25rem;
   border-radius: 1rem;
 }
@@ -178,6 +178,8 @@ a {
   align-items: center;
 }
 
+
+
 .income-img-grid {
   background-color: white;
   padding: 0.625rem
@@ -214,6 +216,8 @@ a {
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
   cursor: pointer;
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
 }
 
 .special {
@@ -228,9 +232,15 @@ a {
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
   cursor: pointer;
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
 }
 
+.min-amount-box,
+.time-from-box {
 
+  font-size: 0.8rem;
+}
 
 .special2 {
   background-color:rgb(80, 80, 80);
@@ -248,7 +258,6 @@ a {
   padding: 0.25rem 1.25rem;
   border-radius: 0.25rem;
   cursor: pointer;
-  margin-left: 1.25rem;
 }
 
 .income-validation {
@@ -258,4 +267,13 @@ a {
 }
 .source-text {
   font-size: 1.2rem;
+}
+
+@media (max-width: 940px) {
+  .top-part,
+  .bottom-part,
+  .income-grid,
+  .see-all-title{
+    margin-left: 0;
+  }
 }

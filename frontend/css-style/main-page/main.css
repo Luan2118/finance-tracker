@@ -179,3 +179,7 @@
 .source-text {
   font-size: 1.2rem;
 }
+
+.main-page-expense-chart-grid {
+  min-height: 300px;
+}

@@ -18,8 +18,8 @@ export function setupCustomAmountFilter() {
     document.querySelector('.special2')?.classList.remove('special2');
     filterAmountCustonBtn.classList.add('special2');
     
-    minAmountId.innerHTML = 'Min<input class="min-amount-js" type="number">';
-    maxAmountId.innerHTML =  'Max<input class="max-amount-js" type="number">';
+    minAmountId.innerHTML = '<div class="min-amount-box">Min <input class="min-amount-input min-amount-js" type="number"></div>';
+    maxAmountId.innerHTML =  '<div class="min-amount-box">Max <input class="max-amount-input max-amount-js" type="number"></div>';
     
     if (minAmountId.style.display === 'block' || maxAmountId.style.display === 'block') {
       minAmountId.style.display = 'none';

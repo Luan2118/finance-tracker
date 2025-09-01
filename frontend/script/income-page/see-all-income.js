@@ -9,6 +9,11 @@ import formatDate from "../utils/see-all-income-expense-page/FormatDate.js";
 import setPastDate from "../utils/see-all-income-expense-page/setPastDate.js";
 import resolveCategory from "../utils/see-all-income-expense-page/resolveCategory.js";
 import { updateChart } from "../utils/updateChart.js";
+import { menuIcon } from "../utils/menuIcon.js";
+
+
+// Menu icon
+menuIcon();
 
 // Get username
 getUsername().then((data) => document.querySelector('.profile-name-js').innerHTML = data)

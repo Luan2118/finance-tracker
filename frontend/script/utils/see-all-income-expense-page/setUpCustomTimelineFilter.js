@@ -17,8 +17,8 @@ export function setUpCustomTimelineFilter() {
     document.querySelector('.special')?.classList.remove('special');
     filterTimeCustonBtn.classList.add('special');
     
-    timeFromId.innerHTML = 'From<input class="time-from-js" type="date">';
-    timeToId.innerHTML =  'To<input class="time-to-js" type="date">';
+    timeFromId.innerHTML = '<div class="time-from-box">From <input class="time-from-input time-from-js" type="date"></div>';
+    timeToId.innerHTML =  '<div class="time-from-box">To <input class="time-to-input time-to-js" type="date"></div>';
     
     if (timeFromId.style.display === 'block' || timeToId.style.display === 'block') {
       timeFromId.style.display = 'none';

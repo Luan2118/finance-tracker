@@ -15,11 +15,14 @@
 
 .menu-box {
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 
 .menu-icon {
   display: none;
-  height: 1rem;
+  max-height: 1rem;
   margin-right: 0.625rem;
   cursor: pointer;
 }
