@@ -78,7 +78,6 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 0.5rem;
-  min-width: 300px;
   margin-bottom: 1rem;
 }
 
@@ -167,9 +166,9 @@
 }
 
 .financial-overview-chart-grid {
-  height: 100%;
   width: 100%;
 }
+
 .pie-chart-summary{
   width: 100%;
   margin-left: 100px;

@@ -3,7 +3,20 @@
   font-family: Arial;
 }
 
+.layout {
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+}
 
+.main-income-grid {
+  grid-column: 2;
+  min-width: 0;
+}
+
+@media (max-width: 940px) {
+  .layout { grid-template-columns: 1fr; }
+    .main-income-grid { grid-column: 1; }
+}
 
 .top-part {
   background-color: white;
@@ -11,27 +24,16 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border-radius: 1rem;
   padding: 1.25rem;
-  min-width: 340px;
-  margin-top: 5rem;
-  margin-left: 15rem;
-  
+  min-width: 300px;
 }
+
+
 
 .bottom-part {
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  min-width: 340px;
-  margin-left: 15rem;
   border-radius: 1rem;
 }
-
-@media (max-width: 940px) {
-  .top-part,
-  .bottom-part{
-    margin-left: 0;
-  }
-}
-
 
 .income-chart-grid {
   width: 100%;
