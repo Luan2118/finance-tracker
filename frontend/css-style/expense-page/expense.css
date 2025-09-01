@@ -5,11 +5,18 @@
 }
 
 .main-expense-grid {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  row-gap: 1rem;
   grid-column: 2;
   min-width: 0;
 }
 
 .top-part {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap:  1rem;
+  flex: 0 0 auto;
   background-color: white;
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
@@ -25,9 +32,11 @@
 }
 
 .expense-chart-grid {
+  height: clamp(150px, 28vw, 500px);
+  grid-row: 2;
   width: 100%;
-  height: calc(30vw);
-  min-height: 275px;
+  min-height: 180px;
+
 }
 
 .expense-chart-wrap {
