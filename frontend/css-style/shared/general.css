@@ -18,3 +18,15 @@ a {
   color: inherit;    
 }
 
+.content,
+.summary-inner-grid,
+.transactions-grid,
+.pie-chart-grid,
+.main-income-grid,
+.income-chart-grid,
+.expense-chart-grid,
+.income-grid,
+.expense-grid
+ {
+  min-width: 0;
+}
