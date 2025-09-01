@@ -26,13 +26,14 @@
 }
 
 
-@media (max-width: 940px) {
-  .menu-icon {
-    display: block;
-  }
-}
 
 .title {
   font-size: 1.1rem;
   font-weight: 600;
+}
+
+@media (max-width: 940px) {
+  .menu-icon {
+    display: block;
+  }
 }

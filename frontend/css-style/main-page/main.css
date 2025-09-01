@@ -22,11 +22,6 @@
   column-gap: 1.25rem;
 }
 
-@media (max-width: 940px) {
-  .layout { grid-template-columns: 1fr; }
-  .content { grid-column: 1; }
-}
-
 .summary-inner-grid {
   display: flex;
   flex-direction: row; 
@@ -63,14 +58,6 @@
   padding: 0.625rem;
   margin-top: 2rem;
 }
-/* 
-@media (max-width: 940px) {
-  .summary-grid,
-  .transactions-grid {
-    margin-left: 0;
-  }
-
-} */
 
 .recent-transactions-grid {
   max-height: 40px;
@@ -185,12 +172,6 @@
   column-gap: 1.25rem;
 }
 
-@media (max-width: 940px) {
-  .main-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 .main-page-income-chart-grid{
   height: 100%;
 }
@@ -205,4 +186,17 @@
 
 .main-page-expense-chart-grid {
   min-height: 300px;
+}
+
+
+@media (max-width: 940px) {
+  .layout { grid-template-columns: 1fr; }
+  .content { grid-column: 1; }
+}
+
+
+@media (max-width: 940px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
 }

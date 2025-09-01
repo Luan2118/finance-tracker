@@ -47,12 +47,6 @@
   align-items: center;
 }
 
-/* On small screens, stack them */
-@media (max-width: 400px) {
-  .category-grid {
-    grid-template-columns: 1fr; /* one column only */
-  }
-}
 
 .category-validation {
   color: red;
@@ -268,5 +262,12 @@
 @media (max-width: 940px) {
   .main-grid-see-all {
     grid-template-columns: 1fr;
+  }
+}
+
+/* On small screens, stack them */
+@media (max-width: 400px) {
+  .category-grid {
+    grid-template-columns: 1fr; /* one column only */
   }
 }

@@ -13,10 +13,7 @@
   min-width: 0;
 }
 
-@media (max-width: 940px) {
-  .layout { grid-template-columns: 1fr; }
-    .main-income-grid { grid-column: 1; }
-}
+
 
 .top-part {
   background-color: white;
@@ -155,11 +152,6 @@ canvas {
   opacity: 0;
 }
 
-@media (max-width: 830px) {
-  .income-delete-button {
-    opacity: 1
-  }
-}
 
 .income-delete-button:hover {
   opacity: 1
@@ -184,12 +176,6 @@ canvas {
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 1.25rem;
-}
-
-@media (max-width: 830px) {
-  .each-income-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 
@@ -347,5 +333,24 @@ dialog {
 
 .source-text {
   font-size: 1.2rem;
+}
+
+
+@media (max-width: 940px) {
+  .layout { grid-template-columns: 1fr; }
+    .main-income-grid { grid-column: 1; }
+}
+
+
+@media (max-width: 830px) {
+  .income-delete-button {
+    opacity: 1
+  }
+}
+
+@media (max-width: 830px) {
+  .each-income-grid {
+    grid-template-columns: 1fr;
+  }
 }
 

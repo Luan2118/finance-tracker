@@ -1,7 +1,3 @@
-* {
-  box-sizing: border-box;
-  font-family: Arial;
-}
 
 .layout {
   display: grid;
@@ -11,11 +7,6 @@
 .main-expense-grid {
   grid-column: 2;
   min-width: 0;
-}
-
-@media (max-width: 940px) {
-  .layout { grid-template-columns: 1fr; }
-  .main-income-grid { grid-column: 1; }
 }
 
 .top-part {
@@ -32,9 +23,6 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border-radius: 1rem;
 }
-
-
-
 
 .expense-chart-grid {
   width: 100%;
@@ -157,11 +145,7 @@ canvas {
   opacity: 0;
 }
 
-@media (max-width: 830px) {
-  .expense-delete-button {
-    opacity: 1
-  }
-}
+
 
 .expense-delete-button:hover {
   opacity: 1
@@ -187,12 +171,6 @@ canvas {
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 1.25rem;
-}
-
-@media (max-width: 830px) {
-  .each-expense-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 dialog {
@@ -354,4 +332,22 @@ dialog {
 
 .source-text {
   font-size: 1.2rem;
+}
+
+
+@media (max-width: 940px) {
+  .layout { grid-template-columns: 1fr; }
+  .main-income-grid { grid-column: 1; }
+}
+
+@media (max-width: 830px) {
+  .expense-delete-button {
+    opacity: 1
+  }
+}
+
+@media (max-width: 830px) {
+  .each-expense-grid {
+    grid-template-columns: 1fr;
+  }
 }

@@ -9,11 +9,6 @@
   height: 100%;
 }
 
-@media (max-width: 940px) {
-  .sidebar {
-    display: none;
-  }
-}
 
 
 
@@ -53,19 +48,6 @@
   padding-left: 1rem; 
 }
 
-@media (max-width: 350px) {
-  .sidebar {
-    max-width: 180px;
-  }
-
-  .side-bar-link {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  
-}
-
-
 .dashboard-button,
 .income-button,
 .expense-button,
@@ -90,4 +72,22 @@
 .expense-button:active,
 .logout-button:active {
   opacity: 0.6
+}
+
+@media (max-width: 940px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 350px) {
+  .sidebar {
+    max-width: 180px;
+  }
+
+  .side-bar-link {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
 }
