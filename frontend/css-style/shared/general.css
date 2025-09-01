@@ -10,23 +10,7 @@ html {
 body {
   background-color: rgb(248, 248, 248);
   font-family: Arial;
-  padding-left: 0.625rem;
-  padding-bottom: 1.25rem;
-  padding-right: 1.25rem;
-}
-
-
-
-.main-grid {
-  display: grid;
-  grid-template-columns:  1fr 1fr;
-  column-gap: 1.25rem;
-}
-
-@media (max-width: 940px) {
-  .main-grid {
-    grid-template-columns: 1fr;
-  }
+  padding-top: 5rem;
 }
 
 a {

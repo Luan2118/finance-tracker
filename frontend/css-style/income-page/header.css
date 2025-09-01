@@ -9,7 +9,7 @@
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   margin: 0;
-  padding: 1.25rem;
+  padding: 1.45rem;
 }
 
 .menu-box {
@@ -33,6 +33,6 @@
 }
 
 .title {
+  font-size: 1.1rem;
   font-weight: 600;
-  max-width: 150px;
 }

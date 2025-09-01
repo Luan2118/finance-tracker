@@ -36,126 +36,134 @@
       </div>
     </div>
 
-    <div id="sidebar" class="sidebar">
-      <div class="profile-link">
-        <div><img class="profile-picture" src="icons/profile-picture.jpg"></div>
-        <div class="profile-name profile-name-js"></div>
-      </div>
-
-      <a href="index.html">
-        <div class="side-bar-link">
-          <div><img class="sidebar-icon" src="icons/dashboard-icon.png"></div>
-          <div class="side-bar-text"><button class="dashboard-button">Dashboard</button></div>
-        </div>
-      </a>
-
-      <a href="income-page.html">
-        <div class="side-bar-link">
-          <div><img class="sidebar-icon" src="icons/sidebar-income-icon.png"></div>
-          <div class="side-bar-text">
-            <button class="income-button">Income</button></div>
-        </div>
-      </a>
+    <div class="layout">
       
-      <a href="expense-page.html">
+      <div id="sidebar" class="sidebar">
+        <div class="profile-link">
+          <div><img class="profile-picture" src="icons/profile-picture.jpg"></div>
+          <div class="profile-name profile-name-js"></div>
+        </div>
+  
+        <a href="index.html">
+          <div class="side-bar-link">
+            <div><img class="sidebar-icon" src="icons/dashboard-icon.png"></div>
+            <div class="side-bar-text"><button class="dashboard-button">Dashboard</button></div>
+          </div>
+        </a>
+  
+        <a href="income-page.html">
+          <div class="side-bar-link">
+            <div><img class="sidebar-icon" src="icons/sidebar-income-icon.png"></div>
+            <div class="side-bar-text">
+              <button class="income-button">Income</button></div>
+          </div>
+        </a>
+        
+        <a href="expense-page.html">
+          <div class="side-bar-link">
+            <div><img class="sidebar-icon" src="icons/sidebar-expense-icon.png"></div>
+            <div class="side-bar-text"><button class="expense-button">Expense</button></div>
+          </div>
+        </a>
+        
         <div class="side-bar-link">
-          <div><img class="sidebar-icon" src="icons/sidebar-expense-icon.png"></div>
-          <div class="side-bar-text"><button class="expense-button">Expense</button></div>
-        </div>
-      </a>
-      
-      <div class="side-bar-link">
-        <div><img class="sidebar-icon" src="icons/logout-icon.jpg"></div>
-        <div class="side-bar-text logout-button-js"><button class="logout-button">Logout</button></div>
-      </div>
-    </div>
-
-    <div class="summary-grid">
-      <div class="summary-inner-grid">
-        <div> <img class="summary-img" src="icons/balance-icon.png"></div>
-        <div class="summary-balance-grid">
-          <div class="balance-text">Total Balance</div>
-          <div class="summary-amount js-total-balance-header-summary">100000Kč</div>
-        </div>
-      </div>
-      
-      <div class="summary-inner-grid">
-        <div> <img class="summary-img" src="icons/income-icon.png"></div>
-        <div class="summary-balance-grid">
-          <div class="balance-text">Total Income</div>
-          <div class="summary-amount js-income-header-summary"></div>
+          <div><img class="sidebar-icon" src="icons/logout-icon.jpg"></div>
+          <div class="side-bar-text logout-button-js"><button class="logout-button">Logout</button></div>
         </div>
       </div>
 
-      <div class="summary-inner-grid">
-        <div> <img class="summary-img" src="icons/expenses-icon.png"></div>
-        <div class="summary-balance-grid">
-          <div class="balance-text">Total Expenses</div>
-          <div class="summary-amount js-expense-header-summary"></div>
-        </div>
-      </div>
-    </div>
+      <div class="content">
+
+      
+        <div class="summary-grid">
+          <div class="summary-inner-grid">
+            <div> <img class="summary-img" src="icons/balance-icon.png"></div>
+            <div class="summary-balance-grid">
+              <div class="balance-text">Total Balance</div>
+              <div class="summary-amount js-total-balance-header-summary"></div>
+            </div>
+          </div>
+          
+          <div class="summary-inner-grid">
+            <div> <img class="summary-img" src="icons/income-icon.png"></div>
+            <div class="summary-balance-grid">
+              <div class="balance-text">Total Income</div>
+              <div class="summary-amount js-income-header-summary"></div>
+            </div>
+          </div>
     
-    <div class="main-grid">
-      <div class="transactions-grid">
-
-        <div class="recent-transactions-grid">
-          <div class="transactions-title">Recent Transactions</div>
+          <div class="summary-inner-grid">
+            <div> <img class="summary-img" src="icons/expenses-icon.png"></div>
+            <div class="summary-balance-grid">
+              <div class="balance-text">Total Expenses</div>
+              <div class="summary-amount js-expense-header-summary"></div>
+            </div>
+          </div>
         </div>
-  
-        <div class="transactions-info-grid js-transactions-info-grid">
-  
-        </div>
-      </div>
-  
-      <div class="pie-chart-grid">
-        <div class="financial-overview-text">Financial Overview</div>
-        <div class="financial-overview-chart-grid"><canvas id="financial-overview-chart"></canvas></div>
-        <div class="pie-chart-summary">
-
-        </div>
-      </div>
-
-
-      <div class="transactions-grid">
-
-        <div class="recent-transactions-grid">
-          <div class="transactions-title">Expenses</div>
-          <div><a href="expense-page.html"><button class="see-all-button">See All <span class="see-all-arrow">&#8594;</span></button></a></div>
-        </div>
-  
-        <div class="transactions-info-grid js-expense-transactions-info-grid">
-  
-   
-            
-  
-        </div>
-      </div>
-
-      <div class="pie-chart-grid">
-        <div class="financial-overview-text">Last 30 Days Expenses</div>
-        <div class="main-page-expense-chart-grid"><canvas id="main-page-expense-chart"></canvas></div>
-      </div>
-
-      <div class="transactions-grid">
-
-        <div class="recent-transactions-grid">
-          <div class="transactions-title">Income</div>
-          <div><a href="expense-page.html"><button class="see-all-button">See All <span class="see-all-arrow">&#8594;</span></button></a></div>
-        </div>
-  
-        <div class="transactions-info-grid js-income-transactions-info-grid">
-        </div>
-
-      </div>
-
-      <div class="pie-chart-grid">
-        <div class="financial-overview-text">Last 2 Months Income</div>
-        <div class="main-page-income-chart-grid"><canvas id="main-page-income-chart"></canvas></div>
-        <div class="pie-chart-summary">
+        
+        <div class="main-grid">
+          <div class="transactions-grid">
+    
+            <div class="recent-transactions-grid">
+              <div class="transactions-title">Recent Transactions</div>
+            </div>
+      
+            <div class="transactions-info-grid js-transactions-info-grid">
+      
+            </div>
+          </div>
+      
+          <div class="pie-chart-grid">
+            <div class="financial-overview-text">Financial Overview</div>
+            <div class="financial-overview-chart-grid"><canvas id="financial-overview-chart"></canvas></div>
+            <div class="pie-chart-summary">
+    
+            </div>
+          </div>
+    
+    
+          <div class="transactions-grid">
+    
+            <div class="recent-transactions-grid">
+              <div class="transactions-title">Expenses</div>
+              <div><a href="expense-page.html"><button class="see-all-button">See All <span class="see-all-arrow">&#8594;</span></button></a></div>
+            </div>
+      
+            <div class="transactions-info-grid js-expense-transactions-info-grid">
+      
+       
+                
+      
+            </div>
+          </div>
+    
+          <div class="pie-chart-grid">
+            <div class="financial-overview-text">Last 30 Days Expenses</div>
+            <div class="main-page-expense-chart-grid"><canvas id="main-page-expense-chart"></canvas></div>
+          </div>
+    
+          <div class="transactions-grid">
+    
+            <div class="recent-transactions-grid">
+              <div class="transactions-title">Income</div>
+              <div><a href="expense-page.html"><button class="see-all-button">See All <span class="see-all-arrow">&#8594;</span></button></a></div>
+            </div>
+      
+            <div class="transactions-info-grid js-income-transactions-info-grid">
+            </div>
+    
+          </div>
+    
+          <div class="pie-chart-grid">
+            <div class="financial-overview-text">Last 2 Months Income</div>
+            <div class="main-page-income-chart-grid"><canvas id="main-page-income-chart"></canvas></div>
+            <div class="pie-chart-summary">
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
