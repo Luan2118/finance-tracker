@@ -34,8 +34,6 @@
   height: clamp(180px, 28vw, 500px);
   grid-row: 2;
   width: 100%;
-
-
 }
 
 .expense-chart-wrap {

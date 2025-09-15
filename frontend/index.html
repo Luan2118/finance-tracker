@@ -77,7 +77,7 @@
       
         <div class="summary-grid">
           <div class="summary-inner-grid">
-            <div> <img class="summary-img" src="icons/balance-icon.png"></div>
+            <div class="summary-img-wrapper"> <img class="summary-img" src="icons/balance-icon.png"></div>
             <div class="summary-balance-grid">
               <div class="balance-text">Total Balance</div>
               <div class="summary-amount js-total-balance-header-summary"></div>
@@ -85,7 +85,7 @@
           </div>
           
           <div class="summary-inner-grid">
-            <div> <img class="summary-img" src="icons/income-icon.png"></div>
+            <div class="summary-img-wrapper"> <img class="summary-img" src="icons/income-icon.png"></div>
             <div class="summary-balance-grid">
               <div class="balance-text">Total Income</div>
               <div class="summary-amount js-income-header-summary"></div>
@@ -93,7 +93,7 @@
           </div>
     
           <div class="summary-inner-grid">
-            <div> <img class="summary-img" src="icons/expenses-icon.png"></div>
+            <div class="summary-img-wrapper"> <img class="summary-img" src="icons/expenses-icon.png"></div>
             <div class="summary-balance-grid">
               <div class="balance-text">Total Expenses</div>
               <div class="summary-amount js-expense-header-summary"></div>
@@ -113,9 +113,11 @@
             </div>
           </div>
       
-          <div class="pie-chart-grid">
+          <div class="chart-grid">
             <div class="financial-overview-text">Financial Overview</div>
-            <div class="financial-overview-chart-grid"><canvas id="financial-overview-chart"></canvas></div>
+            <div class="financial-overview-chart-wrap">
+              <canvas id="financial-overview-chart"></canvas>
+            </div>
             <div class="pie-chart-summary">
     
             </div>
@@ -137,7 +139,7 @@
             </div>
           </div>
     
-          <div class="pie-chart-grid">
+          <div class="chart-grid">
             <div class="financial-overview-text">Last 30 Days Expenses</div>
             <div class="main-page-expense-chart-grid"><canvas id="main-page-expense-chart"></canvas></div>
           </div>
@@ -154,7 +156,7 @@
     
           </div>
     
-          <div class="pie-chart-grid">
+          <div class="chart-grid">
             <div class="financial-overview-text">Last 2 Months Income</div>
             <div class="main-page-income-chart-grid"><canvas id="main-page-income-chart"></canvas></div>
             <div class="pie-chart-summary">
