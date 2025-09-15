@@ -31,8 +31,15 @@
   margin-bottom: 1.25rem;
 }
 
+.profile-picture-wrapper {
+  width: clamp(3.4rem, 5vw, 4.4rem);
+  height: clamp(3.4rem, 5vw, 4.4rem);
+}
+
 .profile-picture {
-  max-width: 70px;
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
   border-radius: 50%;
 }
 
