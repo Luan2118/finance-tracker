@@ -109,7 +109,7 @@ async function displayRecentTransactions() {
   
   let sharedDataHTML = '';
   
-  for (let i = 0 ; i < sharedData.length && i < 8;  i++) {
+  for (let i = 0 ; i < sharedData.length && i < 10;  i++) {
 
     const formattedDate = getFormattedDate(sharedData[i].dateValue)
 
@@ -160,7 +160,7 @@ async function displayExpenses() {
 
   let expenseDataHTML = '';
   
-  for (let i = 0 ; i < expenseData.length && i < 5 ; i ++) {
+  for (let i = 0 ; i < expenseData.length && i < 10 ; i ++) {
     const formattedDate = getFormattedDate(expenseData[i].dateValue)
     const html = `
     <div class="transactions-info-inner-grid">
@@ -190,7 +190,7 @@ async function displayIncome() {
   symbol = await loadGetSymbol(incomeData);
   let incomeDataHTML = '';
   
-  for (let i = 0 ; i < incomeData.length && i < 5 ; i ++ ) {
+  for (let i = 0 ; i < incomeData.length && i < 10 ; i ++ ) {
     const formattedDate = getFormattedDate(incomeData[i].dateValue)
      let html = `
      <div class="transactions-info-inner-grid">

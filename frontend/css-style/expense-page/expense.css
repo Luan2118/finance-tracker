@@ -44,7 +44,7 @@
 
 .expense-chart-wrap > canvas {
   display: block;
-  min-width: 300px;
+  min-width: 100%;
   height: 100%;
 }
 

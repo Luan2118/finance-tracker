@@ -72,7 +72,7 @@ export async function renderIncomeChart(income60) {
       ctx.textAlign = 'center';
       ctx.textBaseLine = 'middle'
       ctx.fillText('Total Income:', xCoor, yCoor - 10)
-      ctx.fillText(`${formatCurrency(income60, symbol)} `, xCoor, yCoor + 10)
+      ctx.fillText(`${formatCurrency(income60, symbol)} `, xCoor, yCoor + 25)
     }
   }
   

@@ -39,7 +39,7 @@ export async function renderFinancialOverviewChart(total) {
       ctx.textBaseline = 'middle';
       ctx.fillText(`${data.labels[0]}:`, xCoor, yCoor - 10)
 ;
-      ctx.fillText(formatCurrency(total, symbol), xCoor, yCoor + 20)
+      ctx.fillText(formatCurrency(total, symbol), xCoor, yCoor + 25)
       
     }
   }
