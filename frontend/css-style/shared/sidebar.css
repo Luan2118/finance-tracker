@@ -1,12 +1,9 @@
 .sidebar {
-  position: fixed;
+  position: sticky;
   max-width: 220px;
   background-color: white;
   background: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  top: 4rem;
-  left: 0;
-  height: 100%;
+  top: 3rem;
 }
 
 

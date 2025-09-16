@@ -116,17 +116,14 @@ async function displayRecentTransactions() {
     if (sharedData[i].type === 'expense') {
       const html = `
       <div class="transactions-info-inner-grid">
-      <div class="transaction-img-grid">${sharedData[i].emoji}</div>
-      <div class="transactions-info">
-      <div>
-      <div class="source-text">
-      ${sharedData[i].expenseSourceValue}
-      </div>
-      <div class="transactions-date">${formattedDate}</div>
-      </div>
-      
-      <div class="transactions-amount-minus">-${formatCurrency(sharedData[i].amountValue, symbol)}</div>
-      </div>
+        <div class="transaction-img-grid">${sharedData[i].emoji}</div>
+        <div class="transactions-info">
+          <div>
+            <div class="source-text">${sharedData[i].expenseSourceValue}</div>
+            <div class="transactions-date">${formattedDate}</div>
+          </div>
+          <div class="transactions-amount-minus">-${formatCurrency(sharedData[i].amountValue, symbol)}</div>
+        </div>
       </div>
       `
       sharedDataHTML += html
@@ -134,15 +131,14 @@ async function displayRecentTransactions() {
     }else if (sharedData[i].type === 'income') {    
       const html = `
       <div class="transactions-info-inner-grid">
-      <div class="transaction-img-grid">${sharedData[i].emoji}</div>
-      <div class="transactions-info">
-      <div>
-      <div class="source-text">${sharedData[i].incomeSourceValue}</div>
-      <div class="transactions-date">${formattedDate}</div>
-      </div>
-      
-      <div class="transactions-amount-plus">+${formatCurrency(sharedData[i].amountValue, symbol)} </div>
-      </div>
+        <div class="transaction-img-grid">${sharedData[i].emoji}</div>
+        <div class="transactions-info">
+          <div>
+            <div class="source-text">${sharedData[i].incomeSourceValue}</div>
+            <div class="transactions-date">${formattedDate}</div>
+          </div>
+          <div class="transactions-amount-plus">+${formatCurrency(sharedData[i].amountValue, symbol)} </div>
+        </div>
       </div>
       `
       sharedDataHTML += html
