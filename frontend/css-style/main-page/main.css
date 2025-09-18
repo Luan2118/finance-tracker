@@ -7,12 +7,15 @@
 
 .content {
   padding-top: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
   min-width: 0;
+  flex: 1 1 auto;
 }
 
 .summary-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
@@ -24,6 +27,7 @@
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   min-width: 0;
+  flex: 1 1 auto;
 }
 
 .summary-balance-grid {
@@ -52,8 +56,6 @@
   grid-template-columns: 1fr;
 }
 
-
-
 .transactions-grid {
   display: flex;
   flex-direction: column;
@@ -63,6 +65,7 @@
   padding: 0.625rem;
   margin-top: 2rem;
   min-width: 0;
+  max-height: 40rem;
 }
 
 .recent-transactions-grid {
@@ -88,6 +91,7 @@
 .transactions-info-grid {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .transactions-info-inner-grid {
@@ -95,6 +99,7 @@
   grid-template-columns: 2.5rem 1fr;
   margin-bottom: 1rem;
   align-items: center;
+  min-width: 0;
 }
 
 .transactions-title {
@@ -147,6 +152,7 @@
   padding: 0.625rem;
   margin-top: 2rem;
   min-width: 0;
+  max-height: 40rem;
 }
 
 .financial-overview-text {
@@ -154,9 +160,25 @@
   font-weight: 600;
 }
 
+
+
+.financial-overview-chart-wrap {
+  overflow-y: hidden;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.financial-overview-chart-wrap > canvas {
+  display: block;
+  max-width: 100%;
+
+}
+
 .main-page-expense-chart-wrapper {
   overflow-x: auto;
   overflow-y: hidden;
+  height: 100%;
+   aspect-ratio: 1 / 1;
 }
 
 .main-page-expense-chart-wrapper > canvas {
@@ -167,19 +189,10 @@
 }
 
 
-.financial-overview-chart-wrap {
-  overflow-y: hidden;
-}
-
-.financial-overview-chart-wrap > canvas {
-  display: block;
-  max-width: 100%;
-}
-
-
-
 .main-page-income-chart-wrapper{
   overflow-y: hidden;
+  height: 100%;
+  aspect-ratio: 1 / 1;
 }
 
 .main-page-income-chart-wrapper > canvas {
@@ -190,5 +203,13 @@
 
 .source-text {
   font-size: 1.2rem;
+}
+
+
+@media (min-width: 768px) {
+  .main-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
 }
 

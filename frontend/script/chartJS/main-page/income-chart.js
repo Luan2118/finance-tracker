@@ -66,7 +66,7 @@ export async function renderIncomeChart(income60) {
       const xCoor = chart.getDatasetMeta(0).data[0].x
       const yCoor = chart.getDatasetMeta(0).data[0].y
       
-      const fontSize = Math.round(chart.height / 16);
+      const fontSize = Math.round(chart.height / 18);
       ctx.font = `bold ${fontSize}px Arial`;
       ctx.fillStyle = 'black'
       ctx.textAlign = 'center';

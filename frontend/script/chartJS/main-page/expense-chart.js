@@ -33,7 +33,7 @@ async function renderMainPageExpenseChart() {
     data: {
       labels: expenseChartLabels,
       datasets: [{
-        label: 'Last 30 Days Expenses',
+        label: '',
         data: expenseChartData,
         backgroundColor: 'rgb(216, 85, 67)',
         hoverBackgroundColor: 'rgba(241, 84, 63, 0.81)',

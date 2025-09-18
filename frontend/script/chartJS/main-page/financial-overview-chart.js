@@ -32,7 +32,7 @@ export async function renderFinancialOverviewChart(total) {
       const xCoor = chart.getDatasetMeta(0).data[0].x
       const yCoor = chart.getDatasetMeta(0).data[0].y
       
-      const fontSize = Math.round(chart.height / 16);
+      const fontSize = Math.round(chart.height / 20);
       ctx.font = `bold ${fontSize}px Arial`;
       ctx.fillStyle = 'black';
       ctx.textAlign = 'center';
@@ -59,8 +59,10 @@ export async function renderFinancialOverviewChart(total) {
       }]
     },
     options: {
+      responsive: true,
       cutout: '65%',
       maintainAspectRatio: false,
+      resizeDelay: 0,
       plugins: {
         legend: {
           position: 'bottom',

@@ -4,23 +4,24 @@ export function menuIcon() {
   const menuIconImg = document.querySelector('#menu-icon-box img')
   const sidebar = document.getElementById('sidebar')
 
-  const originalHTML = menuIconBox.innerHTML;
-  const changedHTML = '<img class="menu-icon js-menu-icon" src="icons/menu-close-icon.png"></img>'
-
   const originalImg = 'icons/menu-icon.png';
   const changedImg = 'icons/menu-close-icon.png';
 
 
-  menuIconBox.addEventListener('click', () => {
+  console.log(menuIconBox.innerHTML)
 
-    if(menuIconBox.innerHTML === originalHTML) {
-      sidebar.style.display = 'block';
+  
+  menuIconBox.addEventListener('click', () => {
+    const isOpen = sidebar.classList.contains('show')
+
+    if(!isOpen) {
+      sidebar.classList.add('show');
       document.body.style.overflow = 'hidden';
       menuIconImg.src = changedImg;
 
 
     } else {
-      sidebar.style.display = 'none';
+      sidebar.classList.remove('show')
       document.body.style.overflow = '';
       menuIconImg.src = originalImg;
     }
