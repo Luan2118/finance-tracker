@@ -8,20 +8,18 @@ export function menuIcon() {
   const changedImg = 'icons/menu-close-icon.png';
 
 
-  console.log(menuIconBox.innerHTML)
-
   
   menuIconBox.addEventListener('click', () => {
-    const isOpen = sidebar.classList.contains('show')
+    const isOpen = sidebar.classList.contains('is-open')
 
     if(!isOpen) {
-      sidebar.classList.add('show');
+      sidebar.classList.add('is-open');
       document.body.style.overflow = 'hidden';
       menuIconImg.src = changedImg;
 
 
     } else {
-      sidebar.classList.remove('show')
+      sidebar.classList.remove('is-open');
       document.body.style.overflow = '';
       menuIconImg.src = originalImg;
     }
