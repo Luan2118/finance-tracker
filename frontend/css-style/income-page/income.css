@@ -5,16 +5,13 @@
 
 .layout {
   display: flex;
-  gap: 2rem;
 }
 
 .main-income-grid {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  padding-top: 2rem;
-  padding-right: 2rem;
-  padding-bottom: 2rem;
+  padding: 1rem;
 }
 
 
@@ -46,15 +43,12 @@
   overflow-x: auto;
   overflow-y: hidden;
   height: clamp(400px, 28vw, 500px);
-  max-width: 100%;
-  width: 100%;
 }
 
 .income-chart-wrap > canvas {
   display: block;
   max-width: 100%;
   min-width: 30rem;
-  height: auto;
 }
 
 
@@ -311,7 +305,7 @@ dialog {
   border: none;
   padding: 0.625rem 1.25rem;
   border-radius: 0.625rem;
-  font-size: 1.1rem;
+  font-size: clamp(0.5rem, 4vw, 1rem);
   cursor: pointer;
   transition: 0.15;
 }
@@ -333,7 +327,7 @@ dialog {
   background-color: rgb(235, 237, 240);
   border: none;
   border-radius: 0.25rem;
-  font-size: 1.1rem;
+  font-size: clamp(0.5rem, 4vw, 1rem)
 }
 
 .income-amount-input-alert,
@@ -356,7 +350,7 @@ dialog {
   min-width: 0;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 730px) {
   .each-income-grid {
     grid-template-columns: 1fr;
   }

@@ -1,7 +1,6 @@
 
 .layout {
   display: flex;
-  gap: 2rem;
 }
 
 .main-content {
@@ -26,7 +25,7 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border-radius: 1rem;
   padding: 1.25rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-size: clamp(1.1rem, 6vw, 1.5rem);
   font-weight: 600;
 }
@@ -144,7 +143,7 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border-radius: 1rem;
   padding: 0.625rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 
@@ -156,15 +155,14 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border-radius: 1rem;
   padding: 0.625rem;
-  margin-top: 2rem;
-  height: clamp(450px, 60vw, 580px);
+  margin-top: 1rem;
   min-width: 0;
 }
 
 .income-overview-chart-wrapper {
   overflow-x: auto;
   overflow-y: hidden;
-  height: 100%;
+  height: clamp(450px, 60vw, 580px);
 }
 
 .income-overview-chart-wrapper > canvas {
@@ -254,7 +252,7 @@
 }
 
 .income-category {
-  font-size: clamp(0.8rem, 2.5vw, 0.1rem);
+  font-size: clamp(0.8rem, 2.5vw, 1rem);
   padding: 0.25rem 1.25rem;
   border-radius: 0.25rem;
   cursor: pointer;
