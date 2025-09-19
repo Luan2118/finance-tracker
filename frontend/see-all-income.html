@@ -21,25 +21,24 @@
     
 
 
-    <div class="main-grid-see-all">
+    <div class="layout">
 
-      <div class="left-side">
-        <div id="sidebar" class="sidebar">
+    <div id="sidebar" class="sidebar">
       <div class="profile-link">
-        <div><img class="profile-picture" src="icons/profile-picture.jpg"></div>
+        <div class="profile-picture-wrapper"><img class="profile-picture" src="icons/profile-picture.jpg"></div>
         <div class="profile-name profile-name-js"></div>
       </div>
 
       <a href="index.html">
         <div class="side-bar-link">
-          <div><img class="sidebar-icon" src="icons/dashboard-icon.png"></div>
+          <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/dashboard-icon.png"></div>
           <div class="side-bar-text"><button class="dashboard-button">Dashboard</button></div>
         </div>
       </a>
 
       <a href="income-page.html">
       <div class="side-bar-link">
-        <div><img class="sidebar-icon" src="icons/sidebar-income-icon.png"></div>
+        <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/sidebar-income-icon.png"></div>
         <div class="side-bar-text">
           <button class="income-button">Income</button></div>
       </div>
@@ -47,19 +46,19 @@
       
       <a href="expense-page.html">
         <div class="side-bar-link">
-          <div><img class="sidebar-icon" src="icons/sidebar-expense-icon.png"></div>
+          <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/sidebar-expense-icon.png"></div>
           <div class="side-bar-text"><button class="expense-button">Expense</button></div>
         </div>
       </a>
 
       <div class="side-bar-link">
-        <div><img class="sidebar-icon" src="icons/logout-icon.jpg"></div>
+        <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/logout-icon.jpg"></div>
         <div class="side-bar-text logout-button-js"><button class="logout-button">Logout</button></div>
       </div>
     </div>
-      </div>
 
-      <div class="right-side">
+
+      <div class="main-content">
         <div class="see-all-title">
           See All Income
         </div>
@@ -90,8 +89,8 @@
                 <div class="timeline-text">Timeline</div>
   
                 <div class="timeline-inner-grid"> 
-                  <div><button class="filter-button-timeline-custom filter-button-timeline-custom-js"  value="custom">Custom</button>
-                  </div>
+                  <div><button class="filter-button-timeline-custom filter-button-timeline-custom-js"  value="custom">Custom</button></div>
+                  
                   <div class="time-from" id="time-from"></div>
                   <div class="time-to" id="time-to"></div>
   
@@ -148,7 +147,7 @@
         
             <div class="income-chart-grid">
               <div class="income-overview-text">Income Overview Chart</div>
-              <div class="income-overview-chart-grid"><canvas id="income-chart"></canvas></div>
+              <div class="income-overview-chart-wrapper"><canvas id="income-chart"></canvas></div>
             </div>
       </div>
 

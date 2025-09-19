@@ -17,15 +17,17 @@ export function setUpCustomTimelineFilter() {
     document.querySelector('.special')?.classList.remove('special');
     filterTimeCustonBtn.classList.add('special');
     
-    timeFromId.innerHTML = '<div class="time-from-box">From <input class="time-from-input time-from-js" type="date"></div>';
-    timeToId.innerHTML =  '<div class="time-from-box">To <input class="time-to-input time-to-js" type="date"></div>';
+    timeFromId.innerHTML = 'From <input class="time-from-input time-from-js" type="date">';
+    timeToId.innerHTML =  'To <input class="time-to-input time-to-js" type="date">';
     
-    if (timeFromId.style.display === 'block' || timeToId.style.display === 'block') {
-      timeFromId.style.display = 'none';
-      timeToId.style.display = 'none';
+    if (timeFromId.classList.contains('timeFrom-display')) {
+      timeFromId.classList.remove('timeFrom-display');
+      timeToId.classList.remove('timeTo-display');
     } else {
-      timeFromId.style.display = 'block';
-      timeToId.style.display = 'block';
+
+      
+      timeFromId.classList.add('timeFrom-display');
+      timeToId.classList.add('timeTo-display');
     }
   })
   
@@ -35,8 +37,8 @@ export function setUpCustomTimelineFilter() {
   filterTime.forEach((buttonTime) => {
     buttonTime.addEventListener('click', () => {
       customTimelineClicked = false;
-      timeFromId.style.display = 'none';
-      timeToId.style.display = 'none';
+      timeFromId.classList.remove('timeFrom-display');
+      timeToId.classList.remove('timeTo-display');
   
       document.querySelector('.special')?.classList.remove('special');
       buttonTime.classList.add('special');

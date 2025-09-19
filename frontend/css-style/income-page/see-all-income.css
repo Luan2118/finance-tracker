@@ -1,9 +1,14 @@
 
-.main-grid-see-all {
-  display: grid;
-  grid-template-columns: 15rem 1fr;
+.layout {
+  display: flex;
+  gap: 2rem;
 }
 
+.main-content {
+  padding: 1rem;
+  min-width: 0;
+  flex: 1 1 auto;
+}
 
 .top-part {
   background-color: white;
@@ -17,20 +22,19 @@
 .see-all-title {
   display: flex;
   justify-content: center;
-  background-color: white;
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border-radius: 1rem;
   padding: 1.25rem;
   margin-bottom: 2rem;
-  font-size: 1.5rem;
+  font-size: clamp(1.1rem, 6vw, 1.5rem);
   font-weight: 600;
 }
 
 .filter-text,
 .income-inner-title,
 .income-overview-text {
-  font-size: 1.25rem;
+  font-size: clamp(0.8rem, 5vw, 1.2rem);
   font-weight: 600;
   margin-bottom: 1.25rem;
 }
@@ -41,8 +45,8 @@
 }
 
 .category-grid {
-  display: grid;
-  grid-template-columns: auto 1fr; /* label | options side by side */
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.75rem;
   align-items: center;
 }
@@ -61,7 +65,7 @@
 .category-text,
 .income-range-text {
   text-decoration:solid;
-  font-size: 1.25rem;
+  font-size: clamp(0.8rem, 4.5vw, 1.2rem);
   margin-bottom: 0.25rem;
 }
 
@@ -71,8 +75,8 @@
 
 .timeline-inner-grid,
 .amount-inner-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.625rem;
 }
 
@@ -81,9 +85,7 @@
 .min-amount,
 .max-amount {
   display: none;
-  margin-left: 0.625rem;
-  margin-right: 0.625rem;
-  max-width: 2rem;
+
 }
 
 .time-from-input,
@@ -93,6 +95,15 @@
   margin-left: 0.25rem;
   max-width: 12rem;
 }
+
+.timeFrom-display {
+  display: flex;
+}
+
+.timeTo-display {
+  display: flex;
+}
+
 
 .filter-submit-button-box {
   display: flex;
@@ -118,8 +129,9 @@
 
 .bottom-part {
   display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-  column-gap: 1.25rem;
+  grid-template-columns: 1fr;
+  min-width: 0;
+  gap: 1.25rem;
   border-radius: 1rem;
 }
 
@@ -145,25 +157,30 @@
   border-radius: 1rem;
   padding: 0.625rem;
   margin-top: 2rem;
-  min-width: 300px;
-  max-height: 550px;
+  height: clamp(450px, 60vw, 580px);
+  min-width: 0;
 }
 
-.income-overview-chart-grid {
+.income-overview-chart-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
   height: 100%;
+}
 
+.income-overview-chart-wrapper > canvas {
+  max-width: 100%;
+  min-width: 30rem;
 }
 
 .income-info-grid {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 0 clamp(0.7rem, 2vw, 1rem);
   display: flex;
   flex-direction: column;
 }
 
 .income-info-inner-grid {
   display: grid;
-  grid-template-columns: 3.1rem 1fr;
+  grid-template-columns: 2.5rem 1fr;
   margin-bottom: 1rem;
   align-items: center;
 }
@@ -185,7 +202,7 @@
 .income-date,
 .income-category-display {
   color: grey;
-  font-size: 0.75rem;
+  font-size: clamp(0.5rem, 3.5vw, 0.75rem);
 }
 
 .income-amount-minus {
@@ -194,7 +211,7 @@
   background-color: rgb(75, 173, 83);
   color: white;
   padding: 0.25rem 0.625rem;
-  font-size: 0.8rem;
+  font-size: clamp(0.7rem, 4vw, 0.9rem);
   border-radius: 0.25rem;
 }
 
@@ -206,8 +223,7 @@
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
   cursor: pointer;
-  margin-right: 0.25rem;
-  margin-left: 0.25rem;
+
 }
 
 .special {
@@ -222,14 +238,7 @@
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
   cursor: pointer;
-  margin-right: 0.25rem;
-  margin-left: 0.25rem;
-}
 
-.min-amount-box,
-.time-from-box {
-
-  font-size: 0.8rem;
 }
 
 .special2 {
@@ -245,9 +254,14 @@
 }
 
 .income-category {
+  font-size: clamp(0.8rem, 2.5vw, 0.1rem);
   padding: 0.25rem 1.25rem;
   border-radius: 0.25rem;
   cursor: pointer;
+}
+
+.income-category > option {
+  font-size: clamp(0.7rem, 2vw, 0.8rem);
 }
 
 .income-validation {
@@ -256,18 +270,11 @@
   justify-content: center;
 }
 .source-text {
-  font-size: 1.2rem;
+  font-size: clamp(0.8rem, 4.5vw, 1.2rem);
 }
 
-@media (max-width: 940px) {
-  .main-grid-see-all {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* On small screens, stack them */
-@media (max-width: 400px) {
-  .category-grid {
-    grid-template-columns: 1fr; /* one column only */
+@media (min-width: 1200px) {
+  .bottom-part {
+    grid-template-columns: 1fr 2fr;
   }
 }
