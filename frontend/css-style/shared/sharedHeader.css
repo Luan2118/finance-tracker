@@ -1,11 +1,8 @@
 .header {
   display: flex;
   align-items: center;
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
-  background-color: white;
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   margin: 0;

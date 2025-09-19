@@ -6,9 +6,9 @@
 }
 
 .content {
-  padding-top: 1rem;
-  padding-right: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 2rem;
   min-width: 0;
   flex: 1 1 auto;
 }
@@ -63,7 +63,7 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border-radius: 1rem;
   padding: 0.625rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   min-width: 0;
   max-height: 40rem;
 }
@@ -150,7 +150,7 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border-radius: 1rem;
   padding: 0.625rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   min-width: 0;
   max-height: 40rem;
 }

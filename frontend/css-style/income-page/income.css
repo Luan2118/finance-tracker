@@ -4,16 +4,17 @@
 }
 
 .layout {
-  display: grid;
-  grid-template-columns: 15rem 1fr;
+  display: flex;
+  gap: 2rem;
 }
 
 .main-income-grid {
-  display: grid;
-  grid-template-rows: auto 1fr;
-  row-gap: 1rem;
-  grid-column: 2;
-  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  padding-top: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 2rem;
 }
 
 
@@ -27,7 +28,6 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border-radius: 1rem;
   padding: 1.25rem;
-  min-width: 300px;
 }
 
 
@@ -36,23 +36,25 @@
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border-radius: 1rem;
+  margin-top: 1rem;
+  
 }
 
-.income-chart-grid {
-  height: clamp(180px, 28vw, 500px);
-  width: 100%;
-}
+
 
 .income-chart-wrap {
-  height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
+  height: clamp(400px, 28vw, 500px);
+  max-width: 100%;
+  width: 100%;
 }
 
 .income-chart-wrap > canvas {
   display: block;
-  min-width: 100%;
-  height: 100%;
+  max-width: 100%;
+  min-width: 30rem;
+  height: auto;
 }
 
 
@@ -60,10 +62,11 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
 .income-overview-text {
-  font-size: 1.25rem;
+  font-size: clamp(0.8rem, 4.5vw, 1.2rem);
   font-weight: 600;
 }
 
@@ -89,7 +92,7 @@
 .see-all-button {
   background-color: rgb(236, 236, 236);
   border: none;
-  padding: 0.5rem 1rem;
+  padding: clamp(0.3rem, 1.2vw, 0.5rem) clamp(0.7rem, 2vw, 1rem);
   border-radius: 0.25rem;
   cursor: pointer;
   margin-right: 0.25rem;
@@ -110,22 +113,22 @@
 }
 
 .income-info-grid {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: clamp(0.5rem, 1.2vw,  1rem);
+  padding-right: clamp(0.5rem, 1.2vw,  1rem);
   display: flex;
   flex-direction: column;
 }
 
 .income-info-inner-grid {
   display: grid;
-  grid-template-columns:3.1rem 1fr;
+  grid-template-columns:3rem 1fr;
   margin-bottom: 1rem;
   align-items: center;
 
 }
 
 .income-title {
-  font-size: 1.25rem;
+  font-size: clamp(0.8rem, 4.5vw, 1.2rem);
   font-weight: 600;
 }
 .income-img-grid {
@@ -171,7 +174,7 @@
 .income-date, 
 .income-category {
   color: grey;
-  font-size: 0.75rem;
+  font-size: clamp(0.5rem, 3.5vw, 0.75rem);
 }
 .income-amount-plus {
   display: flex;
@@ -179,7 +182,7 @@
   background-color: rgb(75, 173, 83);
   color: white;
   padding: 0.25rem 0.625rem;
-  font-size: 0.9rem;
+  font-size: clamp(0.7rem, 4vw, 0.9rem);
   border-radius: 0.25rem;
 }
 
@@ -287,12 +290,12 @@ dialog {
 .add-income-button {
   background-color: rgb(164, 223, 159);
   color: rgb(27, 107, 20);
-  padding: 0.5rem 1rem;
+  padding:  clamp(0.3rem, 1.2vw, 0.5rem) clamp(0.7rem, 2vw, 1rem);
   border-radius: 0.5rem;
   border: none;
   font-weight: bold;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: clamp(0.5rem, 4vw, 1rem)
 }
 
 .add-income-button:hover {
@@ -343,25 +346,24 @@ dialog {
 } 
 
 .source-text {
-  font-size: 1.2rem;
+  font-size: clamp(0.8rem, 4.5vw, 1.2rem);
 }
 
-
-@media (max-width: 940px) {
-  .layout { grid-template-columns: 1fr; }
-    .main-income-grid { grid-column: 1; }
+.main-income-grid,
+.top-part,
+.bottom-part,
+.income-chart-grid {
+  min-width: 0;
 }
 
-
-@media (max-width: 830px) {
-  .income-delete-button {
-    opacity: 1
-  }
-}
-
-@media (max-width: 830px) {
+@media (max-width: 650px) {
   .each-income-grid {
     grid-template-columns: 1fr;
   }
 }
 
+@media (max-width: 350px) {
+  .income-info-inner-grid {
+    grid-template-columns: 1.8rem 1fr;
+  }
+}
