@@ -12,6 +12,9 @@ renderIncomeChart();
 
 export let myChart = null;
 export async function renderIncomeChart() {
+
+
+
   await loadIncomeData();
   const ctx = document.getElementById('income-chart')
 
@@ -40,24 +43,35 @@ export async function renderIncomeChart() {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        
         scales: {
           x: {
             type: 'time',
             time: {
               unit: 'month',
+              displayFormats: {month: 'MMM'},
             },
             ticks: {
+              autoSkip: false,
               font: {
-                size: 13,
-                family: 'Arial'
+                size: (ctx) => {
+                  const w = ctx.chart.width;
+                  if (w < 768) return 15;
+
+                  return 20
+                }
               }
             }
           },
           y: {
             ticks: {
               font: {
-                size: 15,
-                family: 'Arial'
+                size: (ctx) => {
+                  const w = ctx.chart.width;
+                  if (w < 768) return 15;
+
+                  return 20
+                }
               }
             }
           }
@@ -67,7 +81,6 @@ export async function renderIncomeChart() {
               labels: {
                 font: {
                   size: 19,
-                  family: 'Arial'
                 }
               },
             },
@@ -79,8 +92,9 @@ export async function renderIncomeChart() {
                 label: function (context) {
                   return `Amount: ${formatCurrency(context.formattedValue, symbol)}`
                 }
-              }
+              },
             },
+           
             
           },
       }

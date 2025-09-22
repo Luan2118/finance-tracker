@@ -52,16 +52,24 @@ export async function renderExpenseChart() {
           },
           ticks: {
             font: {
-              size: 15,
-              family: 'Arial'
+              size: (ctx) => {
+                  const w = ctx.chart.width;
+                  if (w < 768) return 15;
+
+                  return 20
+                }
             }
           }
         },
         y: {
           ticks: {
             font: {
-              size: 15,
-              family: 'Arial'
+              size: (ctx) => {
+                  const w = ctx.chart.width;
+                  if (w < 768) return 15;
+
+                  return 20
+                }
             }
           }
         }
@@ -71,7 +79,6 @@ export async function renderExpenseChart() {
           labels: {
             font: {
               size: 19,
-              family: 'Arial'
             }
           }
         },

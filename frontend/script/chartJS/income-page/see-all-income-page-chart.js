@@ -44,8 +44,12 @@ async function renderIncomeChart() {
           },
           ticks: {
             font: {
-              size: 13,
-              family: 'Arial'
+              size: (ctx) => {
+                  const w = ctx.chart.width;
+                  if (w < 768) return 15;
+
+                  return 20
+                }
             }
           }
         },
@@ -53,8 +57,12 @@ async function renderIncomeChart() {
           beginAtZero: true,
           ticks: {
             font: {
-              size: 15,
-              family: 'Arial'
+              size: (ctx) => {
+                  const w = ctx.chart.width;
+                  if (w < 768) return 15;
+
+                  return 20
+                }
             }
           }
         }
@@ -63,8 +71,7 @@ async function renderIncomeChart() {
         legend: {
         labels: {
           font: {
-            size: 18,
-            family: 'Arial'
+            size: 19,
           }
         }
       },

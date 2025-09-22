@@ -157,12 +157,17 @@
 .expense-overview-chart-wrapper {
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+.expense-overview-chart-wrapper-inner {
   height: clamp(450px, 60vw, 580px);
+  min-width: 30rem;
 }
 
 .expense-overview-chart-wrapper > canvas {
-  max-width: 100%;
-  min-width: 30rem;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .expense-info-grid {

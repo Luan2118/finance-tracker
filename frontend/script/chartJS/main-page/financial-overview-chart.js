@@ -69,8 +69,14 @@ export async function renderFinancialOverviewChart(total) {
           labels: {
             padding: 10,
             font: {
-              size: 14,
-              family: 'Arial'
+              size: (ctx) => {
+                  const w = ctx.chart.width;
+                  if (w < 350) return 12  ;
+                  if (w < 768) return 15;
+
+                  return 20
+                }
+
             }
           }
         },

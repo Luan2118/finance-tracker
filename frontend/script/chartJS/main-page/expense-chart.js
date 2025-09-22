@@ -56,16 +56,24 @@ async function renderMainPageExpenseChart() {
           },
           ticks: {
             font: {
-              size: 12,
-              family: 'Arial'
+              size: (ctx) => {
+                  const w = ctx.chart.width;
+                  if (w < 768) return 12;
+
+                  return 16
+                }
             }
           }
         },
         y: {
           ticks: {
             font: {
-              size: 12,
-              family: 'Arial'
+              size: (ctx) => {
+                  const w = ctx.chart.width;
+                  if (w < 768) return 12;
+
+                  return 16
+                }
             }
           }
         }
@@ -74,8 +82,7 @@ async function renderMainPageExpenseChart() {
           legend: {
             labels: {
               font: {
-                size: 18,
-                family: 'Arial'
+                size: 19,
               }
             }
           },
