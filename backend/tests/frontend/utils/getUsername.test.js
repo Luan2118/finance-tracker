@@ -1,5 +1,7 @@
-import {describe, it, expect, vi} from 'vitest';
+import {describe, it, expect, vi, beforeEach, afterEach} from 'vitest';
 import getUsername from '../../../../frontend/script/utils/getUsername';
+import refreshToken from '../../../../frontend/script/utils/refreshToken';
+import getAccessToken from '../../../../frontend/script/utils/getAccessToken';
 
 
 vi.mock('../../../../frontend/script/utils/getAccessToken', () => {
@@ -15,6 +17,10 @@ vi.mock('../../../../frontend/script/utils/refreshToken', () => {
   }
 })
 
+beforeEach(() => {
+  global.fetch = vi.fn();
+})
+
 afterEach(() => {
   vi.clearAllMocks();
 })
@@ -25,14 +31,15 @@ describe('getUsername', () => {
       username: 'Luan'
     }
 
-    global.fetch = vi.fn(() => {
-     return  Promise.resolve({
+    global.fetch.mockResolvedValue({
       ok: true,
       json: () => Promise.resolve(mockResponse)
-      })
-    })
+      }) 
 
-    expect(await getUsername()).toBe('Luan')
-
+    
+    await expect(getUsername()).resolves.toBe('Luan')
+    expect(getAccessToken).toHaveBeenCalled();
+    expect(refreshToken).not.toHaveBeenCalled();
+    expect(global.fetch).toHaveBeenCalledTimes(1);
   })
 })
