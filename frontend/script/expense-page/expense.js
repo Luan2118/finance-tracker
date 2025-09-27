@@ -77,9 +77,10 @@ async function generateHTML() {
 
   expenseData.forEach((dataObject) => {
     const {category, expenseSourceValue, amountValue, dateValue, _id, emoji } = dataObject;
+
      const formattedDate = getFormattedDate(dateValue);
     
- 
+
     const html = `
       <div class="each-expense">
         <div class="expense-info-inner-grid">

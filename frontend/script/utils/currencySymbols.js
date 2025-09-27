@@ -18,13 +18,16 @@ export function getSymbol(sharedData) {
 
 
 export  function formatCurrency(amount, currencySymbol) {
-  return `${currencySymbol !== 'Kč' ? currencySymbol : ''}${amount} ${currencySymbol === 'Kč' ? currencySymbol : ''}`
+  if (currencySymbol === 'Kč') {
+    return `${amount} Kč`;
+  } else {
+    return `${currencySymbol}${amount}`
+  }
 } 
 
 
 export async function loadGetSymbol(symbolData) {  
-  await symbolData;
-  const symbol = getSymbol(symbolData);
-  return symbol;
+  const resolvedData = await symbolData;
+  return getSymbol(resolvedData);
 }
 
