@@ -6,14 +6,15 @@ async function refreshToken() {
       credentials: 'include'
     })
   
+    
+    if(!response.ok) throw new Error('failed to fetch refresh token')
     let result = await response.json();
-  
-    if(!response.ok) console.error(error.message)
 
     return result.accessToken;
 
   } catch (error) {
     console.error(error.message) 
+    throw error;
   }
 
 }
