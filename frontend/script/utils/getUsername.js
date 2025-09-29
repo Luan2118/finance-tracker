@@ -4,9 +4,10 @@ import refreshToken from "./refreshToken.js";
 
  async function getUsername() {
   try {
+
     let token = await getAccessToken();
 
-    const response = await fetch('http://localhost:3000/login/user', {
+    let response = await fetch('http://localhost:3000/login/user', {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -24,14 +25,16 @@ import refreshToken from "./refreshToken.js";
         'Authorization': `Bearer ${token}`
       }
     })
-    }
 
+    }
+    
     if(!response.ok) throw new Error('failed to get username')
     const result = await response.json();
     return result.username;
   
   } catch (error) {
     console.error(error.message)
+    throw error;
   }
 }
 
