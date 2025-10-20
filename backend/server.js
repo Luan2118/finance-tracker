@@ -25,8 +25,7 @@ mongoose.connect(databaseURL)
     process.exit(1)
   })
 
-// In prod behind a proxy (Render/Heroku/etc.), let rate-limit see real client IP
-server.set('trust proxy', 1);
+-
 
 // CORS (restricting to your frontend origin)
 server.use(cors({

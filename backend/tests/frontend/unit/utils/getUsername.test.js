@@ -12,6 +12,7 @@ vi.mock('../../../../frontend/script/utils/getAccessToken', () => {
 })
 
 
+
 vi.mock('../../../../frontend/script/utils/refreshToken', () => {
   return {
     default: vi.fn().mockResolvedValue('FAKE_REFRESH_TOKEN')
@@ -23,6 +24,8 @@ beforeEach(() => {
   global.fetch = vi.fn();
   sessionStorage.clear();
 })
+
+
 
 
 const mockResponse = {

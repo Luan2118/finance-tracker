@@ -13,52 +13,65 @@
   </head>
 
   <body>
-    <div  class="header">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header  class="header">
       <div id="menu-icon-box"><img class="menu-icon js-menu-icon" src="icons/menu-icon.png"></div>
       <div class="title"><a href="index.html">Finance Tracker</a></div>
-    </div>
+    </header>
 
     
 
 
     <div class="layout">
 
-    <div id="sidebar" class="sidebar">
-      <div class="profile-link">
-        <div class="profile-picture-wrapper"><img class="profile-picture" src="icons/profile-picture.jpg"></div>
-        <div class="profile-name profile-name-js"></div>
-      </div>
-
-      <a href="index.html">
-        <div class="side-bar-link">
-          <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/dashboard-icon.png"></div>
-          <div class="side-bar-text"><button class="dashboard-button">Dashboard</button></div>
+      <div id="sidebar" class="sidebar">
+        
+        <div class="profile-link">
+          <div class="profile-picture-wrapper"><img class="profile-picture" src="icons/profile-picture.jpg"></div>
+          <div class="profile-name profile-name-js"></div>
         </div>
-      </a>
 
-      <a href="income-page.html">
-      <div class="side-bar-link">
-        <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/sidebar-income-icon.png"></div>
-        <div class="side-bar-text">
-          <button class="income-button">Income</button></div>
-      </div>
-      </a>
-      
-      <a href="expense-page.html">
+        <nav aria-label="Primary">
+          <ul>
+            <li>
+              <a href="index.html">
+                <div class="side-bar-link">
+                  <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/dashboard-icon.png" alt=""></div>
+                  <div class="side-bar-text">Dashboard</div>
+                </div>
+              </a>
+            </li>
+            
+            <li>
+              <a href="income-page.html" aria-current="page">
+              <div class="side-bar-link">
+                <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/sidebar-income-icon.png" alt=""></div>
+                <div class="side-bar-text">Income</div>
+              </div>
+              </a>
+            </li>
+            
+            <li>
+              <a href="expense-page.html">
+                <div class="side-bar-link">
+                  <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/sidebar-expense-icon.png" alt=""></div>
+                  <div class="side-bar-text">Expense</div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
         <div class="side-bar-link">
-          <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/sidebar-expense-icon.png"></div>
-          <div class="side-bar-text"><button class="expense-button">Expense</button></div>
+          <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/logout-icon.jpg"></div>
+          <div class="side-bar-text logout-button-js"><button class="logout-button">Logout</button></div>
         </div>
-      </a>
-
-      <div class="side-bar-link">
-        <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/logout-icon.jpg"></div>
-        <div class="side-bar-text logout-button-js"><button class="logout-button">Logout</button></div>
       </div>
-    </div>
 
 
-      <div class="main-content">
+      <main id="main" class="main-content">
         <div class="see-all-title">
           See All Income
         </div>
@@ -132,29 +145,29 @@
         </div>
   
         <div class="bottom-part">
-            <div class="income-grid">
-  
-              <div>
-                <div class="income-inner-title">Income Overview</div>
-                
-              </div>
-        
-              <div class="income-info-grid js-income-info-grid">
-  
-              </div>
-              <div class="income-validation"></div>
-            </div>
-        
-            <div class="income-chart-grid">
-              <div class="income-overview-text">Income Overview Chart</div>
-              <div class="income-overview-chart-wrapper">
-                <div  class="income-overview-chart-wrapper-inner">
-                  <canvas id="income-chart"></canvas>
-                </div>
-              </div>
-            </div>
-      </div>
+          <div class="income-grid">
 
+            <div>
+              <div class="income-inner-title">Income Overview</div>
+              
+            </div>
+      
+            <div class="income-info-grid js-income-info-grid">
+
+            </div>
+            <div class="income-validation"></div>
+          </div>
+        
+          <div class="income-chart-grid">
+            <div class="income-overview-text">Income Overview Chart</div>
+            <div class="income-overview-chart-wrapper">
+              <div  class="income-overview-chart-wrapper-inner">
+                <canvas id="income-chart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
 
 

@@ -3,7 +3,7 @@ import { myExpenseChart } from "../chartJS/expense-page/expense-page-chart.js";
 import {iconPicker} from '../utils/icon-picker.js'
 import { menuIcon } from "../utils/menuIcon.js";
 import {formatCurrency, loadGetSymbol} from '../utils/currencySymbols.js';
-import getAccessToken from "../utils/getToken.js";
+import getAccessToken from "../utils/getAccessToken.js";
 import logOut from "../logout.js";
 import refreshToken from "../utils/refreshToken.js";
 import getUsername from "../utils/getUserName.js";

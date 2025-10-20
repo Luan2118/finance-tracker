@@ -11,7 +11,7 @@ import refreshToken from "./utils/refreshToken.js";
 import getUsername from "./utils/getUserName.js";
 import getFormattedDate from "./utils/getFormattedDate.js";
 import { renderExpenseChart } from "./chartJS/expense-page/expense-page-chart.js";
-import getAccessToken from "./utils/getToken.js";
+import getAccessToken from "./utils/getAccessToken.js";
 
 refreshToken();
 

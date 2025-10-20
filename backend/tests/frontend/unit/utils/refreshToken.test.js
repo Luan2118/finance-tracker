@@ -1,10 +1,11 @@
 import {describe, it, expect, beforeEach, vi} from 'vitest';
-import refreshToken from '../../../../frontend/script/utils/refreshToken';
+import refreshToken from '../../../../../frontend/script/utils/refreshToken';
 
 
 beforeEach(() => {
   global.fetch = vi.fn();
   vi.clearAllMocks();
+  document.body.innerHTML = '';
 })
 
 describe('refreshToken', () => {

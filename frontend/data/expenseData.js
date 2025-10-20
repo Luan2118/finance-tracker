@@ -1,4 +1,4 @@
-import getAccessToken from "../script/utils/getToken.js";
+import getAccessToken from "../script/utils/getAccessToken.js";
 import refreshToken from "../script/utils/refreshToken.js";
 
 export let expenseData;
