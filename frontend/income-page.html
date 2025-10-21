@@ -12,50 +12,62 @@
   </head>
 
   <body>
-    <div class="header">
-      <div id="menu-icon-box"><img class="menu-icon js-menu-icon" src="icons/menu-icon.png"></div>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="header">
+      <button id="menu-icon-box" class="menu-icon-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar"><img class="menu-icon js-menu-icon" src="icons/menu-icon.png" alt=""></button>
       <div class="title"><a href="index.html">Finance Tracker</a></div>
-    </div>
+    </header>
 
 
     <div class="layout">
       <div id="sidebar" class="sidebar">
         <div class="profile-link">
-          <div class="profile-picture-wrapper"><img class="profile-picture" src="icons/profile-picture.jpg"></div>
+          <div class="profile-picture-wrapper"><img class="profile-picture" src="icons/profile-picture.jpg" alt="Profile photo"></div>
           <div class="profile-name profile-name-js"></div>
         </div>
 
-        <a href="index.html">
-          <div class="side-bar-link">
-            <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/dashboard-icon.png"></div>
-            <div class="side-bar-text"><button class="dashboard-button">Dashboard</button></div>
-          </div>
-        </a>
+        <nav aria-label="Primary">
+          <ul>
+            <li>
+              <a href="index.html">
+                <div class="side-bar-link">
+                  <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/dashboard-icon.png" alt=""></div>
+                  <div class="side-bar-text">Dashboard</div>
+                </div>
+              </a>
+            </li>
+            
+            <li>
+              <a href="income-page.html" aria-current="page">
+              <div class="side-bar-link">
+                <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/sidebar-income-icon.png" alt=""></div>
+                <div class="side-bar-text">Income</div>
+              </div>
+              </a>
+            </li>
+            
+            <li>
+              <a href="expense-page.html">
+                <div class="side-bar-link">
+                  <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/sidebar-expense-icon.png" alt=""></div>
+                  <div class="side-bar-text">Expense</div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </nav>
 
-        <a href="income-page.html">
         <div class="side-bar-link">
-          <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/sidebar-income-icon.png"></div>
-          <div class="side-bar-text">
-            <button class="income-button">Income</button></div>
-        </div>
-        </a>
-        
-        <a href="expense-page.html">
-          <div class="side-bar-link">
-            <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/sidebar-expense-icon.png"></div>
-            <div class="side-bar-text"><button class="expense-button">Expense</button></div>
-          </div>
-        </a>
-
-        <div class="side-bar-link">
-          <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/logout-icon.jpg"></div>
+          <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/logout-icon.jpg" alt=""></div>
           <div class="side-bar-text logout-button-js"><button class="logout-button">Logout</button></div>
         </div>
       </div>
 
-      <div class="main-income-grid">
+      <main id="main" class="main-income-grid">
+        <h1 class="page-title">Income</h1>
         <div class="top-part">
-          
           <div class="income-overview-grid">
             <div class="income-overview-text">Income Overview</div>
             <div>
@@ -75,7 +87,7 @@
                 <div class="emoji-picker-grid">
   
                   <div class="emoji-picker-inner-grid">
-                    <div><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png">
+                    <div><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png" alt="">
                     </div>
     
                     <div class="js-emoji-picker-element"></div>
@@ -145,7 +157,7 @@
   
           <div class="income-sources-grid">
             <div class="income-title">Income Sources</div>
-            <div><a href="see-all-income.html"><button class="see-all-button see-all-button-js">See All Income</button></a></div>
+            <div><a href="see-all-income.html">See All Income</a></div>
           </div>
     
           <div class="income-info-grid">
@@ -157,11 +169,11 @@
           </div>
   
         </div>
-      </div>
+      </main>
     </div>
 
 
-
+    <footer></footer>
     <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>

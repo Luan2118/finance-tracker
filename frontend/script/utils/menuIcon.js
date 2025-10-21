@@ -16,12 +16,13 @@ export function menuIcon() {
       sidebar.classList.add('is-open');
       document.body.style.overflow = 'hidden';
       menuIconImg.src = changedImg;
-
+      menuIconBox.setAttribute('aria-expanded', 'true')
 
     } else {
       sidebar.classList.remove('is-open');
       document.body.style.overflow = '';
       menuIconImg.src = originalImg;
+      menuIconBox.setAttribute('aria-expanded', 'false')
     }
   })
 }

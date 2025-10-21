@@ -9,11 +9,17 @@
   padding: 1.45rem;
 }
 
-.menu-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+.menu-icon-btn {
+  display: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: auto;
+  height: auto;
 }
+
 
 .menu-icon {
   display: none;
@@ -33,4 +39,8 @@
   .menu-icon {
     display: block;
   }
+
+  .menu-icon-btn {
+    display: block;
+}
 }
