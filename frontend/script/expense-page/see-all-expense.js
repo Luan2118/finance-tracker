@@ -10,7 +10,10 @@ import formatDate from "../utils/see-all-income-expense-page/FormatDate.js";
 import setPastDate from "../utils/see-all-income-expense-page/setPastDate.js";
 import resolveCategory from "../utils/see-all-income-expense-page/resolveCategory.js";
 import { menuIcon } from "../utils/menuIcon.js";
+import logOut from '../logout.js'
 
+// logout
+logOut();
 
 // Menu icon
 menuIcon();
