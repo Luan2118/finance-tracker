@@ -17,7 +17,9 @@
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header  class="header">
-      <button id="menu-icon-box" class="menu-icon-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar"><img class="menu-icon js-menu-icon" src="icons/menu-icon.png" alt=""></button>
+      <button type="button" id="menu-icon-box" class="menu-icon-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">
+        <img class="menu-icon js-menu-icon" src="icons/menu-icon.png" alt="">
+      </button>
       <div class="title"><a href="index.html">Finance Tracker</a></div>
     </header>
 
@@ -64,10 +66,10 @@
           </ul>
         </nav>
 
-        <div class="side-bar-link">
-          <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/logout-icon.jpg" alt=""></div>
-          <div class="side-bar-text logout-button-js"><button class="logout-button">Logout</button></div>
-        </div>
+        <button type="button" class="side-bar-link logout-button logout-button-js">
+          <span class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/logout-icon.jpg" alt=""></span>
+          <span class="side-bar-text  ">Logout</span>
+        </button>
       </div>
 
 
@@ -102,19 +104,19 @@
                 <div class="timeline-text">Timeline</div>
   
                 <div class="timeline-inner-grid"> 
-                  <div><button class="filter-button-timeline-custom filter-button-timeline-custom-js"  value="custom">Custom</button></div>
+                  <div><button type="button" class="filter-button-timeline-custom filter-button-timeline-custom-js"  value="custom">Custom</button></div>
                   
                   <div class="time-from" id="time-from"></div>
                   <div class="time-to" id="time-to"></div>
   
                   
-                  <div><button class="filter-button-timeline"  value="7">Last 7 days</button></div>
+                  <div><button type="button" class="filter-button-timeline"  value="7">Last 7 days</button></div>
                   
-                  <div><button class="filter-button-timeline"  value="30">Last 30 days</button></div>
+                  <div><button type="button" class="filter-button-timeline"  value="30">Last 30 days</button></div>
                   
-                  <div><button class="filter-button-timeline"  value="60">Last 60 days</button></div>
+                  <div><button type="button" class="filter-button-timeline"  value="60">Last 60 days</button></div>
                   
-                  <div><button class="filter-button-timeline" value="see-all">See all</button></div>
+                  <div><button type="button" class="filter-button-timeline" value="see-all">See all</button></div>
                 </div>
               </div>
   
@@ -123,22 +125,22 @@
                 <div class="income-range-text">Income range</div>
   
                 <div class="amount-inner-grid">
-                  <div><button class="filter-button-amount-custom filter-button-amount-custom-js" value="custom">Custom</button></div>
+                  <div><button type="button" class="filter-button-amount-custom filter-button-amount-custom-js" value="custom">Custom</button></div>
                   <div class="min-amount" id="min-amount"></div>
                   <div class="max-amount" id="max-amount"></div>
                   
-                  <div><button class="filter-button-amount filter-button-amount-first" value="5000">up to 5000Kč</button></div>
+                  <div><button type="button" class="filter-button-amount filter-button-amount-first" value="5000">up to 5000Kč</button></div>
                   
-                  <div><button class="filter-button-amount filter-button-amount-second" value="10000">up to 10000Kč</button></div>
+                  <div><button type="button" class="filter-button-amount filter-button-amount-second" value="10000">up to 10000Kč</button></div>
                   
-                  <div><button class="filter-button-amount filter-button-amount-third" value=" 20000">up to 20000kč</button></div>
+                  <div><button type="button" class="filter-button-amount filter-button-amount-third" value=" 20000">up to 20000kč</button></div>
   
-                  <div><button class="filter-button-amount" value="see-all">See all</button></div>
+                  <div><button type="button" class="filter-button-amount" value="see-all">See all</button></div>
                 </div>
   
               </div>
               
-              <div class="filter-submit-button-box"><button class="filter-submit-button filter-submit-button-js">Filter</button></div>
+              <div class="filter-submit-button-box"><button type="button" class="filter-submit-button filter-submit-button-js">Filter</button></div>
           </div>
   
   
