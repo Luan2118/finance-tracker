@@ -69,7 +69,7 @@ async function displayIncome(data) {
 
 // Category 
 const label = document.querySelector('.label');
-const category = label.querySelector('select');
+const category = document.getElementById('category');
 
 
 // Time line Custom
@@ -108,17 +108,21 @@ const MAX_VALUE = 100_000_000
 
 
 
+
 // Filter button - filtering income
 const filterButton = document.querySelector('.filter-submit-button-js')
 
 filterButton.addEventListener('click', async () => {
 
-  document.querySelector('.income-validation').innerHTML = ''
+  document.querySelector('.income-validation').textContent = ''
   if (category.value === '') {
-    return document.querySelector('.category-validation-js').innerHTML = '<div>Please select a category</div>'
+    category.setAttribute('aria-invalid', 'true');
+    return document.querySelector('.category-validation-js').textContent = 'Please select a category'
   }
-  document.querySelector('.category-validation-js').innerHTML = ''
-  
+  document.querySelector('.category-validation-js').textContent = ''
+  category.removeAttribute('aria-invalid');
+
+
   
   if (customAmountClicked === false  && category.value === 'see-all' && filterTimeValue === 'see-all' && filterAmountValue === MAX_VALUE ) {
 
@@ -168,7 +172,7 @@ filterButton.addEventListener('click', async () => {
     updateChart(incomeChart, labels, data, 'day');
 
     if(filteredIncomeCustom.length === 0) {
-      document.querySelector('.income-validation').innerHTML = '<div> No income matches your filter</div>'
+      document.querySelector('.income-validation').textContent = ' No income matches your filter'
     }
     
 
@@ -228,7 +232,7 @@ filterButton.addEventListener('click', async () => {
   updateChart(incomeChart, labels, data, 'day');
   
   if(filteredIncome.length === 0) {
-    document.querySelector('.income-validation').innerHTML = '<div> No income matches your filter</div>'
+    document.querySelector('.income-validation').textContent = 'No income matches your filter'
   }
   
   await displayIncome(filteredIncome)

@@ -66,14 +66,14 @@
           </ul>
         </nav>
 
-        <button type="button" class="side-bar-link logout-button logout-button-js">
+        <button aria-label="Logout" type="button" class="side-bar-link logout-button logout-button-js">
           <span class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/logout-icon.jpg" alt=""></span>
           <span class="side-bar-text  ">Logout</span>
         </button>
       </div>
 
 
-      <main id="main" class="main-content">
+      <main id="main" class="main-content" tabindex="-1">
         <h1 class="see-all-title">
           See All Income
         </h1>
@@ -84,9 +84,9 @@
           </div>
           <div class="filter-grid">
               <div class="category-grid">
-                <div class="category-text">Category</div>
-                <label class="label">
-                  <select class="income-category" name="category">
+
+                <label for="category" class="label category-text">Category</label>
+                  <select id="category" class="income-category" name="category" aria-describedby="category-select">
                     <option value="" selected disabled>Select a category</option>
                     <option value="Salary">Salary</option>
                     <option value="Part-Time">Part-Time</option>
@@ -95,19 +95,22 @@
                     <option value="Other-Income">Other-Income</option>
                     <option value="see-all">See all</option>
                   </select>
-                </label>
-  
+
               </div>
-              <div class="category-validation category-validation-js"></div>
+
+              <div id="category-select" role="alert" class="category-validation category-validation-js"></div>
   
               <div class="timeline-grid">
                 <div class="timeline-text">Timeline</div>
   
                 <div class="timeline-inner-grid"> 
-                  <div><button type="button" class="filter-button-timeline-custom filter-button-timeline-custom-js"  value="custom">Custom</button></div>
+                  <div><button type="button" class="filter-button-timeline-custom filter-button-timeline-custom-js"  value="custom" aria-controls="date-range" aria-expanded="false">Custom</button></div>
                   
-                  <div class="time-from" id="time-from"></div>
-                  <div class="time-to" id="time-to"></div>
+                  <fieldset id="date-range">
+                    <legend class="sr-only">Date range</legend>
+                    <div class="time-from" id="time-from"></div>
+                    <div class="time-to" id="time-to"></div>
+                  </fieldset>
   
                   
                   <div><button type="button" class="filter-button-timeline"  value="7">Last 7 days</button></div>
@@ -125,9 +128,13 @@
                 <div class="income-range-text">Income range</div>
   
                 <div class="amount-inner-grid">
-                  <div><button type="button" class="filter-button-amount-custom filter-button-amount-custom-js" value="custom">Custom</button></div>
-                  <div class="min-amount" id="min-amount"></div>
-                  <div class="max-amount" id="max-amount"></div>
+                  <div><button type="button" class="filter-button-amount-custom filter-button-amount-custom-js" value="custom" aria-controls="amount-range" aria-expanded="false">Custom</button></div>
+
+                  <fieldset id="amount-range">
+                    <legend class="sr-only">Amount range</legend>
+                    <div class="min-amount" id="min-amount"></div>
+                    <div class="max-amount" id="max-amount"></div>
+                  </fieldset>
                   
                   <div><button type="button" class="filter-button-amount filter-button-amount-first" value="5000">up to 5000Kč</button></div>
                   
@@ -157,7 +164,7 @@
             <div class="income-info-grid js-income-info-grid">
 
             </div>
-            <div class="income-validation"></div>
+            <div role="status" class="income-validation"></div>
           </div>
         
           <div class="income-chart-grid">

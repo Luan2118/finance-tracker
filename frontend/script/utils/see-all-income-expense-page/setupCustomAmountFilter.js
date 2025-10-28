@@ -15,15 +15,18 @@ export function setupCustomAmountFilter() {
   filterAmountCustonBtn.addEventListener('click', () => {
     customAmountClicked = true;
 
+    filterAmountCustonBtn.setAttribute('aria-expanded', 'true');
     document.querySelector('.special2')?.classList.remove('special2');
     filterAmountCustonBtn.classList.add('special2');
     
-    minAmountId.innerHTML = '<div class="min-amount-box">Min <input class="min-amount-input min-amount-js" type="number"></div>';
-    maxAmountId.innerHTML =  '<div class="min-amount-box">Max <input class="max-amount-input max-amount-js" type="number"></div>';
+    minAmountId.innerHTML = '<label>Min <input class="min-amount-input min-amount-js" type="number"></label>';
+    maxAmountId.innerHTML =  '<label>Max <input class="max-amount-input max-amount-js" type="number"></label>';
     
     if (minAmountId.style.display === 'block' || maxAmountId.style.display === 'block') {
       minAmountId.style.display = 'none';
       maxAmountId.style.display = 'none';
+      filterAmountCustonBtn.setAttribute('aria-expanded', 'false');
+      document.querySelector('.special2')?.classList.remove('special2')
     } else {
       minAmountId.style.display = 'block';
       maxAmountId.style.display = 'block';
@@ -38,6 +41,7 @@ export function setupCustomAmountFilter() {
       customAmountClicked = false
       minAmountId.style.display = 'none';
       maxAmountId.style.display = 'none';
+      filterAmountCustonBtn.setAttribute('aria-expanded', 'false');
       document.querySelector('.special2')?.classList.remove('special2')
       buttonAmount.classList.add('special2')
       filterAmountValue = Number(buttonAmount.value)

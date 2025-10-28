@@ -64,12 +64,12 @@
 
         <button type="button" class="side-bar-link logout-button logout-button-js">
           <span class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/logout-icon.jpg" alt=""></span>
-          <span class="side-bar-text  ">Logout</span>
+          <span class="side-bar-text">Logout</span>
         </button>
 
       </div>
     
-      <main id="main" class="main-grid">
+      <main id="main" class="main-grid" tab-index="-1">
         <h1 class="see-all-title">
           See All Expenses
         </h1>
@@ -80,9 +80,9 @@
           </div>
           <div class="filter-grid">
               <div class="category-grid">
-                <div class="category-text">Category</div>
-                <label class="label">
-                  <select class="expense-category" name="category">
+
+                <label for="category" class="label category-text">Category</label>
+                  <select id="category" class="expense-category" name="category" aria-describedby="category-select">
                     <option value="" selected disabled>Select a category</option>
                       <option value="Food & Groceries">Food & Groceries</option>
                       <option value="Dining Out / Takeout">Dining Out / Takeout</option>
@@ -96,19 +96,22 @@
                       <option value="Other-Expense">Other-Expense</option>
                       <option value="see-all">See all</option>
                   </select>
-                </label>
   
               </div>
-              <div class="category-validation category-validation-js"></div>
+              <div id="category-select" role="alert" class="category-validation category-validation-js"></div>
   
               <div class="timeline-grid">
                 <div class="timeline-text">Timeline</div>
   
                 <div class="timeline-inner-grid"> 
-                  <div><button type="button" class="filter-button-timeline-custom filter-button-timeline-custom-js"  value="custom">Custom</button>
+                  <div><button type="button" class="filter-button-timeline-custom filter-button-timeline-custom-js"  value="custom" aria-controls="date-range" aria-expanded="false">Custom</button>
                   </div>
-                  <div class="time-from" id="time-from"></div>
-                  <div class="time-to" id="time-to"></div>
+
+                  <fieldset id="date-range">
+                    <legend class="sr-only">Date range</legend>
+                    <div class="time-from" id="time-from"></div>
+                    <div class="time-to" id="time-to"></div>
+                  </fieldset>
   
                   
                   <div><button type="button" class="filter-button-timeline"  value="7">Last 7 days</button></div>
@@ -126,9 +129,13 @@
                 <div class="expense-range-text">Expense range</div>
   
                 <div class="amount-inner-grid">
-                  <div><button type="button" class="filter-button-amount-custom filter-button-amount-custom-js" value="custom">Custom</button></div>
-                  <div class="min-amount" id="min-amount"></div>
-                  <div class="max-amount" id="max-amount"></div>
+                  <div><button type="button" class="filter-button-amount-custom filter-button-amount-custom-js" value="custom" aria-controls="amount-range" aria-expanded="false">Custom</button></div>
+
+                  <fieldset id="amount-range">
+                    <legend class="sr-only">Amount range</legend>
+                    <div class="min-amount" id="min-amount"></div>
+                    <div class="max-amount" id="max-amount"></div>
+                  </fieldset>
                   
                   <div><button type="button" class="filter-button-amount" value="500">up to 500Kč</button></div>
                   
@@ -152,7 +159,7 @@
                 </div>
         
               <div class="expense-info-grid js-expense-info-grid"></div>
-              <div class="expense-validation"></div>
+              <div role="status" class="expense-validation"></div>
             </div>
         
             <div class="expense-chart-grid">

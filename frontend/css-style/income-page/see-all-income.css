@@ -1,3 +1,15 @@
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 
 .layout {
   display: flex;
@@ -53,11 +65,11 @@
 
 .category-validation {
   color: red;
-   margin-bottom: 1.25rem;
+  margin: 1rem 0;
 }
 
 .category-text {
-  margin-right: 1rem;
+  margin-right: 0.6rem;
 }
 
 .timeline-text,
@@ -79,19 +91,29 @@
   gap: 0.625rem;
 }
 
+fieldset {
+  border:none;
+  padding:0;
+  margin: 0;
+  min-inline-size: unset;
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
 .time-from,
 .time-to,
 .min-amount,
 .max-amount {
   display: none;
-
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .time-from-input,
 .time-to-input,
 .min-amount-input,
 .max-amount-input {
-  margin-left: 0.25rem;
   max-width: 12rem;
 }
 
