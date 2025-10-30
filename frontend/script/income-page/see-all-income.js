@@ -43,20 +43,17 @@ async function displayIncome(data) {
     const formattedDate = getFormattedDate(dateValue)
 
     let html = `
-     <div class="income-info-inner-grid">
-     <div class="income-img-grid">${emoji}</div>
-     <div class="income-info">
-     <div>
-     <div class="source-text">
-     ${incomeSourceValue}
-     </div>
-     <div class="income-date">${formattedDate}</div>
-     <div class="income-category-display">Category: ${category}</div>
-     </div>
-     
-     <div class="income-amount-minus">+${formatCurrency(amountValue, symbol)}</div>
-     </div>
-     </div>
+    <li class="income-info-inner-grid">
+      <div class="income-img-grid">${emoji}</div>
+      <div class="income-info">
+        <div>
+          <div class="source-text">${incomeSourceValue}</div>
+          <div class="income-date">${formattedDate}</div>
+          <div class="income-category-display">Category: ${category}</div>
+        </div>
+        <div class="income-amount-minus">+${formatCurrency(amountValue, symbol)}</div>
+      </div>
+    </li>
    `
 
    incomeHTML += html;
@@ -120,7 +117,7 @@ filterButton.addEventListener('click', async () => {
     return document.querySelector('.category-validation-js').textContent = 'Please select a category'
   }
   document.querySelector('.category-validation-js').textContent = ''
-  category.removeAttribute('aria-invalid');
+  category.setAttribute('aria-invalid', 'false');
 
 
   

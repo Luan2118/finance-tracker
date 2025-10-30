@@ -125,14 +125,9 @@ fieldset {
   display: flex;
 }
 
-
-.filter-submit-button-box {
-  display: flex;
-  justify-content: center;
-  margin-top: 1.5rem;
-}
-
 .filter-submit-button {
+  align-self: center;
+  width: auto;
   background-color: rgb(236, 236, 236);
   border: none;
   padding: 0.5rem 1.25rem;

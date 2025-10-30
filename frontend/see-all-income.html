@@ -20,7 +20,7 @@
       <button type="button" id="menu-icon-box" class="menu-icon-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">
         <img class="menu-icon js-menu-icon" src="icons/menu-icon.png" alt="">
       </button>
-      <div class="title"><a href="index.html">Finance Tracker</a></div>
+      <a class="title"href="index.html">Finance Tracker</a>
     </header>
 
     
@@ -28,7 +28,7 @@
 
     <div class="layout">
 
-      <div id="sidebar" class="sidebar">
+      <aside id="sidebar" class="sidebar" aria-label="Sidebar">
         
         <div class="profile-link">
           <div class="profile-picture-wrapper"><img class="profile-picture" src="icons/profile-picture.jpg" alt="Profile photo"></div>
@@ -70,7 +70,7 @@
           <span class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/logout-icon.jpg" alt=""></span>
           <span class="side-bar-text  ">Logout</span>
         </button>
-      </div>
+      </aside>
 
 
       <main id="main" class="main-content" tabindex="-1">
@@ -78,15 +78,15 @@
           See All Income
         </h1>
         
-        <div class="top-part">
-          <div class="filter-text">
+        <section class="top-part">
+          <h2 class="filter-text">
             Filter:
-          </div>
-          <div class="filter-grid">
-              <div class="category-grid">
+          </h2>
+          <section class="filter-grid">
 
+              <section class="category-grid">
                 <label for="category" class="label category-text">Category</label>
-                  <select id="category" class="income-category" name="category" aria-describedby="category-select">
+                  <select id="category" class="income-category" name="category" aria-describedby="category-select" aria-invalid="false">
                     <option value="" selected disabled>Select a category</option>
                     <option value="Salary">Salary</option>
                     <option value="Part-Time">Part-Time</option>
@@ -95,16 +95,16 @@
                     <option value="Other-Income">Other-Income</option>
                     <option value="see-all">See all</option>
                   </select>
-
-              </div>
+              </section>
 
               <div id="category-select" role="alert" class="category-validation category-validation-js"></div>
+
   
-              <div class="timeline-grid">
-                <div class="timeline-text">Timeline</div>
+              <section class="timeline-grid">
+                <h3 class="timeline-text">Timeline</h3>
   
                 <div class="timeline-inner-grid"> 
-                  <div><button type="button" class="filter-button-timeline-custom filter-button-timeline-custom-js"  value="custom" aria-controls="date-range" aria-expanded="false">Custom</button></div>
+                  <button type="button" class="filter-button-timeline-custom filter-button-timeline-custom-js"  value="custom" aria-controls="date-range" aria-expanded="false">Custom</button>
                   
                   <fieldset id="date-range">
                     <legend class="sr-only">Date range</legend>
@@ -113,22 +113,22 @@
                   </fieldset>
   
                   
-                  <div><button type="button" class="filter-button-timeline"  value="7">Last 7 days</button></div>
+                  <button type="button" class="filter-button-timeline"  value="7">Last 7 days</button>
                   
-                  <div><button type="button" class="filter-button-timeline"  value="30">Last 30 days</button></div>
+                  <button type="button" class="filter-button-timeline"  value="30">Last 30 days</button>
                   
-                  <div><button type="button" class="filter-button-timeline"  value="60">Last 60 days</button></div>
+                  <button type="button" class="filter-button-timeline"  value="60">Last 60 days</button>
                   
-                  <div><button type="button" class="filter-button-timeline" value="see-all">See all</button></div>
+                  <button type="button" class="filter-button-timeline" value="see-all">See all</button>
                 </div>
-              </div>
+              </section>
   
-              <div class="amount-grid">
+              <section class="amount-grid">
   
-                <div class="income-range-text">Income range</div>
+                <h3 class="income-range-text">Income range</h3>
   
                 <div class="amount-inner-grid">
-                  <div><button type="button" class="filter-button-amount-custom filter-button-amount-custom-js" value="custom" aria-controls="amount-range" aria-expanded="false">Custom</button></div>
+                  <button type="button" class="filter-button-amount-custom filter-button-amount-custom-js" value="custom" aria-controls="amount-range" aria-expanded="false">Custom</button>
 
                   <fieldset id="amount-range">
                     <legend class="sr-only">Amount range</legend>
@@ -136,46 +136,42 @@
                     <div class="max-amount" id="max-amount"></div>
                   </fieldset>
                   
-                  <div><button type="button" class="filter-button-amount filter-button-amount-first" value="5000">up to 5000Kč</button></div>
+                  <button type="button" class="filter-button-amount filter-button-amount-first" value="5000">up to 5000Kč</button>
                   
-                  <div><button type="button" class="filter-button-amount filter-button-amount-second" value="10000">up to 10000Kč</button></div>
+                  <button type="button" class="filter-button-amount filter-button-amount-second" value="10000">up to 10000Kč</button>
                   
-                  <div><button type="button" class="filter-button-amount filter-button-amount-third" value=" 20000">up to 20000kč</button></div>
+                  <button type="button" class="filter-button-amount filter-button-amount-third" value="20000">up to 20000kč</button>
   
-                  <div><button type="button" class="filter-button-amount" value="see-all">See all</button></div>
+                  <button type="button" class="filter-button-amount" value="see-all">See all</button>
                 </div>
   
-              </div>
+              </section>
               
-              <div class="filter-submit-button-box"><button type="button" class="filter-submit-button filter-submit-button-js">Filter</button></div>
-          </div>
+              <button type="button"  class="filter-submit-button filter-submit-button-js">Filter</button>
+          </section>
   
   
-        </div>
+        </section>
   
-        <div class="bottom-part">
-          <div class="income-grid">
+        <section class="bottom-part">
+          <section class="income-grid">
+            <h2 class="income-inner-title">Income Overview</h2>
 
-            <div>
-              <div class="income-inner-title">Income Overview</div>
-              
-            </div>
       
-            <div class="income-info-grid js-income-info-grid">
+            <ol class="income-info-grid js-income-info-grid"></ol>
 
-            </div>
             <div role="status" class="income-validation"></div>
-          </div>
+          </section>
         
-          <div class="income-chart-grid">
-            <div class="income-overview-text">Income Overview Chart</div>
+          <section class="income-chart-grid">
+            <h2 class="income-overview-text">Income Overview Chart</h2>
             <div class="income-overview-chart-wrapper">
               <div  class="income-overview-chart-wrapper-inner">
                 <canvas id="income-chart"></canvas>
               </div>
             </div>
-          </div>
-        </div>
+          </section>
+        </section>
       </main>
     </div>
 
@@ -185,3 +181,4 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
   </body>
 </html>
+
