@@ -65,9 +65,10 @@ async function displayIncome(data) {
 }
 
 // Category 
-const label = document.querySelector('.label');
+
 const category = document.getElementById('category');
 const categoryValidation = document.querySelector('.category-validation-js');
+const incomeFilterValidation = document.querySelector('.income-validation');
 
 // Time line Custom
 setUpCustomTimelineFilter();
@@ -110,6 +111,8 @@ const MAX_VALUE = 100_000_000
 const filterButton = document.querySelector('.filter-submit-button-js')
 
 filterButton.addEventListener('click', async () => {
+
+  
 
   document.querySelector('.income-validation').textContent = ''
   if (category.value === '') {
@@ -170,11 +173,16 @@ filterButton.addEventListener('click', async () => {
     updateChart(incomeChart, labels, data, 'day');
 
     if(filteredIncomeCustom.length === 0) {
-      document.querySelector('.income-validation').textContent = ' No income matches your filter'
+
+      incomeFilterValidation.setAttribute('role', 'status');
+       incomeFilterValidation.textContent = ' No income matches your filter'
     }
-    
+    else {
+      incomeFilterValidation.removeAttribute('role');
+    }
 
     await displayIncome(filteredIncomeCustom)
+  
     return;
   }
 
@@ -230,9 +238,12 @@ filterButton.addEventListener('click', async () => {
   updateChart(incomeChart, labels, data, 'day');
   
   if(filteredIncome.length === 0) {
-    document.querySelector('.income-validation').textContent = 'No income matches your filter'
+     incomeFilterValidation.setAttribute('role', 'status');
+     incomeFilterValidation.textContent = 'No income matches your filter'
   }
-  
+  else {
+      incomeFilterValidation.removeAttribute('role');
+    }
   await displayIncome(filteredIncome)
 
   

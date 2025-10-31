@@ -73,6 +73,7 @@ async function displayExpense(data) {
 const label = document.querySelector('.label');
 const category = document.getElementById('category');
 const categoryValidation = document.querySelector('.category-validation-js');
+const expenseFilterValidation = document.querySelector('.expense-validation');
 
 // Time line Custom
 setUpCustomTimelineFilter();
@@ -112,7 +113,7 @@ setupCustomAmountFilter()
 const filterButton = document.querySelector('.filter-submit-button-js')
 
 filterButton.addEventListener('click', async () => {
-  console.log(filterAmountValue)
+
   document.querySelector('.expense-validation').textContent = ''
 
    if (category.value === '') {
@@ -181,7 +182,11 @@ filterButton.addEventListener('click', async () => {
    
 
     if(filteredExpenseCustom.length === 0) {
-      document.querySelector('.expense-validation').textContent = 'No expense matches your filter'
+      expenseFilterValidation.setAttribute('role', 'status');
+      expenseFilterValidation.textContent = 'No expense matches your filter'
+    }
+    else {
+      expenseFilterValidation.removeAttribute('role');
     }
     
     console.log(filteredExpenseCustom)
@@ -238,9 +243,12 @@ filterButton.addEventListener('click', async () => {
   updateChart(expenseChart,labels, data, 'day');
   
   if(filteredExpense.length === 0) {
-    document.querySelector('.expense-validation').textContent = ' No expense matches your filter'
+    expenseFilterValidation.setAttribute('role', 'status');
+    expenseFilterValidation.textContent = ' No expense matches your filter'
   }
-
+  else {
+      expenseFilterValidation.removeAttribute('role');
+  }
   await displayExpense(filteredExpense)
 
   
