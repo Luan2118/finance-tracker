@@ -47,8 +47,8 @@ async function displayExpense(data) {
     const formattedDate = getFormattedDate(dateValue)
 
     let html = `
-     <div class="expense-info-inner-grid">
-      <div class="expense-img-grid">${emoji}</div>
+     <li class="expense-info-inner-grid">
+      <div class="expense-img-grid" aria-hidden="true">${emoji}</div>
       <div class="expense-info">
       <div>
         <div class="source-text">${expenseSourceValue}</div>
@@ -58,7 +58,7 @@ async function displayExpense(data) {
       
         <div class="expense-amount-minus">-${formatCurrency(amountValue, symbol)}</div>
       </div>
-     </div>
+     </li>
    `
 
    expenseHTML += html;
@@ -120,7 +120,7 @@ filterButton.addEventListener('click', async () => {
   }
 
   document.querySelector('.category-validation-js').textContent = '';
-  category.removeAttribute('aria-invalid');
+  category.setAttribute('aria-invalid', 'false');
   
   
 
