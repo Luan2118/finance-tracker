@@ -67,7 +67,7 @@ async function displayIncome(data) {
 // Category 
 const label = document.querySelector('.label');
 const category = document.getElementById('category');
-
+const categoryValidation = document.querySelector('.category-validation-js');
 
 // Time line Custom
 setUpCustomTimelineFilter();
@@ -114,11 +114,12 @@ filterButton.addEventListener('click', async () => {
   document.querySelector('.income-validation').textContent = ''
   if (category.value === '') {
     category.setAttribute('aria-invalid', 'true');
-    return document.querySelector('.category-validation-js').textContent = 'Please select a category'
+    categoryValidation.setAttribute('role', 'alert');
+    return categoryValidation.textContent = 'Please select a category'
   }
   document.querySelector('.category-validation-js').textContent = ''
   category.setAttribute('aria-invalid', 'false');
-
+  categoryValidation.removeAttribute('role');
 
   
   if (customAmountClicked === false  && category.value === 'see-all' && filterTimeValue === 'see-all' && filterAmountValue === MAX_VALUE ) {
