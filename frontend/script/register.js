@@ -15,25 +15,42 @@ const registerBtn = document.querySelector('.register-button-js');
 
 
 
+
 registerBtn.addEventListener('click', async () => {
   
-  const username = document.querySelector('.username-input-js').value
-  const email = document.querySelector('.email-input-js').value.trim()
-  const password = document.querySelector('.password-input-js').value.trim()
-  const confirmPassword = document.querySelector('.confirm-password-input-js').value
+  const usernameInput = document.querySelector('.username-input-js');
+  const emailInput = document.querySelector('.email-input-js');
+  const passwordInput = document.querySelector('.password-input-js');
+  const confirmPasswordInput = document.querySelector('.confirm-password-input-js');
+
+  const username = usernameInput.value
+  const email = emailInput.value.trim()
+  const password = passwordInput.value.trim()
+  const confirmPassword = confirmPasswordInput.value
 
   if(username.length < 3) {
-    return usernameValidation.innerHTML = '<div>Username has to have at least 3 character</div>'
+    usernameInput.setAttribute('aria-invalid', 'true')
+    usernameValidation.setAttribute('role', 'alert')
+    return usernameValidation.textContent = 'Username has to have at least 3 character'
   }
   usernameValidation.innerHTML = '';
+  usernameInput.removeAttribute('aria-invalid')
+  usernameValidation.removeAttribute('role')
 
   if (!emailRegex.test(email)) {
-    return emailValidation.innerHTML = '<div>Invalid e-mail</div>'
+    emailInput.setAttribute('aria-invalid', 'true')
+    emailValidation.setAttribute('role', 'alert')
+    return emailValidation.textContent = 'Invalid e-mail'
   }
 
   emailValidation.innerHTML = '';
+  emailInput.removeAttribute('aria-invalid')
+  emailValidation.removeAttribute('role')
+
 
   if(!passwordRegex.test(password)) {
+    passwordInput.setAttribute('aria-invalid', 'true')
+    passwordValidation.setAttribute('role', 'alert')
     return passwordValidation.innerHTML = 
     `<span style="line-height: 1.2; color: red;">
     Password must contain:<br>
@@ -44,12 +61,18 @@ registerBtn.addEventListener('click', async () => {
   }
 
   passwordValidation.innerHTML = '';
+  passwordInput.removeAttribute('aria-invalid')
+  passwordValidation.removeAttribute('role')
   
   if (confirmPassword !== password) {
+    confirmPasswordInput.setAttribute('aria-invalid', 'true')
+    confirmPasswordValidation.setAttribute('role', 'alert')
     return confirmPasswordValidation.innerHTML = `<div>Password doesn't match </div>`
   }
 
   if(confirmPassword === password) {
+    confirmPasswordInput.removeAttribute('aria-invalid')
+    confirmPasswordValidation.removeAttribute('role')
     confirmPasswordValidation.innerHTML = ''
   }
 

@@ -6,43 +6,45 @@
   <title>Register</title>
   <link rel="stylesheet" href="./css-style/register-page/general.css">
   <link rel="stylesheet" href="./css-style/register-page/register.css">
-  <title>Document</title>
+
 </head>
 
 <body>  
-    <div class="main-grid">
-
-      <div class="register-grid">
-        <div class="create-text">Create an account</div>
-        <div class="catchy-text">Start managing your money smarter — track expenses, grow savings, and stay in control.</div>
+    <main class="main-grid">
+      <h1 class="sr-only">Register page</h1>
+      <section class="register-grid">
+        <header>
+          <h2 class="create-text">Create an account</h2>
+          <p class="catchy-text">Start managing your money smarter — track expenses, grow savings, and stay in control.</p>
+        </header>
 
         <div class="register-link">
-          <div class="register-text">Username</div>
-          <input class="register-input username-input-js" type="text" placeholder="Enter your username">
+          <label for="username" class="register-text">Username</label>
+          <input id="username" class="register-input username-input-js" type="text" placeholder="Enter your username">
           <div class="username-input-validation"></div>
         </div>
 
         <div class="register-link">
-          <div class="register-text">Email</div>
-          <input class="register-input email-input-js" type="text" placeholder="Enter your email">
+          <label for="email" class="register-text">Email</label>
+          <input id="email" class="register-input email-input-js" type="email" placeholder="Enter your email">
           <div class="email-input-validation"></div>
         </div>
 
         <div class="register-link">
-          <div class="register-text">Password</div>
-          <input class="register-input password-input-js" type="password" placeholder="Enter your password">
+          <label for="password" class="register-text">Password</label>
+          <input id="password" class="register-input password-input-js" type="password" placeholder="Enter your password">
           <div class="password-input-validation"></div>
         </div>
 
         <div class="register-link">
-          <div class="register-text">Confirm password</div>
-          <input class="register-input confirm-password-input-js" type="password" placeholder="Confirm your password">
+          <label for="confirm-password" class="register-text">Confirm password</label>
+          <input id="confirm-password" class="register-input confirm-password-input-js" type="password" placeholder="Confirm your password">
           <div class="confirm-password-input-validation"></div>
         </div>
 
-        <div class="register-button-grid"><button class="register-button register-button-js">Register</button></div>
+        <button class="register-button register-button-js">Register</button>
         <div class="register-error register-error-js"></div>
-      </div>
+      </section>
 
       <dialog class="dialog">
         <div class="dialog-box">
@@ -50,7 +52,7 @@
           <div class="loading-icon-box"><img class="loading-icon" src="./icons/loading-icon.png"></div>
         </div>
       </dialog>
-    </div>
+    </main>
 
     <script src="./script/register.js">
       
