@@ -5,20 +5,23 @@ const loginButton = document.querySelector('.login-button-js');
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,10}$/;
 
+const loginValidation = document.querySelector('.login-validation');
 
 
 loginButton.addEventListener('click', async () => {
-  const email = document.querySelector('.login-input-js').value.trim();
+  const emailValue = document.querySelector('.login-input-js').value.trim();
   const password = document.querySelector('.password-input-js').value;
 
+ 
 
-  if(!emailRegex.test(email)) {
-    return document.querySelector('.email-input-validation').innerHTML = '<div>Not a valid email</div>'
+  if(!emailRegex.test(emailValue)) {
+    return loginValidation.textContent = 'Not a valid email'
   }
-  document.querySelector('.email-input-validation').innerHTML = ''
+  loginValidation.innerHTML = ''
+
   
   const userLogin = {
-    email,
+    email: emailValue,
     password
   }
 
@@ -38,7 +41,8 @@ loginButton.addEventListener('click', async () => {
     const result = await response.json();
 
     if(!response.ok) {
-      return document.querySelector('.login-validation').innerHTML = result.error;
+      
+      return loginValidation.innerHTML = result.error;
     }
 
     if (result.accessToken) {

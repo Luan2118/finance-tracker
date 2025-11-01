@@ -1,60 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login</title>
+
     <link rel="stylesheet" href="./css-style/login-page/general.css">
     <link rel="stylesheet" href="./css-style/login-page/login.css">
 
   </head>
   <body>
-    <div class="main-grid">
+    <main class="main-grid">
+      <h1 class="sr-only">Login page</h1>
+        <section class="login-grid">
 
-        <div class="login-grid">
-
-          <div class="login">
-            <div class="welcome-text">Welcome back!</div>
-            <div class="catchy-text">Your journey to smarter financial habits starts here.</div>
-            <div></div>
-            
-              <div class="login-link">
-                <div class="email-text">E-mail</div>
-                <input class="login-input login-input-js" type="text" placeholder="Enter your e-mail">
-                <div class="email-input-validation"></div>
-              </div>
-
-            <div class="login-link">
-              <div class="password-text">Password</div>
-              <input class="login-input password-input-js" type="password" placeholder="Enter your password">
-              <div class="password-input-validation"></div>
-            </div>
-
-            <div class="remember-forgot-grid">
-              <div class="remember-me-grid">
-                <input type="checkbox">
-                <div>Remember me</div>
-              </div>
-
-              <div>
-                <a href="">Forgot password</a>
-              </div>
-            </div>
-
-
-            <div class="login-link">
-              <div class="login-button-grid"><button class="login-button login-button-js">Login</button></div>
-              <div class="login-validation"></div>
-            </div>
-
-            <div class="register-link-grid">
-              <div>Don't have an account?</div>
-              <div class="register-link"><a href="register.html">Register</a></div>
-            </div>
+          <header>
+            <h2 class="welcome-text">Welcome back!</h2>
+            <p class="catchy-text">Your journey to smarter financial habits starts here.</p>
+          </header>
+  
+          
+          <div class="login-link">
+            <label for="email" class="email-text">E-mail</label>
+            <input id="email" class="login-input login-input-js" type="email" placeholder="Enter your e-mail" >
           </div>
-        </div>
+
+          <div class="login-link">
+            <label for="password" class="password-text">Password</label>
+            <input id="password" class="login-input password-input-js" type="password" placeholder="Enter your password" >
+
+          </div>
+
+          <div class="remember-forgot-grid">
+              <input id="remember-me" type="checkbox">
+              <label for="remember-me">Remember me</label>
+            <a href="">Forgot password</a>
+          </div> 
+
+
+          <div class="login-link">
+            <button class="login-button login-button-js ">Login</button>
+            <div class="login-validation"></div>
+          </div>
+
+          <div class="register-link-grid">
+            <div>Don't have an account?</div>
+            <a href="register.html">Register</a>
+          </div>
+
+        </section>
         
-    </div>
+    </main>
 
     <script type="module" src="script/login.js"></script>
   </body>

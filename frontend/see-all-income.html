@@ -82,11 +82,11 @@
           <h2 class="filter-text">
             Filter:
           </h2>
-          <section class="filter-grid">
+          <div class="filter-grid">
 
-              <section class="category-grid">
+              <section class="category-grid" aria-label="Category">
                 <label for="category" class="label category-text">Category</label>
-                  <select id="category" class="income-category" name="category" aria-describedby="category-select" aria-invalid="false">
+                  <select id="category" class="income-category" name="category" aria-describedby="category-select" >
                     <option value="" selected disabled>Select a category</option>
                     <option value="Salary">Salary</option>
                     <option value="Part-Time">Part-Time</option>
@@ -127,8 +127,11 @@
   
                 <h3 class="income-range-text">Income range</h3>
   
-                <div class="amount-inner-grid">
-                  <button type="button" class="filter-button-amount-custom filter-button-amount-custom-js" value="custom" aria-controls="amount-range" aria-expanded="false">Custom</button>
+                <section class="amount-inner-grid">
+                  <header>
+                    <h4 class="sr-only">Amount range</h4>
+                    <button type="button" class="filter-button-amount-custom filter-button-amount-custom-js" value="custom" aria-controls="amount-range" aria-expanded="false">Custom</button>
+                  </header>
 
                   <fieldset id="amount-range">
                     <legend class="sr-only">Amount range</legend>
@@ -143,17 +146,17 @@
                   <button type="button" class="filter-button-amount filter-button-amount-third" value="20000">up to 20000kč</button>
   
                   <button type="button" class="filter-button-amount" value="see-all">See all</button>
-                </div>
+                </section>
   
               </section>
               
               <button type="button"  class="filter-submit-button filter-submit-button-js">Filter</button>
-          </section>
+          </div>
   
   
         </section>
   
-        <section class="bottom-part">
+        <div class="bottom-part">
           <section class="income-grid">
             <h2 class="income-inner-title">Income Overview</h2>
 
@@ -171,7 +174,7 @@
               </div>
             </div>
           </section>
-        </section>
+        </div>
       </main>
     </div>
 
