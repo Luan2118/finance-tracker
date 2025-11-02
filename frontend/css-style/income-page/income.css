@@ -32,13 +32,6 @@
 
 
 
-.bottom-part {
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  border-radius: 1rem;
-  margin-top: 1rem;
-  
-}
 
 
 
@@ -71,14 +64,20 @@
   font-weight: 600;
 }
 
-.income-grid {
-  display: flex;
+.bottom-part {
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-radius: 1rem;
+  margin-top: 1rem;
+    display: flex;
   flex-direction: column;
   background-color: white;
   border-radius: 1rem;
   padding: 0.625rem;
   margin-top: 2rem;
 }
+
+
 
 .income-sources-grid {
   display: flex;
@@ -113,20 +112,7 @@
   margin-left: 0.25rem;;
 }
 
-.income-info-grid {
-  padding-left: clamp(0.5rem, 1.2vw,  1rem);
-  padding-right: clamp(0.5rem, 1.2vw,  1rem);
-  display: flex;
-  flex-direction: column;
-}
 
-.income-info-inner-grid {
-  display: grid;
-  grid-template-columns:3rem 1fr;
-  margin-bottom: 1rem;
-  align-items: center;
-
-}
 
 .income-title {
   font-size: clamp(0.8rem, 4.5vw, 1.2rem);
@@ -149,11 +135,6 @@
   align-items: center;
 }
 
-.income-delete-button-grid {
-  margin-right: 0.25rem;;
-
-}
-
 .delete-icon {
   max-height: 16px;
 }
@@ -165,6 +146,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease, opacity 0.3s ease;
   opacity: 0;
+  margin-right: 0.25rem;
 }
 
 
@@ -193,6 +175,12 @@
   column-gap: 1.25rem;
 }
 
+.each-income {
+  display: grid;
+  grid-template-columns:3rem 1fr;
+  margin-bottom: 1rem;
+  align-items: center;
+}
 
 dialog {
   border: none;

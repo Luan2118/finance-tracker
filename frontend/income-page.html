@@ -16,13 +16,14 @@
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="header">
-      <button id="menu-icon-box" class="menu-icon-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar"><img class="menu-icon js-menu-icon" src="icons/menu-icon.png" alt=""></button>
-      <div class="title"><a href="index.html">Finance Tracker</a></div>
+      <button type="button" id="menu-icon-box" class="menu-icon-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar"><img class="menu-icon js-menu-icon" src="icons/menu-icon.png" alt=""></button>
+      <a class="title" href="index.html">Finance Tracker</a>
     </header>
 
 
     <div class="layout">
-      <div id="sidebar" class="sidebar">
+      
+      <aside id="sidebar" class="sidebar">
         <div class="profile-link">
           <div class="profile-picture-wrapper"><img class="profile-picture" src="icons/profile-picture.jpg" alt="Profile photo"></div>
           <div class="profile-name profile-name-js"></div>
@@ -59,27 +60,27 @@
           </ul>
         </nav>
 
-        <div class="side-bar-link">
-          <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/logout-icon.jpg" alt=""></div>
-          <div class="side-bar-text logout-button-js"><button class="logout-button">Logout</button></div>
-        </div>
-      </div>
+         <button type="button" class="side-bar-link logout-button logout-button-js">
+          <span class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/logout-icon.jpg" alt=""></span>
+          <span class="side-bar-text">Logout</span>
+        </button>
 
-      <main id="main" class="main-income-grid">
+      </aside>
+
+      <main id="main" class="main-income-grid" tabindex="-1">
         <h1 class="page-title">Income</h1>
-        <div class="top-part">
-          <div class="income-overview-grid">
-            <div class="income-overview-text">Income Overview</div>
-            <div>
-              <button   class="add-income-button js-add-income-button">&#43; Add Income</button>
-            </div>
-          </div>
+        <section class="top-part">
+
+          <header class="income-overview-grid">
+            <h2 class="income-overview-text">Income Overview</h2>
+            <button type="button"  class="add-income-button js-add-income-button">&#43; Add Income</button>
+          </header>
   
           <dialog id="add-income-dialog" >
-              <form class="add-income-form" id="income-submit-form">
+            <form class="add-income-form" id="income-submit-form">
               <div class="add-income-header">
                 <div class="add-income-header-title">Add Income</div>
-                <button   class="add-income-popup-close-button js-add-income-popup-close" type="button">&times;</button>
+                <button class="add-income-popup-close-button js-add-income-popup-close" type="button">&times;</button>
               </div>
               <hr>
               
@@ -87,18 +88,17 @@
                 <div class="emoji-picker-grid">
   
                   <div class="emoji-picker-inner-grid">
-                    <div><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png" alt="">
-                    </div>
+                    <div><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png" alt=""></div>
     
                     <div class="js-emoji-picker-element"></div>
-                    <div class="pick-icon"><p>Pick Icon</p></div>
-                    <div><input maxlength="2" id="emoji-input"class=" emoji-picked js-emoji-picked"></div>
+                    <label for="emoji-input" class="pick-icon">Pick Icon</label>
+                    <input maxlength="2" id="emoji-input"class=" emoji-picked js-emoji-picked">
                   </div>
   
                   <div>
-                   <label class="income-category">
-                    Category:
-                    <select  name="category">
+                   <label for="category-select" class="income-category">Category:</label>
+                    
+                    <select id="category-select" class="category-input"  name="category" aria-describedby="category-error">
                       <option value="" selected disabled>Select a category</option>
                       <option value="Salary">Salary</option>
                       <option value="Part-Time">Part-Time</option>
@@ -106,69 +106,67 @@
                       <option value="Interest">Interest</option>
                       <option value="Other-Income">Other-Income</option>
                     </select>
-                  </label>
                   </div>
                 </div>
   
-                <div class="category-input-alert js-category-input-alert"></div>
+                <div id="category-error" class="category-input-alert js-category-input-alert"></div>
                 
-              <div class="add-income-inputs">
-                <div>Income Source</div>
-                <input id="income-source-input" class="add-income-input-element js-income-value" type="text" name="incomeValue">
-                <div class="income-source-input-alert js-income-source-input-alert"></div>
+                <div class="add-income-inputs">
+                  <label for="income-source-input">Income Source</label>
+                  <input id="income-source-input" class="add-income-input-element income-input-js" type="text" name="incomeValue" aria-describedby="income-error">
+                  <div id="income-error" class="income-source-input-alert js-income-source-input-alert"></div>
+                </div>
+    
+                <div class="add-income-inputs">
+                  <label for="income-amount-input">Amount</label>
+                  <input id="income-amount-input" class="add-income-input-element amount-input-js " type="number" min="1"  aria-describedby="amount-error">
+                  <div id="amount-error" class="income-amount-input-alert js-income-amount-input-alert"></div>
+                </div>
+    
+                <div class="add-income-inputs">
+                  <label for="date-input">Date</label>
+                  <input id="date-input" class="add-income-input-element date-input-js" type="date"  aria-describedby="date-error">
+                  <div id="date-error" class="income-date-input-alert js-income-date-input-alert"></div>
+                </div>
+    
+                <div class="right-align">
+                  <button class="add-income-button-submit js-add-income-button-submit right-align" type="button">Add Income</button>
+                </div>
+  
               </div>
   
-              <div class="add-income-inputs">
-                <div>Amount</div>
-                <input id="income-amount-input" class="add-income-input-element js-amount-value " type="number" min="1" required>
-                <div class="income-amount-input-alert js-income-amount-input-alert"></div>
-              </div>
-  
-              <div class="add-income-inputs">
-                <div>Date</div>
-                <input class="add-income-input-element js-date-value" type="date">
-                <div class="income-date-input-alert js-income-date-input-alert"></div>
-              </div>
-  
-              <div class="right-align">
-                <button class="add-income-button-submit js-add-income-button-submit" type="button">Add Income</button>
-              </div>
-  
-              </div>
-  
-              </form>
+            </form>
           </dialog>
   
-            <div class="income-chart-grid">
-              <div class="income-chart-wrap">
-                <div class="income-chart-wrap-inner">
-                  <canvas id="income-chart"></canvas>
-                </div>
+          <section class="income-chart-grid" aria-label="Income overview">
+            <div class="income-chart-wrap">
+              <div class="income-chart-wrap-inner">
+                <canvas id="income-chart" role="img" aria-label="Income chart overview"></canvas>
+              </div>
 
-              </div>
-              <input class="income-chart-filter-input" id="chart-filter" type="month">
-              <button class="reset-filter-button" id="chart-reset-button">Reset</button>
             </div>
+
+            <label class="sr-only" for="chart-filter">Chart months filter</label>
+            <input class="income-chart-filter-input" id="chart-filter" type="month">
+
+            <button type="button" class="reset-filter-button" id="chart-reset-button">Reset</button>
+          </section>
   
-        </div>
+        </section>
   
-        <div class="bottom-part">
-          <div class="income-grid">
-  
-          <div class="income-sources-grid">
-            <div class="income-title">Income Sources</div>
-            <div><a href="see-all-income.html">See All Income</a></div>
-          </div>
+        <section class="bottom-part">
+
+          <header class="income-sources-grid">
+            <h2 class="income-title">Income Sources</h2>
+            <a href="see-all-income.html">See All Income</a>
+          </header>
     
-          <div class="income-info-grid">
-            
-            <div class="each-income-grid js-each-income-grid" id="submit">
-              </div>
-            </div>
-  
-          </div>
-  
-        </div>
+
+          <ol class="each-income-grid js-each-income-grid" id="submit"></ol>
+
+
+        </section>
+
       </main>
     </div>
 

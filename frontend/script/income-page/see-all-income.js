@@ -44,7 +44,7 @@ async function displayIncome(data) {
 
     let html = `
     <li class="income-info-inner-grid">
-      <div class="income-img-grid">${emoji}</div>
+      <div class="income-img-grid" aria-hidden="true">${emoji}</div>
       <div class="income-info">
         <div>
           <div class="source-text">${incomeSourceValue}</div>

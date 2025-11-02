@@ -83,71 +83,99 @@ async function generateHTML() {
     
   
   const html = `
-    <div class="each-income">
-      <div class="income-info-inner-grid">
-      <div class="income-img-grid">${emoji}</div>
+    <li class="each-income">
+      <div class="income-img-grid" aria-hidden="true">${emoji}</div>
       <div class="income-info">
-        <div>
+        <div class="income-left-side">
           <div class="source-text">${incomeSourceValue}</div>
           <div class="income-date">${formattedDate}</div>
           <div class="income-category">Category: ${category}</div>
         </div>
 
         <div class="income-right-side">
-          <div class="income-delete-button-grid"><button class="income-delete-button js-income-delete-button" data-id="${_id}"><img class="delete-icon" src="./icons/bin-icon.png"></button></div>
+          <button type="button" class="income-delete-button js-income-delete-button" data-id="${_id}"><img class="delete-icon" src="./icons/bin-icon.png" alt="Delete income"></button>
           <div class="income-amount-plus">+${formatCurrency(amountValue, symbol)}</div>
         </div>
       </div>
-      </div>
-    </div>
+    </li>
   `
   dataHTML += html;
   });
 
   document.querySelector('.js-each-income-grid').innerHTML = dataHTML;
   deleteButton();
-
+ 
 }
 
 function submitIncome() {
   
+  const categoryInput = document.querySelector('.category-input');
+  const incomeInput =  document.querySelector('.income-input-js');
+  const amountInput = document.querySelector('.amount-input-js');
+  const dateInput = document.querySelector('.date-input-js');
+
+  const categoryValidation = document.querySelector('.js-category-input-alert');
+  const incomeValidation = document.querySelector('.js-income-source-input-alert');
+  const amountValidation = document.querySelector('.js-income-amount-input-alert');
+  const dateValidation = document.querySelector('.js-income-date-input-alert')
+
   document.querySelectorAll('.js-add-income-button-submit')
     .forEach((click) => {
       click.addEventListener('click', async (event) => {
       const label = document.querySelector('.income-category')
       const category = label.querySelector('select').value
-      const incomeSourceValue = document.querySelector('.js-income-value').value;
-      let amountValue = document.querySelector('.js-amount-value').value;
-      const dateValue = document.querySelector('.js-date-value').value;
+
+
+      const incomeSourceValue = incomeInput.value;
+      let amountValue = amountInput.value;
+      const dateValue = dateInput.value;
       const emoji = document.querySelector('.js-emoji-picked').value
+
+
   
       amountValue = Number(amountValue)
-      document.querySelector('.js-income-amount-input-alert').innerHTML = '';
-      document.querySelector('.js-income-date-input-alert').innerHTML = '';
+
 
 
       if (category === '') {
-        document.querySelector('.js-category-input-alert').innerHTML = "<p>Please select a category!</p>"
+        categoryInput.setAttribute('aria-invalid', 'true');
+        categoryValidation.setAttribute('role', 'alert');
+        categoryValidation.textContent = 'Please select a category!'
         return;
       }
+      categoryInput.removeAttribute('aria-invalid');
+      categoryValidation.removeAttribute('role');
+      categoryValidation.textContent = '';
 
       if (incomeSourceValue === '') {
-        document.querySelector('.js-income-source-input-alert').innerHTML = "<p>Income Source can't be empty!</p>"
+        incomeInput.setAttribute('aria-invalid', 'true');
+        incomeValidation.setAttribute('role', 'alert');
+        incomeValidation.textContent = "Income Source can't be empty!"
         return;
       }
+      incomeInput.removeAttribute('aria-invalid');
+      incomeValidation.removeAttribute('role');
+      incomeValidation.textContent = '';
       
       if (Number(amountValue) <= 0 ) {
-        document.querySelector('.js-income-amount-input-alert')
-        .innerHTML = "<p>Amount can't be empty and has to be greater than 0!</p>"
+        amountInput.setAttribute('aria-invalid', 'true');
+        amountValidation.setAttribute('role', 'alert');
+        amountValidation.textContent = "Amount can't be empty and has to be greater than 0!"
         return;
       }
+      amountInput.removeAttribute('aria-invalid');
+      amountValidation.removeAttribute('role');
+      amountValidation.textContent = '';
       
       if (!dateValue) {
-        document.querySelector('.js-income-date-input-alert')
-        .innerHTML = '<p>Please pick a date!</p>'
+        dateInput.setAttribute('aria-invalid', 'true');
+        dateValidation.setAttribute('role', 'alert');
+        dateValidation.textContent = 'Please pick a date!'
         return;
       }
-      
+      dateInput.removeAttribute('aria-invalid');
+      dateValidation.removeAttribute('role');
+      dateValidation.textContent = '';
       
       
       const newIncome = {
@@ -158,9 +186,6 @@ function submitIncome() {
         dateValue,
         emoji
       }
-      
-
-      
       
       try {
         let token = getAccessToken();
