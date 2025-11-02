@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,63 +12,78 @@
   </head>
 
   <body>
-    <div  class="header">
-      <div id="menu-icon-box"><img class="menu-icon js-menu-icon" src="icons/menu-icon.png"></div>
-      <div class="title"><a href="index.html">Finance Tracker</a></div>
-    </div>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+     <header class="header">
+      <button type="button" id="menu-icon-box" class="menu-icon-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar"><img class="menu-icon js-menu-icon" src="icons/menu-icon.png" alt=""></button>
+      <a class="title" href="index.html">Finance Tracker</a>
+    </header>
+
+
 
     
     <div class="layout">
-      <div id="sidebar" class="sidebar">
+
+      <aside id="sidebar" class="sidebar">
         <div class="profile-link">
-          <div class="profile-picture-wrapper"><img class="profile-picture" src="icons/profile-picture.jpg"></div>
+          <div class="profile-picture-wrapper"><img class="profile-picture" src="icons/profile-picture.jpg" alt="Profile picture"></div>
           <div class="profile-name profile-name-js"></div>
         </div>
 
-        <a href="index.html">
-          <div class="side-bar-link">
-            <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/dashboard-icon.png"></div>
-            <div class="side-bar-text"><button class="dashboard-button">Dashboard</button></div>
-          </div>
-        </a>
+        <nav aria-label="Primary">
+          <ul>
+            <li>
+              <a href="index.html">
+                <div class="side-bar-link">
+                  <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/dashboard-icon.png" alt=""></div>
+                  <div class="dashboard-button side-bar-text">Dashboard</div>
+                </div>
+              </a>
+            </li>
 
-        <a href="income-page.html">
-        <div class="side-bar-link">
-          <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/sidebar-income-icon.png"></div>
-          <div class="side-bar-text">
-            <button class="income-button">Income</button></div>
-        </div>
-        </a>
-        
-        <a href="expense-page.html">
-          <div class="side-bar-link">
-            <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/sidebar-expense-icon.png"></div>
-            <div class="side-bar-text"><button class="expense-button">Expense</button></div>
-          </div>
-        </a>
+            <li>
+              <a href="income-page.html">
+                <div class="side-bar-link">
+                  <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/sidebar-income-icon.png" alt=""></div>
+                  <div class="income-button side-bar-text">Income</div>
+                </div>
+              </a>
+            </li>
 
-        <div class="side-bar-link">
-          <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/logout-icon.jpg"></div>
-          <div class="side-bar-text logout-button-js"><button class="logout-button">Logout</button></div>
-        </div>
-      </div>
+            <li>
+              <a href="expense-page.html" aria-current="page">
+                <div class="side-bar-link">
+                  <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/sidebar-expense-icon.png" alt=""></div>
+                  <div class="expense-button side-bar-text">Expense</div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </nav>
 
-      <div class="main-expense-grid">
-        <div class="top-part">
-          
-          <div class="expense-overview-grid">
-            <div class="expense-overview-text">Expense Overview</div>
-            <div>
-              <button class="add-expense-button js-add-expense-button">&#43; Add Expense</button>
-            </div>
-          </div>
+
+        <button type="button" class="side-bar-link logout-button logout-button-js">
+          <span class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/logout-icon.jpg" alt=""></span>
+          <span class="side-bar-text">Logout</span>
+        </button>
+      </aside>
+
+      <main id="main" class="main-expense-grid" tabindex="-1">
+        <h1 class="sr-only">Expense page</h1>
+
+        <section class="top-part">
+
+          <header class="expense-overview-grid">
+            <h2 class="expense-overview-text">Expense Overview</h2>
+            <button class="add-expense-button js-add-expense-button" type="button">&#43; Add Expense</button>
+          </header>
 
           <dialog id="add-expense-dialog" class="js-add-expense-dialog" >
-              <form class="add-expense-form js-add-expense-form">
+            <form class="add-expense-form js-add-expense-form">
               <div class="add-expense-header">
                 <div class="add-expense-header-title">Add Expense</div>
-                <button   class="add-expense-popup-close-button js-add-expense-popup-close" type="button">&times;</button>
-                
+                <button class="add-expense-popup-close-button js-add-expense-popup-close" type="button">&times;</button>
               </div>
               <hr>
               
@@ -76,92 +91,86 @@
                 <div class="emoji-picker-grid">
 
                   <div class="emoji-picker-inner-grid">
-                    <div><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png">
-                    </div>
-    
+                    <button type="button" class="emoji-picker-btn"><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png" alt="Pick emoji"></button>
+                    
                     <div class="js-emoji-picker-element"></div>
-                    <div class="pick-icon"><p>Pick Icon</p></div>
-                    <div><input maxlength="2" id="emoji-input"class=" emoji-picked js-emoji-picked"></div>
+                    <label for="emoji-input" class="pick-icon">Pick Icon</label>
+                    <input maxlength="2" id="emoji-input"class=" emoji-picked js-emoji-picked">
                   </div>
 
+                  <label for="category-select" class="expense-category"> Category:</label>
+                  <select id="category-select"  name="category" class="category-input" aria-describedby="category-error">
+                    <option value="" selected disabled>Select a category</option>
+                    <option value="Food & Groceries">Food & Groceries</option>
+                    <option value="Dining Out / Takeout">Dining Out / Takeout</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Health">Health</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Education">Education</option>
+                    <option value="Housing">Housing</option>
+                    <option value="Other-Expense">Other-Expense</option>
+                  </select>
 
-                  <div>
-                  <label class="expense-category">
-                    Category:
-                    <select  name="category">
-                      <option value="" selected disabled>Select a category</option>
-                      <option value="Food & Groceries">Food & Groceries</option>
-                      <option value="Dining Out / Takeout">Dining Out / Takeout</option>
-                      <option value="Shopping">Shopping</option>
-                      <option value="Transportation">Transportation</option>
-                      <option value="Health">Health</option>
-                      <option value="Entertainment">Entertainment</option>
-                      <option value="Travel">Travel</option>
-                      <option value="Education">Education</option>
-                      <option value="Housing">Housing</option>
-                      <option value="Other-Expense">Other-Expense</option>
-                    </select>
-                  </label>
-                  </div>
                 </div>
 
-                <div class="emoji-input-alert js-emoji-input-alert"></div>
+                <div id="category-error" class="category-input-alert js-category-input-alert"></div>
 
               
-              <div class="add-expense-inputs">
-                <div>Expense Source</div>
-                <input id="expense-source-input" class="add-expense-input-element js-expense-value" type="text" name="incomeValue">
-                <div class="expense-source-input-alert js-expense-source-input-alert"></div>
+                <div class="add-expense-inputs">
+                  <label for="expense-source-input">Expense Source</label>
+                  <input id="expense-source-input" class="add-expense-input-element js-expense-value" type="text" name="incomeValue" aria-describedby="expense-source-error">
+                  <div id="expense-source-error" class="expense-source-input-alert js-expense-source-input-alert"></div>
+                </div>
+
+                <div class="add-expense-inputs">
+                  <label for="expense-amount-input">Amount</label>
+                  <input id="expense-amount-input" class="add-expense-input-element js-amount-value " type="number" min="0" step="1"  oninput="this.value = this.value.replace(/[^0-9]/g,'')" aria-describedby="expense-amount-error">
+                  <div id="expense-amount-error" class="expense-amount-input-alert js-expense-amount-input-alert"></div>
+                </div>
+
+                <div class="add-expense-inputs">
+                  <label for="date-input">Date</label>
+                  <input id="date-input" class="add-expense-input-element js-date-value" type="date" aria-describedby="date-input-error">
+                  <div id="date-input-error" class="expense-date-input-alert js-expense-date-input-alert"></div>
+                </div>
+
+                <div class="right-align">
+                  <button class="add-expense-button-submit js-add-expense-button-submit" type="button">Add Expense</button>
+                </div>
+
               </div>
 
-              <div class="add-expense-inputs">
-                <div>Amount</div>
-                <input id="expense-amount-input" class="add-expense-input-element js-amount-value " type="number" min="0" step="1"  oninput="this.value = this.value.replace(/[^0-9]/g,'')">
-                <div class="expense-amount-input-alert js-expense-amount-input-alert"></div>
-              </div>
-
-              <div class="add-expense-inputs">
-                <div>Date</div>
-                <input class="add-expense-input-element js-date-value" type="date">
-                <div class="expense-date-input-alert js-expense-date-input-alert"></div>
-              </div>
-
-              <div class="right-align">
-                <button class="add-expense-button-submit js-add-expense-button-submit" type="button">Add Expense</button>
-              </div>
-
-              </div>
-
-              </form>
+            </form>
           </dialog>
 
-          <div class="expense-chart-grid">
+          <section class="expense-chart-grid" aria-label="Expense overview">
             <div class="expense-chart-wrap">
               <div class="expense-chart-wrap-inner">
-                <canvas id="expense-chart"></canvas>
+                <canvas id="expense-chart" role="img" aria-label="Expense chart overview"></canvas>
               </div>
             </div>
+            <label for="chart-filter" class="sr-only">Chart months filter</label>
             <input class="expense-chart-filter-input" id="chart-filter" type="month">
-            <button class="reset-filter-button" id="chart-reset-button">Reset</button>
-          </div>
+            <button class="reset-filter-button" id="chart-reset-button" type="button">Reset</button>
+          </section>
 
-        </div>
+        </section>
 
-        <div class="bottom-part">
-          <div class="expense-grid">
+        <section class="bottom-part">
 
-          <div class="expense-sources-grid">
-            <div class="expense-title">All Expenses</div>
-            <div><a href="see-all-expenses.html"><button class="see-all-button see-all-button-js">See All Expenses</button></a></div>
-          </div>
+          <header class="expense-sources-grid">
+            <h2 class="expense-title">All Expenses</h2>
+            <a href="see-all-expenses.html">See All Expenses</a>
+          </header>
     
-          <div class="expense-info-grid">
-            <div class="each-expense-grid js-each-expense-grid">
-          </div>
 
-        </div>
+          <ol class="each-expense-grid js-each-expense-grid"></ol>
 
-      </div>
+        </section> 
+
+      </main>
     </div>
 
 

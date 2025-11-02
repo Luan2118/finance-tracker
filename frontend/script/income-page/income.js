@@ -122,8 +122,8 @@ function submitIncome() {
   document.querySelectorAll('.js-add-income-button-submit')
     .forEach((click) => {
       click.addEventListener('click', async (event) => {
-      const label = document.querySelector('.income-category')
-      const category = label.querySelector('select').value
+
+      const category = categoryInput.value
 
 
       const incomeSourceValue = incomeInput.value;

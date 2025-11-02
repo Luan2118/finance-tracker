@@ -82,9 +82,8 @@ async function generateHTML() {
     
 
     const html = `
-      <div class="each-expense">
-        <div class="expense-info-inner-grid">
-        <div class="expense-img-grid">${emoji}</div>
+      <li class="each-expense">
+        <div class="expense-img-grid" aria-hidden="true">${emoji}</div>
         <div class="expense-info">
           <div>
             <div class="source-text">${expenseSourceValue}</div>
@@ -93,13 +92,12 @@ async function generateHTML() {
           </div>
           
           <div class="expense-right-side">
-            <div class="expense-delete-button-grid"><button class="expense-delete-button js-expense-delete-button" data-id="${_id}"><img class="delete-icon" src="./icons/bin-icon.png"></button></div>
+            <button type="button" class="expense-delete-button js-expense-delete-button" data-id="${_id}"><img class="delete-icon" src="./icons/bin-icon.png" alt="Delete expense"></button>
             <div class="expense-amount-minus">-${formatCurrency(amountValue, symbol)}
             </div>
           </div>
         </div>
-        </div>
-      </div>
+      </li>
     `
     dataHTML += html;
 
@@ -113,15 +111,24 @@ deleteExpenseButton();
 
 }
 
+const categoryInput = document.querySelector('.category-input');
+const expenseInput = document.querySelector('.js-expense-value');
+const amountInput = document.querySelector('.js-amount-value');
+const dateInput = document.querySelector('.js-date-value');
+
+const categoryValidation = document.querySelector('.js-expense-category-input-alert');
+const expenseValidation = document.querySelector('.js-expense-source-input-alert');
+const amountValidation = document.querySelector('.js-expense-amount-input-alert');
+const dateValidation = document.querySelector('.js-expense-date-input-alert');
+
 function submitExpense() {
   document.querySelectorAll('.js-add-expense-button-submit')
     .forEach((event) => {
       event.addEventListener('click', async () => {
-        const label = document.querySelector('.expense-category');
-        const category = label.querySelector('select').value
-        const expenseSourceValue = document.querySelector('.js-expense-value').value;
-        let amountValue = document.querySelector('.js-amount-value').value;
-        const dateValue = document.querySelector('.js-date-value').value;
+        const category = categoryInput.value
+        const expenseSourceValue = expenseInput.value;
+        let amountValue = amountInput.value;
+        const dateValue = dateInput.value;
         let emoji = document.querySelector('.js-emoji-picked').value;
 
          amountValue = Number(amountValue)
@@ -131,25 +138,45 @@ function submitExpense() {
         document.querySelector('.js-expense-amount-input-alert').innerHTML = '';
         document.querySelector('.js-expense-date-input-alert').innerHTML = '';
 
-        if (expenseSourceValue === '') {
-          document.querySelector('.js-expense-source-input-alert')
-            .innerHTML = "<p>Expense Source can't be empty!</p>"
-          return;
-        }
-        
-        if (Number(amountValue) <= 0) {
-          document.querySelector('.js-expense-amount-input-alert')
-            .innerHTML = "<p>Amount can't be empty and has to be greater than 0!</p>"
-    
-          return;
-        }
+       if (category === '') {
+        categoryInput.setAttribute('aria-invalid', 'true');
+        categoryValidation.setAttribute('role', 'alert');
+        categoryValidation.textContent = 'Please select a category!'
+        return;
+      }
+      categoryInput.removeAttribute('aria-invalid');
+      categoryValidation.removeAttribute('role');
+      categoryValidation.textContent = '';
 
-        if (!dateValue) {
-          document.querySelector('.js-expense-date-input-alert')
-            .innerHTML= '<p>Please pick a date!</p>'
-          return;
-        }
-
+      if (expenseSourceValue === '') {
+        expenseInput.setAttribute('aria-invalid', 'true');
+        expenseValidation.setAttribute('role', 'alert');
+        expenseValidation.textContent = "Expense Source can't be empty!"
+        return;
+      }
+      expenseInput.removeAttribute('aria-invalid');
+      expenseValidation.removeAttribute('role');
+      expenseValidation.textContent = '';
+      
+      if (Number(amountValue) <= 0 ) {
+        amountInput.setAttribute('aria-invalid', 'true');
+        amountValidation.setAttribute('role', 'alert');
+        amountValidation.textContent = "Amount can't be empty and has to be greater than 0!"
+        return;
+      }
+      amountInput.removeAttribute('aria-invalid');
+      amountValidation.removeAttribute('role');
+      amountValidation.textContent = '';
+      
+      if (!dateValue) {
+        dateInput.setAttribute('aria-invalid', 'true');
+        dateValidation.setAttribute('role', 'alert');
+        dateValidation.textContent = 'Please pick a date!'
+        return;
+      }
+      dateInput.removeAttribute('aria-invalid');
+      dateValidation.removeAttribute('role');
+      dateValidation.textContent = '';
       
         const newExpense = {
           category,
