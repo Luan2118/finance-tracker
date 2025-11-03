@@ -115,8 +115,8 @@ async function displayRecentTransactions() {
 
     if (sharedData[i].type === 'expense') {
       const html = `
-      <div class="transactions-info-inner-grid">
-        <div class="transaction-img-grid">${sharedData[i].emoji}</div>
+      <li class="transactions-info-inner-grid">
+        <div class="transaction-img-grid" aria-hidden="true">${sharedData[i].emoji}</div>
         <div class="transactions-info">
           <div>
             <div class="source-text">${sharedData[i].expenseSourceValue}</div>
@@ -124,14 +124,14 @@ async function displayRecentTransactions() {
           </div>
           <div class="transactions-amount-minus">-${formatCurrency(sharedData[i].amountValue, symbol)}</div>
         </div>
-      </div>
+      </li>
       `
       sharedDataHTML += html
       
     }else if (sharedData[i].type === 'income') {    
       const html = `
-      <div class="transactions-info-inner-grid">
-        <div class="transaction-img-grid">${sharedData[i].emoji}</div>
+      <li class="transactions-info-inner-grid">
+        <div class="transaction-img-grid" aria-hidden="true">${sharedData[i].emoji}</div>
         <div class="transactions-info">
           <div>
             <div class="source-text">${sharedData[i].incomeSourceValue}</div>
@@ -139,7 +139,7 @@ async function displayRecentTransactions() {
           </div>
           <div class="transactions-amount-plus">+${formatCurrency(sharedData[i].amountValue, symbol)} </div>
         </div>
-      </div>
+      </li>
       `
       sharedDataHTML += html
     }
@@ -159,17 +159,17 @@ async function displayExpenses() {
   for (let i = 0 ; i < expenseData.length && i < 10 ; i ++) {
     const formattedDate = getFormattedDate(expenseData[i].dateValue)
     const html = `
-    <div class="transactions-info-inner-grid">
-    <div class="transaction-img-grid">${expenseData[i].emoji}</div>
-    <div class="transactions-info">
-    <div>
-    <div class="source-text">${expenseData[i].expenseSourceValue}</div>
-    <div class="transactions-date">${formattedDate}</div>
-    </div>
-    
-    <div class="transactions-amount-minus">-${formatCurrency(expenseData[i].amountValue, symbol)} </div>
-    </div>
-    </div>  
+
+    <li class="transactions-info-inner-grid">
+      <div class="transaction-img-grid" aria-hidden="true">${expenseData[i].emoji}</div>
+      <div class="transactions-info">
+        <div>
+          <div class="source-text">${expenseData[i].expenseSourceValue}</div>
+          <div class="transactions-date">${formattedDate}</div>
+        </div>
+        <div class="transactions-amount-minus">-${formatCurrency(expenseData[i].amountValue, symbol)} </div>
+      </div>
+    </li>  
     `
     
     expenseDataHTML += html;
@@ -189,17 +189,17 @@ async function displayIncome() {
   for (let i = 0 ; i < incomeData.length && i < 10 ; i ++ ) {
     const formattedDate = getFormattedDate(incomeData[i].dateValue)
      let html = `
-     <div class="transactions-info-inner-grid">
-     <div class="transaction-img-grid">${incomeData[i].emoji}</div>
-     <div class="transactions-info">
-     <div>
-     <div class="source-text">${incomeData[i].incomeSourceValue}</div>
-     <div class="transactions-date">${formattedDate}</div>
-     </div>
-     
-     <div class="transactions-amount-plus">+${formatCurrency(incomeData[i].amountValue, symbol)} </div>
-     </div>
-     </div>
+     <li class="transactions-info-inner-grid">
+      <div class="transaction-img-grid" aria-hidden="true">${incomeData[i].emoji}</div>
+      <div class="transactions-info">
+        <div>
+          <div class="source-text">${incomeData[i].incomeSourceValue}</div>
+          <div class="transactions-date">${formattedDate}</div>
+        </div>
+      
+        <div class="transactions-amount-plus">+${formatCurrency(incomeData[i].amountValue, symbol)} </div>
+      </div>
+     </li>
      `
      incomeDataHTML += html
     }
@@ -224,15 +224,18 @@ const dropDownIconBtn = document.getElementById('drop-down-icon')
   const iconSrc = document.querySelector('#drop-down-box img')
   const dropDownIcon = 'icons/dropdown-arrow-icon.png';
   const dropUpIcon = 'icons/dropup-arrow-icon.png';
+  const dropDownBtn = document.querySelector('.dropdown-btn');
   
   const currencyOptions = document.getElementById('options')
   
-  dropDownIconBtn.addEventListener('click', () => {
+  dropDownBtn.addEventListener('click', () => {
     if (iconSrc.src.includes(dropDownIcon)) {
       iconSrc.src = dropUpIcon;
+      dropDownBtn.ariaExpanded = "true";
       currencyOptions.style.display = 'block';
     }else {
       iconSrc.src = dropDownIcon;
+      dropDownBtn.ariaExpanded = "false";
       currencyOptions.style.display = 'none';
     }
   })
