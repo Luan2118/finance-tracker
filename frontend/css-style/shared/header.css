@@ -78,6 +78,9 @@
   .menu-icon {
     display: block;
   }
+  .menu-icon-btn {
+    display: block;
+}
 }
 
 .title {
