@@ -16,7 +16,8 @@ const registerBtn = document.querySelector('.register-button-js');
 
 
 
-registerBtn.addEventListener('click', async () => {
+registerBtn.addEventListener('click', async (e) => {
+  e.preventDefault();
   
   const usernameInput = document.querySelector('.username-input-js');
   const emailInput = document.querySelector('.email-input-js');
