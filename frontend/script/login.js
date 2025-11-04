@@ -8,7 +8,10 @@ const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,10}$/;
 const loginValidation = document.querySelector('.login-validation');
 
 
-loginButton.addEventListener('click', async () => {
+loginButton.addEventListener('click', async (e) => {
+
+  e.preventDefault();
+
   const emailValue = document.querySelector('.login-input-js').value.trim();
   const password = document.querySelector('.password-input-js').value;
 

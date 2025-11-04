@@ -79,11 +79,12 @@
             <button class="add-expense-button js-add-expense-button" type="button">&#43; Add Expense</button>
           </header>
 
-          <dialog id="add-expense-dialog" class="js-add-expense-dialog" >
+          <dialog id="add-expense-dialog" class="js-add-expense-dialog" aria-labelledby="add-expense-title">
+
             <form class="add-expense-form js-add-expense-form">
               <div class="add-expense-header">
-                <div class="add-expense-header-title">Add Expense</div>
-                <button class="add-expense-popup-close-button js-add-expense-popup-close" type="button">&times;</button>
+                <h2 id="add-expense-title" class="add-expense-header-title">Add Expense</h2>
+                <button class="add-expense-popup-close-button js-add-expense-popup-close" type="button" aria-label="Close">&times;</button>
               </div>
               <hr>
               
@@ -91,15 +92,15 @@
                 <div class="emoji-picker-grid">
 
                   <div class="emoji-picker-inner-grid">
-                    <button type="button" class="emoji-picker-btn"><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png" alt="Pick emoji"></button>
+                    <button type="button" class="emoji-picker-btn" aria-label="Pick emoji"><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png" alt=""></button>
                     
                     <div class="js-emoji-picker-element"></div>
                     <label for="emoji-input" class="pick-icon">Pick Icon</label>
-                    <input maxlength="2" id="emoji-input"class=" emoji-picked js-emoji-picked">
+                    <input maxlength="2" id="emoji-input" class=" emoji-picked js-emoji-picked" name="emoji" type="text">
                   </div>
 
                   <label for="category-select" class="expense-category"> Category:</label>
-                  <select id="category-select"  name="category" class="category-input" aria-describedby="category-error">
+                  <select id="category-select"  name="category" class="category-input" aria-describedby="category-error" required>
                     <option value="" selected disabled>Select a category</option>
                     <option value="Food & Groceries">Food & Groceries</option>
                     <option value="Dining Out / Takeout">Dining Out / Takeout</option>
@@ -120,24 +121,24 @@
               
                 <div class="add-expense-inputs">
                   <label for="expense-source-input">Expense Source</label>
-                  <input id="expense-source-input" class="add-expense-input-element js-expense-value" type="text" name="incomeValue" aria-describedby="expense-source-error">
+                  <input id="expense-source-input" class="add-expense-input-element js-expense-value" type="text" name="expenseSourceValue" aria-describedby="expense-source-error" required>
                   <div id="expense-source-error" class="expense-source-input-alert js-expense-source-input-alert"></div>
                 </div>
 
                 <div class="add-expense-inputs">
                   <label for="expense-amount-input">Amount</label>
-                  <input id="expense-amount-input" class="add-expense-input-element js-amount-value " type="number" min="0" step="1"  oninput="this.value = this.value.replace(/[^0-9]/g,'')" aria-describedby="expense-amount-error">
+                  <input id="expense-amount-input" class="add-expense-input-element js-amount-value " type="number" min="0" step="1" name="amountValue" oninput="this.value = this.value.replace(/[^0-9]/g,'')" aria-describedby="expense-amount-error" required>
                   <div id="expense-amount-error" class="expense-amount-input-alert js-expense-amount-input-alert"></div>
                 </div>
 
                 <div class="add-expense-inputs">
                   <label for="date-input">Date</label>
-                  <input id="date-input" class="add-expense-input-element js-date-value" type="date" aria-describedby="date-input-error">
+                  <input id="date-input" class="add-expense-input-element js-date-value" type="date" name="dateValue" aria-describedby="date-input-error" required>
                   <div id="date-input-error" class="expense-date-input-alert js-expense-date-input-alert"></div>
                 </div>
 
                 <div class="right-align">
-                  <button class="add-expense-button-submit js-add-expense-button-submit" type="button">Add Expense</button>
+                  <button class="add-expense-button-submit js-add-expense-button-submit" type="submit">Add Expense</button>
                 </div>
 
               </div>

@@ -3,11 +3,7 @@
 .layout {
   display: flex;
 }
-h2,
-ol {
-  margin: 0;
-  padding: 0;
-}
+
 
 fieldset {
   border:none;

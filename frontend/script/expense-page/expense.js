@@ -116,7 +116,7 @@ const expenseInput = document.querySelector('.js-expense-value');
 const amountInput = document.querySelector('.js-amount-value');
 const dateInput = document.querySelector('.js-date-value');
 
-const categoryValidation = document.querySelector('.js-expense-category-input-alert');
+const categoryValidation = document.querySelector('.js-category-input-alert');
 const expenseValidation = document.querySelector('.js-expense-source-input-alert');
 const amountValidation = document.querySelector('.js-expense-amount-input-alert');
 const dateValidation = document.querySelector('.js-expense-date-input-alert');
@@ -124,7 +124,8 @@ const dateValidation = document.querySelector('.js-expense-date-input-alert');
 function submitExpense() {
   document.querySelectorAll('.js-add-expense-button-submit')
     .forEach((event) => {
-      event.addEventListener('click', async () => {
+      event.addEventListener('click', async (event) => {
+        event.preventDefault();
         const category = categoryInput.value
         const expenseSourceValue = expenseInput.value;
         let amountValue = amountInput.value;

@@ -12,7 +12,8 @@
 <body>  
     <main class="main-grid">
       <h1 class="sr-only">Register page</h1>
-      <section class="register-grid">
+      <form class="register-grid">
+
         <header>
           <h2 class="create-text">Create an account</h2>
           <p class="catchy-text">Start managing your money smarter — track expenses, grow savings, and stay in control.</p>
@@ -20,33 +21,34 @@
 
         <div class="register-link">
           <label for="username" class="register-text">Username</label>
-          <input id="username" class="register-input username-input-js" type="text" placeholder="Enter your username">
+          <input id="username" class="register-input username-input-js" type="text" placeholder="Enter your username" name="username" required>
           <div class="username-input-validation"></div>
         </div>
 
         <div class="register-link">
           <label for="email" class="register-text">Email</label>
-          <input id="email" class="register-input email-input-js" type="email" placeholder="Enter your email">
+          <input id="email" class="register-input email-input-js" type="email" placeholder="Enter your email" name="email" required>
           <div class="email-input-validation"></div>
         </div>
 
         <div class="register-link">
           <label for="password" class="register-text">Password</label>
-          <input id="password" class="register-input password-input-js" type="password" placeholder="Enter your password">
+          <input id="password" class="register-input password-input-js" type="password" placeholder="Enter your password" name="password" required>
           <div class="password-input-validation"></div>
         </div>
 
         <div class="register-link">
           <label for="confirm-password" class="register-text">Confirm password</label>
-          <input id="confirm-password" class="register-input confirm-password-input-js" type="password" placeholder="Confirm your password">
+          <input id="confirm-password" class="register-input confirm-password-input-js" type="password" placeholder="Confirm your password" name="confirm-password" required>
           <div class="confirm-password-input-validation"></div>
         </div>
 
-        <button class="register-button register-button-js">Register</button>
+        <button class="register-button register-button-js" type="submit">Register</button>
         <div class="register-error register-error-js"></div>
-      </section>
+      </form>
 
-      <dialog class="dialog">
+      <dialog class="dialog" aria-labelledby="successfull-register">
+        <h2 id="succesfull-register" class="sr-only">Registration successfull</h2>
         <div class="dialog-box">
           <div class="dialog-text">User registered succesfully!&#9989</div>
           <div class="loading-icon-box"><img class="loading-icon" src="./icons/loading-icon.png"></div>

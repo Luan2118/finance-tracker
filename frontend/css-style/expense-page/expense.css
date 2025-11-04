@@ -3,6 +3,8 @@
   display: flex;
 }
 
+
+
 .main-expense-grid {
   display: flex;
   flex-direction: column;

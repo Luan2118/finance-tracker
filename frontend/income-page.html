@@ -76,11 +76,11 @@
             <button type="button"  class="add-income-button js-add-income-button">&#43; Add Income</button>
           </header>
   
-          <dialog id="add-income-dialog" >
+          <dialog id="add-income-dialog" aria-labelledby="add-income-title">
             <form class="add-income-form" id="income-submit-form">
               <div class="add-income-header">
-                <div class="add-income-header-title">Add Income</div>
-                <button class="add-income-popup-close-button js-add-income-popup-close" type="button">&times;</button>
+                <h2 id="add-income-title" class="add-income-header-title">Add Income</h2>
+                <button class="add-income-popup-close-button js-add-income-popup-close" type="button" aria-label="Close">&times;</button>
               </div>
               <hr>
               
@@ -92,12 +92,12 @@
     
                     <div class="js-emoji-picker-element"></div>
                     <label for="emoji-input" class="pick-icon">Pick Icon</label>
-                    <input maxlength="2" id="emoji-input"class=" emoji-picked js-emoji-picked">
+                    <input maxlength="2" id="emoji-input"class=" emoji-picked js-emoji-picked" name="emoji">
                   </div>
   
                   <label for="category-select" class="income-category">Category:</label>
                   
-                  <select id="category-select" class="category-input"  name="category" aria-describedby="category-error">
+                  <select id="category-select" class="category-input"  name="category" aria-describedby="category-error" required>
                     <option value="" selected disabled>Select a category</option>
                     <option value="Salary">Salary</option>
                     <option value="Part-Time">Part-Time</option>
@@ -112,24 +112,24 @@
                 
                 <div class="add-income-inputs">
                   <label for="income-source-input">Income Source</label>
-                  <input id="income-source-input" class="add-income-input-element income-input-js" type="text" name="incomeValue" aria-describedby="income-error">
+                  <input id="income-source-input" class="add-income-input-element income-input-js" type="text" name="incomeValue" aria-describedby="income-error" required>
                   <div id="income-error" class="income-source-input-alert js-income-source-input-alert"></div>
                 </div>
     
                 <div class="add-income-inputs">
                   <label for="income-amount-input">Amount</label>
-                  <input id="income-amount-input" class="add-income-input-element amount-input-js " type="number" min="1"  aria-describedby="amount-error">
+                  <input id="income-amount-input" class="add-income-input-element amount-input-js " type="number" min="1"  aria-describedby="amount-error" name="amountValue" required>
                   <div id="amount-error" class="income-amount-input-alert js-income-amount-input-alert"></div>
                 </div>
     
                 <div class="add-income-inputs">
                   <label for="date-input">Date</label>
-                  <input id="date-input" class="add-income-input-element date-input-js" type="date"  aria-describedby="date-error">
+                  <input id="date-input" class="add-income-input-element date-input-js" type="date"  aria-describedby="date-error" name="dateValue" required>
                   <div id="date-error" class="income-date-input-alert js-income-date-input-alert"></div>
                 </div>
     
                 <div class="right-align">
-                  <button class="add-income-button-submit js-add-income-button-submit right-align" type="button">Add Income</button>
+                  <button class="add-income-button-submit js-add-income-button-submit right-align" type="submit">Add Income</button>
                 </div>
   
               </div>

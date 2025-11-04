@@ -123,6 +123,8 @@ function submitIncome() {
     .forEach((click) => {
       click.addEventListener('click', async (event) => {
 
+        event.preventDefault();
+
       const category = categoryInput.value
 
 
