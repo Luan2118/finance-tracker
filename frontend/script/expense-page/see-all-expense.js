@@ -1,7 +1,7 @@
 import { expenseData, loadExpenseData, updateExpenseDate, setExpenseData, monthlyExpenseSummary } from "../../data/expenseData.js";
 import { formatCurrency, loadGetSymbol } from "../utils/currencySymbols.js";
 import { expenseChart } from "../chartJS/expense-page/see-all-expenses-page-chart.js";
-import getUsername from "../utils/getUserName.js";
+import getUsername from "../utils/getUsername.js";
 import getFormattedDate from "../utils/getFormattedDate.js"
 import { updateChart } from "../utils/updateChart.js";
 import {setupCustomAmountFilter, filterAmountValue, customAmountClicked} from "../utils/see-all-income-expense-page/setupCustomAmountFilter.js";

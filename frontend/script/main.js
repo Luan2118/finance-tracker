@@ -8,7 +8,7 @@ import renderMainPageExpenseChart from "./chartJS/main-page/expense-chart.js";
 import  { financialOverviewChart, renderFinancialOverviewChart}  from "./chartJS/main-page/financial-overview-chart.js"
 import logOut from "./logout.js";
 import refreshToken from "./utils/refreshToken.js";
-import getUsername from "./utils/getUserName.js";
+import getUsername from "./utils/getUsername.js";
 import getFormattedDate from "./utils/getFormattedDate.js";
 import { renderExpenseChart } from "./chartJS/expense-page/expense-page-chart.js";
 import getAccessToken from "./utils/getAccessToken.js";

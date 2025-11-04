@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest';
-import getFormattedDate from '../../../../frontend/script/utils/getFormattedDate'
+import getFormattedDate from '../../../../../frontend/script/utils/getFormattedDate.js';
 
 describe('getFormattedDate', () => {
   it('should return DD-MM-YYYY', () => {

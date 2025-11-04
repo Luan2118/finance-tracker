@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest';
-import { formatCurrency, getSymbol } from '../../../../frontend/script/utils/currencySymbols.js';
+import { formatCurrency, getSymbol } from '../../../../../frontend/script/utils/currencySymbols.js';
 
 const mockSharedData = (currency) => [{currency}]
 

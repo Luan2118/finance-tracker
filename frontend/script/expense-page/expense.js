@@ -6,7 +6,7 @@ import {formatCurrency, loadGetSymbol} from '../utils/currencySymbols.js';
 import getAccessToken from "../utils/getAccessToken.js";
 import logOut from "../logout.js";
 import refreshToken from "../utils/refreshToken.js";
-import getUsername from "../utils/getUserName.js";
+import getUsername from "../utils/getUsername.js";
 import getFormattedDate from "../utils/getFormattedDate.js";
 import { updateChart } from "../utils/updateChart.js";
 

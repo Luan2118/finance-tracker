@@ -1,7 +1,7 @@
 import { incomeData, loadIncomeData, updateIncomeDate, setIncomeData, monthlyIncomeSummary } from "../../data/incomeData.js";
 import { formatCurrency, loadGetSymbol } from "../utils/currencySymbols.js";
 import { incomeChart } from "../chartJS/income-page/see-all-income-page-chart.js";
-import getUsername from "../utils/getUserName.js";
+import getUsername from "../utils/getUsername.js";
 import getFormattedDate from "../utils/getFormattedDate.js";
 import { setupCustomAmountFilter, filterAmountValue, customAmountClicked } from "../utils/see-all-income-expense-page/setupCustomAmountFilter.js";
 import { setUpCustomTimelineFilter, filterTimeValue, customTimelineClicked } from "../utils/see-all-income-expense-page/setUpCustomTimelineFilter.js";
