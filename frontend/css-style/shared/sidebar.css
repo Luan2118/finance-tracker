@@ -1,4 +1,4 @@
-#sidebar.sidebar {
+#sidebar{
   display: none;
   max-width: 220px;
   background: #fff;
@@ -104,7 +104,7 @@
 }
 
 @media (min-width: 941px) {
-  #sidebar.sidebar {
+  #sidebar {
     display: block;
   }
 }
