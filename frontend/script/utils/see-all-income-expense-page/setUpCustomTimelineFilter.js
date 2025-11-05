@@ -21,6 +21,7 @@ export function setUpCustomTimelineFilter() {
     timeToId.innerHTML =  '<label>To <input class="time-to-input time-to-js" type="date"></label>';
     
     if (timeFromId.classList.contains('timeFrom-display')) {
+      
       document.querySelector('.special')?.classList.remove('special');
       filterTimeCustonBtn.setAttribute('aria-expanded', 'false');
       timeFromId.classList.remove('timeFrom-display');
@@ -32,18 +33,18 @@ export function setUpCustomTimelineFilter() {
   })
   
   // Time line Filter
-  const filterTime = document.querySelectorAll('.filter-button-timeline')
+  const filterTimeBtns = document.querySelectorAll('.filter-button-timeline')
   
-  filterTime.forEach((buttonTime) => {
-    buttonTime.addEventListener('click', () => {
+  filterTimeBtns.forEach((button) => {
+    button.addEventListener('click', () => {
       customTimelineClicked = false;
       filterTimeCustonBtn.setAttribute('aria-expanded', 'false');
       timeFromId.classList.remove('timeFrom-display');
       timeToId.classList.remove('timeTo-display');
   
       document.querySelector('.special')?.classList.remove('special');
-      buttonTime.classList.add('special');
-      filterTimeValue = buttonTime.value;
+      button.classList.add('special');
+      filterTimeValue = button.value;
     })
   })
   

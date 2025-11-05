@@ -117,13 +117,11 @@ fieldset {
   max-width: 12rem;
 }
 
-.timeFrom-display {
-  display: flex;
-}
-
+.timeFrom-display,
 .timeTo-display {
   display: flex;
 }
+
 
 .filter-submit-button {
   align-self: center;
