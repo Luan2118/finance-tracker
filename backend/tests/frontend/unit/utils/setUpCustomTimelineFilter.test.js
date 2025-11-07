@@ -1,11 +1,11 @@
 import {describe, it, expect, beforeEach, vi} from 'vitest';
 import {screen} from '@testing-library/dom';
-import {userEvent} from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import { setUpCustomTimelineFilter } from '../../../../../frontend/script/utils/see-all-income-expense-page/setUpCustomTimelineFilter.js';
 
 
 describe('setUpCustomTimelineFilter', () => {
-  it('custom timeline inputs should be displayed when custom button is clicked', async () => {
+  it('custom timeline input should be displayed when custom button is clicked and should dissapear after clicking the same button or another timeline button', async () => {
 
     document.body.innerHTML = `
 

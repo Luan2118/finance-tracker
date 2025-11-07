@@ -6,26 +6,27 @@ export function setupCustomAmountFilter() {
   // After selecting an amount range / expense range
   const MAX_VALUE = 100_000_000
 
-  const filterAmountCustonBtn = document.querySelector('.filter-button-amount-custom-js')
+  const filterAmountCustomBtn = document.querySelector('.filter-button-amount-custom-js')
 
 
   const minAmountId = document.getElementById('min-amount');
   const maxAmountId = document.getElementById('max-amount');
 
-  filterAmountCustonBtn.addEventListener('click', () => {
+  filterAmountCustomBtn.addEventListener('click', () => {
     customAmountClicked = true;
 
-    filterAmountCustonBtn.setAttribute('aria-expanded', 'true');
+    filterAmountCustomBtn.setAttribute('aria-expanded', 'true');
     document.querySelector('.special2')?.classList.remove('special2');
-    filterAmountCustonBtn.classList.add('special2');
+    filterAmountCustomBtn.classList.add('special2');
     
     minAmountId.innerHTML = '<label>Min <input class="min-amount-input min-amount-js" type="number"></label>';
     maxAmountId.innerHTML =  '<label>Max <input class="max-amount-input max-amount-js" type="number"></label>';
     
     if (minAmountId.style.display === 'block' || maxAmountId.style.display === 'block') {
+      customAmountClicked = false
       minAmountId.style.display = 'none';
       maxAmountId.style.display = 'none';
-      filterAmountCustonBtn.setAttribute('aria-expanded', 'false');
+      filterAmountCustomBtn.setAttribute('aria-expanded', 'false');
       document.querySelector('.special2')?.classList.remove('special2')
     } else {
       minAmountId.style.display = 'block';
@@ -41,7 +42,7 @@ export function setupCustomAmountFilter() {
       customAmountClicked = false
       minAmountId.style.display = 'none';
       maxAmountId.style.display = 'none';
-      filterAmountCustonBtn.setAttribute('aria-expanded', 'false');
+      filterAmountCustomBtn.setAttribute('aria-expanded', 'false');
       document.querySelector('.special2')?.classList.remove('special2')
       buttonAmount.classList.add('special2')
       filterAmountValue = Number(buttonAmount.value)

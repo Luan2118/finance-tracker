@@ -88,11 +88,11 @@
                 <div class="emoji-picker-grid">
   
                   <div class="emoji-picker-inner-grid">
-                    <button class="emoji-picker-btn"><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png" alt=""></button>
+                    <button class="emoji-picker-btn" aria-label="Emoji picker" aria-controls="emoji-picker-element" aria-expanded="false"><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png" alt=""></button>
     
-                    <div class="js-emoji-picker-element"></div>
+                    <div id="emoji-picker-element" class="js-emoji-picker-element"></div>
                     <label for="emoji-input" class="pick-icon">Pick Icon</label>
-                    <input maxlength="2" id="emoji-input"class=" emoji-picked js-emoji-picked" name="emoji">
+                    <input maxlength="2" id="emoji-input" class=" emoji-picked js-emoji-picked" tabindex="-1" autocomplete="off">
                   </div>
   
                   <label for="category-select" class="income-category">Category:</label>
