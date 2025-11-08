@@ -16,7 +16,7 @@ export function iconPicker() {
       emojiContainer.classList.remove('emoji-element');
       emojiContainer.innerHTML = '';
     }else {
-      emojiContainer.innerHTML = '<emoji-picker class=" light"></emoji-picker>'
+      emojiContainer.innerHTML = '<emoji-picker class="emoji-menu light"></emoji-picker>'
       emojiContainer.classList.add('emoji-element');
       emojiPickerButton.setAttribute('aria-expanded', 'true');
       const emojiPicker = document.querySelector('emoji-picker')

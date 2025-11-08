@@ -150,8 +150,9 @@
   opacity: 1
 }
 
-.income-date, 
-.income-category {
+
+
+.income-date {
   color: grey;
   font-size: clamp(0.5rem, 3.5vw, 0.75rem);
 }
@@ -181,23 +182,21 @@
 
 dialog {
   border: none;
-  max-width: 850px;
-  max-height: 670px;
   border-radius: 1rem;
-  padding: 1.25rem 
-  
+  padding: 1.25rem ;
+  overflow-x: hidden;
+  height: clamp(360px, 100vw, 650px);
 }
 
 .add-income-header {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: clamp(0.5rem, 3vw, 2rem);
 }
 
 .add-income-popup-close-button {
-  font-size: 2.5rem;
+  font-size: clamp(1.2rem, 7vw, 2rem);
   border: none;
   color:grey;
   background-color: white;
@@ -210,21 +209,34 @@ dialog {
 }
 
 .add-income-header-title {
-  font-size: 1.5rem;
+  font-size: clamp(0.8rem, 4.5vw, 1.3rem);
   font-weight: 600;
 }
 
 .emoji-picker-grid {
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
   align-items: center;
   margin-bottom: 0.625rem;
-  padding: 0 2rem;
+  flex-wrap: wrap;
 }
 
-.emoji-element {
-  max-height: 250px;
+.emoji-picker-inner-grid {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  margin-right: 3rem;
+}
+
+.income-category {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  color: grey;
+  font-size: clamp(0.7rem, 4vw, 1rem);
+}
+
+.emoji-menu {
+  width: clamp(200px, 45vw, 350px);
+  height: clamp(250px, 35vw, 350px);
 }
 
 .emoji-picker-btn {
@@ -234,15 +246,9 @@ dialog {
   margin-left: 0.5rem; 
 }
 
-.emoji-picker-inner-grid {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 0.625rem;
-}
 
 .emoji-picker {
-  max-height: 35px;
+  height: clamp(1.5rem, 6vw, 2.3rem);
   margin-right: 0.625rem;
   cursor: pointer;
 }
@@ -252,28 +258,28 @@ dialog {
   top: 12.5rem;
 }
 
+
+
 .pick-icon {
-  font-size: 1.25rem;
+  font-size: clamp(0.7rem, 4vw, 1.2rem);
 }
 
 .emoji-picked {
   padding: 0.25rem;
-  font-size: 1.5rem;
-  width: 15%;
+  font-size: clamp(0.6rem, 5vw, 2.5rem);
+  width: clamp(2rem, 5vw, 3rem);
+  height: clamp(2rem, 5vw, 3rem);
   margin-left: 0.625rem;
 }
 
-.category-grid {
-  display: flex;
-  
-}
+
 
 
 .input-grid {
-  margin-top: 3.1rem;
+  margin-top: clamp(1rem, 6vw, 3rem);
 }
 .add-income-inputs  {
-  margin-bottom: 2.5rem;
+  margin-bottom: clamp(1rem, 5vw, 2.5rem);  
 }
 
 .right-align {
@@ -321,7 +327,7 @@ dialog {
 
 .add-income-input-element {
   margin-top: 0.625rem;
-  padding: 1rem;
+  padding: clamp(0.5rem, 3vw, 1rem);
   width: 100%;
   background-color: rgb(235, 237, 240);
   border: none;

@@ -73,10 +73,10 @@
 
           <header class="income-overview-grid">
             <h2 class="income-overview-text">Income Overview</h2>
-            <button type="button"  class="add-income-button js-add-income-button">&#43; Add Income</button>
+            <button type="button"  class="add-income-button js-add-income-button" aria-controls="add-income-dialog" aria-haspopup="dialog">&#43; Add Income</button>
           </header>
   
-          <dialog id="add-income-dialog" aria-labelledby="add-income-title">
+          <dialog id="add-income-dialog" aria-labelledby="add-income-title" aria-modal="true">
             <form class="add-income-form" id="income-submit-form">
               <div class="add-income-header">
                 <h2 id="add-income-title" class="add-income-header-title">Add Income</h2>
@@ -88,43 +88,43 @@
                 <div class="emoji-picker-grid">
   
                   <div class="emoji-picker-inner-grid">
-                    <button class="emoji-picker-btn" aria-label="Emoji picker" aria-controls="emoji-picker-element" aria-expanded="false"><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png" alt=""></button>
+                    <button type="button" class="emoji-picker-btn" aria-label="Emoji picker" aria-controls="emoji-picker-element" aria-expanded="false"><img class="emoji-picker js-emoji-picker" src="icons/emoji-picker.png" alt="" ></button>
     
                     <div id="emoji-picker-element" class="js-emoji-picker-element"></div>
                     <label for="emoji-input" class="pick-icon">Pick Icon</label>
                     <input maxlength="2" id="emoji-input" class=" emoji-picked js-emoji-picked" tabindex="-1" autocomplete="off">
                   </div>
   
-                  <label for="category-select" class="income-category">Category:</label>
-                  
-                  <select id="category-select" class="category-input"  name="category" aria-describedby="category-error" required>
-                    <option value="" selected disabled>Select a category</option>
-                    <option value="Salary">Salary</option>
-                    <option value="Part-Time">Part-Time</option>
-                    <option value="Overtime">Overtime</option>
-                    <option value="Interest">Interest</option>
-                    <option value="Other-Income">Other-Income</option>
-                  </select>
-
+                  <label class="income-category">
+                    Category:
+                    <select  class="category-input"  name="category" aria-describedby="category-error" >
+                      <option value="" selected disabled>Select a category</option>
+                      <option value="Salary">Salary</option>
+                      <option value="Part-Time">Part-Time</option>
+                      <option value="Overtime">Overtime</option>
+                      <option value="Interest">Interest</option>
+                      <option value="Other-Income">Other-Income</option>
+                    </select>
+                  </label>
                 </div>
   
                 <div id="category-error" class="category-input-alert js-category-input-alert"></div>
                 
                 <div class="add-income-inputs">
                   <label for="income-source-input">Income Source</label>
-                  <input id="income-source-input" class="add-income-input-element income-input-js" type="text" name="incomeValue" aria-describedby="income-error" required>
+                  <input id="income-source-input" class="add-income-input-element income-input-js" type="text" name="incomeValue" aria-describedby="income-error"  >
                   <div id="income-error" class="income-source-input-alert js-income-source-input-alert"></div>
                 </div>
     
                 <div class="add-income-inputs">
                   <label for="income-amount-input">Amount</label>
-                  <input id="income-amount-input" class="add-income-input-element amount-input-js " type="number" min="1"  aria-describedby="amount-error" name="amountValue" required>
+                  <input id="income-amount-input" class="add-income-input-element amount-input-js " type="number" min="1"  aria-describedby="amount-error" name="amountValue">
                   <div id="amount-error" class="income-amount-input-alert js-income-amount-input-alert"></div>
                 </div>
     
                 <div class="add-income-inputs">
                   <label for="date-input">Date</label>
-                  <input id="date-input" class="add-income-input-element date-input-js" type="date"  aria-describedby="date-error" name="dateValue" required>
+                  <input id="date-input" class="add-income-input-element date-input-js" type="date"  aria-describedby="date-error" name="dateValue">
                   <div id="date-error" class="income-date-input-alert js-income-date-input-alert"></div>
                 </div>
     
