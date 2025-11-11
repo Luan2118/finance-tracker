@@ -71,7 +71,7 @@ export async function monthlyIncomeSummary() {
   return monthlySums;
 }
 
-updateIncomeDate();
+await updateIncomeDate();
 
 export async function updateIncomeDate() {
    await loadIncomeData();

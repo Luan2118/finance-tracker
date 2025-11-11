@@ -41,16 +41,6 @@ popUpCloseButton.addEventListener('click', handleClosePopUp)
 
 popUpCloseButton.addEventListener('keydown', handleClosePopUp)
 
-
-// get currency symbol
-let symbol;
-
-loadExpenseData().then(() => {
-  loadGetSymbol(expenseData).then((data) => {
-    symbol = data;
-  })
-})
-
 // submit validation
 const expenseSourceInput = document.getElementById('expense-source-input')
 
@@ -70,6 +60,7 @@ submitExpense();
 
 async function generateHTML() {
   await loadExpenseData();
+  const symbol = await loadGetSymbol(expenseData)
   await updateExpenseDate();
 
 
@@ -92,7 +83,7 @@ async function generateHTML() {
           </div>
           
           <div class="expense-right-side">
-            <button type="button" class="expense-delete-button js-expense-delete-button" data-id="${_id}"><img class="delete-icon" src="./icons/bin-icon.png" alt="Delete expense"></button>
+            <button type="button" class="expense-delete-button js-expense-delete-button" data-id="${_id}" aria-label="Delete expense"><img class="delete-icon" src="./icons/bin-icon.png" alt=""></button>
             <div class="expense-amount-minus">-${formatCurrency(amountValue, symbol)}
             </div>
           </div>
@@ -268,15 +259,15 @@ function deleteExpenseButton () {
 
         if (!response.ok) throw new Error('Failed to delete expense')
         
-          const monthlySums = await monthlyExpenseSummary();
-                
-          const labels = Object.keys(monthlySums)
-          const data = Object.values(monthlySums)
+        const monthlySums = await monthlyExpenseSummary();
+              
+        const labels = Object.keys(monthlySums)
+        const data = Object.values(monthlySums)
 
-          updateChart(myExpenseChart, labels, data);
-          
+        updateChart(myExpenseChart, labels, data);
+        
 
-          generateHTML();
+        generateHTML();
       } catch (error) {
         console.error(error.message)
       }

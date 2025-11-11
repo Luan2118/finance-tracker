@@ -15,14 +15,7 @@ menuIcon();
 iconPicker();
 logOut();
 getUsername().then((data) => document.querySelector('.profile-name-js').innerHTML = data)
-// get currency symbol
-let symbol;
 
-loadIncomeData().then(() => {
-  loadGetSymbol(incomeData).then((data) => {
-    symbol = data;
-  })
-})
 
 // pop up
 const dialog = document.getElementById('add-income-dialog')
@@ -30,13 +23,12 @@ const dialog = document.getElementById('add-income-dialog')
 document.querySelector('.js-add-income-button')
   .addEventListener('click', () => {
     dialog.showModal();
-    document.body.style.overflow = 'hidden';
+
   })
 
 function handleClosePopUp(event) {
   if (event.type === 'click') {
     dialog.close();
-    document.body.style.overflow = '';
   }
 
   if (event.type === 'keydown' && event.key === 'Enter') {
@@ -71,6 +63,7 @@ submitIncome();
 
 async function generateHTML() {
   await loadIncomeData();
+  const symbol = await loadGetSymbol(incomeData)
   await updateIncomeDate();
   let dataHTML = '';
 
@@ -93,7 +86,7 @@ async function generateHTML() {
         </div>
 
         <div class="income-right-side">
-          <button type="button" class="income-delete-button js-income-delete-button" data-id="${_id}"><img class="delete-icon" src="./icons/bin-icon.png" alt="Delete income"></button>
+          <button type="button" class="income-delete-button js-income-delete-button" data-id="${_id}" aria-label="Delete income"><img class="delete-icon" src="./icons/bin-icon.png" alt=""></button>
           <div class="income-amount-plus">+${formatCurrency(amountValue, symbol)}</div>
         </div>
       </div>
@@ -123,7 +116,7 @@ function submitIncome() {
     .forEach((click) => {
       click.addEventListener('click', async (event) => {
 
-        event.preventDefault();
+      event.preventDefault();
 
       const category = categoryInput.value
 
@@ -215,19 +208,19 @@ function submitIncome() {
         }
 
         if (!response.ok) throw new Error('Failed to add income')
-          const monthlySums = await monthlyIncomeSummary();
+        const monthlySums = await monthlyIncomeSummary();
 
-          const labels = Object.keys(monthlySums)
-          const data = Object.values(monthlySums)
+        const labels = Object.keys(monthlySums)
+        const data = Object.values(monthlySums)
 
-          updateChart(myChart,labels, data);
-          
-          dialog.close();
-          
+        updateChart(myChart,labels, data);
+        
+        dialog.close();
+        
 
-         
-          await updateIncomeDate();
-          await generateHTML();
+        
+        await updateIncomeDate();
+        await generateHTML();
       } catch (error) {
         console.log(error.message)
       }
@@ -268,15 +261,15 @@ document.querySelectorAll('.js-income-delete-button')
 
         if(!response.ok) throw new Error('Failed to delete income')
 
-          const monthlySums = await monthlyIncomeSummary();
-      
-          const labels = Object.keys(monthlySums)
-          const data = Object.values(monthlySums)
+        const monthlySums = await monthlyIncomeSummary();
+    
+        const labels = Object.keys(monthlySums)
+        const data = Object.values(monthlySums)
 
-          updateChart(myChart, labels, data);
+        updateChart(myChart, labels, data);
 
-          updateIncomeDate();
-          generateHTML();
+        await updateIncomeDate();
+        await generateHTML();
 
       } catch (error) {
         console.log(error.message)

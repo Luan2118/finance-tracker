@@ -101,7 +101,7 @@
 
                   <label class="expense-category"> 
                     Category:
-                    <select   name="category" class="category-input" aria-describedby="category-error" required>
+                    <select   name="category" class="category-input" aria-describedby="category-error" >
                       <option value="" selected disabled>Select a category</option>
                       <option value="Food & Groceries">Food & Groceries</option>
                       <option value="Dining Out / Takeout">Dining Out / Takeout</option>
@@ -122,19 +122,19 @@
               
                 <div class="add-expense-inputs">
                   <label for="expense-source-input">Expense Source</label>
-                  <input id="expense-source-input" class="add-expense-input-element js-expense-value" type="text" name="expenseSourceValue" aria-describedby="expense-source-error" required>
+                  <input id="expense-source-input" class="add-expense-input-element js-expense-value" type="text" name="expenseSourceValue" aria-describedby="expense-source-error" >
                   <div id="expense-source-error" class="expense-source-input-alert js-expense-source-input-alert"></div>
                 </div>
 
                 <div class="add-expense-inputs">
                   <label for="expense-amount-input">Amount</label>
-                  <input id="expense-amount-input" class="add-expense-input-element js-amount-value " type="number" min="0" step="1" name="amountValue" oninput="this.value = this.value.replace(/[^0-9]/g,'')" aria-describedby="expense-amount-error" required>
+                  <input id="expense-amount-input" class="add-expense-input-element js-amount-value " type="number" min="0" step="1" name="amountValue" oninput="this.value = this.value.replace(/[^0-9]/g,'')" aria-describedby="expense-amount-error" >
                   <div id="expense-amount-error" class="expense-amount-input-alert js-expense-amount-input-alert"></div>
                 </div>
 
                 <div class="add-expense-inputs">
                   <label for="date-input">Date</label>
-                  <input id="date-input" class="add-expense-input-element js-date-value" type="date" name="dateValue" aria-describedby="date-input-error" required>
+                  <input id="date-input" class="add-expense-input-element js-date-value" type="date" name="dateValue" aria-describedby="date-input-error">
                   <div id="date-input-error" class="expense-date-input-alert js-expense-date-input-alert"></div>
                 </div>
 
@@ -177,6 +177,10 @@
 
 
     <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+    <script type="module">
+      import textFieldEdit from 'https://cdn.jsdelivr.net/npm/text-field-edit@^4/index.js';
+      window.textFieldEdit = textFieldEdit;
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script type="module" src="script/expense-page/expense.js"></script>

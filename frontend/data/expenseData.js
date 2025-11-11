@@ -66,11 +66,12 @@ export async function monthlyExpenseSummary() {
   monthlySum[monthKey] += Number(data.amountValue);
 
   })
+
   return monthlySum;
 }
 
 
-updateExpenseDate();
+await updateExpenseDate();
 export async function updateExpenseDate() {
   await loadExpenseData();
   expenseData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))

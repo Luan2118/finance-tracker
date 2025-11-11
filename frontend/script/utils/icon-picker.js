@@ -1,4 +1,4 @@
-import textFieldEdit from 'https://cdn.jsdelivr.net/npm/text-field-edit@^4/index.js'
+
 
 
 export function iconPicker() {
@@ -16,14 +16,14 @@ export function iconPicker() {
       emojiContainer.classList.remove('emoji-element');
       emojiContainer.innerHTML = '';
     }else {
-      emojiContainer.innerHTML = '<emoji-picker class="emoji-menu light"></emoji-picker>'
+      emojiContainer.innerHTML = '<emoji-picker class="emoji light"></emoji-picker>'
       emojiContainer.classList.add('emoji-element');
       emojiPickerButton.setAttribute('aria-expanded', 'true');
       const emojiPicker = document.querySelector('emoji-picker')
       emojiPicker.addEventListener('emoji-click',(event) => {
         emojiInput.value = '';
         emojiContainer.innerHTML = '';
-        textFieldEdit.insert(emojiPickedTarget, event.detail.unicode)
+        window.textFieldEdit.insert(emojiPickedTarget, event.detail.unicode)
       })
     }
   })
