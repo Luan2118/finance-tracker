@@ -451,6 +451,119 @@ describe('Expense page integrated tests', () => {
     expect(listItems[0]).toHaveTextContent('-5000 Kč');
     expect(listItems[0]).toHaveTextContent('09-09-2025');
     expect(listItems[0]).toHaveTextContent('Steak house');
+  });
+
+  it('should add expense after hitting 401 error and call refreshToken and display updated list', async () => {
+    
+    global.fetch = vi.fn()
+    .mockImplementationOnce(() => Promise.resolve({ok: false, status: 401}))
+    .mockImplementation((url, options) => {
+      if (url.includes('/expenses') && options?.method === 'POST') {
+        const body = JSON.parse(options.body);
+
+        fakeData.push({
+          ...body,
+          user: "6893682cc44043ab368bd87f",
+          __v: 0, 
+          _id: "691234678944c535c901e782"
+        })
+
+        return {ok: true, status: 200};
+      }
+
+      return {ok: true, status: 200};
+    })
+
+    await setUpExpensePageDOM();
+    
+    const user = userEvent.setup();
+
+    const addExpenseDialog = screen.getByRole('button', {name: /\+ add expense/i});
+
+    const dialog = document.getElementById('add-expense-dialog');
+
+
+    await user.click(addExpenseDialog);
+
+    expect(dialog.showModal).toHaveBeenCalled()
+
+   
+    // Verify category select
+    const categoryInput = screen.getByLabelText(/category/i)
+    await user.selectOptions(categoryInput, 'Travel')
+    expect(categoryInput.value).toBe('Travel')
+
+    // Verify expense source
+    const expenseSourceInput = screen.getByLabelText(/expense source/i);
+    await user.type(expenseSourceInput, 'Skiathos');
+    expect(expenseSourceInput.value).toBe('Skiathos');
+
+    // Verify amount
+    const amountInput = screen.getByLabelText(/amount/i);
+    await user.type(amountInput, '46000');
+    expect(amountInput.value).toBe('46000')
+
+    // Verify date
+    const dateInput = screen.getByLabelText(/date/i);
+    await user.type(dateInput, '2025-11-11');
+    expect(dateInput.value).toBe('2025-11-11');
+
+    const parentDiv = document.querySelector('.right-align');
+    const submitBtn = within(parentDiv).getByRole('button', {name: /add expense/i});
+
+    await user.click(submitBtn);
+
+    const newExpense = {
+      category: categoryInput.value,
+      expenseSourceValue: expenseSourceInput.value,
+      amountValue: Number(amountInput.value),
+      currency: 'CZK',
+      dateValue: dateInput.value,
+      emoji: ''
+    }
+
+    expect(getAccessToken).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalledTimes(2);
+    expect(global.fetch).toHaveBeenNthCalledWith(
+      1,'http://localhost:3000/expenses',
+      expect.objectContaining({
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer FAKE_ACCESS_TOKEN`
+        },
+        body: JSON.stringify(newExpense)
+      })
+    );
+    expect(getAccessToken).toHaveBeenCalledBefore(refreshToken);
+    expect(refreshToken).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenNthCalledWith(
+      2,'http://localhost:3000/expenses',
+      expect.objectContaining({
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer NEW_FAKE_ACCESS_TOKEN`
+        },
+        body: JSON.stringify(newExpense)
+      })
+    );
+    expect(monthlyExpenseSummary).toHaveBeenCalled();
+    expect(updateChart).toHaveBeenCalled();
+    expect(updateExpenseDate).toHaveBeenCalled();
+    expect(dialog.close).toHaveBeenCalled();
+
+
+    const listItems = await screen.findAllByRole('listitem');
+
+    expect(listItems).toHaveLength(3);
+
+    const thirdDelBtn = within(listItems[0]).getByRole('button', {name: /delete expense/i});
+    expect(thirdDelBtn).toHaveAttribute('data-id', '691234678944c535c901e782')
+    expect(listItems[0]).toHaveTextContent('Skiathos');
+    expect(listItems[0]).toHaveTextContent('Travel');
+    expect(listItems[0]).toHaveTextContent('-46000 Kč');
+    expect(listItems[0]).toHaveTextContent('11-11-2025');
   })
 });
 

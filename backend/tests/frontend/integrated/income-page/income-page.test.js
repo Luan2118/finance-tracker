@@ -464,6 +464,129 @@ describe('Income Page Integrated Tests', () => {
     expect(deletedExpenseBtn).not.toBeInTheDocument();
   })
 
+  it('should add income after hitting 401 error and call refreshToken and display updated list', async () => {
+    
+    await setUpIncomePageDOM();
+    
+    expect(iconPicker).toHaveBeenCalled();
+    
+    global.fetch = vi.fn()
+    .mockImplementationOnce(() => Promise.resolve({ok: false, status: 401}))
+    .mockImplementation(async (url, options) => {
+      if (url.includes('/income') && options?.method === 'POST') {
+        const body = JSON.parse(options.body);
+        fakeData.push({
+          ...body,
+          _id: '68c9c6dffcac0f995236cdb11',
+          user: "6893682cc44043ab368bd87f",
+          __v: 0,
+        });
+        
+        
+        return { ok: true, status: 200 };
+      }
+      
+      return { ok: true, status: 200 };
+    })
+    
+   
+    const user = userEvent.setup();
+    
+   
+    // open popUp form
+    const addIncomePopup = screen.getByRole('button', {name:/\+ add income/i});
+    const dialog = document.getElementById('add-income-dialog');
 
+    await user.click(addIncomePopup);
+
+    expect(dialog.showModal).toHaveBeenCalled();
+
+    // emoji picker
+    const emojiPickerButton = screen.getByRole('button', {name: /emoji picker/i});
+    await user.click(emojiPickerButton);
+    
+
+    // category select
+    const selectInput = screen.getByLabelText(/category/i);
+    await user.selectOptions(selectInput, 'Salary');
+    expect(selectInput.value).toBe('Salary');
+
+    // income source input
+    const incomeSourceInput = screen.getByLabelText(/income source/i);
+    await user.type(incomeSourceInput, 'Salary');
+    expect(incomeSourceInput.value).toBe('Salary');
+
+    // amount input
+    const amountInput = screen.getByLabelText(/amount/i);
+    await user.type(amountInput, '30000');
+    expect(amountInput.value).toBe('30000');
+  
+    // date input
+    const dateInput = screen.getByLabelText(/date/i);
+    await user.type(dateInput, '2025-11-11');
+    expect(dateInput.value).toBe('2025-11-11');
+
+    //submit button
+    const parentDiv = document.querySelector('.right-align')
+    const submitButton = within(parentDiv).getByRole('button', {name: /add income/i})
+
+    
+    await user.click(submitButton);
+    
+    
+    // submitIncome calls
+    const newIncome = {
+      category: selectInput.value,
+      incomeSourceValue: incomeSourceInput.value,
+      amountValue: Number(amountInput.value),
+      currency: 'CZK',
+      dateValue: dateInput.value,
+      emoji: ''
+    }
+    
+    expect(global.fetch).toHaveBeenCalledTimes(2);
+
+    expect(getAccessToken).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenNthCalledWith(
+      1,'http://localhost:3000/income',
+      expect.objectContaining({
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer FAKE_ACCESS_TOKEN`
+        },
+        body: JSON.stringify(newIncome)
+      })
+    );
+    expect(getAccessToken).toHaveBeenCalledBefore(refreshToken);
+    expect(refreshToken).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenNthCalledWith(
+      2,'http://localhost:3000/income',
+      expect.objectContaining({
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer NEW_FAKE_ACCESS_TOKEN`
+        },
+        body: JSON.stringify(newIncome)
+      })
+    )
+    expect(monthlyIncomeSummary).toHaveBeenCalledTimes(1);
+    expect(updateChart).toHaveBeenCalledTimes(1);
+    expect(dialog.close).toHaveBeenCalled();
+    expect(updateIncomeDate).toHaveBeenCalled();
+
+    
+    const listItems =  await screen.findAllByRole('listitem');
+    expect(listItems).toHaveLength(3);
+
+    // Verify added income
+    const thirdDelBtn = within(listItems[0]).getByRole('button', {name: /delete income/i})
+    expect(thirdDelBtn).toHaveAttribute('data-id', '68c9c6dffcac0f995236cdb11')
+    expect(listItems[0]).toHaveTextContent('11-11-2025')
+    expect(listItems[0]).toHaveTextContent('Salary')
+    expect(listItems[0]).toHaveTextContent('30000 Kč')
+    expect(listItems[0]).toHaveTextContent('Category: Salary')
+  })
 });
 
