@@ -11,6 +11,12 @@ let fakeData = vi.hoisted(() => {
   ]
 })
 
+const baseFakeData =  [
+    {amountValue: 10000, category: "Part-Time", currency: "CZK", dateValue: "2025-09-09", emoji: "", incomeSourceValue: "Part-Time", user: "6893682cc44043ab368bd87f",__v: 0, _id: "68c9c6dffcac0f995236cdb9"},
+    {amountValue: 15000, category: "Salary", currency: "CZK", dateValue: "2025-10-10", emoji: "", incomeSourceValue: "Salary", user: "6893682cc44043ab368bd87f",__v: 0, _id: "68c9c6dffcac0f995236cdb10"},
+  ];
+
+
 vi.mock('../../../../../frontend/data/incomeData.js', () => {
 
   const fakeMonthlySum = {'2025-09': 10000, '2025-10': 15000}
@@ -113,12 +119,8 @@ import { formatCurrency, loadGetSymbol } from '../../../../../frontend/script/ut
 import refreshToken from '../../../../../frontend/script/utils/refreshToken.js';
 import getAccessToken from '../../../../../frontend/script/utils/getAccessToken.js';
 import { updateChart } from '../../../../../frontend/script/utils/updateChart.js';
+import getUsername from '../../../../../frontend/script/utils/getUsername.js';
 
-
-
-// Source - https://stackoverflow.com/a
-// Posted by Chen Peleg
-// Retrieved 2025-11-09, License - CC BY-SA 4.0
 
 beforeAll(() => {
   if (typeof HTMLDialogElement !== 'undefined') {
@@ -137,6 +139,10 @@ beforeAll(() => {
 beforeEach(() => {
   vi.clearAllMocks();
   vi.resetModules(); 
+  delete global.fetch;
+  
+  fakeData.length = 0;
+  fakeData.push(...baseFakeData);
 })
 
 async function setUpIncomePageDOM() {
@@ -261,9 +267,9 @@ describe('Income Page Integrated Tests', () => {
   it('should add income and display it in the list', async () => {
 
     await setUpIncomePageDOM();
-
+    
     expect(iconPicker).toHaveBeenCalled();
-
+    
     global.fetch = vi.fn().mockImplementation(async (url, options) => {
       if (url.includes('/income') && options?.method === 'POST') {
         const body = JSON.parse(options.body);
@@ -277,10 +283,10 @@ describe('Income Page Integrated Tests', () => {
         
         return { ok: true, status: 200 };
       }
-
+      
       return { ok: true, status: 200 };
     });
-
+    
    
     const user = userEvent.setup();
     
@@ -368,5 +374,96 @@ describe('Income Page Integrated Tests', () => {
     expect(listItems[0]).toHaveTextContent('30000 Kč')
     expect(listItems[0]).toHaveTextContent('Category: Salary')
   });
+
+  it('deletes income and display the correct amount of income', async () => {
+  
+    global.fetch = vi.fn().mockImplementation( (url, options) => {
+      if(url.includes('income/68c9c6dffcac0f995236cdb10') && options?.method === 'DELETE') {
+        
+        const newData = fakeData.filter(data => data._id !== '68c9c6dffcac0f995236cdb10') 
+        
+        fakeData.length = 0;
+
+        fakeData.push(...newData)
+        return {ok:true, status: 200};
+      }
+       return {ok:true, status: 200};
+    })
+
+
+    await setUpIncomePageDOM();
+
+
+    const user = userEvent.setup();
+
+    // Verify income list
+    let listItems = await screen.findAllByRole('listitem');
+    expect(listItems).toHaveLength(2);
+
+    // Verify first income
+    expect(listItems[0]).toHaveTextContent('Category: Salary');
+    expect(listItems[0]).toHaveTextContent('Salary');
+    expect(listItems[0]).toHaveTextContent('10-10-2025');
+    expect(listItems[0]).toHaveTextContent('+15000 Kč');
+
+    // Verify second income
+    expect(listItems[1]).toHaveTextContent('Category: Part-Time');
+    expect(listItems[1]).toHaveTextContent('Part-Time');
+    expect(listItems[1]).toHaveTextContent('09-09-2025');
+    expect(listItems[1]).toHaveTextContent('+10000 Kč');
+
+    // income delete button
+    const targetIncome = listItems.find((list) => {
+      const btn = within(list).getByRole('button', {name: /delete income/i});
+
+      return btn.getAttribute('data-id') === '68c9c6dffcac0f995236cdb10'
+    })
+
+    const deletedExpenseBtn = within(targetIncome).getByRole('button', {name: /delete income/i});
+
+    expect(deletedExpenseBtn).toHaveAttribute('data-id', '68c9c6dffcac0f995236cdb10');
+
+   
+    await user.click(deletedExpenseBtn);
+
+    // verify calls after clicking del btn
+    expect(getAccessToken).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalled();
+    expect(global.fetch).toHaveBeenNthCalledWith(
+      1, 'http://localhost:3000/income/68c9c6dffcac0f995236cdb10',
+      expect.objectContaining({
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer FAKE_ACCESS_TOKEN`
+        }
+      })
+    )    
+    expect(refreshToken).not.toHaveBeenCalled();
+    expect(monthlyIncomeSummary).toHaveBeenCalled();
+    expect(updateChart).toHaveBeenCalled();
+    expect(updateIncomeDate).toHaveBeenCalled();
+
+    expect(loadIncomeData).toHaveBeenCalled();
+    expect(loadGetSymbol).toHaveBeenCalled();
+    
+
+    // verify income list after deleting
+    listItems = await screen.findAllByRole('listitem');
+
+    expect(listItems).toHaveLength(1);
+    expect(listItems[0]).toHaveTextContent('+10000 Kč');
+    expect(listItems[0]).toHaveTextContent('09-09-2025');
+    expect(listItems[0]).toHaveTextContent('Part-Time');
+    expect(listItems[0]).toHaveTextContent('Category: Part-Time');
+
+    const delButton = within(listItems[0]).getByRole('button', {name: /delete income/i});
+    
+    expect(delButton).toHaveAttribute('data-id', '68c9c6dffcac0f995236cdb9');
+
+    expect(deletedExpenseBtn).not.toBeInTheDocument();
+  })
+
+
 });
 

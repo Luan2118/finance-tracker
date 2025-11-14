@@ -1,4 +1,4 @@
-import {describe, it, expect, beforeAll, beforeEach, vi} from 'vitest';
+import {describe, it, expect, beforeAll, beforeEach, vi, test} from 'vitest';
 import userEvent from '@testing-library/user-event';
 import {screen, within} from '@testing-library/dom';
 
@@ -8,7 +8,14 @@ let fakeData = vi.hoisted(() => {
   {amountValue: 5000, category: "Food & Groceries", currency: "CZK", dateValue: "2025-09-09", emoji: "", expenseSourceValue: "Steak house", user: "6893682cc44043ab368bd87f", __v: 0, _id: "691234678944c535c901e582"},
   {amountValue: 10000, category: "Shopping", currency: "CZK",dateValue: "2025-10-10", emoji: "",expenseSourceValue: "Clothes", user: "6893682cc44043ab368bd87f", __v: 0, _id: "691234678944c535c901e682"},
 ]
-})
+});
+
+
+const baseFakeData =  [
+  {amountValue: 5000, category: "Food & Groceries", currency: "CZK", dateValue: "2025-09-09", emoji: "", expenseSourceValue: "Steak house", user: "6893682cc44043ab368bd87f", __v: 0, _id: "691234678944c535c901e582"},
+  {amountValue: 10000, category: "Shopping", currency: "CZK",dateValue: "2025-10-10", emoji: "",expenseSourceValue: "Clothes", user: "6893682cc44043ab368bd87f", __v: 0, _id: "691234678944c535c901e682"},
+]
+
 
 // Expense data mock
 vi.mock('../../../../../frontend/data/expenseData.js', () => {
@@ -142,6 +149,9 @@ beforeAll(() => {
 beforeEach(() => {
   vi.clearAllMocks();
   vi.resetModules();
+  
+  fakeData.length = 0;
+  fakeData.push(...baseFakeData)
 })
 
 async function setUpExpensePageDOM() {
@@ -365,5 +375,83 @@ describe('Expense page integrated tests', () => {
     expect(listItems[0]).toHaveTextContent('Travel');
     expect(listItems[0]).toHaveTextContent('-46000 Kč');
     expect(listItems[0]).toHaveTextContent('11-11-2025');
+  });
+
+  test('deletes expense and display the correct amount of income', async () => {
+
+    global.fetch = vi.fn().mockImplementation((url, options) => {
+      if (url.includes('/expenses/691234678944c535c901e682') && options?.method === 'DELETE') {
+
+        const newData = fakeData.filter((data) => {
+          return data._id !== '691234678944c535c901e682'
+        })
+
+        fakeData.length = 0;
+
+        fakeData.push(...newData)
+        return {ok: true, status: 200}
+      }
+
+      return {ok: true, status: 200}
+    })
+     
+    await setUpExpensePageDOM();
+
+    const user = userEvent.setup();
+
+    const list = await screen.findByRole('list')
+    // Verify expense list
+    let listItems = await screen.findAllByRole('listitem');
+
+    expect(listItems).toHaveLength(2);
+
+    // console.log(list.innerHTML)
+    // Verify first expense
+    expect(listItems[0]).toHaveTextContent('Clothes');
+    expect(listItems[0]).toHaveTextContent('Category: Shopping');
+    expect(listItems[0]).toHaveTextContent('-10000 Kč');
+    expect(listItems[0]).toHaveTextContent('10-10-2025');
+
+    // Verify second expense
+    expect(listItems[1]).toHaveTextContent('Steak house');
+    expect(listItems[1]).toHaveTextContent('Category: Food & Groceries');
+    expect(listItems[1]).toHaveTextContent('-5000 Kč');
+    expect(listItems[1]).toHaveTextContent('09-09-2025');
+
+
+    // Expense delete button
+    const targetExpense = listItems.find((item) => {
+      const btn = within(item).getByRole('button', {name: /delete expense/i});
+
+      return btn.getAttribute('data-id') === '691234678944c535c901e682'
+    })
+
+    const delButton = within(targetExpense).getByRole('button', {name: /delete expense/i})
+  
+    expect(delButton).toHaveAttribute('data-id', '691234678944c535c901e682')
+
+    await user.click(delButton);
+
+    // Verify calls after clicking del
+    expect(getAccessToken).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalled();
+    expect(refreshToken).not.toHaveBeenCalled();
+    expect(monthlyExpenseSummary).toHaveBeenCalled();
+    expect(updateChart).toHaveBeenCalled();
+    expect(loadExpenseData).toHaveBeenCalled();
+    expect(loadGetSymbol).toHaveBeenCalled();
+    expect(updateExpenseDate).toHaveBeenCalled();
+
+    // Verify remaining expense
+    listItems = await screen.findAllByRole('listitem');
+
+    expect(listItems).toHaveLength(1);
+
+    expect(listItems[0]).toHaveTextContent('Category: Food & Groceries');
+    expect(listItems[0]).toHaveTextContent('-5000 Kč');
+    expect(listItems[0]).toHaveTextContent('09-09-2025');
+    expect(listItems[0]).toHaveTextContent('Steak house');
   })
-})
+});
+
+
