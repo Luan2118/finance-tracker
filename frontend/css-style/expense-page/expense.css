@@ -348,7 +348,8 @@ dialog {
 .expense-amount-input-alert,
 .expense-date-input-alert,
 .emoji-input-alert,
-.expense-source-input-alert {
+.expense-source-input-alert,
+.category-input-alert {
   color: red;
   font-size: 0.75rem;
 } 

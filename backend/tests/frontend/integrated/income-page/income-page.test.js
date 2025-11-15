@@ -587,6 +587,134 @@ describe('Income Page Integrated Tests', () => {
     expect(listItems[0]).toHaveTextContent('Salary')
     expect(listItems[0]).toHaveTextContent('30000 Kč')
     expect(listItems[0]).toHaveTextContent('Category: Salary')
+  });
+
+  it('should show validation error messages for incorrect or empty fields and prevent submit', async () => {
+
+    await setUpIncomePageDOM();
+
+    global.fetch = vi.fn().mockResolvedValue({ok:true, status: 200})
+
+    let listItems =  await screen.findAllByRole('listitem');
+    expect(listItems).toHaveLength(2);
+    
+    expect(iconPicker).toHaveBeenCalled();
+   
+    const user = userEvent.setup();
+   
+    // open popUp form
+    const addIncomePopup = screen.getByRole('button', {name:/\+ add income/i});
+    const dialog = document.getElementById('add-income-dialog');
+
+    await user.click(addIncomePopup);
+
+    expect(dialog.showModal).toHaveBeenCalled();
+
+    // emoji picker
+    const emojiPickerButton = screen.getByRole('button', {name: /emoji picker/i});
+    await user.click(emojiPickerButton);
+    
+
+    // category select
+    const selectInput = screen.getByLabelText(/category/i);
+    await user.selectOptions(selectInput, '');
+    expect(selectInput.value).toBe('');
+
+    // income source input
+    const incomeSourceInput = screen.getByLabelText(/income source/i);
+    expect(incomeSourceInput.value).toBe('');
+
+    // amount input
+    const amountInput = screen.getByLabelText(/amount/i);
+    expect(amountInput.value).toBe('');
+  
+    // date input
+    const dateInput = screen.getByLabelText(/date/i);
+    expect(dateInput.value).toBe('');
+
+    //submit button
+    const parentDiv = document.querySelector('.right-align')
+    const submitButton = within(parentDiv).getByRole('button', {name: /add income/i})
+
+    
+    await user.click(submitButton);
+
+    // Verify incorrect input, aria attributes, aria roles and validation messages appear
+
+    // Category
+    const categoryValidation = screen.getByText('Please select a category!');
+    expect(categoryValidation).toHaveTextContent('Please select a category!');
+    expect(categoryValidation).toHaveAttribute('role', 'alert');
+    expect(selectInput).toHaveAttribute('aria-invalid', 'true');
+    
+    // IncomeSource
+    const incomeSourceValidation = screen.getByText("Income Source can't be empty!")
+    expect(incomeSourceValidation).toHaveTextContent("Income Source can't be empty!");
+    expect(incomeSourceValidation).toHaveAttribute('role', 'alert');
+    expect(incomeSourceInput).toHaveAttribute('aria-invalid', 'true');
+    
+    // Amount
+    const amountValidation = screen.getByText("Amount can't be empty and has to be greater than 0!")
+    expect(amountValidation).toHaveTextContent("Amount can't be empty and has to be greater than 0!");
+    expect(amountValidation).toHaveAttribute('role', 'alert');
+    expect(amountInput).toHaveAttribute('aria-invalid', 'true');
+    
+    // Date
+    const dateValidation = screen.getByText('Please pick a date!');
+    expect(dateValidation ).toHaveTextContent('Please pick a date!');
+    expect(dateValidation).toHaveAttribute('role', 'alert');
+    expect(dateInput).toHaveAttribute('aria-invalid', 'true');
+    
+    // Verify calls 
+    expect(getAccessToken).not.toHaveBeenCalled();
+    expect(refreshToken).not.toHaveBeenCalled();
+    expect(monthlyIncomeSummary).not.toHaveBeenCalled();
+    expect(updateChart).not.toHaveBeenCalled();
+    expect(dialog.close).not.toHaveBeenCalled();
+    expect(updateIncomeDate).toHaveBeenCalled();
+
+    // Veridy income list
+    listItems =  await screen.findAllByRole('listitem');
+    expect(listItems).toHaveLength(2);
+
+    // Verify correct input, aria labels, aria roles and validation messages dissapear 
+
+    // Category
+    await user.selectOptions(selectInput, 'Salary');
+    expect(selectInput.value).toBe('Salary')
+
+    // IncomeSource
+    await user.type(incomeSourceInput, 'Salary');
+    expect(incomeSourceInput.value).toBe('Salary');
+
+    // Amount
+    await user.type(amountInput, '6000');
+    expect(amountInput.value).toBe('6000');
+
+    await user.type(dateInput, '2025-09-09');
+    expect(dateInput.value).toBe('2025-09-09')
+
+    await user.click(submitButton)
+
+    // Verify correct category input
+    expect(categoryValidation).toHaveTextContent('')
+    expect(categoryValidation).not.toHaveAttribute('role');
+    expect(selectInput).not.toHaveAttribute('aria-invalid');
+
+    // Verify correct incomeSource
+    expect(incomeSourceValidation).toHaveTextContent("");
+    expect(incomeSourceValidation).not.toHaveAttribute('role');
+    expect(incomeSourceInput).not.toHaveAttribute('aria-invalid')
+
+    // Verify correct amount
+    expect(amountValidation).toHaveTextContent("");
+    expect(amountValidation).not.toHaveAttribute('role');
+    expect(amountInput).not.toHaveAttribute('aria-invalid');
+
+    // Verify correct Date
+    expect(dateValidation ).toHaveTextContent('');
+    expect(dateValidation).not.toHaveAttribute('role');
+    expect(dateInput).not.toHaveAttribute('aria-invalid');
   })
 });
 

@@ -564,6 +564,124 @@ describe('Expense page integrated tests', () => {
     expect(listItems[0]).toHaveTextContent('Travel');
     expect(listItems[0]).toHaveTextContent('-46000 Kč');
     expect(listItems[0]).toHaveTextContent('11-11-2025');
+  });
+
+  it('should show validation error messages for incorrect or empty fields and prevent submit', async () => {
+    
+    global.fetch = vi.fn().mockResolvedValue({ok: true, status: 200})
+
+    await setUpExpensePageDOM();
+
+    const listItems = await screen.findAllByRole('listitem');
+
+    expect(listItems).toHaveLength(2);
+    
+    const user = userEvent.setup();
+
+    const addExpenseDialog = screen.getByRole('button', {name: /\+ add expense/i});
+
+    const dialog = document.getElementById('add-expense-dialog');
+
+
+    await user.click(addExpenseDialog);
+
+    expect(dialog.showModal).toHaveBeenCalled()
+
+   
+    // Verify category select
+    const categoryInput = screen.getByLabelText(/category/i)
+    expect(categoryInput.value).toBe('')
+
+    // Verify expense source
+    const expenseSourceInput = screen.getByLabelText(/expense source/i);
+    expect(expenseSourceInput.value).toBe('');
+
+    // Verify amount
+    const amountInput = screen.getByLabelText(/amount/i);
+    expect(amountInput.value).toBe('')
+
+    // Verify date
+    const dateInput = screen.getByLabelText(/date/i);
+    expect(dateInput.value).toBe('');
+
+    const parentDiv = document.querySelector('.right-align');
+    const submitBtn = within(parentDiv).getByRole('button', {name: /add expense/i});
+
+    await user.click(submitBtn);
+
+    // Verify incorrect input, aria attributes, aria roles and validation messages appear
+
+    // Category
+    const categoryValidation = screen.getByText('Please select a category!');
+    expect(categoryValidation).toHaveTextContent('Please select a category!');
+    expect(categoryValidation).toHaveAttribute('role', 'alert');
+    expect(categoryInput).toHaveAttribute('aria-invalid', 'true');
+    
+    // IncomeSource
+    const expenseSourceValidation = screen.getByText("Expense Source can't be empty!")
+    expect(expenseSourceValidation).toHaveTextContent("Expense Source can't be empty!");
+    expect(expenseSourceValidation).toHaveAttribute('role', 'alert');
+    expect(expenseSourceInput).toHaveAttribute('aria-invalid', 'true');
+    
+    // Amount
+    const amountValidation = screen.getByText("Amount can't be empty and has to be greater than 0!")
+    expect(amountValidation).toHaveTextContent("Amount can't be empty and has to be greater than 0!");
+    expect(amountValidation).toHaveAttribute('role', 'alert');
+    expect(amountInput).toHaveAttribute('aria-invalid', 'true');
+    
+    // Date
+    const dateValidation = screen.getByText('Please pick a date!');
+    expect(dateValidation ).toHaveTextContent('Please pick a date!');
+    expect(dateValidation).toHaveAttribute('role', 'alert');
+    expect(dateInput).toHaveAttribute('aria-invalid', 'true');
+
+
+    // Verify calls
+    expect(updateExpenseDate).toHaveBeenCalled();
+    expect(loadExpenseData).toHaveBeenCalled();
+    expect(loadGetSymbol).toHaveBeenCalled();
+    expect(getAccessToken).not.toHaveBeenCalled();
+    expect(global.fetch).not.toHaveBeenCalled();
+    expect(refreshToken).not.toHaveBeenCalled();
+    expect(monthlyExpenseSummary).not.toHaveBeenCalled();
+    expect(updateChart).not.toHaveBeenCalled();
+    expect(dialog.close).not.toHaveBeenCalled();
+
+
+    await user.selectOptions(categoryInput, 'Travel')
+    expect(categoryInput.value).toBe('Travel')
+
+    await user.type(expenseSourceInput, 'Skiathos');
+    expect(expenseSourceInput.value).toBe('Skiathos');
+
+    await user.type(amountInput, '46000');
+    expect(amountInput.value).toBe('46000')
+
+    await user.type(dateInput, '2025-11-11');
+    expect(dateInput.value).toBe('2025-11-11');
+
+   
+    await user.click(submitBtn)
+
+    // Verify correct category input
+    expect(categoryValidation).toHaveTextContent('')
+    expect(categoryValidation).not.toHaveAttribute('role');
+    expect(categoryInput).not.toHaveAttribute('aria-invalid');
+
+    // Verify correct incomeSource
+    expect(expenseSourceValidation).toHaveTextContent("");
+    expect(expenseSourceValidation).not.toHaveAttribute('role');
+    expect(expenseSourceInput).not.toHaveAttribute('aria-invalid')
+
+    // Verify correct amount
+    expect(amountValidation).toHaveTextContent("");
+    expect(amountValidation).not.toHaveAttribute('role');
+    expect(amountInput).not.toHaveAttribute('aria-invalid');
+
+    // Verify correct Date
+    expect(dateValidation ).toHaveTextContent('');
+    expect(dateValidation).not.toHaveAttribute('role');
+    expect(dateInput).not.toHaveAttribute('aria-invalid');
   })
 });
 

@@ -130,46 +130,55 @@ function submitExpense() {
         document.querySelector('.js-expense-amount-input-alert').innerHTML = '';
         document.querySelector('.js-expense-date-input-alert').innerHTML = '';
 
-       if (category === '') {
-        categoryInput.setAttribute('aria-invalid', 'true');
-        categoryValidation.setAttribute('role', 'alert');
-        categoryValidation.textContent = 'Please select a category!'
-        return;
-      }
-      categoryInput.removeAttribute('aria-invalid');
-      categoryValidation.removeAttribute('role');
-      categoryValidation.textContent = '';
+        let hasError = false;
 
-      if (expenseSourceValue === '') {
-        expenseInput.setAttribute('aria-invalid', 'true');
-        expenseValidation.setAttribute('role', 'alert');
-        expenseValidation.textContent = "Expense Source can't be empty!"
-        return;
-      }
-      expenseInput.removeAttribute('aria-invalid');
-      expenseValidation.removeAttribute('role');
-      expenseValidation.textContent = '';
-      
-      if (Number(amountValue) <= 0 ) {
-        amountInput.setAttribute('aria-invalid', 'true');
-        amountValidation.setAttribute('role', 'alert');
-        amountValidation.textContent = "Amount can't be empty and has to be greater than 0!"
-        return;
-      }
-      amountInput.removeAttribute('aria-invalid');
-      amountValidation.removeAttribute('role');
-      amountValidation.textContent = '';
-      
-      if (!dateValue) {
-        dateInput.setAttribute('aria-invalid', 'true');
-        dateValidation.setAttribute('role', 'alert');
-        dateValidation.textContent = 'Please pick a date!'
-        return;
-      }
-      dateInput.removeAttribute('aria-invalid');
-      dateValidation.removeAttribute('role');
-      dateValidation.textContent = '';
-      
+
+        if (category === '') {
+          categoryInput.setAttribute('aria-invalid', 'true');
+          categoryValidation.setAttribute('role', 'alert');
+          categoryValidation.textContent = 'Please select a category!'
+          hasError = true;
+        }else {
+          categoryInput.removeAttribute('aria-invalid');
+          categoryValidation.removeAttribute('role');
+          categoryValidation.textContent = '';
+        }
+
+        if (expenseSourceValue === '') {
+          expenseInput.setAttribute('aria-invalid', 'true');
+          expenseValidation.setAttribute('role', 'alert');
+          expenseValidation.textContent = "Expense Source can't be empty!"
+          hasError = true;
+        }else {
+          expenseInput.removeAttribute('aria-invalid');
+          expenseValidation.removeAttribute('role');
+          expenseValidation.textContent = '';
+        }
+        
+        if (Number(amountValue) <= 0 ) {
+          amountInput.setAttribute('aria-invalid', 'true');
+          amountValidation.setAttribute('role', 'alert');
+          amountValidation.textContent = "Amount can't be empty and has to be greater than 0!"
+          hasError = true;
+        }else {
+          amountInput.removeAttribute('aria-invalid');
+          amountValidation.removeAttribute('role');
+          amountValidation.textContent = '';
+        }
+        
+        if (!dateValue) {
+          dateInput.setAttribute('aria-invalid', 'true');
+          dateValidation.setAttribute('role', 'alert');
+          dateValidation.textContent = 'Please pick a date!'
+          hasError = true;
+        }else {
+          dateInput.removeAttribute('aria-invalid');
+          dateValidation.removeAttribute('role');
+          dateValidation.textContent = '';
+        }
+
+        if(hasError) return;
+        
         const newExpense = {
           category,
           expenseSourceValue,
