@@ -14,11 +14,12 @@ export async function loadSharedData() {
     ...expenseData.map(item => ({...item, type: 'expense'})),
     ...incomeData.map(item => ({...item, type: 'income'}))
   ]
+  
   return sharedData; 
 }
 
 
-updateSharedDate() 
+await updateSharedDate() 
 export async function updateSharedDate() {
   await loadSharedData();
   sharedData.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))

@@ -74,7 +74,7 @@ fieldset {
   padding: 0.625rem;
   margin-top: 1.5rem;
   min-width: 0;
-  max-height: 40rem;
+  max-height: 45rem;
 }
 
 .recent-transactions-grid {
@@ -128,7 +128,9 @@ fieldset {
   margin-left: 0.625rem;
 }
 
-.transactions-date {
+.transactions-date,
+.expense-category,
+.income-category {
   color: grey;
   font-size: 0.75rem;
 }
@@ -162,7 +164,7 @@ fieldset {
   padding: 0.625rem;
   margin-top: 1.5rem;
   min-width: 0;
-  max-height: 40rem;
+  max-height: 45rem;
 }
 
 .financial-overview-text {

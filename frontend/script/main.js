@@ -13,13 +13,9 @@ import getFormattedDate from "./utils/getFormattedDate.js";
 import { renderExpenseChart } from "./chartJS/expense-page/expense-page-chart.js";
 import getAccessToken from "./utils/getAccessToken.js";
 
-refreshToken();
+
 
 getUsername().then((data) => document.querySelector('.profile-name-js').innerHTML = data)
-
-
-
-
 
 // utils
 menuIcon();
@@ -32,6 +28,7 @@ let income60;
 let total;
 
 logOut();
+
 // Get summary of total balance/ expenses / incomes
 
 export async function getTotalBalance() {
@@ -121,6 +118,7 @@ async function displayRecentTransactions() {
           <div>
             <div class="source-text">${sharedData[i].expenseSourceValue}</div>
             <div class="transactions-date">${formattedDate}</div>
+            <div class="expense-category">Category: ${sharedData[i].category}</div>
           </div>
           <div class="transactions-amount-minus">-${formatCurrency(sharedData[i].amountValue, symbol)}</div>
         </div>
@@ -136,6 +134,7 @@ async function displayRecentTransactions() {
           <div>
             <div class="source-text">${sharedData[i].incomeSourceValue}</div>
             <div class="transactions-date">${formattedDate}</div>
+            <div class="income-category">Category: ${sharedData[i].category}</div>
           </div>
           <div class="transactions-amount-plus">+${formatCurrency(sharedData[i].amountValue, symbol)} </div>
         </div>
@@ -166,6 +165,7 @@ async function displayExpenses() {
         <div>
           <div class="source-text">${expenseData[i].expenseSourceValue}</div>
           <div class="transactions-date">${formattedDate}</div>
+          <div class="expense-category">Category: ${expenseData[i].category}</div>
         </div>
         <div class="transactions-amount-minus">-${formatCurrency(expenseData[i].amountValue, symbol)} </div>
       </div>
@@ -195,6 +195,7 @@ async function displayIncome() {
         <div>
           <div class="source-text">${incomeData[i].incomeSourceValue}</div>
           <div class="transactions-date">${formattedDate}</div>
+          <div class="income-category">Category: ${incomeData[i].category}</div>
         </div>
       
         <div class="transactions-amount-plus">+${formatCurrency(incomeData[i].amountValue, symbol)} </div>
@@ -209,17 +210,16 @@ async function displayIncome() {
   
   // Charts
   getTotalBalance().then((data) => total = data);
-  renderFinancialOverviewChart(total)
+  await renderFinancialOverviewChart(total)
   
-  renderMainPageExpenseChart();
+  await renderMainPageExpenseChart();
   
   incomeLast60DaysSum().then((data) => income60 = data)
-  renderIncomeChart(income60);
+  await renderIncomeChart(income60);
 
 
 
   // Exchance Currency
-const dropDownIconBtn = document.getElementById('drop-down-icon')
   
   const iconSrc = document.querySelector('#drop-down-box img')
   const dropDownIcon = 'icons/dropdown-arrow-icon.png';

@@ -5,14 +5,14 @@ import {screen, within} from '@testing-library/dom';
 
 let fakeData = vi.hoisted(() => {
   return [
-  {amountValue: 5000, category: "Food & Groceries", currency: "CZK", dateValue: "2025-09-09", emoji: "", expenseSourceValue: "Steak house", user: "6893682cc44043ab368bd87f", __v: 0, _id: "691234678944c535c901e582"},
+  {amountValue: 5000, category: "Dining out/ Takeout", currency: "CZK", dateValue: "2025-09-09", emoji: "", expenseSourceValue: "Steak house", user: "6893682cc44043ab368bd87f", __v: 0, _id: "691234678944c535c901e582"},
   {amountValue: 10000, category: "Shopping", currency: "CZK",dateValue: "2025-10-10", emoji: "",expenseSourceValue: "Clothes", user: "6893682cc44043ab368bd87f", __v: 0, _id: "691234678944c535c901e682"},
 ]
 });
 
 
 const baseFakeData =  [
-  {amountValue: 5000, category: "Food & Groceries", currency: "CZK", dateValue: "2025-09-09", emoji: "", expenseSourceValue: "Steak house", user: "6893682cc44043ab368bd87f", __v: 0, _id: "691234678944c535c901e582"},
+  {amountValue: 5000, category: "Dining out/ Takeout", currency: "CZK", dateValue: "2025-09-09", emoji: "", expenseSourceValue: "Steak house", user: "6893682cc44043ab368bd87f", __v: 0, _id: "691234678944c535c901e582"},
   {amountValue: 10000, category: "Shopping", currency: "CZK",dateValue: "2025-10-10", emoji: "",expenseSourceValue: "Clothes", user: "6893682cc44043ab368bd87f", __v: 0, _id: "691234678944c535c901e682"},
 ]
 
@@ -273,7 +273,7 @@ describe('Expense page integrated tests', () => {
 
     expect(secondDelBtn).toHaveAttribute('data-id', '691234678944c535c901e582' )
     expect(listItems[1]).toHaveTextContent('Steak house')
-    expect(listItems[1]).toHaveTextContent('Category: Food & Groceries')
+    expect(listItems[1]).toHaveTextContent('Category: Dining out/ Takeout')
     expect(listItems[1]).toHaveTextContent('-5000 Kč')
     expect(listItems[1]).toHaveTextContent('09-09-2025')
   });
@@ -414,7 +414,7 @@ describe('Expense page integrated tests', () => {
 
     // Verify second expense
     expect(listItems[1]).toHaveTextContent('Steak house');
-    expect(listItems[1]).toHaveTextContent('Category: Food & Groceries');
+    expect(listItems[1]).toHaveTextContent('Category: Dining out/ Takeout');
     expect(listItems[1]).toHaveTextContent('-5000 Kč');
     expect(listItems[1]).toHaveTextContent('09-09-2025');
 
@@ -447,7 +447,7 @@ describe('Expense page integrated tests', () => {
 
     expect(listItems).toHaveLength(1);
 
-    expect(listItems[0]).toHaveTextContent('Category: Food & Groceries');
+    expect(listItems[0]).toHaveTextContent('Category: Dining out/ Takeout');
     expect(listItems[0]).toHaveTextContent('-5000 Kč');
     expect(listItems[0]).toHaveTextContent('09-09-2025');
     expect(listItems[0]).toHaveTextContent('Steak house');
