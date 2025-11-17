@@ -225,8 +225,9 @@ function submitIncome() {
 
         const labels = Object.keys(monthlySums)
         const data = Object.values(monthlySums)
-
-        updateChart(myChart,labels, data);
+        
+        
+        updateChart(myChart,labels, data, 'month');
         
         dialog.close();
         
@@ -279,7 +280,7 @@ document.querySelectorAll('.js-income-delete-button')
         const labels = Object.keys(monthlySums)
         const data = Object.values(monthlySums)
 
-        updateChart(myChart, labels, data);
+        updateChart(myChart, labels, data, 'month');
 
         await updateIncomeDate();
         await generateHTML();

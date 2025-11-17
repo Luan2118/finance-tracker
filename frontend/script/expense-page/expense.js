@@ -220,7 +220,7 @@ function submitExpense() {
           const labels = Object.keys(monthlySums)
           const data = Object.values(monthlySums)
 
-          updateChart(myExpenseChart, labels, data);
+          updateChart(myExpenseChart, labels, data, 'month');
                 
   
           updateExpenseDate();
@@ -273,7 +273,7 @@ function deleteExpenseButton () {
         const labels = Object.keys(monthlySums)
         const data = Object.values(monthlySums)
 
-        updateChart(myExpenseChart, labels, data);
+        updateChart(myExpenseChart, labels, data, 'month');
         
 
         generateHTML();
