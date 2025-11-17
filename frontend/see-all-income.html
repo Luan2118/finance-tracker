@@ -121,17 +121,16 @@
                   
                   <button type="button" class="filter-button-timeline" value="see-all">See all</button>
                 </div>
+
+                <div id="timeline-error" class="timeline-error-message timeline-error-message-js"></div>
               </section>
   
               <section class="amount-grid">
   
                 <h3 class="income-range-text">Income range</h3>
   
-                <section class="amount-inner-grid">
-                  <header>
-                    <h4 class="sr-only">Amount range</h4>
-                    <button type="button" class="filter-button-amount-custom filter-button-amount-custom-js" value="custom" aria-controls="amount-range" aria-expanded="false">Custom</button>
-                  </header>
+                <div class="amount-inner-grid">
+                  <button type="button" class="filter-button-amount-custom filter-button-amount-custom-js" value="custom" aria-controls="amount-range" aria-expanded="false">Custom</button>
 
                   <fieldset id="amount-range">
                     <legend class="sr-only">Amount range</legend>
@@ -146,8 +145,9 @@
                   <button type="button" class="filter-button-amount filter-button-amount-third" value="20000">up to 20000kč</button>
   
                   <button type="button" class="filter-button-amount" value="see-all">See all</button>
-                </section>
-  
+
+                </div>
+                <div id="amount-error"  class="amount-validation amount-validation-js"></div>
               </section>
               
               <button type="button"  class="filter-submit-button filter-submit-button-js">Filter</button>

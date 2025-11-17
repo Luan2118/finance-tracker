@@ -1,5 +1,6 @@
 export let filterAmountValue;
 export let customAmountClicked;
+export let amountBtnsClicked;
 
 export function setupCustomAmountFilter() {
 
@@ -14,7 +15,7 @@ export function setupCustomAmountFilter() {
 
   filterAmountCustomBtn.addEventListener('click', () => {
     customAmountClicked = true;
-
+    amountBtnsClicked =  false;
     filterAmountCustomBtn.setAttribute('aria-expanded', 'true');
     document.querySelector('.special2')?.classList.remove('special2');
     filterAmountCustomBtn.classList.add('special2');
@@ -29,6 +30,8 @@ export function setupCustomAmountFilter() {
       filterAmountCustomBtn.setAttribute('aria-expanded', 'false');
       document.querySelector('.special2')?.classList.remove('special2')
     } else {
+      amountBtnsClicked = false;
+      customAmountClicked = true;
       minAmountId.style.display = 'block';
       maxAmountId.style.display = 'block';
     }
@@ -39,6 +42,7 @@ export function setupCustomAmountFilter() {
   const filterAmount = document.querySelectorAll('.filter-button-amount')
   filterAmount.forEach((buttonAmount) => {
     buttonAmount.addEventListener('click', () => {
+      amountBtnsClicked = true;
       customAmountClicked = false
       minAmountId.style.display = 'none';
       maxAmountId.style.display = 'none';

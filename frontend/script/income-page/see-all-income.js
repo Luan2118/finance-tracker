@@ -3,8 +3,8 @@ import { formatCurrency, loadGetSymbol } from "../utils/currencySymbols.js";
 import { incomeChart } from "../chartJS/income-page/see-all-income-page-chart.js";
 import getUsername from "../utils/getUsername.js";
 import getFormattedDate from "../utils/getFormattedDate.js";
-import { setupCustomAmountFilter, filterAmountValue, customAmountClicked } from "../utils/see-all-income-expense-page/setupCustomAmountFilter.js";
-import { setUpCustomTimelineFilter, filterTimeValue, customTimelineClicked } from "../utils/see-all-income-expense-page/setUpCustomTimelineFilter.js";
+import { setupCustomAmountFilter, filterAmountValue, customAmountClicked, amountBtnsClicked } from "../utils/see-all-income-expense-page/setupCustomAmountFilter.js";
+import { setUpCustomTimelineFilter, filterTimeValue, customTimelineClicked, filterTimelineBtnsClicked } from "../utils/see-all-income-expense-page/setUpCustomTimelineFilter.js";
 import formatDate from "../utils/see-all-income-expense-page/FormatDate.js";
 import setPastDate from "../utils/see-all-income-expense-page/setPastDate.js";
 import resolveCategory from "../utils/see-all-income-expense-page/resolveCategory.js";
@@ -64,11 +64,6 @@ async function displayIncome(data) {
   await setIncomeData(allData);
 }
 
-// Category 
-
-const category = document.getElementById('category');
-const categoryValidation = document.querySelector('.category-validation-js');
-const incomeFilterValidation = document.querySelector('.income-validation');
 
 // Time line Custom
 setUpCustomTimelineFilter();
@@ -98,6 +93,14 @@ const formattedMaxFutureDate =  formatDate(maxFutureDate);
 
 
 
+// Category 
+const category = document.getElementById('category');
+
+// Validation msgs
+const categoryValidation = document.querySelector('.category-validation-js');
+const incomeFilterValidation = document.querySelector('.income-validation');
+
+
 // Income range CUSTOM
 setupCustomAmountFilter();
 
@@ -105,29 +108,54 @@ setupCustomAmountFilter();
 const MAX_VALUE = 100_000_000
 
 
-
-
 // Filter button - filtering income
 const filterButton = document.querySelector('.filter-submit-button-js')
 
 filterButton.addEventListener('click', async () => {
-
   
-
   document.querySelector('.income-validation').textContent = ''
+
+  // If nothing is selected validation
+  let hasError;
+
   if (category.value === '') {
+    hasError = true;
     category.setAttribute('aria-invalid', 'true');
     categoryValidation.setAttribute('role', 'alert');
-    return categoryValidation.textContent = 'Please select a category'
+     categoryValidation.textContent = 'Please select a category'
+  }else {
+    categoryValidation.textContent = ''
+    category.setAttribute('aria-invalid', 'false');
+    categoryValidation.removeAttribute('role');
   }
-  document.querySelector('.category-validation-js').textContent = ''
-  category.setAttribute('aria-invalid', 'false');
-  categoryValidation.removeAttribute('role');
 
+  const timelineValidationMsg = document.querySelector('.timeline-error-message-js');
+
+  if(!customTimelineClicked && !filterTimelineBtnsClicked) {
+    hasError = true;
+    timelineValidationMsg.setAttribute('role', 'alert')
+    timelineValidationMsg.textContent = 'Please select a timeline filter';
+  }else {
+    timelineValidationMsg.textContent = '';
+    timelineValidationMsg.removeAttribute('role')
+  }
+
+  const amountValidationMsg = document.querySelector('.amount-validation-js');
+
+  if(!customAmountClicked && !amountBtnsClicked) {
+    hasError = true;
+    amountValidationMsg.setAttribute('role', 'alert')
+    amountValidationMsg.textContent = 'Please select an amount filter';
+  }else {
+     amountValidationMsg.textContent = '';
+     amountValidationMsg.removeAttribute('role')
+  }
+
+  if(hasError) return;
   
+
   if (customAmountClicked === false  && category.value === 'see-all' && filterTimeValue === 'see-all' && filterAmountValue === MAX_VALUE ) {
 
-    
     const monthlySums = await monthlyIncomeSummary();
   
     const labels = Object.keys(monthlySums)
@@ -140,36 +168,36 @@ filterButton.addEventListener('click', async () => {
   
   }
   
-  
+
   // CUSTOM TIMELINE
   if(customTimelineClicked) {
     // Category validation
     const timeFromValue = document.querySelector('.time-from-js').value
     const timeToValue = document.querySelector('.time-to-js').value
-    
-
-    const timeFromValueDate = new Date(timeFromValue);
-    const timeToValueDate = new Date(timeToValue);
-    
-    const formattedTimeFromValueDate = formatDate(timeFromValueDate);
-    const formattedTimeToValueDate =formatDate(timeToValueDate);
-    
-
 
     const filteredIncomeCustom = incomeData.filter(income => {
       const categoryValue = resolveCategory(category, income);
-      return income.dateValue >= formattedTimeFromValueDate && income.dateValue <= formattedTimeToValueDate &&
-      income.amountValue <= filterAmountValue &&
-      income.category === categoryValue
-    })
+      if(customAmountClicked) {
+        const minAmountValue = document.querySelector('.min-amount-js').value
+        const maxAmountValue = document.querySelector('.max-amount-js').value
 
+        return income.amountValue >= minAmountValue && income.amountValue <= maxAmountValue &&
+        income.dateValue  >= timeFromValue && 
+        income.dateValue <= timeToValue &&
+        income.category === categoryValue
+      }else {
+        return income.amountValue <= filterAmountValue &&
+        income.dateValue >= timeFromValue && income.dateValue <= timeToValue &&
+        income.category === categoryValue
+      }
+    })
 
     const labels = filteredIncomeCustom.map(income => income.dateValue)
     const data = filteredIncomeCustom.map(income => income.amountValue)
 
     
-    incomeChart.options.scales.x.time.min = formattedTimeFromValueDate;
-    incomeChart.options.scales.x.time.max = formattedTimeToValueDate;
+    incomeChart.options.scales.x.time.min = timeFromValue;
+    incomeChart.options.scales.x.time.max = timeToValue;
     updateChart(incomeChart, labels, data, 'day');
 
     if(filteredIncomeCustom.length === 0) {
@@ -185,11 +213,6 @@ filterButton.addEventListener('click', async () => {
   
     return;
   }
-
-
-  
-  
-
   
   // After selecting a time range/ time line 
   const timeResult = 
@@ -200,14 +223,11 @@ filterButton.addEventListener('click', async () => {
 
   const endDate = timeResult === formattedMaxPastDate ? formattedMaxFutureDate : formattedToday
 
-
-
    // MAIN FILTER - Specific days and income range 
    let filteredIncome = incomeData.filter(income => {
     // Category validation
     const categoryValue = resolveCategory(category, income);
 
-   
     if(customAmountClicked) {
       const minAmountValue = document.querySelector('.min-amount-js').value
       const maxAmountValue = document.querySelector('.max-amount-js').value
@@ -227,8 +247,6 @@ filterButton.addEventListener('click', async () => {
 
   })
   
-
-  
   filteredIncome.sort((a, b) => new Date(b.dateValue) - new Date(a.dateValue))
   
   const labels = filteredIncome.map(income => income.dateValue)
@@ -245,7 +263,6 @@ filterButton.addEventListener('click', async () => {
       incomeFilterValidation.removeAttribute('role');
     }
   await displayIncome(filteredIncome)
-
   
 })
 

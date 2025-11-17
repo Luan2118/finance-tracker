@@ -4,8 +4,8 @@ import { expenseChart } from "../chartJS/expense-page/see-all-expenses-page-char
 import getUsername from "../utils/getUsername.js";
 import getFormattedDate from "../utils/getFormattedDate.js"
 import { updateChart } from "../utils/updateChart.js";
-import {setupCustomAmountFilter, filterAmountValue, customAmountClicked} from "../utils/see-all-income-expense-page/setupCustomAmountFilter.js";
-import { setUpCustomTimelineFilter, filterTimeValue, customTimelineClicked } from "../utils/see-all-income-expense-page/setUpCustomTimelineFilter.js";
+import {setupCustomAmountFilter, filterAmountValue, customAmountClicked, amountBtnsClicked} from "../utils/see-all-income-expense-page/setupCustomAmountFilter.js";
+import { setUpCustomTimelineFilter, filterTimeValue, customTimelineClicked, filterTimelineBtnsClicked } from "../utils/see-all-income-expense-page/setUpCustomTimelineFilter.js";
 import formatDate from "../utils/see-all-income-expense-page/FormatDate.js";
 import setPastDate from "../utils/see-all-income-expense-page/setPastDate.js";
 import resolveCategory from "../utils/see-all-income-expense-page/resolveCategory.js";
@@ -116,24 +116,49 @@ filterButton.addEventListener('click', async () => {
 
   document.querySelector('.expense-validation').textContent = ''
 
-   if (category.value === '') {
+  let hasError;
+  
+  if (category.value === '') {
+    hasError = true;
     category.setAttribute('aria-invalid', 'true');
     categoryValidation.setAttribute('role', 'alert');
-    return categoryValidation.textContent = 'Please select a category'
+    categoryValidation.textContent = 'Please select a category'
+  }else {
+    categoryValidation.textContent = ''
+    category.setAttribute('aria-invalid', 'false');
+    categoryValidation.removeAttribute('role');
   }
-  document.querySelector('.category-validation-js').textContent = ''
-  category.setAttribute('aria-invalid', 'false');
-  categoryValidation.removeAttribute('role');
 
+  const timelineValidationMsg = document.querySelector('.timeline-error-message-js');
+
+  if(!customTimelineClicked && !filterTimelineBtnsClicked) {
+    hasError = true;
+    timelineValidationMsg.setAttribute('role', 'alert')
+    timelineValidationMsg.textContent = 'Please select a timeline filter';
+  }else {
+    timelineValidationMsg.textContent = '';
+    timelineValidationMsg.removeAttribute('role')
+  }
+
+  const amountValidationMsg = document.querySelector('.amount-validation-js');
+
+  if(!customAmountClicked && !amountBtnsClicked) {
+    hasError = true;
+    amountValidationMsg.setAttribute('role', 'alert')
+    amountValidationMsg.textContent = 'Please select an amount filter';
+  }else {
+    amountValidationMsg.textContent = '';
+    amountValidationMsg.removeAttribute('role')
+  }
   
-  
+    if(hasError) return;
+
 
   // After selecting an amount range / expense range
   const MAX_VALUE = 100_000_000
 
  
   if (customAmountClicked === false  && category.value === 'see-all' && filterTimeValue === 'see-all' && filterAmountValue === MAX_VALUE ) {
-    console.log('all see alls called')
     
     const monthlySums = await monthlyExpenseSummary();
   
@@ -151,32 +176,34 @@ filterButton.addEventListener('click', async () => {
   // CUSTOM TIMELINE
   if(customTimelineClicked) {
     // Category validation
-    console.log('called')
     const timeFromValue = document.querySelector('.time-from-js').value
     const timeToValue = document.querySelector('.time-to-js').value
     
-
-    const timeFromValueDate = new Date(timeFromValue)
-    const timeToValueDate = new Date(timeToValue)
-    
-    const formattedTimeFromValueDate = formatDate(timeFromValueDate)
-    const formattedTimeToValueDate = formatDate(timeToValueDate)
-    
-
-
     const filteredExpenseCustom = expenseData.filter(expense => {
+
+    if(customAmountClicked) {
+    const minAmountValue = document.querySelector('.min-amount-js').value
+    const maxAmountValue = document.querySelector('.max-amount-js').value
+
+    return expense.amountValue >= minAmountValue && expense.amountValue <= maxAmountValue &&
+    expense.dateValue  >= timeFromValue && 
+    expense.dateValue <= timeToValue &&
+    expense.category === categoryValue
+  
+    }else {
       const categoryValue = resolveCategory(category, expense);
-      return expense.dateValue >= formattedTimeFromValueDate && expense.dateValue <= formattedTimeToValueDate &&
+      return expense.dateValue >= timeFromValue && expense.dateValue <= timeToValue &&
       expense.amountValue <= filterAmountValue &&
       expense.category === categoryValue
-    })
+    }
+  })
 
 
     const labels = filteredExpenseCustom.map(expense => expense.dateValue)
     const data = filteredExpenseCustom.map(expense => expense.amountValue)
 
-    expenseChart.options.scales.x.time.min = formattedTimeFromValueDate;
-    expenseChart.options.scales.x.time.max = formattedTimeToValueDate;
+    expenseChart.options.scales.x.time.min = timeFromValue;
+    expenseChart.options.scales.x.time.max = timeToValue;
      updateChart(expenseChart,labels, data, 'day');
 
    
