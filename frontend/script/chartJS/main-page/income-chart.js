@@ -56,15 +56,19 @@ export async function renderIncomeChart(income60) {
   const incomeChartData = filteredIncomeData.map(item => item.amountValue);
   
   const incomeCtx = document.getElementById('main-page-income-chart');
-
+  if(filteredIncomeData.length === 0) return;
+  
   const incomeDoughnutLabel = {
     id: 'incomeDoughnutLabel',
     beforeDatasetsDraw(chart, args, pluginOptions) {
       const {ctx, data} = chart;
       ctx.save();
       
+    
+      
       const xCoor = chart.getDatasetMeta(0).data[0].x
       const yCoor = chart.getDatasetMeta(0).data[0].y
+      
       
       const fontSize = Math.round(chart.height / 18);
       ctx.font = `bold ${fontSize}px Arial`;

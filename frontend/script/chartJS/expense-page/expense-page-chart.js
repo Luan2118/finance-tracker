@@ -12,8 +12,10 @@ export async function renderExpenseChart() {
   if (myExpenseChart) {
     myExpenseChart.destroy();
   }
-
+  
   const ctx = document.getElementById('expense-chart')
+  
+  if(!ctx) return;
   
   const symbol = await loadGetSymbol(expenseData)
   const monthlySum = await monthlyExpenseSummary();

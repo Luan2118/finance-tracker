@@ -354,7 +354,7 @@ async function displayIncome() {
         item.currency =  updatedExpenses[i].currency
       })
   
-      console.log(expenseData)
+     
       try {
         const  expenseResponse = await fetch('http://localhost:3000/expenses', {
           method: 'PUT',
@@ -383,19 +383,22 @@ async function displayIncome() {
       }
 
   
-  
+      
       financialOverviewChart.data.datasets[0].data = [await getTotalBalance(), await getMonthlyIncomeSum(), await getMonthlyExpenseSum()]
+
       let filteredIncomeData = await filteredIncome();
-      incomeChart.data.datasets[0].data = filteredIncomeData.map(item => item.amountValue)
-  
+      console.log(filteredIncomeData)
+      if(filteredIncomeData.length > 0) {
+        incomeChart.data.datasets[0].data = filteredIncomeData.map(item => item.amountValue)
+        incomeChart.update();
+        await renderIncomeChart();
+        income60 = await incomeLast60DaysSum();
+        menuIcon();
+      }
       financialOverviewChart.update();
       total = await getTotalBalance();
       await renderFinancialOverviewChart();
   
-      incomeChart.update();
-      income60 = await incomeLast60DaysSum();
-      await renderIncomeChart();
-      menuIcon();
       await displayMonthlyIncomeSummary();
       await displayMonthlyExpenseSummary();
       await displayTotalBalance();
@@ -404,8 +407,7 @@ async function displayIncome() {
       await displayIncome();
       await renderMainPageExpenseChart();
       await renderExpenseChart();
-      await renderIncomeChart();
-  
+      
     }
     catch (error) {
       console.error(error)
