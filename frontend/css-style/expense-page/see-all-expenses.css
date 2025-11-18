@@ -222,6 +222,34 @@ fieldset {
   margin-left: 0.625rem;
 }
 
+.expense-right-side {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.delete-icon {
+  height: 16px;
+}
+.expense-delete-button {
+  border: none;
+  background-color: white;
+  color: red;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.3s ease, opacity 0.3s;
+  opacity: 0;
+  margin-right: 0.25rem;
+}
+
+
+
+.expense-delete-button:hover {
+  opacity: 1
+}
+
+
+
 
 .expense-date,
 .expense-category-display {

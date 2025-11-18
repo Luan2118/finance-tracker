@@ -220,13 +220,40 @@ fieldset {
   margin-left: 0.625rem;
 }
 
+.income-right-side {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.delete-icon {
+  max-height: 16px;
+}
+
+
+.income-delete-button {
+  border: none;
+  background-color: white;
+  color: red;
+  cursor: pointer;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  margin-right: 0.25rem;
+}
+
+
+.income-delete-button:hover {
+  opacity: 1
+}
+
+
 .income-date,
 .income-category-display {
   color: grey;
   font-size: clamp(0.5rem, 3.5vw, 0.75rem);
 }
 
-.income-amount-minus {
+.income-amount-plus {
   display: flex;
   align-items: center;
   background-color: rgb(75, 173, 83);

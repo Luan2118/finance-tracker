@@ -10,7 +10,8 @@ import setPastDate from "../utils/see-all-income-expense-page/setPastDate.js";
 import resolveCategory from "../utils/see-all-income-expense-page/resolveCategory.js";
 import { updateChart } from "../utils/updateChart.js";
 import { menuIcon } from "../utils/menuIcon.js";
-
+import getAccessToken from "../utils/getAccessToken.js";
+import refreshToken from "../utils/refreshToken.js";
 
 // Menu icon
 menuIcon();
@@ -38,7 +39,7 @@ async function displayIncome(data) {
   let incomeHTML = '';
   
   incomeData.forEach((income) => {
-    const {category, emoji, incomeSourceValue, dateValue, amountValue} = income;
+    const {category, emoji, incomeSourceValue, dateValue, _id, amountValue} = income;
 
     const formattedDate = getFormattedDate(dateValue)
 
@@ -51,7 +52,10 @@ async function displayIncome(data) {
           <div class="income-date">${formattedDate}</div>
           <div class="income-category-display">Category: ${category}</div>
         </div>
-        <div class="income-amount-minus">+${formatCurrency(amountValue, symbol)}</div>
+        <div class="income-right-side">
+          <button type="button" class="income-delete-button js-income-delete-button" data-id="${_id}" aria-label="Delete income"><img class="delete-icon" src="./icons/bin-icon.png" alt=""></button>
+          <div class="income-amount-plus">+${formatCurrency(amountValue, symbol)}</div>
+        </div>
       </div>
     </li>
    `
@@ -62,7 +66,60 @@ async function displayIncome(data) {
   document.querySelector('.js-income-info-grid').innerHTML = incomeHTML;
 
   await setIncomeData(allData);
+
+  deleteButton(); 
 }
+
+function deleteButton() {
+document.querySelectorAll('.js-income-delete-button')
+  .forEach((link) => {
+    link.addEventListener('click', async () => {
+      const deleteButtonId = link.dataset.id
+
+      let token = getAccessToken();
+      try {
+        const response = await fetch(`http://localhost:3000/income/${deleteButtonId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        })
+
+        if (response.status === 401) {  
+          token = await refreshToken();
+          sessionStorage.setItem('accessToken', token)
+          response = await fetch(`http://localhost:3000/income/${deleteButtonId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        }) 
+        }
+
+        if(!response.ok) throw new Error('Failed to delete income')
+
+        const monthlySums = await monthlyIncomeSummary();
+    
+        const labels = Object.keys(monthlySums)
+        const data = Object.values(monthlySums)
+
+        updateChart(incomeChart, labels, data, 'month');
+
+        await updateIncomeDate();
+        await displayIncome();
+
+      } catch (error) {
+        console.log(error.message)
+      }
+        
+      
+    })
+  })
+
+}
+
 
 
 // Time line Custom
@@ -192,6 +249,7 @@ filterButton.addEventListener('click', async () => {
       }
     })
 
+    console.log(filteredIncomeCustom)
     const labels = filteredIncomeCustom.map(income => income.dateValue)
     const data = filteredIncomeCustom.map(income => income.amountValue)
 
@@ -200,7 +258,7 @@ filterButton.addEventListener('click', async () => {
     incomeChart.options.scales.x.time.max = timeToValue;
     updateChart(incomeChart, labels, data, 'day');
 
-    if(filteredIncomeCustom.length === 0) {
+    if(filteredIncomeCustom.length === 0) {       
 
       incomeFilterValidation.setAttribute('role', 'status');
        incomeFilterValidation.textContent = ' No income matches your filter'

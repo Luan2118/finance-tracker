@@ -11,7 +11,8 @@ import setPastDate from "../utils/see-all-income-expense-page/setPastDate.js";
 import resolveCategory from "../utils/see-all-income-expense-page/resolveCategory.js";
 import { menuIcon } from "../utils/menuIcon.js";
 import logOut from '../logout.js'
-
+import getAccessToken from "../utils/getAccessToken.js";
+import refreshToken from "../utils/refreshToken.js";
 // logout
 logOut();
 
@@ -42,7 +43,7 @@ async function displayExpense(data) {
   let expenseHTML = '';
   
   expenseData.forEach((expense) => {
-    const {category, emoji, expenseSourceValue, dateValue, amountValue} = expense;
+    const {category, emoji, expenseSourceValue, dateValue, _id, amountValue} = expense;
 
     const formattedDate = getFormattedDate(dateValue)
 
@@ -56,7 +57,11 @@ async function displayExpense(data) {
         <div class="expense-category-display">Category: ${category}</div>
         </div>
       
-        <div class="expense-amount-minus">-${formatCurrency(amountValue, symbol)}</div>
+        <div class="expense-right-side">
+            <button type="button" class="expense-delete-button js-expense-delete-button" data-id="${_id}" aria-label="Delete expense"><img class="delete-icon" src="./icons/bin-icon.png" alt=""></button>
+            <div class="expense-amount-minus">-${formatCurrency(amountValue, symbol)}
+            </div>
+          </div>
       </div>
      </li>
    `
@@ -67,7 +72,56 @@ async function displayExpense(data) {
   document.querySelector('.js-expense-info-grid').innerHTML = expenseHTML;
 
   await setExpenseData(allData);
+  deleteExpenseButton();
 }
+
+function deleteExpenseButton () {
+  document.querySelectorAll('.js-expense-delete-button') 
+  .forEach((button) => {
+    button.addEventListener('click', async () => {
+      const deleteExpenseId = button.dataset.id;
+
+      let token = getAccessToken();
+      try {
+        const response = await fetch(`http://localhost:3000/expenses/${deleteExpenseId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        })
+
+        if (response.status === 401) {  
+          token = await refreshToken();
+          sessionStorage.setItem('accessToken', token)
+          response = await fetch(`http://localhost:3000/expenses/${deleteExpenseId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        }) 
+        }
+
+        if (!response.ok) throw new Error('Failed to delete expense')
+        
+        const monthlySums = await monthlyExpenseSummary();
+              
+        const labels = Object.keys(monthlySums)
+        const data = Object.values(monthlySums)
+
+        updateChart(expenseChart, labels, data, 'month');
+        
+        await updateExpenseDate();
+        await displayExpense();
+      } catch (error) {
+        console.error(error.message)
+      }
+    })
+  })
+  
+}
+
 
 // Category 
 const label = document.querySelector('.label');

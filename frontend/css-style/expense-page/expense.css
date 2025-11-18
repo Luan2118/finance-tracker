@@ -234,7 +234,7 @@ dialog {
   margin-top: 0.3rem;
   margin-bottom: 0.3rem;
   color: grey;
-  font-size: clamp(0.7rem, 4vw, 1rem);
+  font-size: clamp(0.5rem, 3.5vw, 0.75rem);
 }
 
 .emoji-menu {

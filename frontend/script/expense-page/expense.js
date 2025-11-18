@@ -275,8 +275,8 @@ function deleteExpenseButton () {
 
         updateChart(myExpenseChart, labels, data, 'month');
         
-
-        generateHTML();
+        await updateExpenseDate();
+        await generateHTML();
       } catch (error) {
         console.error(error.message)
       }

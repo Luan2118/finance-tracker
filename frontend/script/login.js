@@ -44,7 +44,6 @@ loginButton.addEventListener('click', async (e) => {
     const result = await response.json();
 
     if(!response.ok) {
-      
       return loginValidation.innerHTML = result.error;
     }
 
