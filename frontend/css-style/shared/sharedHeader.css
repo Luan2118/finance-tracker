@@ -4,9 +4,8 @@
   position: sticky;
   top: 0;
   background: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  margin: 0;
-  padding: 1.45rem;
+  padding: 1.35rem;
+  z-index: 1;
 }
 
 

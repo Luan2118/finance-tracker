@@ -19,16 +19,19 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border-radius: 1rem;
   padding: 1.25rem;
-  flex: 1 1 auto;
-  min-width: 0;
 }
 
 .bottom-part {
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border-radius: 1rem;
-  flex: 1 1 auto;
-  min-width: 0;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 1rem;
+  padding: 0.625rem;
+  margin-top: 2rem;
 }
 
 
@@ -52,6 +55,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
 .expense-bar-chart-img {
@@ -87,9 +91,10 @@
 .see-all-button {
   background-color: rgb(240, 240, 240);
   border: none;
-  padding: 0.25rem 1rem;
+  padding:  clamp(0.3rem, 1.2vw, 0.5rem) clamp(0.7rem, 2vw, 1rem);
   border-radius: 0.25rem;
   cursor: pointer;
+  font-size: clamp(0.5rem, 4vw, 1rem)
 }
 
 .see-all-button:hover {
@@ -161,9 +166,9 @@
   align-items: center;
   background-color: rgb(192, 88, 74);
   color: white;
-  padding: 0.25rem 0.625rem;
+  padding: 0.4rem 0.8rem;
   font-size: clamp(0.7rem, 4vw, 0.9rem);
-  border-radius: 0.25rem;
+  border-radius: 0.4rem;
 }
 
 .each-expense-grid {
@@ -358,6 +363,10 @@ dialog {
   font-size: clamp(0.8rem, 4.5vw, 1.2rem);
 }
 
+.top-part,
+.bottom-part {
+  min-width: 0;
+}
 
 @media (max-width: 730px) {
   .each-expense-grid {

@@ -15,8 +15,11 @@ loginButton.addEventListener('click', async (e) => {
   const emailValue = document.querySelector('.login-input-js').value.trim();
   const password = document.querySelector('.password-input-js').value;
 
- 
-
+  if(emailValue === '' || password === '') {
+    return loginValidation.textContent = 'Empty fields!'
+  }
+  
+  
   if(!emailRegex.test(emailValue)) {
     return loginValidation.textContent = 'Not a valid email'
   }

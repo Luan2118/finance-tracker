@@ -92,6 +92,7 @@
   border-radius: 0.25rem;
   cursor: pointer;
   margin-right: 0.25rem;
+  font-size: clamp(0.5rem, 4vw, 1rem)
 }
 
 .see-all-button:hover {
@@ -155,9 +156,9 @@
   align-items: center;
   background-color: rgb(75, 173, 83);
   color: white;
-  padding: 0.25rem 0.625rem;
+  padding: 0.4rem 0.8rem;
   font-size: clamp(0.7rem, 4vw, 0.9rem);
-  border-radius: 0.25rem;
+  border-radius: 0.4rem;
 }
 
 .each-income-grid {
@@ -312,6 +313,7 @@ dialog {
   font-size: clamp(0.5rem, 4vw, 1rem);
   cursor: pointer;
   transition: 0.15;
+
 }
 
 .add-income-button-submit:hover {

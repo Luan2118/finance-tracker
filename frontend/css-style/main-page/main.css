@@ -32,7 +32,7 @@ fieldset {
   display: flex;
   flex-direction: row; 
   padding: 1.25rem;
-  border-radius: 0.625rem;
+  border-radius: 1rem;
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   min-width: 0;
@@ -113,7 +113,7 @@ fieldset {
 
 .transactions-title {
   font-weight: 600;
-  font-size: 1.25rem;
+  font-size: clamp(0.8rem, 4.5vw, 1.2rem);
 }
 .transaction-img-grid {
   background-color: white;
@@ -139,7 +139,7 @@ fieldset {
   display: flex;
   align-items: center;
   background-color: rgb(192, 88, 74);
-  font-size: 0.9rem;
+  font-size: clamp(0.5rem, 4vw, 0.9rem);
   color: white;
   padding: 0.25rem 0.625rem;
   border-radius: 0.4rem
@@ -150,7 +150,7 @@ fieldset {
   align-items: center;
   background-color: rgb(75, 173, 83);
   color: white;
-  font-size: 0.9rem;
+  font-size: clamp(0.5rem, 4vw, 0.9rem);
   padding: 0.25rem 0.625rem;
   border-radius: 0.4rem;
 }
@@ -170,6 +170,7 @@ fieldset {
 .financial-overview-text {
   padding: 0.625rem;
   font-weight: 600;
+  font-size: clamp(0.8rem, 4.5vw, 1.2rem);
 }
 
 

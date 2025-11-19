@@ -4,6 +4,10 @@ body {
   font-family: Arial;
   margin: 0;
   padding: 0;
+  background-image: url('../../icons/background-image3.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 html {

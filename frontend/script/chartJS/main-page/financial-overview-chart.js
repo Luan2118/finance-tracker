@@ -51,7 +51,7 @@ export async function renderFinancialOverviewChart(total) {
       datasets: [{
         label: 'Amount',
         data,
-        backgroundColor: ['rgb(68, 136, 201)', 'rgb(90, 207, 100)', 'rgb(216, 85, 67)'],
+        backgroundColor: ['rgb(68, 136, 201)', 'rgb(75, 173, 83)', 'rgb(192, 88, 74)'],
         borderWidth: 5,
         borderRadius: 5,
         hoverBackgroundColor: ['rgb(76, 154, 228, 0.97)', 'rgba(96, 224, 107, 0.97)', 'rgba(241, 84, 63, 0.97)']
