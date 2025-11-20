@@ -54,7 +54,7 @@ export async function renderFinancialOverviewChart(total) {
         backgroundColor: ['rgb(68, 136, 201)', 'rgb(75, 173, 83)', 'rgb(192, 88, 74)'],
         borderWidth: 5,
         borderRadius: 5,
-        hoverBackgroundColor: ['rgb(76, 154, 228, 0.97)', 'rgba(96, 224, 107, 0.97)', 'rgba(241, 84, 63, 0.97)']
+        hoverBackgroundColor: ['rgb(76, 154, 228, 0.97)', 'rgba(88, 206, 98, 0.81)',  'rgba(214, 117, 104, 0.81)']
         
       }]
     },

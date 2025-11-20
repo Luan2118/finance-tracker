@@ -35,8 +35,8 @@ async function renderMainPageExpenseChart() {
       datasets: [{
         label: '',
         data: expenseChartData,
-        backgroundColor: 'rgb(216, 85, 67)',
-        hoverBackgroundColor: 'rgba(241, 84, 63, 0.81)',
+        backgroundColor: 'rgb(192, 88, 74)',
+        hoverBackgroundColor: 'rgba(214, 117, 104, 0.81)',
         barPercentage: 0.6,
         borderRadius: 15,
       }]

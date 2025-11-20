@@ -26,10 +26,10 @@ async function renderIncomeChart() {
       datasets: [{
         label: 'Income Chart',
         data,
-        backgroundColor: ['rgb(90, 207, 100)'],
+        backgroundColor: 'rgb(75, 173, 83)',
         barPercentage: 0.7,
         borderRadius: 15,
-        hoverBackgroundColor: 'rgba(96, 224, 107, 0.81)',
+        hoverBackgroundColor: 'rgba(88, 206, 98, 0.81)',
         hoverBorderWidth: '50px'
       }]
     },

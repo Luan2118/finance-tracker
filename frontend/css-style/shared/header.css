@@ -40,6 +40,10 @@
   align-items: center;
 }
 
+.currency-text {
+  margin-right: 0.2rem;
+}
+
 .dropdown {
   margin-right: 1.25rem;
 }
@@ -61,9 +65,12 @@
 
 .options {
   position: absolute;
-  background-color: rgb(245, 245, 245);
+  margin-top: 0.5rem;
+  background-color: #f6edf8;
   display: none;
   padding: 0.4rem;
+  border-radius: 0.5rem;
+  color: rgb(0, 0, 0);
 }
 
 

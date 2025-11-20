@@ -32,10 +32,10 @@ export async function renderExpenseChart() {
     datasets: [{
       label: 'Expenses',
       data,
-      backgroundColor: 'rgb(216, 85, 67)',
+      backgroundColor: 'rgb(192, 88, 74)',
       barPercentage: 0.7,
       borderRadius: 15,
-      hoverBackgroundColor: 'rgba(241, 84, 63, 0.81)',
+      hoverBackgroundColor: 'rgba(214, 117, 104, 0.81)',
       hoverBorderWidth: '50px'
     }]
   }
