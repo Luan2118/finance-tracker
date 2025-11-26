@@ -1,26 +1,24 @@
-# Personal Finance Tracker app
+# Finance Tracker
 
 ## Description
-Finance Tracker is a full stack web application that allows users to effectively manage their personal income and expenses.
-Users can create an account, log in, add and delete financial records and categorize them.
-The app provides charts, filters and currency support to help users analyze their spending habits.
+Finance Tracker is a full-stack web application for tracking personal income and expenses.
+Users can log in, add transactions, categorize them and monitor balance changes over time.
+The app provides charts, filters and multi-currency support to help users visualize financial activity.
 
 
 ## Features
 - Add and delete income and expenses
-- Filter by categories, time and amount
-- Dynamic chart overview of income, expenses and total balance
-- Supports 5 currencies: CZK, USD, EUR, GBP, and JPY
+- Filter by categories, date and amount range
+- Interactive chart for income, expenses and total balance
+- Supports 5 currencies: CZK, USD, EUR, GBP, JPY
 - User registration and login
-- responsive layout
+- Responsive layout
 
 
-## Tech stack
+## Tech Stack
 
 ### Frontend
-- HTML, CSS, Javascript
-
-### Charts
+- HTML, CSS, JavaScript
 - Chart.js
 
 ### Backend
@@ -36,55 +34,51 @@ The app provides charts, filters and currency support to help users analyze thei
 - Vitest, Testing Library, jsdom
 
 
-
 ## Installation
 
-### 1. Clone the repository
+1. Clone the repository
 ```bash
 git clone https://github.com/Luan2118/finance-tracker-project.git
-cd "https://github.com/Luan2118/finance-tracker-project.git"
+cd finance-tracker-project
 ```
 
-### 2. Install backend dependencies
+2. Install backend dependencies
 ```bash
+cd backend
 npm install
 ```
 
-### 3. Create .env file and add:
-```bash
-PORT=
-DATABASE_URL= 
-ACCESS_TOKEN_SECRET=
-REFRESH_TOKEN_SECRET=
-CORS_ORIGIN=
+3. Create a `.env` file in the backend folder and add:
+```env
+PORT=3000
+DATABASE_URL=your_mongodb_connection_string
+ACCESS_TOKEN_SECRET=youraccesstokensecret
+REFRESH_TOKEN_SECRET=yourrefreshtokensecret
+CORS_ORIGIN=http://localhost:5500
 ```
 
-### 4. Start backend server
+4. Start backend server
 ```bash
 npm start
 ```
 
-### 5. Start frontend
-```bash
-Open login.html in Live Server 
-```
+5. Start frontend
+Open `frontend/login.html` in Live Server 
+
 
 ## Screenshots
 
 ### Registration
 ![Register page](./assets/register.png)
 
-### Login
-![Login](./assets/login.png)
-
 ### Dashboard
-![Dashboard](./assets/Main-page-1.png)
+![Dashboard](./assets/dashboard.png)
 
 ### Expense page
-![Expense page](./assets/Expense-page.png)
+![Expense page](./assets/expenses.png)
 
 ### All Expenses filter page
-![All Expenses filter page](./assets/filter-expense-page.png)
+![All Expenses filter page](./assets/filters.png)
 
 ## Testing
 
@@ -97,13 +91,4 @@ To run all tests:
 npm test
 ```
 
-## Deployment
-- finish in the future
-
-## Environment Variables
-PORT=
-DATABASE_URL= 
-ACCESS_TOKEN_SECRET=
-REFRESH_TOKEN_SECRET=
-CORS_ORIGIN=
 
