@@ -8,7 +8,7 @@ function validateInput(sourceValueType) {
 
     const {category, amountValue, currency, dateValue, emoji } = req.body;
 
-    const isOnlyLettersSource = /^[a-zA-Z -]+$/.test(req.body[sourceValueType]);
+    const isOnlyLettersSource = /^[\p{L} -]+$/u.test(req.body[sourceValueType]);
 
     const parsedAmount = Number(amountValue);
 

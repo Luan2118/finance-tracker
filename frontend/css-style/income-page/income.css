@@ -8,6 +8,7 @@
 }
 
 
+
 .main-income-grid {
   display: flex;
   flex-direction: column;
@@ -265,8 +266,7 @@ dialog {
 }
 
 .emoji-picked {
-  padding: 0.25rem;
-  font-size: clamp(0.6rem, 5vw, 2.5rem);
+  font-size: clamp(1rem, 3vw, 1.8rem);
   width: clamp(2rem, 5vw, 3rem);
   height: clamp(2rem, 5vw, 3rem);
   margin-left: 0.625rem;

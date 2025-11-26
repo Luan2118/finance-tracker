@@ -45,8 +45,8 @@ popUpCloseButton.addEventListener('keydown', handleClosePopUp)
 const expenseSourceInput = document.getElementById('expense-source-input')
 
 expenseSourceInput.addEventListener('input', (event) => {
-  event.target.value = event.target.value.replace(/[^a-zA-Z\- ]/g, '')
-})
+  event.target.value = event.target.value.replace(/[^\p{L}\- ]/gu, '');
+});
 
 const expenseAmountInput = document.getElementById('expense-amount-input')
 

@@ -53,8 +53,8 @@ amountInput.addEventListener('input', (event) => {
 const incomeSourceInput = document.getElementById('income-source-input')
 
 incomeSourceInput.addEventListener('input', (event) => {
-  event.target.value = event.target.value.replace(/[^a-zA-Z\- ]/g, '')
-})
+  event.target.value = event.target.value.replace(/[^\p{L}\- ]/gu, '');
+});
 
 
 
