@@ -12,7 +12,7 @@ import getUsername from "./utils/getUsername.js";
 import getFormattedDate from "./utils/getFormattedDate.js";
 import { renderExpenseChart } from "./chartJS/expense-page/expense-page-chart.js";
 import getAccessToken from "./utils/getAccessToken.js";
-
+import { API_BASE_URL } from "./utils/apiConfig.js";
 
 
 getUsername().then((data) => document.querySelector('.profile-name-js').innerHTML = data)
@@ -323,7 +323,7 @@ async function displayIncome() {
        
       let token = getAccessToken();
       try {
-        const  incomeResponse = await fetch('http://localhost:3000/income', {
+        const  incomeResponse = await fetch(`${API_BASE_URL}/income`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -335,7 +335,7 @@ async function displayIncome() {
         if (response.status === 401) {  
           token = await refreshToken();
           sessionStorage.setItem('accessToken', token)
-          response = await fetch('http://localhost:3000/income', {
+          response = await fetch(`${API_BASE_URL}/income`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -356,7 +356,7 @@ async function displayIncome() {
   
      
       try {
-        const  expenseResponse = await fetch('http://localhost:3000/expenses', {
+        const  expenseResponse = await fetch(`${API_BASE_URL}/expenses`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -368,7 +368,7 @@ async function displayIncome() {
         if (response.status === 401) {  
           token = await refreshToken();
           sessionStorage.setItem('accessToken', token)
-          response = await fetch('http://localhost:3000/expenses', {
+          response = await fetch(`${API_BASE_URL}/expenses`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

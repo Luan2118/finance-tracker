@@ -9,6 +9,7 @@ import refreshToken from "../utils/refreshToken.js";
 import getUsername from "../utils/getUsername.js";
 import getFormattedDate from "../utils/getFormattedDate.js";
 import { updateChart } from "../utils/updateChart.js";
+import { API_BASE_URL } from "../utils/apiConfig.js";
 
 // utils
 menuIcon();
@@ -191,7 +192,7 @@ function submitExpense() {
         
         try {
           let token = getAccessToken();
-          let response = await fetch('http://localhost:3000/expenses', {
+          let response = await fetch(`${API_BASE_URL}/expenses`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -203,7 +204,7 @@ function submitExpense() {
           if (response.status === 401) {  
             token = await refreshToken();
             sessionStorage.setItem('accessToken', token)
-            response = await fetch('http://localhost:3000/expenses', {
+            response = await fetch(`${API_BASE_URL}/expenses`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -246,7 +247,7 @@ function deleteExpenseButton () {
 
       let token = getAccessToken();
       try {
-        const response = await fetch(`http://localhost:3000/expenses/${deleteExpenseId}`, {
+        const response = await fetch(`${API_BASE_URL}/expenses/${deleteExpenseId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -257,7 +258,7 @@ function deleteExpenseButton () {
         if (response.status === 401) {  
           token = await refreshToken();
           sessionStorage.setItem('accessToken', token)
-          response = await fetch(`http://localhost:3000/expenses/${deleteExpenseId}`, {
+          response = await fetch(`${API_BASE_URL}/expenses/${deleteExpenseId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',

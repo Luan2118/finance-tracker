@@ -1,13 +1,13 @@
 import getAccessToken from "./getAccessToken.js";
 import refreshToken from "./refreshToken.js";
-
+import { API_BASE_URL } from "./apiConfig.js";
 
  async function getUsername() {
   try {
 
     let token = await getAccessToken();
 
-    let response = await fetch('http://localhost:3000/login/user', {
+    let response = await fetch(`${API_BASE_URL}/login/user`, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -18,7 +18,7 @@ import refreshToken from "./refreshToken.js";
     if(response.status === 401) {
       token = await refreshToken();
       sessionStorage.setItem('accessToken', token)
-       response = await fetch('http://localhost:3000/login/user', {
+       response = await fetch(`${API_BASE_URL}/login/user`, {
       method: 'GET',
       credentials: 'include',
       headers: {

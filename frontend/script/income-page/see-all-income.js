@@ -5,13 +5,15 @@ import getUsername from "../utils/getUsername.js";
 import getFormattedDate from "../utils/getFormattedDate.js";
 import { setupCustomAmountFilter, filterAmountValue, customAmountClicked, amountBtnsClicked } from "../utils/see-all-income-expense-page/setupCustomAmountFilter.js";
 import { setUpCustomTimelineFilter, filterTimeValue, customTimelineClicked, filterTimelineBtnsClicked } from "../utils/see-all-income-expense-page/setUpCustomTimelineFilter.js";
-import formatDate from "../utils/see-all-income-expense-page/formatDate.js";
+import formatDate from "../utils/see-all-income-expense-page/FormatDate.js";
 import setPastDate from "../utils/see-all-income-expense-page/setPastDate.js";
 import resolveCategory from "../utils/see-all-income-expense-page/resolveCategory.js";
 import { updateChart } from "../utils/updateChart.js";
 import { menuIcon } from "../utils/menuIcon.js";
 import getAccessToken from "../utils/getAccessToken.js";
 import refreshToken from "../utils/refreshToken.js";
+import { API_BASE_URL } from "../utils/apiConfig.js";
+
 
 // Menu icon
 menuIcon();
@@ -78,7 +80,7 @@ document.querySelectorAll('.js-income-delete-button')
 
       let token = getAccessToken();
       try {
-        const response = await fetch(`http://localhost:3000/income/${deleteButtonId}`, {
+        const response = await fetch(`${API_BASE_URL}/income/${deleteButtonId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -89,7 +91,7 @@ document.querySelectorAll('.js-income-delete-button')
         if (response.status === 401) {  
           token = await refreshToken();
           sessionStorage.setItem('accessToken', token)
-          response = await fetch(`http://localhost:3000/income/${deleteButtonId}`, {
+          response = await fetch(`${API_BASE_URL}/income/${deleteButtonId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',

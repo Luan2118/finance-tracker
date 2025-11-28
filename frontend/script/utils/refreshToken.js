@@ -1,7 +1,9 @@
+import { API_BASE_URL } from "./apiConfig.js";
+
 async function refreshToken() {
 
   try {
-    const response = await fetch('http://localhost:3000/login/refresh', {
+    const response = await fetch(`${API_BASE_URL}/login/refresh`, {
       method: 'POST',
       credentials: 'include'
     })

@@ -9,6 +9,7 @@ import refreshToken from "../utils/refreshToken.js";
 import getUsername from "../utils/getUsername.js";
 import getFormattedDate from "../utils/getFormattedDate.js";
 import { updateChart } from "../utils/updateChart.js";
+import { API_BASE_URL } from "../utils/apiConfig.js";
 
 // utils
 menuIcon();
@@ -198,7 +199,7 @@ function submitIncome() {
       try {
         let token = getAccessToken();
 
-        let response = await fetch('http://localhost:3000/income', {
+        let response = await fetch(`${API_BASE_URL}/income`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -210,7 +211,7 @@ function submitIncome() {
         if(response.status === 401) {
           token = await refreshToken();
           sessionStorage.setItem('accessToken', token)
-          response = await fetch('http://localhost:3000/income', {
+          response = await fetch(`${API_BASE_URL}/income`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -253,7 +254,7 @@ document.querySelectorAll('.js-income-delete-button')
 
       let token = getAccessToken();
       try {
-        const response = await fetch(`http://localhost:3000/income/${deleteButtonId}`, {
+        const response = await fetch(`${API_BASE_URL}/income/${deleteButtonId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -264,7 +265,7 @@ document.querySelectorAll('.js-income-delete-button')
         if (response.status === 401) {  
           token = await refreshToken();
           sessionStorage.setItem('accessToken', token)
-          response = await fetch(`http://localhost:3000/income/${deleteButtonId}`, {
+          response = await fetch(`${API_BASE_URL}/income/${deleteButtonId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',

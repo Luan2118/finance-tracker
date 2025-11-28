@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "./utils/apiConfig.js";
 
 function logOut() {
 
@@ -5,7 +6,7 @@ function logOut() {
   
   logoutBtn.addEventListener('click', async () => {
     try {
-      await fetch('http://localhost:3000/login/logout', {
+      await fetch(`${API_BASE_URL}/login/logout`, {
         method: 'POST',
         credentials: 'include'
       })

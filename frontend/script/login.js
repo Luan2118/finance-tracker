@@ -1,4 +1,4 @@
-
+import { API_BASE_URL } from "./utils/apiConfig.js";
 
 
 const loginButton = document.querySelector('.login-button-js');
@@ -33,7 +33,7 @@ loginButton.addEventListener('click', async (e) => {
 
   try {
 
-    const response = await fetch('http://localhost:3000/login', {
+    const response = await fetch(`${API_BASE_URL}/login`, {
       method: 'POST',
       credentials: 'include',
       headers: {

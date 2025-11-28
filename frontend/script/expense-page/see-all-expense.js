@@ -13,6 +13,8 @@ import { menuIcon } from "../utils/menuIcon.js";
 import logOut from '../logout.js'
 import getAccessToken from "../utils/getAccessToken.js";
 import refreshToken from "../utils/refreshToken.js";
+import { API_BASE_URL } from "../utils/apiConfig.js";
+
 // logout
 logOut();
 
@@ -83,7 +85,7 @@ function deleteExpenseButton () {
 
       let token = getAccessToken();
       try {
-        const response = await fetch(`http://localhost:3000/expenses/${deleteExpenseId}`, {
+        const response = await fetch(`${API_BASE_URL}/expenses/${deleteExpenseId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -94,7 +96,7 @@ function deleteExpenseButton () {
         if (response.status === 401) {  
           token = await refreshToken();
           sessionStorage.setItem('accessToken', token)
-          response = await fetch(`http://localhost:3000/expenses/${deleteExpenseId}`, {
+          response = await fetch(`${API_BASE_URL}/expenses/${deleteExpenseId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
