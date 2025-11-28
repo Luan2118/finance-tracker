@@ -10,7 +10,7 @@ async function getIncome() {
     let token = getAccessToken();
 
 
-    let response = await fetch(`API_BASE_URL/income`, {
+    let response = await fetch(`${API_BASE_URL}}/income`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -20,7 +20,7 @@ async function getIncome() {
     if(response.status === 401) {
       token = await refreshToken();
       sessionStorage.setItem('accessToken', token)
-      response = await fetch(`API_BASE_URL/income`, {
+      response = await fetch(`${API_BASE_URL}/income`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`

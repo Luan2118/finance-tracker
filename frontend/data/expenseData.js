@@ -9,7 +9,7 @@ async function getExpenseData() {
   try {
     let token = getAccessToken();
 
-    let response = await fetch(`API_BASE_URL/expenses`, {
+    let response = await fetch(`${API_BASE_URL}/expenses`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -19,7 +19,7 @@ async function getExpenseData() {
     if(response.status === 401) {
       token = await refreshToken();
       sessionStorage.setItem('accessToken', token)
-      response = await fetch(`API_BASE_URL/expenses`, {
+      response = await fetch(`${API_BASE_URL}/expenses`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
