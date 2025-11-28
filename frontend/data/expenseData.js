@@ -1,5 +1,6 @@
 import getAccessToken from "../script/utils/getAccessToken.js";
 import refreshToken from "../script/utils/refreshToken.js";
+import { API_BASE_URL } from "../script/utils/apiConfig.js";
 
 export let expenseData;
 
@@ -8,7 +9,7 @@ async function getExpenseData() {
   try {
     let token = getAccessToken();
 
-    let response = await fetch('http://localhost:3000/expenses', {
+    let response = await fetch(`API_BASE_URL/expenses`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -18,7 +19,7 @@ async function getExpenseData() {
     if(response.status === 401) {
       token = await refreshToken();
       sessionStorage.setItem('accessToken', token)
-      response = await fetch('http://localhost:3000/expenses', {
+      response = await fetch(`API_BASE_URL/expenses`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`

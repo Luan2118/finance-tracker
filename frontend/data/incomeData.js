@@ -1,6 +1,6 @@
 import getAccessToken from "../script/utils/getAccessToken.js";
 import refreshToken from "../script/utils/refreshToken.js";
-
+import { API_BASE_URL } from "../script/utils/apiConfig.js";
 
 export let incomeData;
 
@@ -10,7 +10,7 @@ async function getIncome() {
     let token = getAccessToken();
 
 
-    let response = await fetch('http://localhost:3000/income', {
+    let response = await fetch(`API_BASE_URL/income`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -20,7 +20,7 @@ async function getIncome() {
     if(response.status === 401) {
       token = await refreshToken();
       sessionStorage.setItem('accessToken', token)
-      response = await fetch('http://localhost:3000/income', {
+      response = await fetch(`API_BASE_URL/income`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
