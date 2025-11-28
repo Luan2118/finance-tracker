@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "./utils/apiConfig";
+import { API_BASE_URL } from "./utils/apiConfig.js";
 
 const usernameValidation = document.querySelector('.username-input-validation');
 
