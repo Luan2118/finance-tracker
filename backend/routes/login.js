@@ -6,6 +6,9 @@ import authenticateToken from '../middleware/authenticateToken.js';
 
 const router = express.Router();
 
+const isProduction = process.env.NODE_ENV === 'production';
+
+
 router.get('/user', authenticateToken, async(req, res, next) => {
   try {
     const user = await User.findOne({_id: req.user.id});
@@ -54,8 +57,8 @@ router.post('/', async (req, res, next) => {
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'Strict',
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'strict',
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
 
@@ -100,8 +103,8 @@ router.post('/refresh', (req , res, next) => {
 router.post('/logout', (req, res) => {
   res.clearCookie('refreshToken', {
     httpOnly: true,
-    secure: true,
-    sameSite: 'Strict',
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'strict',
   })
   res.status(200).json({msg: 'Logged out'})
 })

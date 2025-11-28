@@ -13,8 +13,10 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit'
 
 const PORT = process.env.PORT || 3000;
+
+
 const server = express();
-const corsOrigin =  process.env.CORS_ORIGIN;
+const allowedOrigins =  ['http://localhost:5500', 'www.yourfrotend.com']
 const databaseURL = process.env.DATABASE_URL
 
 // --- DB ---
@@ -29,8 +31,13 @@ mongoose.connect(databaseURL)
 
 // CORS (restricting to your frontend origin)
 server.use(cors({
-  origin: corsOrigin,
-  credentials: true            
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true
 }));
 
 // security headers
