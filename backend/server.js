@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3000;
 
 
 const server = express();
-const allowedOrigins =  ['http://localhost:5500', 'www.yourfrotend.com']
+const allowedOrigins =  ['http://localhost:5500', 'https://finance-tracker-project-sigma.vercel.app/']
 const databaseURL = process.env.DATABASE_URL
 
 // --- DB ---
