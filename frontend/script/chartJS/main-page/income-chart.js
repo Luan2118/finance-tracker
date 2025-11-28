@@ -1,7 +1,6 @@
 import { loadIncomeData, incomeData } from "../../../data/incomeData.js"
 import { formatCurrency, loadGetSymbol } from "../../utils/currencySymbols.js"
 import setPastDate from "../../utils/see-all-income-expense-page/setPastDate.js"
-import formatDate from "../../utils/see-all-income-expense-page/FormatDate.js"
 
 
 const today1 = new Date()
