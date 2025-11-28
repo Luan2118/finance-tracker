@@ -1,3 +1,5 @@
+import { API_BASE_URL } from "./utils/apiConfig";
+
 const usernameValidation = document.querySelector('.username-input-validation');
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,10}$/;
@@ -84,7 +86,7 @@ registerBtn.addEventListener('click', async (e) => {
   }
 
   try {
-    const response = await fetch('http://localhost:3000/register', {
+    const response = await fetch(`${API_BASE_URL}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
