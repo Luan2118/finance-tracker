@@ -44,6 +44,8 @@ server.use(cors({
 // security headers
 server.use(helmet());
 
+server.set('trust proxy', 1)
+
 // Parsers
 server.use(express.json());
 server.use(express.urlencoded({extended: false}));
@@ -52,7 +54,7 @@ server.use(cookieParser());
 // Rate limits (global + stricter on auth)
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 300,
+  max: 300 ,
   standardHeaders: true,
   legacyHeaders: false,
   // don't count CORS preflights; disable in dev
@@ -61,7 +63,7 @@ const apiLimiter = rateLimit({
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 500, // 100 requests per 15 min per IP
+  max: 500, 
   standardHeaders: true,
   legacyHeaders: false,
   message: {error: { message: 'Too many requests, please try again later.', code: 'RATE_LIMIT'  }}
