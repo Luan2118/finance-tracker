@@ -82,6 +82,15 @@
   color: red;
 }
 
+.login-link-grid {
+  display: flex;
+  margin-top: 0.5rem;
+}
+
+.login-link {
+  margin-left: 0.25rem;
+}
+
 .dialog {
   border: none;
   border-color: none;

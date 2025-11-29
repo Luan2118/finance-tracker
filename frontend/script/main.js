@@ -387,7 +387,6 @@ async function displayIncome() {
       financialOverviewChart.data.datasets[0].data = [await getTotalBalance(), await getMonthlyIncomeSum(), await getMonthlyExpenseSum()]
 
       let filteredIncomeData = await filteredIncome();
-      console.log(filteredIncomeData)
       if(filteredIncomeData.length > 0) {
         incomeChart.data.datasets[0].data = filteredIncomeData.map(item => item.amountValue)
         incomeChart.update();
