@@ -72,6 +72,11 @@
   opacity: 0.8;
 }
 
+.login-link,
+.dont-have-text {
+  font-size: clamp(0.8rem, 2vw, 1.1rem);
+}
+
 
 .username-input-validation,
 .email-input-validation,
