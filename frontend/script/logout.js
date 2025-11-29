@@ -13,7 +13,7 @@ function logOut() {
   
       sessionStorage.removeItem('accessToken');
   
-      window.location.href = 'login.html'
+      window.location.href = 'index.html'
     } catch (error) {
       console.error(error.message)
     }

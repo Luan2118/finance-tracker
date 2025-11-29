@@ -1,203 +1,54 @@
 <!DOCTYPE html>
-<html>
-  <head lang="en">
+<html lang="en">
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finance Tracker</title>
-    <link rel="stylesheet" href="css-style/main-page/main.css">
-    <link rel="stylesheet" href="css-style/shared/general.css">
-    <link rel="stylesheet" href="css-style/shared/header.css">
-    <link rel="stylesheet" href="css-style/shared/sidebar.css">
+
+    <title>Login</title>
+
+    <link rel="stylesheet" href="./css-style/login-page/general.css">
+    <link rel="stylesheet" href="./css-style/login-page/login.css">
+
   </head>
-
   <body>
+    <main class="main-grid">
+      <h1 class="sr-only">Login page</h1>
+        <form class="login-grid">
 
-    <a class="skip-link" href="#main">Skip to content</a>
-
-    <header class="header">
-      
-      <div class="menu-box">
-        <button type="button" id="menu-icon-box" class="menu-icon-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar"><img class="menu-icon js-menu-icon" src="icons/menu-icon.png" alt=""></button>
-        <a class="title" href="index.html">Finance Tracker</a>
-      </div>
-
-      <section class="dropdown" aria-label="Currency menu">
-        <div class="currency-box">
-          <div class="js-currency currency-text"></div>
-          <button id="drop-down-box" class="dropdown-btn" aria-controls="drop-down-menu" aria-expanded="false"><img class="dropdown-arrow-icon" src="icons/dropdown-arrow-icon.png" alt=""></button>
-        </div>
-
-        <fieldset id="drop-down-menu">
-          <legend class="sr-only">Currency options</legend>
-
-          <div id="options" class="options">
-            <div>
-              <input id="USD" type="radio" name="currency-check">
-              <label for="USD" class="currency">USD</label>
-            </div>
+          <header>
+            <h2 class="welcome-text">Welcome back!</h2>
+            <p class="catchy-text">Your journey to smarter financial habits starts here.</p>
+          </header>
   
-            <div>
-              <input id="EUR" type="radio" name="currency-check">
-              <label for="EUR" class="currency">EUR</label>
-            </div>
-  
-            <div>
-              <input id="JPY" type="radio" name="currency-check">
-              <label for="JPY" class="currency">JPY</label>
-            </div>
-  
-            <div>
-              <input id="GBP" type="radio" name="currency-check">
-              <label for="GBP" class="currency">GBP</label>
-            </div>
-  
-            <div>
-              <input id="CZK" type="radio" name="currency-check">
-              <label for="CZK" class="currency">CZK</label>
-            </div>
-          </div>
-        </fieldset>
-      </section>
-    </header>
-
-    <div class="layout">
-      
-      <aside id="sidebar" class="sidebar" role="navigation">
-        <div class="profile-link">
-          <div class="profile-picture-wrapper"><img class="profile-picture" src="icons/profile-picture.jpg" alt="Profile picture"></div>
-          <div class="profile-name profile-name-js"></div>
-        </div>
-        
-        <nav aria-label="Primary">
-          <ul>
-            <li>
-              <a href="index.html">
-                <div class="side-bar-link">
-                  <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/dashboard-icon.png" alt=""></div>
-                  <div class="side-bar-text dashboard-button">Dashboard</div>
-                </div>
-              </a>
-            </li>
-            
-            <li>
-              <a href="income-page.html">
-                <div class="side-bar-link">
-                  <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/sidebar-income-icon.png" alt=""></div>
-                  <div class="side-bar-text income-button">Income</div>
-                </div>
-              </a>
-            </li>
-
-            <li>
-              <a href="expense-page.html">
-                <div class="side-bar-link">
-                  <div class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/sidebar-expense-icon.png" alt=""></div>
-                  <div class="side-bar-text expense-button">Expense</div>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </nav>
-        
-        <button type="button" class="side-bar-link logout-button logout-button-js">
-          <span class="sidebar-icon-wrapper"><img class="sidebar-icon" src="icons/logout-icon.jpg" alt=""></span>
-          <span class="side-bar-text">Logout</span>
-        </button>
-
-      </aside>
-
-      <main id="main" class="content" tabindex="-1">
-        <h1 class="sr-only">Dashboard</h1>
-
-        <section class="summary-grid" aria-label="Summary overview">
-
-          <section class="summary-inner-grid">
-            <div class="summary-img-wrapper"> <img class="summary-img" src="icons/balance-icon.png" alt=""></div>
-            <div class="summary-balance-grid">
-              <h2 class="balance-text">Total Balance</h2>
-              <div class="summary-amount js-total-balance-header-summary"></div>
-            </div>
-          </section>
           
-          <section class="summary-inner-grid">
-            <div class="summary-img-wrapper"> <img class="summary-img" src="icons/income-icon.png" alt=""></div>
-            <div class="summary-balance-grid">
-              <h2 class="balance-text">Total Income</h2>
-              <div class="summary-amount js-income-header-summary"></div>
-            </div>
-          </section>
-    
-          <section class="summary-inner-grid">
-            <div class="summary-img-wrapper"> <img class="summary-img" src="icons/expenses-icon.png" alt=""></div>
-            <div class="summary-balance-grid">
-              <h2 class="balance-text">Total Expenses</h2>
-              <div class="summary-amount js-expense-header-summary"></div>
-            </div>
-          </section>
-        </section>
+          <div class="login-link">
+            <label for="email" class="email-text">E-mail</label>
+            <input id="email" class="login-input login-input-js" type="email" placeholder="Enter your e-mail" name="email" required>
+          </div>
+
+          <div class="login-link">
+            <label for="password" class="password-text">Password</label>
+            <input id="password" class="login-input password-input-js" type="password" placeholder="Enter your password" name="password" required>
+
+          </div>
+
+          
+
+
+          <div class="login-link">
+            <button class="login-button login-button-js" type="submit">Login</button>
+            <div class="login-validation"></div>
+          </div>
+
+          <div class="register-link-grid">
+            <div class="dont-have-text">Don't have an account?</div>
+            <a class="register-link" href="register.html">Register</a>
+          </div>
+
+        </form>
         
-        <section class="main-grid" aria-label="Financial dashboard">
+    </main>
 
-          <section class="transactions-grid" >
-
-            <div class="recent-transactions-grid" >
-              <h2 class="transactions-title">Recent Transactions</h2>
-            </div>
-  
-            <ol class="transactions-info-grid js-transactions-info-grid"></ol>
-          </section>
-      
-          <section class="chart-grid">
-            <h2 class="financial-overview-text">Financial Overview</h2>
-            <div class="financial-overview-chart-wrap">
-              <canvas id="financial-overview-chart" role="img" aria-label="Financial overview chart"></canvas>
-            </div>
-          </section>
-    
-    
-          <section class="transactions-grid" >
-    
-            <div class="recent-transactions-grid">
-              <h2 class="transactions-title">Expenses</h2>
-              <a class="see-all-button" href="expense-page.html">See All<span class="see-all-arrow">&#8594;</span></a>
-            </div>
-      
-            <ol class="transactions-info-grid js-expense-transactions-info-grid"></ol>
-
-          </section>
-    
-          <section class="chart-grid">
-            <h2 class="financial-overview-text">Last 30 Days Expenses</h2>
-            <div class="main-page-expense-chart-wrapper">
-              <div class="main-page-expense-chart-wrapper-inner">
-                <canvas id="main-page-expense-chart" role="img" aria-label="Last 30 days expenses chart"></canvas>
-              </div>
-
-            </div>
-          </section>
-    
-          <section class="transactions-grid" >
-    
-            <div class="recent-transactions-grid">
-              <h2  class="transactions-title">Income</h2>
-              <a class="see-all-button" href="expense-page.html">See All <span class="see-all-arrow">&#8594;</span></a>
-            </div>
-      
-            <ol class="transactions-info-grid js-income-transactions-info-grid"></ol>
-    
-          </section>
-    
-          <section class="chart-grid">
-            <h2 class="financial-overview-text">Last 2 Months Income</h2>
-            <div class="main-page-income-chart-wrapper"><canvas id="main-page-income-chart" role="img" aria-label="Last 2 months income chart"></canvas></div>
-          </section>
-        </section>
-      </main>
-    </div>
-
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-    <script type="module" src="script/main.js" ></script>
+    <script type="module" src="script/login.js"></script>
   </body>
 </html>

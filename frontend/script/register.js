@@ -107,7 +107,7 @@ registerBtn.addEventListener('click', async (e) => {
       dialog.showModal();
     
       setTimeout(() => {
-        window.location.href= 'login.html'
+        window.location.href= 'index.html'
       },2000)
       
   } catch (error) {

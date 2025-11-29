@@ -68,32 +68,31 @@
 .logout-button {
   background-color: rgb(255, 255, 255);
   border: none;
-  font-size: 1.1rem;
   cursor: pointer;
 }
 
 .dashboard-button,
 .income-button,
-.expense-button {
+.expense-button,
+.logout-button-style {
   background-color: rgb(255, 255, 255);
   border: none;
   font-size: 1.1rem;
   cursor: pointer;
   padding: 0.625rem;
-
 }
 
 .dashboard-button:hover,
 .income-button:hover,
 .expense-button:hover,
-.logout-button:hover {
+.logout-button-style:hover {
   opacity: 0.8
 }
 
 .dashboard-button:active,
 .income-button:active,
 .expense-button:active,
-.logout-button:active {
+.logout-button-style:active {
   opacity: 0.6
 }
 

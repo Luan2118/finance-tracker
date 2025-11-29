@@ -52,7 +52,7 @@ loginButton.addEventListener('click', async (e) => {
 
     if (result.accessToken) {
       sessionStorage.setItem('accessToken', result.accessToken);
-      window.location.href = 'index.html'
+      window.location.href = 'dashboard.html'
     } 
 
   } catch (error) {
