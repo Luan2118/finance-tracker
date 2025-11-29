@@ -36,6 +36,8 @@ The app provides charts, filters and multi-currency support to help users visual
 
 ## Installation
 
+### Backend
+
 1. Clone the repository
 ```bash
 git clone https://github.com/Luan2118/finance-tracker-project.git
@@ -50,20 +52,19 @@ npm install
 
 3. Create a `.env` file in the backend folder and add:
 ```env
-PORT=3000
 DATABASE_URL=your_mongodb_connection_string
 ACCESS_TOKEN_SECRET=youraccesstokensecret
 REFRESH_TOKEN_SECRET=yourrefreshtokensecret
-CORS_ORIGIN=http://localhost:5500
 ```
 
 4. Start backend server
 ```bash
 npm start
 ```
+### Frontend
 
 5. Start frontend
-Open `frontend/login.html` in Live Server 
+Open `frontend/index.html` using a local server (e.g., VSCode Live Server)
 
 
 ## Screenshots
@@ -77,8 +78,8 @@ Open `frontend/login.html` in Live Server
 ### Expense page
 ![Expense page](./assets/expenses.png)
 
-### All Expenses filter page
-![All Expenses filter page](./assets/filters.png)
+### All Expenses page
+![Filter page](./assets/filters.png)
 
 ## Testing
 
@@ -92,3 +93,23 @@ npm test
 ```
 
 
+## Deployment
+
+### Frontend (Vercel)
+- Hosted as a static site on Vercel
+- Entry point: `index.html` (login page)
+
+**Live URL:**
+https://finance-tracker-project-sigma.vercel.app/
+
+---
+
+### Backend (Render)
+- Node.js + Express API deployed on Render.
+- MongoDB Atlas used as a database
+- JWT authentication (access + refresh tokens) stored in **HttpOnly cookies**.
+- CORS configured to allow the Vercel domain and send credentials.
+- Render free-tier may cause a **15–30s cold start delay** on the first request.
+
+**API Base URL:**  
+https://finance-tracker-project-l7rf.onrender.com/
