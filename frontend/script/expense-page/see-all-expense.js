@@ -6,7 +6,7 @@ import getFormattedDate from "../utils/getFormattedDate.js"
 import { updateChart } from "../utils/updateChart.js";
 import {setupCustomAmountFilter, filterAmountValue, customAmountClicked, amountBtnsClicked} from "../utils/see-all-income-expense-page/setupCustomAmountFilter.js";
 import { setUpCustomTimelineFilter, filterTimeValue, customTimelineClicked, filterTimelineBtnsClicked } from "../utils/see-all-income-expense-page/setUpCustomTimelineFilter.js";
-import formatDate from "../utils/see-all-income-expense-page/FormatDate.js";
+import formatDate from "../utils/see-all-income-expense-page/formatDate.js";
 import setPastDate from "../utils/see-all-income-expense-page/setPastDate.js";
 import resolveCategory from "../utils/see-all-income-expense-page/resolveCategory.js";
 import { menuIcon } from "../utils/menuIcon.js";
