@@ -107,7 +107,7 @@ https://finance-tracker-project-sigma.vercel.app/
 ### Backend (Render)
 - Node.js + Express API deployed on Render.
 - MongoDB Atlas used as a database
-- JWT authentication (access + refresh tokens) stored in **HttpOnly cookies**.
+- JWT auth with access tokens and HttpOnly refresh cookies.
 - CORS configured to allow the Vercel domain and send credentials.
 - Render free-tier may cause a **15–30s cold start delay** on the first request.
 
