@@ -58,12 +58,13 @@ export const updateExpense = async (req, res, next) =>{
 
 export const deleteExpense = async (req , res, next) => {
   try {
-    const deleted = await Expense.deleteOne({
+    const deleted = await Expense.findOneAndDelete({
       _id: req.params.id,
       user: req.user.id
     });
 
-    if (!deleted) res.status(404).json({msg: 'Income not found'})
+    if (!deleted) return res.status(404).json({msg: 'Expense not found'})
+
     res.status(200).json({msg: 'Expense Deleted'})
   } catch (error) {
     next(error)

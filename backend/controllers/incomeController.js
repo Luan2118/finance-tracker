@@ -61,7 +61,7 @@ export const deleteIncome = async (req, res, next) => {
       user: req.user.id
   });
 
-    if (!deleted) res.status(404).json({msg: 'Income not found'}) 
+    if (!deleted) return res.status(404).json({msg: 'Income not found'}) 
       
     res.status(200).json({msg: 'Income Deleted'})
   } catch (error) {
