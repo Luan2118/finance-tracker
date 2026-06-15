@@ -74,16 +74,12 @@ displayMonthlyIncomeSummary();
 displayMonthlyExpenseSummary();
 
 async function displayTotalBalance() {
-  await loadSharedData();
-
   const totalBalance = await getTotalBalance();
-  const totalBalanceSymbol = sharedData[0]
-    ? await loadGetSymbol(sharedData)
-    : 'Kč';
-
   document.querySelector('.js-total-balance-header-summary')
-    .innerHTML = formatCurrency(totalBalance, totalBalanceSymbol);
+  .innerHTML = formatCurrency(totalBalance, symbol)
+
 }
+
 
 async function displayMonthlyIncomeSummary() {
   await loadIncomeData();
