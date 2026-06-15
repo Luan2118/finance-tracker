@@ -247,7 +247,7 @@ function deleteExpenseButton () {
 
       let token = getAccessToken();
       try {
-        const response = await fetch(`${API_BASE_URL}/expenses/${deleteExpenseId}`, {
+        let response = await fetch(`${API_BASE_URL}/expenses/${deleteExpenseId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',

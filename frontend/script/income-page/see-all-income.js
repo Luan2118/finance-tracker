@@ -80,7 +80,7 @@ document.querySelectorAll('.js-income-delete-button')
 
       let token = getAccessToken();
       try {
-        const response = await fetch(`${API_BASE_URL}/income/${deleteButtonId}`, {
+        let response = await fetch(`${API_BASE_URL}/income/${deleteButtonId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
