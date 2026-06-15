@@ -2,7 +2,7 @@ export let filterAmountValue;
 export let customAmountClicked;
 export let amountBtnsClicked;
 
-export function setupCustomAmountFilter() {
+export function setUpCustomAmountFilter() {
 
   // After selecting an amount range / expense range
   const MAX_VALUE = 100_000_000

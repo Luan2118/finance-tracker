@@ -3,7 +3,7 @@ import { formatCurrency, loadGetSymbol } from "../utils/currencySymbols.js";
 import { incomeChart } from "../chartJS/income-page/see-all-income-page-chart.js";
 import getUsername from "../utils/getUsername.js";
 import getFormattedDate from "../utils/getFormattedDate.js";
-import { setupCustomAmountFilter, filterAmountValue, customAmountClicked, amountBtnsClicked } from "../utils/see-all-income-expense-page/setupCustomAmountFilter.js";
+import { setUpCustomAmountFilter, filterAmountValue, customAmountClicked, amountBtnsClicked } from "../utils/see-all-income-expense-page/setUpCustomAmountFilter.js";
 import { setUpCustomTimelineFilter, filterTimeValue, customTimelineClicked, filterTimelineBtnsClicked } from "../utils/see-all-income-expense-page/setUpCustomTimelineFilter.js";
 import formatDate from "../utils/see-all-income-expense-page/formatDate.js";
 import setPastDate from "../utils/see-all-income-expense-page/setPastDate.js";
@@ -161,7 +161,7 @@ const incomeFilterValidation = document.querySelector('.income-validation');
 
 
 // Income range CUSTOM
-setupCustomAmountFilter();
+setUpCustomAmountFilter();
 
 // After selecting an amount range / income range
 const MAX_VALUE = 100_000_000

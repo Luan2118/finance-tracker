@@ -4,7 +4,7 @@ import { expenseChart } from "../chartJS/expense-page/see-all-expenses-page-char
 import getUsername from "../utils/getUsername.js";
 import getFormattedDate from "../utils/getFormattedDate.js"
 import { updateChart } from "../utils/updateChart.js";
-import { setupCustomAmountFilter, filterAmountValue, customAmountClicked, amountBtnsClicked } from "../utils/see-all-income-expense-page/setupCustomAmountFilter.js";
+import { setUpCustomAmountFilter, filterAmountValue, customAmountClicked, amountBtnsClicked } from "../utils/see-all-income-expense-page/setUpCustomAmountFilter.js";
 import { setUpCustomTimelineFilter, filterTimeValue, customTimelineClicked, filterTimelineBtnsClicked } from "../utils/see-all-income-expense-page/setUpCustomTimelineFilter.js";
 import formatDate from "../utils/see-all-income-expense-page/formatDate.js";
 import setPastDate from "../utils/see-all-income-expense-page/setPastDate.js";
@@ -159,7 +159,7 @@ const formattedMaxFutureDate = formatDate(maxFutureDate);
 
 
 // Expense range CUSTOM
-setupCustomAmountFilter()
+setUpCustomAmountFilter()
 
 
 

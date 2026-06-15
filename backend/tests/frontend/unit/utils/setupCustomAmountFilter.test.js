@@ -1,10 +1,10 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { screen } from "@testing-library/dom";
 import  userEvent  from '@testing-library/user-event';
-import { setupCustomAmountFilter } from "../../../../../frontend/script/utils/see-all-income-expense-page/setUpCustomAmountFilter.js";
+import { setUpCustomAmountFilter } from "../../../../../frontend/script/utils/see-all-income-expense-page/setUpCustomAmountFilter.js";
 
 
-describe('setupCustomAmountFilter', () => {
+describe('setUpCustomAmountFilter', () => {
   it('custom amount input should be displayed when custom button is clicked and should dissapear after clicking the same button or another amount button', async () => {
 
     document.body.innerHTML = `
@@ -26,7 +26,7 @@ describe('setupCustomAmountFilter', () => {
 
     `
 
-    setupCustomAmountFilter();
+    setUpCustomAmountFilter();
 
     const filterAmountCustomBtn = screen.getByRole('button', {name: /custom/i});
     
