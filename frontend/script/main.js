@@ -20,7 +20,10 @@ getUsername().then((data) => document.querySelector('.profile-name-js').innerHTM
 // utils
 menuIcon();
 
-loadSharedData().then(() => document.querySelector('.js-currency').innerHTML = sharedData[0].currency)
+loadSharedData().then(() => {
+  const currency = sharedData[0] ? sharedData[0].currency : 'CZK'
+  document.querySelector('.js-currency').innerHTML = currency
+})
 
 
 let symbol;
