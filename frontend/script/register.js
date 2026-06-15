@@ -103,7 +103,6 @@ registerBtn.addEventListener('click', async (e) => {
       return document.querySelector('.register-error-js').innerHTML = result.error;
     }
 
-      console.log('User registered')
       dialog.showModal();
     
       setTimeout(() => {

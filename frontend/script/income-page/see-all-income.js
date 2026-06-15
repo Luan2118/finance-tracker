@@ -251,7 +251,6 @@ filterButton.addEventListener('click', async () => {
       }
     })
 
-    console.log(filteredIncomeCustom)
     const labels = filteredIncomeCustom.map(income => income.dateValue)
     const data = filteredIncomeCustom.map(income => income.amountValue)
 

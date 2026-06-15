@@ -405,7 +405,6 @@ describe('Expense page integrated tests', () => {
 
     expect(listItems).toHaveLength(2);
 
-    // console.log(list.innerHTML)
     // Verify first expense
     expect(listItems[0]).toHaveTextContent('Clothes');
     expect(listItems[0]).toHaveTextContent('Category: Shopping');

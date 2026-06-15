@@ -272,7 +272,6 @@ filterButton.addEventListener('click', async () => {
       expenseFilterValidation.removeAttribute('role');
     }
     
-    console.log(filteredExpenseCustom)
     await displayExpense(filteredExpenseCustom)
     return;
   }
