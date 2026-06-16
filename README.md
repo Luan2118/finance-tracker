@@ -5,6 +5,20 @@ Finance Tracker is a full-stack web application for tracking personal income and
 Users can log in, add transactions, categorize them and monitor balance changes over time.
 The app provides charts, filters and multi-currency support to help users visualize financial activity.
 
+## Live Demo
+
+**Live URL:**
+https://finance-tracker-project-sigma.vercel.app/
+
+### Demo Account
+
+Email: demo@example.com
+Password: Demo1234
+
+You can use this account to test the app without creating a new account.
+
+> Note: The backend is hosted on Render free tier, so the first request may take 15–30 seconds because of cold start.
+
 
 ## Features
 - Add and delete income and expenses
@@ -99,9 +113,6 @@ npm test
 - Hosted as a static site on Vercel
 - Entry point: `index.html` (login page)
 
-**Live URL:**
-https://finance-tracker-project-sigma.vercel.app/
-
 ---
 
 ### Backend (Render)
@@ -109,7 +120,8 @@ https://finance-tracker-project-sigma.vercel.app/
 - MongoDB Atlas used as a database
 - JWT auth with access tokens and HttpOnly refresh cookies.
 - CORS configured to allow the Vercel domain and send credentials.
-- Render free-tier may cause a **15–30s cold start delay** on the first request.
+- Render free-tier may cause a 15–30 second cold start delay on the first request.
+
 
 **API Base URL:**  
 https://finance-tracker-project-l7rf.onrender.com/
