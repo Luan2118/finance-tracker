@@ -464,18 +464,3 @@ describe('Main page integration test', () => {
     expect(listItems[1]).toHaveTextContent('Category: Part-Time');
   });
 })
-
-
-// let fakeIncomeData = vi.hoisted(() => {
-//   return [
-//     {amountValue: 10000, category: "Part-Time", currency: "CZK", dateValue: "2025-09-09", emoji: "", incomeSourceValue: "Part-Time", user: "6893682cc44043ab368bd87f",__v: 0, _id: "68c9c6dffcac0f995236cdb9"},
-//     {amountValue: 15000, category: "Salary", currency: "CZK", dateValue: "2025-11-11", emoji: "", incomeSourceValue: "Salary", user: "6893682cc44043ab368bd87f",__v: 0, _id: "68c9c6dffcac0f995236cdb10"}
-//   ]
-// })
-
-// let fakeExpenseData = vi.hoisted(() => {
-//   return [
-//   {amountValue: 5000, category: "Dining out/ Takeout", currency: "CZK", dateValue: "2025-12-12", emoji: "", expenseSourceValue: "Steak house", user: "6893682cc44043ab368bd87f", __v: 0, _id: "691234678944c535c901e582"},
-//   {amountValue: 10000, category: "Shopping", currency: "CZK",dateValue: "2025-10-10", emoji: "",expenseSourceValue: "Clothes", user: "6893682cc44043ab368bd87f", __v: 0, _id: "691234678944c535c901e682"},
-// ]
-// });

@@ -1,5 +1,3 @@
-
-
 export let filterTimeValue;
 export let customTimelineClicked;
 export let filterTimelineBtnsClicked;

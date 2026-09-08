@@ -1,7 +1,5 @@
 import Income from '../models/income.js'
 
-
-
 export const getAllIncome = async (req, res, next) => {
   try {
     const incomes = await Income.find({user: req.user.id});

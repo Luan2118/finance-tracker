@@ -1,4 +1,3 @@
-
 function validateInput(sourceValueType) {
 
   return (req, res, next) => {

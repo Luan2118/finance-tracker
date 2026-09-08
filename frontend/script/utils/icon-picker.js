@@ -1,6 +1,3 @@
-
-
-
 export function iconPicker() {
   const emojiInput = document.getElementById('emoji-input')
   

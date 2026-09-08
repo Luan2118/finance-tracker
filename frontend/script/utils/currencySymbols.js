@@ -1,4 +1,3 @@
-
 export function getSymbol(sharedData) {
   if(!sharedData || sharedData.length === 0 || sharedData[0].currency === '') {
     return '';
