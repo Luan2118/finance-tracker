@@ -11,12 +11,20 @@ import loginRouter from './routes/login.js'
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit'
+import { setServers } from "node:dns/promises";
+
+if (process.env.NODE_ENV === "development") {
+  setServers(["1.1.1.1", "8.8.8.8"]);
+}
 
 const PORT = process.env.PORT || 3000;
 
 
 const server = express();
-const allowedOrigins =  ['http://localhost:5500', 'https://finance-tracker-project-sigma.vercel.app']
+const allowedOrigins =  [
+  'http://localhost:5500',
+  'http://127.0.0.1:5500', 
+  'https://finance-tracker-project-sigma.vercel.app']
 
 const databaseURL = process.env.DATABASE_URL
 
@@ -33,9 +41,12 @@ mongoose.connect(databaseURL)
 // CORS (restricting to your frontend origin)
 server.use(cors({
   origin(origin, callback) {
+    console.log('CORS origin:', origin);
+
     if (!origin || allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
+
     return callback(new Error('Not allowed by CORS'));
   },
   credentials: true
