@@ -2,7 +2,8 @@ body {
   box-sizing: border-box;
   margin: 0;
   font-family: Arial;
-  background-image: url('../../icons/background-image3.png');
+  background-color: #f8f8f8;
+  background-image: url('../../icons/auth-background-v6.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
