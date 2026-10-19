@@ -98,16 +98,11 @@ export async function renderIncomeChart(income60) {
         legend: {
           position: 'bottom',
           labels: {
-            boxWidth: 35,
+            boxWidth: 18,
+            boxHeight: 12,
             padding: 10,
             font: {
-              size: (ctx) => {
-                  const w = ctx.chart.width;
-                  if (w < 350) return 12  ;
-                  if (w < 768) return 17;
-
-                  return 20
-                }
+              size: 14
             }
           }
         },

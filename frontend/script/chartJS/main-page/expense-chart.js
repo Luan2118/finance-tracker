@@ -56,12 +56,7 @@ async function renderMainPageExpenseChart() {
           },
           ticks: {
             font: {
-              size: (ctx) => {
-                  const w = ctx.chart.width;
-                  if (w < 768) return 12;
-
-                  return 16
-                }
+              size: 14
             }
           }
         },
@@ -81,8 +76,11 @@ async function renderMainPageExpenseChart() {
     plugins: {
           legend: {
             labels: {
+              boxWidth: 18,
+              boxHeight: 12,
+              padding: 10,
               font: {
-                size: 19,
+                size: 14,
               }
             }
           },

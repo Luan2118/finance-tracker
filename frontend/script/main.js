@@ -99,6 +99,8 @@ async function displayMonthlyExpenseSummary() {
 
 
 // Display transactions / expenses / incomes
+const DASHBOARD_TRANSACTION_LIMIT = 5;
+
 displayRecentTransactions();
 displayExpenses();
 displayIncome();
@@ -110,7 +112,7 @@ async function displayRecentTransactions() {
 
   let sharedDataHTML = '';
 
-  for (let i = 0; i < sharedData.length && i < 10; i++) {
+  for (let i = 0; i < sharedData.length && i < DASHBOARD_TRANSACTION_LIMIT; i++) {
 
     const formattedDate = getFormattedDate(sharedData[i].dateValue)
 
@@ -159,7 +161,7 @@ async function displayExpenses() {
 
   let expenseDataHTML = '';
 
-  for (let i = 0; i < expenseData.length && i < 10; i++) {
+  for (let i = 0; i < expenseData.length && i < DASHBOARD_TRANSACTION_LIMIT; i++) {
     const formattedDate = getFormattedDate(expenseData[i].dateValue)
     const html = `
 
@@ -190,7 +192,7 @@ async function displayIncome() {
   symbol = await loadGetSymbol(incomeData);
   let incomeDataHTML = '';
 
-  for (let i = 0; i < incomeData.length && i < 10; i++) {
+  for (let i = 0; i < incomeData.length && i < DASHBOARD_TRANSACTION_LIMIT; i++) {
     const formattedDate = getFormattedDate(incomeData[i].dateValue)
     let html = `
      <li class="transactions-info-inner-grid">
