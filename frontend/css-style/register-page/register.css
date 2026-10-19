@@ -63,7 +63,7 @@
   width: 100%;
   margin-top: clamp(1rem, 3vw, 1.8rem);
   padding: 1rem 5px;
-  background-color: rgb(144, 69, 214);
+  background-color: #2563eb;
   color: white;
   border-radius: 0.7rem;
   border: none;
@@ -100,6 +100,7 @@
 
 .login-link {
   margin-left: 0.25rem;
+  color: #2563eb;
 }
 
 .dialog {
