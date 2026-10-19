@@ -114,6 +114,31 @@
   font-size: 0.875rem;
 }
 
+.demo-spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 4px solid rgba(37, 99, 235, 0.2);
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: demo-rotate 0.8s linear infinite;
+}
+
+#demo-login[aria-busy="false"] > .demo-spinner {
+  display: none;
+}
+
+@keyframes demo-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-spinner {
+    animation: none;
+  }
+}
+
 #demo-login > .catchy-text,
 #demo-login > .login-validation,
 #demo-login > .login-button,
