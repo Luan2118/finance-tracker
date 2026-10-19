@@ -28,7 +28,8 @@ async function renderExpenseChart() {
         label: 'Expense Chart',
         data,
         backgroundColor: 'rgb(192, 88, 74)',
-        barPercentage: 0.7,
+        barPercentage: 0.5,
+        maxBarThickness: 40,
         borderRadius: 15,
         hoverBackgroundColor: 'rgba(214, 117, 104, 0.81)',
         hoverBorderWidth: '50px'
@@ -45,7 +46,7 @@ async function renderExpenseChart() {
           },
           ticks: {
             font: {
-              size: 13,
+              size: (ctx) => ctx.chart.width < 768 ? 13 : 14,
               family: 'Arial'
             }
           }
@@ -54,7 +55,7 @@ async function renderExpenseChart() {
           beginAtZero: true,
           ticks: {
             font: {
-              size: 15,
+              size: (ctx) => ctx.chart.width < 768 ? 13 : 14,
               family: 'Arial'
             }
           }
@@ -64,7 +65,7 @@ async function renderExpenseChart() {
       legend: {
         labels: {
           font: {
-            size: 18,
+            size: 19,
             family: 'Arial'
           }
         }
