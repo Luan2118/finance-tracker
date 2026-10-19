@@ -33,7 +33,8 @@ export async function renderExpenseChart() {
       label: 'Expenses',
       data,
       backgroundColor: 'rgb(192, 88, 74)',
-      barPercentage: 0.7,
+      barPercentage: 0.5,
+      maxBarThickness: 40,
       borderRadius: 15,
       hoverBackgroundColor: 'rgba(214, 117, 104, 0.81)',
       hoverBorderWidth: '50px'
@@ -53,9 +54,9 @@ export async function renderExpenseChart() {
             font: {
               size: (ctx) => {
                   const w = ctx.chart.width;
-                  if (w < 768) return 15;
+                  if (w < 768) return 13;
 
-                  return 20
+                  return 14
                 }
             }
           }
@@ -65,9 +66,9 @@ export async function renderExpenseChart() {
             font: {
               size: (ctx) => {
                   const w = ctx.chart.width;
-                  if (w < 768) return 15;
+                  if (w < 768) return 13;
 
-                  return 20
+                  return 14
                 }
             }
           }

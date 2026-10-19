@@ -41,8 +41,12 @@
 }
 
 .expense-chart-wrap-inner {
-  height: clamp(400px, 28vw, 500px);
+  height: clamp(320px, 26vw, 400px);
   min-width: 30rem;
+}
+
+.expense-chart-filter-input {
+  margin-top: 1rem;
 }
 
 .expense-chart-wrap > canvas {

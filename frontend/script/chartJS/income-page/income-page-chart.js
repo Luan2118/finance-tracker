@@ -30,7 +30,8 @@ export async function renderIncomeChart() {
         label: 'Income',
         data,
         backgroundColor: 'rgb(75, 173, 83)',
-        barPercentage: 0.7,
+        barPercentage: 0.5,
+        maxBarThickness: 40,
         borderRadius: 15,
         hoverBackgroundColor: 'rgba(88, 206, 98, 0.81)',
         hoverBorderWidth: '50px'
@@ -54,9 +55,9 @@ export async function renderIncomeChart() {
           font: {
             size: (ctx) => {
               const w = ctx.chart.width;
-              if (w < 768) return 15;
+              if (w < 768) return 13;
 
-              return 20
+              return 14
             }
           }
         }
@@ -66,9 +67,9 @@ export async function renderIncomeChart() {
           font: {
             size: (ctx) => {
               const w = ctx.chart.width;
-              if (w < 768) return 15;
+              if (w < 768) return 13;
 
-              return 20
+              return 14
             }
           }
         }
