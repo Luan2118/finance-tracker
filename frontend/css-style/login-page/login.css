@@ -95,3 +95,22 @@
   margin-bottom: 0.5rem;
   color: red;
 }
+
+#demo-login {
+  gap: 1.5rem;
+}
+
+#demo-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+#demo-status {
+  font-size: 0.875rem;
+}
+
+#demo-login > .catchy-text,
+#demo-login > .login-validation,
+#demo-login > .login-button,
+#demo-login > .register-link {
+  margin: 0;
+}

@@ -7,17 +7,23 @@
 
 
 .create-text {
-  font-size: clamp(1.5rem, 5vw, 3.5rem);
+  font-size: clamp(1.5rem, 3vw, 2rem);
   margin: 0;
   font-weight: 500;
   text-align: center;
 }
 
 .catchy-text {
-  margin-top: 0.5rem;
+  margin: 0;
   color:rgb(90, 90, 90);
-  font-size: clamp(0.7rem, 2.5vw, 1.2rem);
+  font-size: 0.875rem;
   text-align: center;
+}
+
+.register-grid > header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .register-grid {
@@ -30,7 +36,7 @@
   border: 2px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(20px);
   border-radius: 1.5rem;
-  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   color: rgb(0, 0, 0);
   max-width: 470px;
 }
@@ -89,7 +95,7 @@
 
 .login-link-grid {
   display: flex;
-  margin-top: 0.5rem;
+  margin-top: 1.5rem;
 }
 
 .login-link {
