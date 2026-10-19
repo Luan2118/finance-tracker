@@ -8,6 +8,44 @@ const router = express.Router();
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+function sendLoginResponse(res, user) {
+  const payload = {
+    id: user._id,
+    username: user.username
+  };
+
+  const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: '15m'
+  });
+  const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+    expiresIn: '7d'
+  });
+
+  res.cookie('refreshToken', refreshToken, {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'strict',
+    maxAge: 7 * 24 * 60 * 60 * 1000
+  });
+
+  res.set('Cache-Control', 'no-store');
+  return res.status(200).json({ accessToken });
+}
+
+router.post('/demo', async (req, res, next) => {
+  try {
+    const user = await User.findOne({ email: 'demo@example.com' });
+
+    if (!user) {
+      return res.status(503).json({ error: 'Demo account is currently unavailable' });
+    }
+
+    return sendLoginResponse(res, user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 router.get('/user', authenticateToken, async(req, res, next) => {
   try {
@@ -43,28 +81,7 @@ router.post('/', async (req, res, next) => {
       return next(error)
     }
 
-    const payload = {
-      id: user._id,
-      username: user.username
-    }
-
-    const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: '15m'
-    })
-    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
-      expiresIn: '7d'
-    })
-
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      secure: isProduction,
-      sameSite: isProduction ? 'none' : 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000
-    });
-
-    res.status(200).json({
-     accessToken
-    })
+    return sendLoginResponse(res, user);
 
   } catch (error) {
     next(error)

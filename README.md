@@ -17,6 +17,16 @@ Password: Demo1234
 
 You can use this account to test the app without creating a new account.
 
+For automatic demo login, open `frontend/demo.html` through your local frontend server
+(for example, `http://localhost:5500/frontend/demo.html` when serving the repository root).
+The login page also includes a **Try the demo** link.
+
+The page calls `POST /login/demo`, which always signs in as the existing
+`demo@example.com` account. It returns an access token and sets the same HttpOnly
+refresh cookie as regular login. No password or token is included in the link.
+All demo visitors share the account's transactions, including additions and deletions.
+If the demo account does not exist, the endpoint returns `503`.
+
 > Note: The backend is hosted on Render free tier, so the first request may take 15–30 seconds because of cold start.
 
 
